@@ -13,8 +13,5 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals"
-  ],
-  "rules": {
-    "prettier/prettier": "error"
-  }
+  ]
 }
