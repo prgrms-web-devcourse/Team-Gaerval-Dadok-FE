@@ -3,7 +3,7 @@ import './globals.css'
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNo
 }) {
   return (
     <html lang="en">
