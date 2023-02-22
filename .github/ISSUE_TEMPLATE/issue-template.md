@@ -1,7 +1,7 @@
 ---
 name: Issue template
 about: 프로덕트 백로그를 등록합니다.
-title: ''.
+title: ''
 labels: ''
 assignees: ''
 ---
