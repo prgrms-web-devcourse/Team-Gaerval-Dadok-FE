@@ -1,18 +1,16 @@
-import './globals.css'
+import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
+    <html lang="ko-KR">
       <head />
-      <body>{children}</body>
+      <body>
+        <ChakraThemeProvider>{children}</ChakraThemeProvider>
+      </body>
     </html>
-  )
+  );
 }
