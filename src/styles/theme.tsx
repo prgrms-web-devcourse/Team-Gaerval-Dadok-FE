@@ -33,8 +33,7 @@ const theme: ThemeOverride = extendTheme({
       'html, body': {
         fontSize: '62.5%',
         bg: 'white.800',
-        overflowY: 'scroll',
-        maxWidth: '76.8rem',
+        maxWidth: '43rem',
         margin: '0 auto',
       },
     },

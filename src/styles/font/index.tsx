@@ -1,6 +1,21 @@
 import localFont from '@next/font/local';
 
-export const LineSeedKrFont = localFont({
-  src: './LINESeedKR.woff2',
-  style: 'normal',
+export const LineSeed = localFont({
+  src: [
+    {
+      path: './LINESeedKR-Th.woff2',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: './LINESeedKR-Rg.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './LINESeedKR-Bd.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
 });
