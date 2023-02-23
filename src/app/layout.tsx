@@ -1,4 +1,5 @@
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
+import { LineSeed } from '@/styles/font';
 
 export default function RootLayout({
   children,
@@ -8,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="ko-KR">
       <head />
-      <body>
+      <body className={LineSeed.className}>
         <ChakraThemeProvider>{children}</ChakraThemeProvider>
       </body>
     </html>
