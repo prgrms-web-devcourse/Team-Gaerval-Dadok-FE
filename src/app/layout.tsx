@@ -1,5 +1,6 @@
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import { LineSeed } from '@/styles/font';
+import BottomNavigation from '@/ui/BottomNavigation';
 
 export default function RootLayout({
   children,
@@ -10,7 +11,10 @@ export default function RootLayout({
     <html lang="ko-KR">
       <head />
       <body className={LineSeed.className}>
-        <ChakraThemeProvider>{children}</ChakraThemeProvider>
+        <ChakraThemeProvider>
+          {children}
+          <BottomNavigation />
+        </ChakraThemeProvider>
       </body>
     </html>
   );
