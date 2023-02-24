@@ -31,7 +31,7 @@ const NavigationItem = ({
   return (
     <Flex
       direction="column"
-      justify="cneter"
+      justify="center"
       align="center"
       gap="0.8rem"
       cursor="pointer"
