@@ -3,7 +3,7 @@ import { Box, Flex, List, Image } from '@chakra-ui/react';
 const MeetingList = () => {
   const dummyData = [
     {
-      title: '제목제목제목제제목제목제목제제목제목제목제',
+      title: '제목제목제1313133131목제목제',
       content:
         '용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내',
       id: 1,
@@ -63,76 +63,85 @@ const MeetingList = () => {
               borderRadius="1rem"
               border="1px solid black"
             >
-              <Box className="모임전체정보" w="65%">
-                <Box className="제목내용" h="70%" p="1.5rem">
-                  <Box
-                    className="제목"
-                    w="100%"
-                    h="30%"
-                    fontSize="1.7rem"
-                    overflow="hidden"
-                    whiteSpace="nowrap"
-                    textOverflow="ellipsis"
-                  >
-                    {meeting.title}
+              <Flex p="1.5rem">
+                <Box className="모임전체정보" w="65%">
+                  <Box className="제목내용" h="70%">
+                    <Box
+                      className="제목"
+                      w="100%"
+                      h="25%"
+                      fontSize="1.7rem"
+                      overflow="hidden"
+                      whiteSpace="nowrap"
+                      textOverflow="ellipsis"
+                    >
+                      {meeting.title}
+                    </Box>
+                    <Box
+                      className="내용"
+                      h="75%"
+                      fontSize="1.4rem"
+                      lineHeight="1.5"
+                      overflow="hidden"
+                    >
+                      {meeting.content}
+                    </Box>
                   </Box>
-                  <Box
-                    className="내용"
-                    h="70%"
-                    fontSize="1.4rem"
-                    lineHeight="1.3"
-                    overflow="hidden"
-                  >
-                    {meeting.content}
-                  </Box>
-                </Box>
-                <Flex p="0.5rem 1.5rem">
-                  <Image
-                    borderRadius="full"
-                    boxSize="3rem"
-                    src="https://bit.ly/dan-abramov"
-                    alt="Dan Abramov"
-                  />
-                  <Flex
-                    className="모임정보"
-                    direction="column"
-                    w="80%"
-                    ml="1rem"
-                  >
-                    <Box className="닉네임">{meeting.nickName}</Box>
-                    <Flex className="댓글인원정보">
-                      <Flex className="인원정보" w="4rem" align="center">
-                        <Box>
-                          <Image src="/icons/peopleIcon.svg" alt="bookCover" />
-                        </Box>
-                        <Box className="사람수" w="3rem" ml="0.5rem">
-                          {meeting.people}
-                        </Box>
-                      </Flex>
-                      <Flex
-                        className="댓글정보"
-                        w="4rem"
-                        align="center"
-                        ml="0.5rem"
-                      >
-                        <Box>
-                          <Image src="/icons/commentIcon.svg" alt="bookCover" />
-                        </Box>
-                        <Box className="댓글수" w="3rem" ml="0.5rem">
-                          {meeting.comments}
-                        </Box>
+                  <Flex pt="1rem">
+                    <Image
+                      borderRadius="full"
+                      boxSize="3rem"
+                      src="https://bit.ly/dan-abramov"
+                      alt="Dan Abramov"
+                    />
+                    <Flex
+                      className="모임정보"
+                      direction="column"
+                      w="80%"
+                      ml="1rem"
+                    >
+                      <Box className="닉네임">{meeting.nickName}</Box>
+                      <Flex className="댓글인원정보">
+                        <Flex className="인원정보" w="4rem" align="center">
+                          <Box>
+                            <Image
+                              src="/icons/peopleIcon.svg"
+                              alt="bookCover"
+                            />
+                          </Box>
+                          <Box className="사람수" w="3rem" ml="0.5rem">
+                            {meeting.people}
+                          </Box>
+                        </Flex>
+                        <Flex
+                          className="댓글정보"
+                          w="4rem"
+                          align="center"
+                          ml="0.5rem"
+                        >
+                          <Box>
+                            <Image
+                              src="/icons/commentIcon.svg"
+                              alt="bookCover"
+                            />
+                          </Box>
+                          <Box className="댓글수" w="3rem" ml="0.5rem">
+                            {meeting.comments}
+                          </Box>
+                        </Flex>
                       </Flex>
                     </Flex>
                   </Flex>
+                </Box>
+                <Flex w="35%" justify="center" align="center">
+                  <Image
+                    src="http://image.yes24.com/goods/101865885/XL"
+                    alt="bookCover"
+                    w="10rem"
+                    objectFit="cover"
+                  />
                 </Flex>
-              </Box>
-              <Image
-                src="https://cdn.pixabay.com/photo/2017/10/31/02/35/fantasy-2904098_960_720.jpg"
-                alt="bookCover"
-                objectFit="cover"
-                borderTopRightRadius="0.7rem"
-                borderBottomRightRadius="0.7rem"
-              />
+              </Flex>
             </Flex>
           );
         })}
