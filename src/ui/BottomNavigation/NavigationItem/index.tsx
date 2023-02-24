@@ -1,6 +1,6 @@
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import type { SVGProps } from 'react';
 
 interface NavigationItemPorps {
@@ -16,7 +16,6 @@ const NavigationItem = ({
   href,
   isActive,
 }: NavigationItemPorps) => {
-  const router = useRouter();
   const theme = useTheme();
   const color = isActive ? theme.colors.main : theme.colors.black['900'];
 
@@ -24,24 +23,21 @@ const NavigationItem = ({
     () => import(`@/../public/icons/${iconName}.svg`)
   );
 
-  const onNavigationItemClick = () => {
-    router.push(href);
-  };
-
   return (
-    <Flex
-      direction="column"
-      justify="center"
-      align="center"
-      gap="0.8rem"
-      cursor="pointer"
-      onClick={onNavigationItemClick}
-    >
-      <Box w="2rem" h="2rem" position="relative">
-        <Icon strokeWidth={0} fill={color} />
-      </Box>
-      <Box color={color}>{label}</Box>
-    </Flex>
+    <Link href={href}>
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        gap="0.8rem"
+        cursor="pointer"
+      >
+        <Box w="2rem" h="2rem" position="relative">
+          <Icon strokeWidth={0} fill={color} />
+        </Box>
+        <Box color={color}>{label}</Box>
+      </Flex>
+    </Link>
   );
 };
 
