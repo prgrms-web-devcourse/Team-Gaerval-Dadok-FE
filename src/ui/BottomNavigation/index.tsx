@@ -8,7 +8,7 @@ const navigationItems = [
   {
     iconName: 'bookshelf',
     label: '북카이브',
-    href: '/bookahive',
+    href: '/bookarchive',
   },
   {
     iconName: 'hashtag',
