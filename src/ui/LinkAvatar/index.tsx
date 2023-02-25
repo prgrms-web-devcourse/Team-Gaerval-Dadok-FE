@@ -1,7 +1,7 @@
 import { Avatar, Box } from '@chakra-ui/react';
 import Link from 'next/link';
 
-interface UserAvatarProps {
+interface LinkAvatarPropsn {
   src: string;
   name: string;
   href: string;
@@ -9,13 +9,13 @@ interface UserAvatarProps {
   h?: string;
 }
 
-const UserAvatar = ({
+const LinkAvatar = ({
   src,
   name,
   href,
   w = '3.2rem',
   h = '3.2rem',
-}: UserAvatarProps) => {
+}: LinkAvatarPropsn) => {
   return (
     <Box w={w} h={h}>
       <Link href={href}>
@@ -25,4 +25,4 @@ const UserAvatar = ({
   );
 };
 
-export default UserAvatar;
+export default LinkAvatar;

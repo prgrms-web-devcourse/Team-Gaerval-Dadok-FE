@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Box, useTheme, Text } from '@chakra-ui/react';
-import UserAvatar from '@/ui/UserAvatar';
+import LinkAvatar from '@/ui/LinkAvatar';
 import Link from 'next/link';
 
 const User = {
@@ -19,7 +19,7 @@ const MyPage = () => {
   return (
     <Flex direction="column" justify="center" gap="2rem" py="4rem" px="2rem">
       <Flex width="100%" gap="1.5rem">
-        <UserAvatar
+        <LinkAvatar
           src={profileImage}
           name={nickName}
           // TODO: API 받으면 사용자의 프로필 페이지로 이동하도록 구현
