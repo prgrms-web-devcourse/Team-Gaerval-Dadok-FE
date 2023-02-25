@@ -1,4 +1,3 @@
-'use client';
 import { Box, Image, Flex, Textarea, Button } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 

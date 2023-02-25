@@ -1,4 +1,3 @@
-'use client';
 import { Box, Flex, Image } from '@chakra-ui/react';
 
 const CommentsList = () => {
