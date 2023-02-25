@@ -2,6 +2,13 @@
 
 import { extendTheme, ThemeOverride } from '@chakra-ui/react';
 
+const size = {
+  sm: '1.4rem',
+  md: '1.6rem',
+  lg: '1.8rem',
+  xl: '2rem',
+};
+
 const colors = {
   main: '#F6AD55', // Main Theme
   red: {
@@ -27,6 +34,7 @@ const colors = {
 };
 
 const theme: ThemeOverride = extendTheme({
+  size,
   colors,
   styles: {
     global: {
