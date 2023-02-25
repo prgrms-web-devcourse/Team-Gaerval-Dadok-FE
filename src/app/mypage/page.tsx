@@ -1,6 +1,6 @@
 'use client';
 
-import { Flex, Box, useTheme } from '@chakra-ui/react';
+import { Flex, Box, useTheme, Text } from '@chakra-ui/react';
 import UserAvatar from '@/ui/UserAvatar';
 import Link from 'next/link';
 
@@ -17,28 +17,28 @@ const MyPage = () => {
   const theme = useTheme();
 
   return (
-    <Flex direction="column" justify="center" gap="1rem" py="4rem" px="2rem">
-      <Flex width="100%" gap="1rem">
+    <Flex direction="column" justify="center" gap="2rem" py="4rem" px="2rem">
+      <Flex width="100%" gap="1.5rem">
         <UserAvatar
           src={profileImage}
           name={nickName}
           // TODO: API 받으면 사용자의 프로필 페이지로 이동하도록 구현
           href="/mypage"
-          w="6rem"
-          h="6rem"
+          w="8rem"
+          h="8rem"
         />
         <Flex direction="column" justify="center">
-          <Box>{nickName}</Box>
-          <Box>{email}</Box>
+          <Text fontSize="xl">{nickName}</Text>
+          <Text fontSize="sm">{email}</Text>
         </Flex>
       </Flex>
       <Box>
-        <Box>직군 / 직업</Box>
-        <Box>{job}</Box>
+        <Text fontSize="sm">직군 / 직업</Text>
+        <Text fontSize="md">{job}</Text>
       </Box>
       <Box>
-        <Box>내 책장</Box>
-        <Box>책장이 비어있습니다.</Box>
+        <Text fontSize="sm">내 책장</Text>
+        <Text fontSize="md">책장이 비어있습니다.</Text>
       </Box>
       <Box
         as={Link}
@@ -49,6 +49,7 @@ const MyPage = () => {
         border="1px solid"
         borderRadius="5rem"
         textAlign="center"
+        fontSize="md"
       >
         프로필 수정
       </Box>

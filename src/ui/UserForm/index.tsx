@@ -50,7 +50,7 @@ const UserForm = () => {
     <Box as="form" w="100%" px="2rem" onSubmit={handleSubmit(onUserFormSubmit)}>
       <Flex direction="column" gap="1rem" align="center">
         {/* TODO: API 받으면 프로필 이미지 구현 */}
-        <Avatar w="6rem" h="6rem" />
+        <Avatar w="8rem" h="8rem" />
         <UserInput
           label="닉네임"
           id="nickname"
@@ -85,6 +85,7 @@ const UserForm = () => {
         color={theme.colors.main}
         border="1px solid"
         borderRadius="5rem"
+        fontSize="md"
         _disabled={{
           color: `${theme.colors.black['500']}`,
           border: '1px solid',

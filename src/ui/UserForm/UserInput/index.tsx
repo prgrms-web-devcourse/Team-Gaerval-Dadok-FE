@@ -20,13 +20,7 @@ interface UserInputProps {
   resetField?: () => void;
 }
 
-const UserInput = ({
-  label,
-  id,
-  register,
-  error,
-  resetField,
-}: UserInputProps) => {
+const UserInput = ({ label, register, error, resetField }: UserInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
@@ -51,11 +45,11 @@ const UserInput = ({
       onBlur={onInputBlur}
       isRequired={register ? register.required : false}
     >
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <InputGroup size="lg">
-        <Input focusBorderColor={colors.main} {...register} />
+      <FormLabel>{label}</FormLabel>
+      <InputGroup>
+        <Input focusBorderColor={colors.main} py="2rem" {...register} />
         {resetField && isFocus && (
-          <InputRightElement>
+          <InputRightElement h="100%">
             <button type="button" onClick={onResetButtonClick}>
               <CloseIcon width="1.5rem" fill={colors.black['800']} />
             </button>
