@@ -1,5 +1,4 @@
 import { Box, Button } from '@chakra-ui/react';
-import { css } from '@emotion/react';
 
 const ParticipationBtn = () => {
   return (
@@ -7,15 +6,12 @@ const ParticipationBtn = () => {
       <Button
         w="100%"
         h="2.8rem"
-        fontSize="1.3rem"
+        fontSize="1.4rem"
         fontWeight="500"
         borderRadius="2rem"
         color="main"
-        border="main 0.2rem solid"
+        border="0.1rem solid"
         backgroundColor="white.900"
-        css={css`
-          border: #f6ad55 0.1rem solid;
-        `}
       >
         모임 참여하기
       </Button>

@@ -70,7 +70,7 @@ const MeetingList = () => {
                       className="제목"
                       w="100%"
                       h="25%"
-                      fontSize="1.7rem"
+                      fontSize="1.8rem"
                       overflow="hidden"
                       whiteSpace="nowrap"
                       textOverflow="ellipsis"

@@ -34,42 +34,43 @@ const CommentsList = () => {
 
   return (
     <Box className="댓글 리스트 영역" mt="1.5rem">
-      <Box>
-        <Box className="댓글 영역" fontSize="1.8rem" fontWeight={700}>
-          댓글
-        </Box>
-        <Box className="댓글 리스트 영역">
-          {dummyData.map(data => {
-            return (
-              <Box key={data.id}>
-                <Box mt="1rem" p="1rem" bgColor="white" borderRadius="1.5rem">
-                  <Flex className="아바타와 닉네임 영역" mb="0.5rem">
-                    <Box>
-                      <Image
-                        src={data.avatarURL}
-                        alt="avatar"
-                        borderRadius="full"
-                        boxSize="3rem"
-                      />
-                    </Box>
-                    <Flex align="center">
-                      <Box fontSize="1.4rem" ml="1rem" fontWeight={500}>
-                        {data.nickName}
-                      </Box>
-                    </Flex>
-                  </Flex>
-                  <Box
-                    className="댓글 내용영역"
-                    lineHeight="1.6rem"
-                    fontSize="1.4rem"
-                  >
-                    {data.contents}
+      <Box className="댓글 영역" fontSize="1.8rem" fontWeight={700}>
+        댓글
+      </Box>
+      <Box className="댓글 리스트 영역">
+        {dummyData.map(data => {
+          return (
+            <Box key={data.id}>
+              <Box mt="1rem" p="1rem" bgColor="white" borderRadius="1.5rem">
+                <Flex className="아바타와 닉네임 영역" mb="0.5rem">
+                  <Box>
+                    <Image
+                      src={data.avatarURL}
+                      alt="avatar"
+                      borderRadius="full"
+                      boxSize="3rem"
+                    />
                   </Box>
+                  <Flex
+                    align="center"
+                    fontSize="1.4rem"
+                    ml="1rem"
+                    fontWeight={500}
+                  >
+                    {data.nickName}
+                  </Flex>
+                </Flex>
+                <Box
+                  className="댓글 내용영역"
+                  lineHeight="1.6rem"
+                  fontSize="1.4rem"
+                >
+                  {data.contents}
                 </Box>
               </Box>
-            );
-          })}
-        </Box>
+            </Box>
+          );
+        })}
       </Box>
     </Box>
   );
