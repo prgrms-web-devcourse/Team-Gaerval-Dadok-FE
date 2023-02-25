@@ -3,7 +3,7 @@ import { Flex } from '@chakra-ui/react';
 import MeetingList from './MeetingList';
 import MeetingListHeader from './MeetingListHeader';
 
-const MeetingPageComponents = () => {
+const MeetingPageContainer = () => {
   return (
     <Flex justify="center">
       <Flex mt="2rem" w="90%" direction="column">
@@ -14,4 +14,4 @@ const MeetingPageComponents = () => {
   );
 };
 
-export default MeetingPageComponents;
+export default MeetingPageContainer;

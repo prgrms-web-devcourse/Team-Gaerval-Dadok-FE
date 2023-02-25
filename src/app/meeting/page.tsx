@@ -1,7 +1,7 @@
-import MeetingPageComponents from '@/ui/meeting/index';
+import MeetingPageContainer from '@/ui/meeting';
 
 const Meeting = () => {
-  return <MeetingPageComponents />;
+  return <MeetingPageContainer />;
 };
 
 export default Meeting;

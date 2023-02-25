@@ -5,7 +5,7 @@ import CommentInputBox from './CommentInputBox';
 import CommentsList from './CommentsList';
 import { Flex, Box, Image } from '@chakra-ui/react';
 
-const MeetingDetailPageComponents = () => {
+const MeetingDetailPageContainer = () => {
   return (
     <Flex justify="center" mt="1rem">
       <Flex w="90%" direction="column" justify="center">
@@ -21,4 +21,4 @@ const MeetingDetailPageComponents = () => {
   );
 };
 
-export default MeetingDetailPageComponents;
+export default MeetingDetailPageContainer;

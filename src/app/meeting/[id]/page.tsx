@@ -1,7 +1,7 @@
-import MeetingDetailPageComponents from '@/ui/meetingDetail/index';
+import MeetingDetailPageContainer from '@/ui/meetingDetail';
 
 const MeetingDetail = () => {
-  return <MeetingDetailPageComponents />;
+  return <MeetingDetailPageContainer />;
 };
 
 export default MeetingDetail;
