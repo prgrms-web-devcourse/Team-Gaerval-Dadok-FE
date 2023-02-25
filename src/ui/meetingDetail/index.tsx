@@ -1,9 +1,9 @@
 'use client';
-import MeetingDetail from './meetingDetail';
-import ParticipationBtn from './participationBtn';
+import MeetingDetail from './MeetingDetail';
+import ParticipationBtn from './ParticipationBtn';
+import CommentInputBox from './CommentInputBox';
+import CommentsList from './CommentsList';
 import { Flex, Box, Image } from '@chakra-ui/react';
-import CommentInputBox from './commentInputBox';
-import CommentsList from './commentsList';
 
 const MeetingDetailPageComponents = () => {
   return (
