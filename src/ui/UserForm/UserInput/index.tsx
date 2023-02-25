@@ -62,7 +62,7 @@ const UserInput = ({
           </InputRightElement>
         )}
       </InputGroup>
-      <FormErrorMessage>{error?.message}</FormErrorMessage>
+      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
 };
