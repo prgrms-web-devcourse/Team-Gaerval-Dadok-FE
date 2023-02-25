@@ -8,7 +8,7 @@ const UserForm = () => {
     register,
     handleSubmit,
     resetField,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
   } = useForm({
     mode: 'all',
     defaultValues: {
@@ -81,7 +81,7 @@ const UserForm = () => {
         mt="2rem"
         px="2rem"
         py="1rem"
-        disabled={isSubmitting || !isValid}
+        disabled={isSubmitting}
         color={theme.colors.main}
         border="1px solid"
         borderRadius="5rem"
