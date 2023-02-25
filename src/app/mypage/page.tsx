@@ -28,17 +28,17 @@ const MyPage = () => {
           h="6rem"
         />
         <Flex direction="column" justify="center">
-          <Box fontSize={theme.size.lg}>{nickName}</Box>
-          <Box fontSize={theme.size.sm}>{email}</Box>
+          <Box>{nickName}</Box>
+          <Box>{email}</Box>
         </Flex>
       </Flex>
       <Box>
-        <Box fontSize={theme.size.sm}>직군 / 직업</Box>
-        <Box fontSize={theme.size.md}>{job}</Box>
+        <Box>직군 / 직업</Box>
+        <Box>{job}</Box>
       </Box>
       <Box>
-        <Box fontSize={theme.size.sm}>내 책장</Box>
-        <Box fontSize={theme.size.md}>책장이 비어있습니다.</Box>
+        <Box>내 책장</Box>
+        <Box>책장이 비어있습니다.</Box>
       </Box>
       <Box
         as={Link}

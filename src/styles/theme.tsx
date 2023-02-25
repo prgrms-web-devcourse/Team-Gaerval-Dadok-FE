@@ -2,7 +2,7 @@
 
 import { extendTheme, ThemeOverride } from '@chakra-ui/react';
 
-const size = {
+const fontSizes = {
   sm: '1.4rem',
   md: '1.6rem',
   lg: '1.8rem',
@@ -34,7 +34,7 @@ const colors = {
 };
 
 const theme: ThemeOverride = extendTheme({
-  size,
+  fontSizes,
   colors,
   styles: {
     global: {
