@@ -1192,6 +1192,13 @@
   dependencies:
     "@chakra-ui/shared-utils" "2.0.5"
 
+"@chakra-ui/icons@^2.0.17":
+  version "2.0.17"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-2.0.17.tgz#625a46d169707aad36d65c04a4626a422f92e5ae"
+  integrity sha512-HMJP0WrJgAmFR9+Xh/CBH0nVnGMsJ4ZC8MK6tMgxPKd9/muvn0I4hsicHqdPlLpmB0TlxlhkBAKaVMtOdz6F0w==
+  dependencies:
+    "@chakra-ui/icon" "3.0.16"
+
 "@chakra-ui/image@2.0.15":
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/@chakra-ui/image/-/image-2.0.15.tgz#7f275f8f3edbb420e0613afd5023ad9cf442d09d"
@@ -4198,7 +4205,7 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
   integrity sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==
-
+  
 json5@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.2.tgz#63d98d60f21b313b77c4d6da18bfa69d80e1d593"
