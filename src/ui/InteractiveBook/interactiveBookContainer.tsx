@@ -1,22 +1,21 @@
-'use client';
+import { Flex } from '@chakra-ui/react';
 
-import { Box } from '@chakra-ui/react';
-import { NextPage } from 'next/types';
-
-interface PropTypes {
+type ChildrenType = {
   children: React.ReactNode;
-}
+};
 
-const InteractiveBookContainer: NextPage<PropTypes> = ({ children }) => {
+const InteractiveBookContainer = ({ children }: ChildrenType) => {
   return (
-    <Box
-      display="flex"
+    <Flex
       alignItems="center"
       justifyContent="center"
-      style={{ perspective: '30rem', margin: '2rem' }}
+      style={{
+        perspective: '60rem',
+        margin: '3rem',
+      }}
     >
       {children}
-    </Box>
+    </Flex>
   );
 };
 

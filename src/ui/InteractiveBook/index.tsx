@@ -1,22 +1,14 @@
-import { NextPage } from 'next/types';
 import InteractiveBookArticle from './InteractiveBookArticle';
-import InteractiveBookContainer from './interactiveBookContainer';
+import InteractiveBookContainer from './InteractiveBookContainer';
 
-type StaticImageData = {
-  src: string;
-  height: number;
-  width: number;
-  blurDataURL?: string;
+type ImgSrcProps = {
+  imgSrc: string;
 };
 
-interface PropTypes {
-  img: StaticImageData;
-}
-
-const InteractiveBook: NextPage<PropTypes> = props => {
+const InteractiveBook = ({ imgSrc }: ImgSrcProps) => {
   return (
     <InteractiveBookContainer>
-      <InteractiveBookArticle imgSrc={props.img.src} />
+      <InteractiveBookArticle src={imgSrc} />
     </InteractiveBookContainer>
   );
 };
