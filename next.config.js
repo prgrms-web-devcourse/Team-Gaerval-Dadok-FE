@@ -10,6 +10,16 @@ const nextConfig = {
     });
     return config;
   },
+  trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/bookarchive/',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
