@@ -27,4 +27,42 @@ const FORM_RULES: {
   },
 } as const;
 
-export default FORM_RULES;
+export const meetingTitleRule = {
+  required: '모임 제목을 입력해 주세요.',
+  minLength: {
+    value: 2,
+    message: '모임 제목을 2자 이상 입력해 주세요.',
+  },
+  maxLength: {
+    value: 30,
+    message: '모임 제목을 30자 이하로 입력해 주세요.',
+  },
+};
+
+export const meetingExplanationRule = {
+  required: '모임 설명을 입력해 주세요.',
+  minLength: {
+    value: 10,
+    message: '모임 설명을 10자 이상 입력해 주세요.',
+  },
+  maxLength: {
+    value: 150,
+    message: '모임 설명을 150자 이하로 입력해 주세요.',
+  },
+};
+
+export const meetingPersonnelNumberRule = {
+  required: '모임 인원을 입력해 주세요.',
+  minLength: {
+    value: 1,
+    message: '모임 인원을 1명 이상 입력해 주세요.',
+  },
+  maxLength: {
+    value: 4,
+    message: '인원이 너무 많습니다.',
+  },
+  pattern: {
+    value: /^[0-9]+$/,
+    message: '숫자를 입력해 주세요.',
+  },
+};
