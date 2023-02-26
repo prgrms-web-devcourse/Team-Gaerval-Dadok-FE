@@ -34,8 +34,8 @@ const BottomNavigation = () => {
     <Flex
       justify="space-between"
       bg="white.900"
-      px="4rem"
-      py="2rem"
+      px="3.2rem"
+      py="1.6rem"
       pos="fixed"
       bottom={0}
       w="100%"

@@ -1,4 +1,4 @@
-import { Box, Flex, useTheme } from '@chakra-ui/react';
+import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import type { SVGProps } from 'react';
@@ -29,13 +29,15 @@ const NavigationItem = ({
         direction="column"
         justify="center"
         align="center"
-        gap="0.8rem"
+        gap="0.6rem"
         cursor="pointer"
       >
-        <Box w="2rem" h="2rem" position="relative">
-          <Icon strokeWidth={0} fill={color} />
+        <Box w="2.6rem" h="2.6rem" position="relative">
+          <Icon width="100%" height="100%" strokeWidth={0} fill={color} />
         </Box>
-        <Box color={color}>{label}</Box>
+        <Text fontSize="sm" color={color}>
+          {label}
+        </Text>
       </Flex>
     </Link>
   );
