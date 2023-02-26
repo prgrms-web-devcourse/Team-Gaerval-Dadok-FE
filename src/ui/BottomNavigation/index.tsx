@@ -8,22 +8,22 @@ const navigationItems = [
   {
     iconName: 'bookshelf',
     label: '북카이브',
-    href: '/bookarchive',
+    href: '/bookarchive/',
   },
   {
     iconName: 'hashtag',
     label: '도서 카테고리',
-    href: '/book',
+    href: '/book/',
   },
   {
     iconName: 'book',
     label: '독서모임',
-    href: '/meeting',
+    href: '/meeting/',
   },
   {
     iconName: 'user',
     label: '내 프로필',
-    href: '/mypage',
+    href: '/mypage/',
   },
 ];
 
@@ -47,7 +47,7 @@ const BottomNavigation = () => {
           iconName={iconName}
           label={label}
           href={href}
-          isActive={pathname === href}
+          isActive={pathname?.indexOf(href) === 0}
         />
       ))}
     </Flex>
