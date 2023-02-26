@@ -33,16 +33,16 @@ const CommentsList = () => {
   ];
 
   return (
-    <Box className="댓글 리스트 영역" mt="1.5rem">
-      <Box className="댓글 영역" fontSize="1.8rem" fontWeight={700}>
+    <Box mt="1.5rem">
+      <Box fontSize="1.8rem" fontWeight={700}>
         댓글
       </Box>
-      <Box className="댓글 리스트 영역">
+      <Box>
         {dummyData.map(data => {
           return (
             <Box key={data.id}>
               <Box mt="1rem" p="1rem" bgColor="white" borderRadius="1.5rem">
-                <Flex className="아바타와 닉네임 영역" mb="0.5rem">
+                <Flex mb="0.5rem">
                   <Box>
                     <Image
                       src={data.avatarURL}
@@ -60,11 +60,7 @@ const CommentsList = () => {
                     {data.nickName}
                   </Flex>
                 </Flex>
-                <Box
-                  className="댓글 내용영역"
-                  lineHeight="1.6rem"
-                  fontSize="1.4rem"
-                >
+                <Box lineHeight="1.6rem" fontSize="1.4rem">
                   {data.contents}
                 </Box>
               </Box>

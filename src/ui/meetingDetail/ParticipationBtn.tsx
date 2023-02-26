@@ -2,7 +2,7 @@ import { Box, Button } from '@chakra-ui/react';
 
 const ParticipationBtn = () => {
   return (
-    <Box className="모임 참여 버튼" mt="1.5rem">
+    <Box mt="1.5rem">
       <Button
         w="100%"
         h="2.8rem"

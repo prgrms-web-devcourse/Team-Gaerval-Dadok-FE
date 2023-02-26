@@ -2,7 +2,7 @@ import { Box, Image, Flex, Textarea, Button } from '@chakra-ui/react';
 
 const CommentInputBox = () => {
   return (
-    <Box className="댓글 전체 영역" mt="1.5rem" h="100%">
+    <Box mt="1.5rem" h="100%">
       <Box fontSize="1.8rem" fontWeight={700} mb="1rem">
         댓글 작성
       </Box>
