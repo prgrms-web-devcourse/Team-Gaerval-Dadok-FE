@@ -7,7 +7,7 @@ const UserForm = () => {
   const {
     register,
     handleSubmit,
-    resetField,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     mode: 'all',
@@ -56,14 +56,14 @@ const UserForm = () => {
           id="nickname"
           register={register('nickname', nickNameRule)}
           error={errors.nickname}
-          resetField={() => resetField('nickname')}
+          clearField={() => setValue('nickname', '')}
         />
         <UserInput
           label="이메일"
           id="email"
           register={register('email', emailRule)}
           error={errors.email}
-          resetField={() => resetField('email')}
+          clearField={() => setValue('email', '')}
         />
         {/* #TODO: API 받으면 셀렉트 박스로 구현 */}
         <UserInput
@@ -71,7 +71,7 @@ const UserForm = () => {
           id="job"
           register={register('job', jobRule)}
           error={errors.job}
-          resetField={() => resetField('job')}
+          clearField={() => setValue('job', '')}
         />
         {/* #TODO: 책장 컴포넌트 구현되면 연결 */}
       </Flex>

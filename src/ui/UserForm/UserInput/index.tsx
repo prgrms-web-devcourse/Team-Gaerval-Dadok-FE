@@ -17,15 +17,15 @@ interface UserInputProps {
   id: string;
   register?: UseFormRegisterReturn;
   error?: FieldError;
-  resetField?: () => void;
+  clearField?: () => void;
 }
 
-const UserInput = ({ label, register, error, resetField }: UserInputProps) => {
+const UserInput = ({ label, register, error, clearField }: UserInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
-  const onResetButtonClick = () => {
-    resetField && resetField();
+  const onClearButtonClick = () => {
+    clearField && clearField();
   };
 
   const [isFocus, setIsFocus] = useState(false);
@@ -42,15 +42,15 @@ const UserInput = ({ label, register, error, resetField }: UserInputProps) => {
     <FormControl
       isInvalid={!!error}
       onFocus={onInputFocus}
-      onBlur={onInputBlur}
+      onBlurCapture={onInputBlur}
       isRequired={register ? register.required : false}
     >
       <FormLabel>{label}</FormLabel>
       <InputGroup>
         <Input focusBorderColor={colors.main} py="2rem" {...register} />
-        {resetField && isFocus && (
+        {clearField && isFocus && (
           <InputRightElement h="100%">
-            <button type="button" onClick={onResetButtonClick}>
+            <button type="button" onClick={onClearButtonClick} tabIndex={-1}>
               <CloseIcon width="1.5rem" fill={colors.black['800']} />
             </button>
           </InputRightElement>
