@@ -1,4 +1,4 @@
-import MeetingPageContainer from '@/ui/meeting';
+import MeetingPageContainer from '@/ui/Meeting';
 
 const Meeting = () => {
   return <MeetingPageContainer />;
