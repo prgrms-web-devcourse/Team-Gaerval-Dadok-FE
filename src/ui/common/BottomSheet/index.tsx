@@ -19,7 +19,7 @@ const BottomSheet = ({ isOpen, onClose, children }: Props) => {
       <DrawerContent
         bgColor="white"
         borderTopRadius="1rem"
-        w="43rem"
+        maxW="43rem"
         margin="0 auto"
       >
         {children}
