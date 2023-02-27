@@ -1,7 +1,7 @@
-import CreateMeetingForm from '@/ui/CreateMeetingForm';
+import CreateMeeting from '@/ui/CreateMeeting';
 
 const createMeeting = () => {
-  return <CreateMeetingForm />;
+  return <CreateMeeting />;
 };
 
 export default createMeeting;
