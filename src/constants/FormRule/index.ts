@@ -66,3 +66,13 @@ export const meetingPersonnelNumberRule = {
     message: '숫자를 입력해 주세요.',
   },
 };
+
+export const meetingStartDateRule = {
+  required: '모임 시작일을 선택해 주세요.',
+};
+
+export const meetingEndDateRule = {
+  required: '모임 종료일을 선택해 주세요.',
+};
+
+export default FORM_RULES;

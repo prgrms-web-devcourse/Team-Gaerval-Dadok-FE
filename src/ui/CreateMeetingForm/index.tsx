@@ -7,6 +7,8 @@ import {
   meetingTitleRule,
   meetingExplanationRule,
   meetingPersonnelNumberRule,
+  meetingStartDateRule,
+  meetingEndDateRule,
 } from '@/constants/FormRule';
 
 const CreateMeetingForm = () => {
@@ -21,6 +23,8 @@ const CreateMeetingForm = () => {
       meetingTitle: '',
       meetingExplanation: '',
       meetingPersonnelNumber: '',
+      meetingStartDate: '',
+      meetingEndDate: '',
     },
   });
 
@@ -30,6 +34,8 @@ const CreateMeetingForm = () => {
     meetingTitle,
     meetingExplanation,
     meetingPersonnelNumber,
+    meetingStartDate,
+    meetingEndDate,
   }) => {
     const delay = () => {
       return new Promise<void>(resolve =>
@@ -44,6 +50,8 @@ const CreateMeetingForm = () => {
     console.log(meetingTitle);
     console.log(meetingExplanation);
     console.log(meetingPersonnelNumber);
+    console.log(meetingStartDate);
+    console.log(meetingEndDate);
   };
 
   return (
@@ -78,6 +86,20 @@ const CreateMeetingForm = () => {
           )}
           error={errors.meetingPersonnelNumber}
           resetField={() => resetField('meetingPersonnelNumber')}
+        />
+        <UserInput
+          label="모임 시작일"
+          id="meetingStartDate"
+          register={register('meetingStartDate', meetingStartDateRule)}
+          error={errors.meetingStartDate}
+          type="date"
+        />
+        <UserInput
+          label="모임 종료일"
+          id="meetingEndDate"
+          register={register('meetingEndDate', meetingEndDateRule)}
+          error={errors.meetingEndDate}
+          type="date"
         />
       </Flex>
       <Box
