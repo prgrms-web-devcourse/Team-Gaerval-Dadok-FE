@@ -1,15 +1,9 @@
 import { Avatar, Box, Flex, useTheme } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import UserInput from './UserInput/index';
-import { emailRule, jobRule, nickNameRule } from '@/constants/FormRule';
 
 const UserForm = () => {
-  const {
-    register,
-    handleSubmit,
-    resetField,
-    formState: { errors, isSubmitting },
-  } = useForm({
+  const methods = useForm({
     mode: 'all',
     defaultValues: {
       nickname: '',
@@ -18,7 +12,7 @@ const UserForm = () => {
     },
   });
 
-  const onUserFormSubmit: Parameters<typeof handleSubmit>[0] = async ({
+  const onUserFormSubmit: Parameters<typeof methods.handleSubmit>[0] = async ({
     nickname,
     email,
     job,
@@ -47,53 +41,42 @@ const UserForm = () => {
   const theme = useTheme();
 
   return (
-    <Box as="form" w="100%" px="2rem" onSubmit={handleSubmit(onUserFormSubmit)}>
-      <Flex direction="column" gap="1rem" align="center">
-        {/* TODO: API 받으면 프로필 이미지 구현 */}
-        <Avatar w="8rem" h="8rem" />
-        <UserInput
-          label="닉네임"
-          id="nickname"
-          register={register('nickname', nickNameRule)}
-          error={errors.nickname}
-          resetField={() => resetField('nickname')}
-        />
-        <UserInput
-          label="이메일"
-          id="email"
-          register={register('email', emailRule)}
-          error={errors.email}
-          resetField={() => resetField('email')}
-        />
-        {/* #TODO: API 받으면 셀렉트 박스로 구현 */}
-        <UserInput
-          label="직군 / 직업"
-          id="job"
-          register={register('job', jobRule)}
-          error={errors.job}
-          resetField={() => resetField('job')}
-        />
-        {/* #TODO: 책장 컴포넌트 구현되면 연결 */}
-      </Flex>
+    <FormProvider {...methods}>
       <Box
-        as="button"
+        as="form"
         w="100%"
-        mt="2rem"
         px="2rem"
-        py="1rem"
-        disabled={isSubmitting}
-        color={theme.colors.main}
-        border="1px solid"
-        borderRadius="5rem"
-        fontSize="md"
-        _disabled={{
-          color: `${theme.colors.black['500']}`,
-          border: '1px solid',
-        }}
+        onSubmit={methods.handleSubmit(onUserFormSubmit)}
       >
-        프로필 수정
+        <Flex direction="column" gap="1rem" align="center">
+          {/* TODO: API 받으면 프로필 이미지 구현 */}
+          <Avatar w="8rem" h="8rem" />
+          <UserInput label="닉네임" name="nickname" />
+          <UserInput label="이메일" name="email" />
+          {/* #TODO: API 받으면 셀렉트 박스로 구현 */}
+          <UserInput label="직군 / 직업" name="job" />
+          {/* #TODO: 책장 컴포넌트 구현되면 연결 */}
+        </Flex>
+        <Box
+          as="button"
+          w="100%"
+          mt="2rem"
+          px="2rem"
+          py="1rem"
+          disabled={methods.formState.isSubmitting}
+          color={theme.colors.main}
+          border="1px solid"
+          borderRadius="5rem"
+          fontSize="md"
+          _disabled={{
+            color: `${theme.colors.black['500']}`,
+            border: '1px solid',
+          }}
+        >
+          프로필 수정
+        </Box>
       </Box>
-    </Box>
+    </FormProvider>
   );
 };
 
