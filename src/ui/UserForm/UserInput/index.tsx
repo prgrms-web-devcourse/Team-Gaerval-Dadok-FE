@@ -1,3 +1,4 @@
+import FORM_RULES from '@/constants/FormRule';
 import {
   FormControl,
   FormErrorMessage,
@@ -5,27 +6,41 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Text,
   useTheme,
 } from '@chakra-ui/react';
 import CloseIcon from '@public/icons/close.svg';
 import { useState } from 'react';
-import type { UseFormRegisterReturn, FieldError } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
+import type { MouseEvent, TouchEvent } from 'react';
 
 interface UserInputProps {
-  isRequired?: boolean;
   label: string;
-  id: string;
-  register?: UseFormRegisterReturn;
-  error?: FieldError;
-  clearField?: () => void;
+  name: string;
 }
 
-const UserInput = ({ label, register, error, clearField }: UserInputProps) => {
+const UserInput = ({ label, name }: UserInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
-  const onClearButtonClick = () => {
-    clearField && clearField();
+  const {
+    register,
+    setValue,
+    trigger,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name];
+
+  const rules = FORM_RULES[name];
+
+  const onClearButtonClick = async (
+    event: MouseEvent | TouchEvent<HTMLElement>
+  ) => {
+    setValue(name, '');
+    await trigger(name);
+    event.preventDefault();
   };
 
   const [isFocus, setIsFocus] = useState(false);
@@ -42,21 +57,38 @@ const UserInput = ({ label, register, error, clearField }: UserInputProps) => {
     <FormControl
       isInvalid={!!error}
       onFocus={onInputFocus}
-      onBlurCapture={onInputBlur}
-      isRequired={register ? register.required : false}
+      onBlur={onInputBlur}
     >
-      <FormLabel>{label}</FormLabel>
+      <FormLabel>
+        {label}
+        {!!rules.required && (
+          <Text as="span" color="red">
+            *
+          </Text>
+        )}
+      </FormLabel>
       <InputGroup>
-        <Input focusBorderColor={colors.main} py="2rem" {...register} />
-        {clearField && isFocus && (
+        <Input
+          focusBorderColor={colors.main}
+          py="2rem"
+          {...register(name, rules)}
+        />
+        {isFocus && getValues(name).length && (
           <InputRightElement h="100%">
-            <button type="button" onClick={onClearButtonClick} tabIndex={-1}>
+            <button
+              type="button"
+              onMouseDown={onClearButtonClick}
+              onTouchEnd={onClearButtonClick}
+              tabIndex={-1}
+            >
               <CloseIcon width="1.5rem" fill={colors.black['800']} />
             </button>
           </InputRightElement>
         )}
       </InputGroup>
-      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+      {error?.message && (
+        <FormErrorMessage>{String(error.message)}</FormErrorMessage>
+      )}
     </FormControl>
   );
 };
