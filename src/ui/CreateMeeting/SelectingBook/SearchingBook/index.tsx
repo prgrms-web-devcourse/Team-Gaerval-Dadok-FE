@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable react/no-children-prop */
 import SearchedBook from './SearchedBook';
 import { useState } from 'react';

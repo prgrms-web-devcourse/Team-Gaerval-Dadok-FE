@@ -1,4 +1,4 @@
-import MeetingDetailPageContainer from '@/ui/MeetingDetail';
+import MeetingDetailPageContainer from '@/ui/meetingDetail';
 
 const MeetingDetailPage = () => {
   return <MeetingDetailPageContainer />;
