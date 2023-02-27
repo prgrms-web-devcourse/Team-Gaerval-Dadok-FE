@@ -1,27 +1,19 @@
 'use client';
 
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
 import Image from 'next/image';
 
 type BookImageSrcType = {
-  /**
-   * jsdoc
-   * usePalette imgSrc parameter type
-   *
-   * @example
-   * ```ts
-   * usePalette(imgSrc: string, colorCount: number | undefined, format: "hex");
-   * ```
-   */
-  src: Parameters<typeof usePalette>[0];
+  src: string;
 };
 
-const bookWidth = 12;
-const bookHeight = 15;
-const bookThick = 2;
+const BOOK_WIDTH = 8.4;
+const BOOK_HEIGHT = 12;
+const BOOK_THICK = 3;
 
 const InteractiveBook = ({ src }: BookImageSrcType) => {
+  const theme = useTheme();
   const { data, loading } = usePalette(src, 2, 'hex');
 
   if (loading) return null;
@@ -29,65 +21,58 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
 
   return (
     <Flex
-      alignItems="center"
-      justifyContent="center"
       style={{
-        perspective: '60rem',
-        margin: '3rem',
+        margin: '0 0.6rem 0 1rem',
+        perspective: '30rem',
       }}
     >
       <Box
         sx={{
           position: 'absolute',
-          width: `${bookWidth}rem`,
-          height: `${bookHeight}rem`,
-          left: '0',
-          right: '0',
-          top: '0',
-          bottom: '0',
+          width: `${BOOK_WIDTH}rem`,
+          height: `${BOOK_HEIGHT}rem`,
           transformStyle: 'preserve-3d',
-          transform: 'rotateY(33deg)',
+          transform:
+            'translateX(-1rem) rotateX(-18deg) rotateY(26deg) rotateZ(-4deg)',
           transition: '1s ease',
-          margin: '3rem auto',
           cursor: 'pointer',
-          _hover: { transform: 'translateX(-1rem)' },
+          _hover: {
+            transform:
+              'translateX(-3rem) translateY(-3rem) rotateX(-18deg) rotateY(26deg) rotateZ(-4deg)',
+          },
 
           '> div, img': {
             position: 'absolute',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxSizing: 'border-box',
-            top: '0',
-            left: '0',
           },
         }}
       >
         {/* 책 옆면 스타일링 */}
         <Box
-          width={`${bookThick}rem`}
+          width={`${BOOK_THICK}rem`}
           height="100%"
-          transform={`translateX(-${bookThick / 2}rem) rotateY(90deg)`}
+          transform={`translateX(-${BOOK_THICK / 2}rem) rotateY(90deg)`}
           bgColor={data[0]}
         />
         {/* 책 윗면 스타일링 */}
         <Box
           width="100%"
-          height={`${bookThick}rem`}
-          transform={`translateY(-${bookThick / 2}rem) rotateX(90deg)`}
+          height={`${BOOK_THICK}rem`}
+          transform={`translateY(-${BOOK_THICK / 2}rem) rotateX(90deg)`}
           bgColor="white.600"
         />
         {/* 책 표지 스타일링 */}
         <Image
-          width={256}
-          height={256}
+          width={128}
+          height={128}
           src={src}
           alt=""
           style={{
             width: '100%',
             height: '100%',
-            transform: `translateZ(${bookThick / 2}rem)`,
-            // 책 그림자 추가할 것.
+            filter: `drop-shadow(0.3rem 0.3rem 0.3rem ${theme.colors.white[600]})`,
+            transform: `translateZ(${BOOK_THICK / 2}rem)`,
+            backgroundColor: data[0],
+            // TODO: 책 그림자 추가할 것.
           }}
         />
       </Box>
