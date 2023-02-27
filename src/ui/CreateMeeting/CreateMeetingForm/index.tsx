@@ -105,7 +105,7 @@ const CreateMeetingForm = () => {
         <Box
           as="button"
           w="100%"
-          mt="2rem"
+          mt="4rem"
           px="2rem"
           py="1rem"
           disabled={isSubmitting}
