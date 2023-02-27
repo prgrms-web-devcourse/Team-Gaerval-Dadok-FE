@@ -7,7 +7,7 @@ interface SearchedBookProps {
 
 const SearchedBook = ({ imageURL, title }: SearchedBookProps) => {
   return (
-    <VStack w="16.6rem" h="20rem" px="2rem">
+    <VStack w="14.6rem" h="18rem" px="2rem">
       <Image src={imageURL} alt="bookImage" w="100%" h="80%" />
       <Text
         fontSize="sm"
