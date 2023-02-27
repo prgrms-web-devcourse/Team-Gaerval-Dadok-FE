@@ -1,5 +1,5 @@
 'use client';
-import MeetingDetail from './MeetingDetail';
+import ViewMeetingDetail from './ViewMeetingDetail';
 import ParticipationBtn from './ParticipationBtn';
 import CommentInputBox from './CommentInputBox';
 import CommentsList from './CommentsList';
@@ -10,7 +10,7 @@ const MeetingDetailPageContainer = () => {
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
       <Goback />
-      <MeetingDetail />
+      <ViewMeetingDetail />
       <ParticipationBtn />
       <CommentInputBox />
       <CommentsList />
