@@ -8,13 +8,15 @@ import Goback from '../GoBack';
 
 const MeetingDetailPageContainer = () => {
   return (
-    <Flex px="5%" direction="column" justify="center" mt="1rem">
+    <>
       <Goback />
-      <ViewMeetingDetail />
-      <ParticipationBtn />
-      <CommentInputBox />
-      <CommentsList />
-    </Flex>
+      <Flex px="2rem" direction="column" justify="center">
+        <ViewMeetingDetail />
+        <ParticipationBtn />
+        <CommentInputBox />
+        <CommentsList />
+      </Flex>
+    </>
   );
 };
 
