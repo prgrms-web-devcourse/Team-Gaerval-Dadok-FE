@@ -80,7 +80,7 @@ const SearchingBook = () => {
   return (
     /* bottom Sheet 높이는 maxWidth 지정 후 변경 예정 */
     <VStack px="2rem" h="50rem">
-      <Flex h="10rem" fontSize="lg" align="center">
+      <Flex h="10rem" fontSize="lg" align="center" mt="2rem">
         <Box as="span" color="main">
           책
         </Box>
