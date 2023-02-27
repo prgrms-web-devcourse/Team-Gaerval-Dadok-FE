@@ -16,13 +16,18 @@ const BottomSheet = ({ isOpen, onClose, children }: Props) => {
   return isOpen ? (
     <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay onClick={onClose} />
-      <DrawerContent bgColor="white" borderTopRadius="1rem">
+      <DrawerContent
+        bgColor="white"
+        borderTopRadius="1rem"
+        margin="0 auto"
+        style={{
+          maxWidth: '43rem',
+        }}
+      >
         {children}
       </DrawerContent>
     </Drawer>
-  ) : (
-    <></>
-  );
+  ) : null;
 };
 
 export default BottomSheet;
