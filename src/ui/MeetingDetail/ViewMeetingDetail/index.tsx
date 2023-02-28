@@ -22,12 +22,7 @@ const ViewMeetingDetail = () => {
         </Text>
       </Flex>
       <Flex mt="1.5rem" justify="space-between" h="13rem">
-        <Box
-          w="68%"
-          bgColor="white"
-          borderRadius="1rem"
-          boxShadow="0px 0px 7px -5px #000000"
-        >
+        <Box w="68%" bgColor="white" borderRadius="1rem" boxShadow="default">
           <Flex p="1rem" h="100%" direction="column" justify="space-between">
             <Box h="60%">
               <Box fontSize="1.2rem">
@@ -79,7 +74,7 @@ const ViewMeetingDetail = () => {
             w="10rem"
             objectFit="cover"
             borderRadius="1rem"
-            boxShadow="0px 0px 7px -5px #000000"
+            boxShadow="default"
           />
         </Flex>
       </Flex>

@@ -64,6 +64,10 @@ const scheme: Record<
   },
 };
 
+const shadows = {
+  default: '0px 0px 7px -5px #000000', // BoxShadow (MeetingList Box)
+};
+
 const theme: ThemeOverride = extendTheme({
   fontSizes,
   colors,
@@ -82,6 +86,7 @@ const theme: ThemeOverride = extendTheme({
       },
     },
   },
+  shadows,
 });
 
 export default theme;

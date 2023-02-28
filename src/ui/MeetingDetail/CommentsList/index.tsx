@@ -46,7 +46,7 @@ const CommentsList = () => {
               p="1rem"
               bgColor="white"
               borderRadius="1.5rem"
-              boxShadow="0px 0px 7px -5px #000000"
+              boxShadow="default"
             >
               <Flex mb="0.5rem">
                 <Box>

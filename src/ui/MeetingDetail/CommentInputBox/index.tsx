@@ -6,12 +6,7 @@ const CommentInputBox = () => {
       <Box fontSize="1.8rem" fontWeight={700} mb="1rem">
         댓글 작성
       </Box>
-      <Box
-        p="1rem"
-        bgColor="white"
-        borderRadius="1rem"
-        boxShadow="0px 0px 7px -5px #000000"
-      >
+      <Box p="1rem" bgColor="white" borderRadius="1rem" boxShadow="default">
         <Flex>
           <Box>
             <Avatar src="https://bit.ly/dan-abramov" loading="lazy" />

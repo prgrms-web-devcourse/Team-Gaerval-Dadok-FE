@@ -65,7 +65,7 @@ const MeetingList = () => {
                   borderRadius="1rem"
                   p="1.5rem"
                   _hover={{ bgColor: '#FFFDFA' }}
-                  boxShadow="0px 0px 7px -5px #000000"
+                  boxShadow="default"
                 >
                   <Box w="65%">
                     <Box h="70%">
@@ -127,7 +127,7 @@ const MeetingList = () => {
                       alt="bookCover"
                       w="10rem"
                       objectFit="cover"
-                      boxShadow="0px 0px 7px -5px #000000"
+                      boxShadow="default"
                       borderRadius="0.5rem"
                     />
                   </Flex>
