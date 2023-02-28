@@ -10,7 +10,7 @@ const LoginPage = () => {
       direction="column"
       alignItems="center"
       justifyContent="space-between"
-      p="22vh 5rem"
+      p="22vh 6rem"
       pos="relative"
       zIndex="1"
       bgColor="white.800"
