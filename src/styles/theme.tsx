@@ -31,6 +31,10 @@ const colors = {
     800: '#FAFAFA', // backGround
     900: '#FFFFFF', // white
   },
+  kakao: {
+    brown: '#191600',
+    yellow: '#fee102',
+  },
 };
 
 const theme: ThemeOverride = extendTheme({
