@@ -41,7 +41,6 @@ const FormSelect = ({ label, name, options }: FormSelectProps) => {
         placeholder={`${label}을 선택해주세요.`}
         size="md"
         h="4.2rem"
-        // style={{ padding: '2rem 0' }}
         {...register(name, rules)}
       >
         {options.map(({ label, value }) => (
