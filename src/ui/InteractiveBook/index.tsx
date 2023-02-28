@@ -1,8 +1,12 @@
 'use client';
 
-import { Box, Flex, useTheme } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
-import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
+import InteractiveBookFront from './InteractiveBookFront';
+import InteractiveBookSide from './InteractiveBookSide';
+import InteractiveBookTop from './InteractiveBookTop';
 
 type BookImageSrcType = {
   src: string;
@@ -10,18 +14,46 @@ type BookImageSrcType = {
 
 const BOOK_WIDTH = 8.4;
 const BOOK_HEIGHT = 12;
-const BOOK_THICK = 3;
+const BOOK_THICK = 2;
 
 const InteractiveBook = ({ src }: BookImageSrcType) => {
-  const theme = useTheme();
+  const router = useRouter();
   const { data, loading } = usePalette(src, 2, 'hex');
+
+  const [clickedCount, setClickedCount] = useState<number>(0);
+  const bookRef = useRef<HTMLDivElement>(null);
+
+  const onClickBook = () => {
+    if (clickedCount > 0) return router.push('/bookdetailpage');
+    bookRef.current?.focus();
+
+    setClickedCount(clickedCount + 1);
+  };
+
+  const onBlurBook = () => {
+    bookRef.current?.blur();
+
+    setClickedCount(0);
+  };
 
   if (loading) return null;
   if (!data) return null;
 
   return (
     <Flex
+      ref={bookRef}
+      onClick={onClickBook}
+      onBlur={onBlurBook}
+      tabIndex={0}
+      cursor="pointer"
+      transition="0.8s ease"
+      _focus={{
+        '> div': {
+          transform: 'translateX(-3rem) translateY(-2rem)',
+        },
+      }}
       style={{
+        transformStyle: 'preserve-3d',
         margin: '0 0.6rem 0 1rem',
         perspective: '30rem',
       }}
@@ -34,46 +66,19 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
           transformStyle: 'preserve-3d',
           transform:
             'translateX(-1rem) rotateX(-18deg) rotateY(26deg) rotateZ(-4deg)',
-          transition: '1s ease',
-          cursor: 'pointer',
-          _hover: {
-            transform:
-              'translateX(-3rem) translateY(-3rem) rotateX(-18deg) rotateY(26deg) rotateZ(-4deg)',
-          },
+          transition: '0.8s ease',
 
           '> div, img': {
             position: 'absolute',
           },
         }}
       >
-        {/* 책 옆면 스타일링 */}
-        <Box
-          width={`${BOOK_THICK}rem`}
-          height="100%"
-          transform={`translateX(-${BOOK_THICK / 2}rem) rotateY(90deg)`}
-          bgColor={data[0]}
-        />
-        {/* 책 윗면 스타일링 */}
-        <Box
-          width="100%"
-          height={`${BOOK_THICK}rem`}
-          transform={`translateY(-${BOOK_THICK / 2}rem) rotateX(90deg)`}
-          bgColor="white.600"
-        />
-        {/* 책 표지 스타일링 */}
-        <Image
-          width={128}
-          height={128}
+        <InteractiveBookTop bookThick={BOOK_THICK} />
+        <InteractiveBookSide bookColor={data[0]} bookThick={BOOK_THICK} />
+        <InteractiveBookFront
           src={src}
-          alt=""
-          style={{
-            width: '100%',
-            height: '100%',
-            filter: `drop-shadow(0.3rem 0.3rem 0.3rem ${theme.colors.white[600]})`,
-            transform: `translateZ(${BOOK_THICK / 2}rem)`,
-            backgroundColor: data[0],
-            // TODO: 책 그림자 추가할 것.
-          }}
+          bookColor={data[0]}
+          bookThick={BOOK_THICK}
         />
       </Box>
     </Flex>
