@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Avatar, Box, Flex } from '@chakra-ui/react';
 
 const CommentsList = () => {
   const dummyData = [
@@ -40,29 +40,29 @@ const CommentsList = () => {
       <Box>
         {dummyData.map(data => {
           return (
-            <Box key={data.id}>
-              <Box mt="1rem" p="1rem" bgColor="white" borderRadius="1.5rem">
-                <Flex mb="0.5rem">
-                  <Box>
-                    <Image
-                      src={data.avatarURL}
-                      alt="avatar"
-                      borderRadius="full"
-                      boxSize="3rem"
-                    />
-                  </Box>
-                  <Flex
-                    align="center"
-                    fontSize="1.4rem"
-                    ml="1rem"
-                    fontWeight={500}
-                  >
-                    {data.nickName}
-                  </Flex>
-                </Flex>
-                <Box lineHeight="1.6rem" fontSize="1.4rem">
-                  {data.contents}
+            <Box
+              key={data.id}
+              mt="1rem"
+              p="1rem"
+              bgColor="white"
+              borderRadius="1.5rem"
+              boxShadow="0px 0px 7px -5px #000000"
+            >
+              <Flex mb="0.5rem">
+                <Box>
+                  <Avatar src={data.avatarURL} loading="lazy" />
                 </Box>
+                <Flex
+                  align="center"
+                  fontSize="1.4rem"
+                  ml="1rem"
+                  fontWeight={600}
+                >
+                  {data.nickName}
+                </Flex>
+              </Flex>
+              <Box lineHeight="1.6rem" fontSize="1.4rem">
+                {data.contents}
               </Box>
             </Box>
           );

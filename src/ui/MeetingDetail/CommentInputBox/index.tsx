@@ -1,4 +1,4 @@
-import { Box, Image, Flex, Textarea, Button } from '@chakra-ui/react';
+import { Box, Flex, Textarea, Button, Avatar } from '@chakra-ui/react';
 
 const CommentInputBox = () => {
   return (
@@ -6,15 +6,15 @@ const CommentInputBox = () => {
       <Box fontSize="1.8rem" fontWeight={700} mb="1rem">
         댓글 작성
       </Box>
-      <Box p="1rem" bgColor="white" borderRadius="1rem">
+      <Box
+        p="1rem"
+        bgColor="white"
+        borderRadius="1rem"
+        boxShadow="0px 0px 7px -5px #000000"
+      >
         <Flex>
           <Box>
-            <Image
-              borderRadius="full"
-              boxSize="3rem"
-              src="https://bit.ly/dan-abramov"
-              alt="Dan Abramov"
-            />
+            <Avatar src="https://bit.ly/dan-abramov" loading="lazy" />
           </Box>
           <Flex align="center" ml="1rem">
             <Box fontSize="1.4rem">사용자 닉네임</Box>
@@ -26,7 +26,7 @@ const CommentInputBox = () => {
             w="100%"
             h="12rem"
             fontSize="1.4rem"
-            placeholder="댓글을 작성해주세요"
+            placeholder="댓글을 작성해 주세요"
           />
         </Box>
         <Flex justify="flex-end">

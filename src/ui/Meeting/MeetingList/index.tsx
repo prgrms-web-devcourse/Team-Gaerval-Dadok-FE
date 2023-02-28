@@ -65,6 +65,7 @@ const MeetingList = () => {
                   borderRadius="1rem"
                   p="1.5rem"
                   _hover={{ bgColor: '#FFFDFA' }}
+                  boxShadow="0px 0px 7px -5px #000000"
                 >
                   <Box w="65%">
                     <Box h="70%">
@@ -90,7 +91,7 @@ const MeetingList = () => {
                       </Text>
                     </Box>
                     <Flex pt="1rem">
-                      <Avatar src={meeting.avatar} size="md" loading="lazy" />
+                      <Avatar src={meeting.avatar} loading="lazy" />
                       <Flex direction="column" w="80%" ml="1rem">
                         <Box>{meeting.nickName}</Box>
                         <Flex>
@@ -120,12 +121,14 @@ const MeetingList = () => {
                       </Flex>
                     </Flex>
                   </Box>
-                  <Flex w="35%" justify="center" align="center">
+                  <Flex w="35%" justify="center" align="center" pl="1rem">
                     <Image
                       src="http://image.yes24.com/goods/101865885/XL"
                       alt="bookCover"
                       w="10rem"
                       objectFit="cover"
+                      boxShadow="0px 0px 7px -5px #000000"
+                      borderRadius="0.5rem"
                     />
                   </Flex>
                 </Flex>
