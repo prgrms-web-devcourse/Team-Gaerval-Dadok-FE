@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import { Flex, Button, Text, Highlight, Heading } from '@chakra-ui/react';
 
-import Logo from '@/ui/LoginBottomSheet/Logo';
-import CloseButton from '@/ui/LoginBottomSheet/CloseButton';
 import BottomSheet from '@/ui/common/BottomSheet';
+import Logo from './Logo';
+import CloseButton from './CloseButton';
 
 interface Props {
   isOpen: boolean;
@@ -18,10 +18,10 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
       <Flex direction="column" align="center" gap="3rem" p="3rem 3rem 4rem">
         <CloseButton onCancel={onClose} alignSelf="flex-end" />
         <Logo />
-        <Heading fontSize="1.8rem">로그인이 필요한 서비스예요!</Heading>
+        <Heading fontSize="lg">로그인이 필요한 서비스예요!</Heading>
         <Text
           color="black.500"
-          fontSize="1.4rem"
+          fontSize="sm"
           fontWeight="medium"
           textAlign="center"
         >
@@ -46,7 +46,7 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
           p="1.8rem 2.5rem"
           color="kakao.brown"
           bgColor="kakao.yellow"
-          fontSize="1.6rem"
+          fontSize="md"
           fontWeight="bold"
           iconSpacing="1rem"
           borderRadius="1.2rem"
