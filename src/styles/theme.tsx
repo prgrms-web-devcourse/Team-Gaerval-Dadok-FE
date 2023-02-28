@@ -7,6 +7,7 @@ const fontSizes = {
   md: '1.6rem',
   lg: '1.8rem',
   xl: '2rem',
+  '2xl': '2.2rem',
 };
 
 const colors = {
@@ -31,11 +32,19 @@ const colors = {
     800: '#FAFAFA', // backGround
     900: '#FFFFFF', // white
   },
+  kakao: {
+    brown: '#191600',
+    yellow: '#fee102',
+  },
 };
 
 const theme: ThemeOverride = extendTheme({
   fontSizes,
   colors,
+  fonts: {
+    heading: `'LineSeed', sans-serif`,
+    body: `'LineSeed', sans-serif`,
+  },
   styles: {
     global: {
       'html, body': {
