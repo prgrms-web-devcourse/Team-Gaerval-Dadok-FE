@@ -2,7 +2,7 @@
 name: Discussion template
 about: 기능 추가, 수정 요청 등을 등록합니다.
 title: ''
-labels: ''
+labels: [🐥 프론트, 👀 discussion]
 assignees: ''
 ---
 
