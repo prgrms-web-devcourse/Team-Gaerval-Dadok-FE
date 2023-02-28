@@ -1,4 +1,5 @@
-import { Box, Flex, List, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, List, Image, Text, Avatar } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const MeetingList = () => {
   const dummyData = [
@@ -53,76 +54,83 @@ const MeetingList = () => {
       <Box>
         {dummyData.map(meeting => {
           return (
-            <Flex
-              key={meeting.id}
-              m="0.8rem 0"
-              w="100%"
-              h="19rem"
-              justify="space-between"
-              backgroundColor="white"
-              borderRadius="1rem"
-              p="1.5rem"
-            >
-              <Box w="65%">
-                <Box h="70%">
-                  <Text
-                    w="100%"
-                    h="25%"
-                    fontSize="1.8rem"
-                    overflow="hidden"
-                    whiteSpace="nowrap"
-                    textOverflow="ellipsis"
-                  >
-                    {meeting.title}
-                  </Text>
-                  <Text
-                    h="75%"
-                    fontSize="1.4rem"
-                    lineHeight="1.5"
-                    overflow="hidden"
-                  >
-                    {meeting.content}
-                  </Text>
-                </Box>
-                <Flex pt="1rem">
-                  <Image
-                    borderRadius="full"
-                    boxSize="3rem"
-                    src={meeting.avatar}
-                    alt="userAvatar"
-                  />
-                  <Flex direction="column" w="80%" ml="1rem">
-                    <Box>{meeting.nickName}</Box>
-                    <Flex>
-                      <Flex w="4rem" align="center">
-                        <Box>
-                          <Image src="/icons/peopleIcon.svg" alt="peopleIcon" />
-                        </Box>
-                        <Box w="3rem" ml="0.5rem">
-                          {meeting.people}
-                        </Box>
-                      </Flex>
-                      <Flex w="4rem" align="center" ml="0.5rem">
-                        <Box>
-                          <Image src="/icons/commentIcon.svg" alt="bookCover" />
-                        </Box>
-                        <Box w="3rem" ml="0.5rem">
-                          {meeting.comments}
-                        </Box>
+            <Box key={meeting.id}>
+              <Link href={`/meeting/${meeting.id}`}>
+                <Flex
+                  m="0.8rem 0"
+                  w="100%"
+                  h="19rem"
+                  justify="space-between"
+                  backgroundColor="white"
+                  borderRadius="1rem"
+                  p="1.5rem"
+                  _hover={{ bgColor: '#FFFDFA' }}
+                >
+                  <Box w="65%">
+                    <Box h="70%">
+                      <Text
+                        w="100%"
+                        h="25%"
+                        fontSize="1.8rem"
+                        overflow="hidden"
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis"
+                        _hover={{ textDecor: 'underLine' }}
+                      >
+                        {meeting.title}
+                      </Text>
+                      <Text
+                        h="75%"
+                        fontSize="1.4rem"
+                        lineHeight="1.5"
+                        overflow="hidden"
+                        _hover={{ textDecor: 'underLine' }}
+                      >
+                        {meeting.content}
+                      </Text>
+                    </Box>
+                    <Flex pt="1rem">
+                      <Avatar src={meeting.avatar} size="md" loading="lazy" />
+                      <Flex direction="column" w="80%" ml="1rem">
+                        <Box>{meeting.nickName}</Box>
+                        <Flex>
+                          <Flex w="4rem" align="center">
+                            <Box>
+                              <Image
+                                src="/icons/peopleIcon.svg"
+                                alt="peopleIcon"
+                              />
+                            </Box>
+                            <Box w="3rem" ml="0.5rem">
+                              {meeting.people}
+                            </Box>
+                          </Flex>
+                          <Flex w="4rem" align="center" ml="0.5rem">
+                            <Box>
+                              <Image
+                                src="/icons/commentIcon.svg"
+                                alt="bookCover"
+                              />
+                            </Box>
+                            <Box w="3rem" ml="0.5rem">
+                              {meeting.comments}
+                            </Box>
+                          </Flex>
+                        </Flex>
                       </Flex>
                     </Flex>
+                  </Box>
+                  <Flex w="35%" justify="center" align="center">
+                    <Image
+                      src="http://image.yes24.com/goods/101865885/XL"
+                      alt="bookCover"
+                      w="10rem"
+                      objectFit="cover"
+                    />
                   </Flex>
                 </Flex>
-              </Box>
-              <Flex w="35%" justify="center" align="center">
-                <Image
-                  src="http://image.yes24.com/goods/101865885/XL"
-                  alt="bookCover"
-                  w="10rem"
-                  objectFit="cover"
-                />
-              </Flex>
-            </Flex>
+              </Link>
+            </Box>
           );
         })}
       </Box>
