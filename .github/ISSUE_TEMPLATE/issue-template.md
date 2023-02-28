@@ -2,7 +2,7 @@
 name: Issue template
 about: 프로덕트 백로그를 등록합니다.
 title: ''
-labels: ''
+labels: '[🐥 프론트, ✨ feature]'
 assignees: ''
 ---
 
@@ -10,6 +10,4 @@ assignees: ''
 
 # 목적
 
-# 작업
-
-# 완료조건
+# 참고

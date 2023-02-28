@@ -2,7 +2,7 @@
 name: Bug template
 about: 발견한 버그를 등록합니다.
 title: ''
-labels: ''
+labels: [🐥 프론트, 🐛 fix]
 assignees: ''
 ---
 
