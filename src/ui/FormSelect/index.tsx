@@ -24,11 +24,10 @@ const FormSelect = ({ label, name, options }: FormSelectProps) => {
   } = useFormContext();
 
   const error = errors[name];
-
   const rules = FORM_RULES[name];
 
   return (
-    <FormControl>
+    <FormControl isInvalid={!!error}>
       <FormLabel>
         {label}
         {!!rules.required && (
