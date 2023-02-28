@@ -34,7 +34,7 @@ const CommentsList = () => {
 
   return (
     <Box mt="1.5rem">
-      <Box fontSize="1.8rem" fontWeight={700}>
+      <Box fontSize="lg" fontWeight={700}>
         댓글
       </Box>
       <Box>
@@ -52,16 +52,11 @@ const CommentsList = () => {
                 <Box>
                   <Avatar src={data.avatarURL} loading="lazy" />
                 </Box>
-                <Flex
-                  align="center"
-                  fontSize="1.4rem"
-                  ml="1rem"
-                  fontWeight={600}
-                >
+                <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
                   {data.nickName}
                 </Flex>
               </Flex>
-              <Box lineHeight="1.6rem" fontSize="1.4rem">
+              <Box lineHeight="1.6rem" fontSize="sm">
                 {data.contents}
               </Box>
             </Box>

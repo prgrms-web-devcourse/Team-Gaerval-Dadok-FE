@@ -72,7 +72,7 @@ const MeetingList = () => {
                       <Text
                         w="100%"
                         h="25%"
-                        fontSize="1.8rem"
+                        fontSize="lg"
                         overflow="hidden"
                         whiteSpace="nowrap"
                         textOverflow="ellipsis"
@@ -82,7 +82,7 @@ const MeetingList = () => {
                       </Text>
                       <Text
                         h="75%"
-                        fontSize="1.4rem"
+                        fontSize="sm"
                         lineHeight="1.5"
                         overflow="hidden"
                         _hover={{ textDecor: 'underLine' }}

@@ -13,10 +13,10 @@ const ViewMeetingDetail = () => {
   return (
     <>
       <Flex direction="column" align="center">
-        <Text fontSize="2rem" fontWeight={700}>
+        <Text fontSize="xl" fontWeight={700}>
           모임 이름입니다.
         </Text>
-        <Text fontSize="1.4rem" mt="0.5rem">
+        <Text fontSize="sm" mt="0.5rem">
           모임 설명을 시작하겠습니다. 우리는 이러한 책을 읽고 이러한 내용을
           작성할 예정입니다.
         </Text>
@@ -30,7 +30,7 @@ const ViewMeetingDetail = () => {
               </Box>
               <Flex h="70%" align="center">
                 <Text
-                  fontSize="1.8rem"
+                  fontSize="lg"
                   fontWeight={500}
                   overflow="hidden"
                   textOverflow="ellipsis"
