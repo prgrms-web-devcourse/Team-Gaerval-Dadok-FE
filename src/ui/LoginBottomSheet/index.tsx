@@ -17,14 +17,7 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <Flex direction="column" align="center" gap="3rem" p="3rem 3rem 4rem">
-        <IconButton onClick={onClose} alignSelf="flex-end">
-          <Image
-            src="/icons/close.svg"
-            alt="취소하기 버튼"
-            width={24}
-            height={24}
-          />
-        </IconButton>
+        <IconButton name="close" onClick={onClose} alignSelf="flex-end" />
         <Logo />
         <Heading fontSize="lg">로그인이 필요한 서비스예요!</Heading>
         <Text

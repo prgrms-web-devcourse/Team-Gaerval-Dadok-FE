@@ -1,18 +1,42 @@
 'use client';
 
-import { PropsWithChildren, ComponentPropsWithoutRef } from 'react';
+import dynamic from 'next/dynamic';
+import { ComponentPropsWithoutRef, SVGProps } from 'react';
 import { Center } from '@chakra-ui/react';
 
 interface Props extends ComponentPropsWithoutRef<typeof Center> {
-  size?: number | `${number}`;
+  name: IconNameType;
+  size?: number | string;
+  strokeWidth?: string;
+  color?: string /** hex */;
+  fill?: boolean;
 }
 
-const IconButton = ({ size, children, ...props }: PropsWithChildren<Props>) => {
+const IconButton = ({
+  name,
+  size = '2.4rem',
+  strokeWidth = '0',
+  color = '#000',
+  fill = false,
+  ...props
+}: Props) => {
+  const Icon = dynamic<SVGProps<SVGSVGElement>>(
+    () => import(`@/../public/icons/${name}.svg`)
+  );
+
   return (
     <Center as="button" width={size} height={size} {...props}>
-      {children}
+      <Icon
+        width="100%"
+        height="100%"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        fill={fill ? color : 'transparent'}
+      />
     </Center>
   );
 };
+
+type IconNameType = 'close' | 'back' | 'book';
 
 export default IconButton;
