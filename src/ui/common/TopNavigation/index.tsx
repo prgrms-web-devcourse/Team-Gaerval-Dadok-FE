@@ -4,7 +4,11 @@ import { Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const TopNavigation = () => {
+type PageTitleType = {
+  pageTitle: string;
+};
+
+const TopNavigation = ({ pageTitle }: PageTitleType) => {
   const router = useRouter();
 
   return (
@@ -23,7 +27,7 @@ const TopNavigation = () => {
         priority
       />
       <Text fontSize="lg" fontWeight="700">
-        내 책장
+        {pageTitle}
       </Text>
     </Flex>
   );

@@ -14,10 +14,8 @@ const MyBookShelfPage = ({ children }: ChildrenType) => {
       height="100%"
       maxWidth="43rem"
       padding="2rem 2rem 8rem 2rem"
-      color="black"
-      border="0.1rem solid"
     >
-      <TopNavigation />
+      <TopNavigation pageTitle="내 책장" />
       <VStack width="100%" spacing="2rem">
         {children}
       </VStack>
