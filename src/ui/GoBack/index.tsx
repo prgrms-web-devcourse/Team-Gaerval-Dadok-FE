@@ -6,8 +6,8 @@ const Goback = () => {
   };
 
   return (
-    <Box as="button" onClick={handleClick} p="1rem">
-      <Image src="/icons/goBackIcon.svg" alt="goBackIcon" />
+    <Box as="button" onClick={handleClick} mt="1rem">
+      <Image src="/icons/back.svg" alt="뒤로가기" />
     </Box>
   );
 };

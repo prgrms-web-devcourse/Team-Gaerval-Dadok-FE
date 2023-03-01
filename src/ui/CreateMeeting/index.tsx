@@ -6,11 +6,15 @@ import { Box } from '@chakra-ui/react';
 
 const CreateMeeting = () => {
   return (
-    <Box>
-      <Goback />
-      <SelectingBook />
-      <CreateMeetingForm />
-    </Box>
+    <>
+      <Box m="1rem 1.8rem">
+        <Goback />
+      </Box>
+      <Box>
+        <SelectingBook />
+        <CreateMeetingForm />
+      </Box>
+    </>
   );
 };
 

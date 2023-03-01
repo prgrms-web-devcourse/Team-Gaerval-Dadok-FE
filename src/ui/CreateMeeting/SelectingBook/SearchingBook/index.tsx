@@ -74,12 +74,11 @@ const SearchingBook = () => {
     /* submit 이벤트 발생시 검색 API 호출 및 searchedBook에 할당*/
     setSearchedBook([]);
     console.log(searchedBook);
-    console.log('submit');
   };
 
   return (
     /* bottom Sheet 높이는 maxWidth 지정 후 변경 예정 */
-    <VStack px="2rem" h="50rem">
+    <VStack px="2rem" h="90vh">
       <Flex h="10rem" fontSize="lg" align="center" mt="2rem">
         <Box as="span" color="main">
           책
