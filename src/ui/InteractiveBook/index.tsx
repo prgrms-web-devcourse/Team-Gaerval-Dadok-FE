@@ -2,6 +2,7 @@
 
 import { Box, Flex } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
@@ -20,11 +21,11 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
   const { data, loading } = usePalette(src, 2, 'hex');
 
   const onClickBook = () => {
-    return router.push('/bookdetailpage');
+    return router.push('/book/1');
   };
 
-  if (loading) return null;
-  if (!data) return null;
+  if (loading) return null
+  if (!data) return null
 
   return (
     <Flex
@@ -38,6 +39,7 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
       }}
     >
       <Box
+      // href='/book/1'
         sx={{
           position: 'absolute',
           width: `${BOOK_WIDTH}rem`,

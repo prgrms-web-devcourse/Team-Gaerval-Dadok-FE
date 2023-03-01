@@ -6,14 +6,16 @@ import UsersBookShelfHeader from './UsersBookShelfHeader';
 
 type ChildrenType = {
   children: React.ReactNode;
+  userName: string;
+  tags: string[];
 };
 
-const DUMMY_USER = {
-  userName: '벌레',
-  tags: ['개발', '프론트엔드'],
-};
+// const DUMMY_USER = {
+//   userName: '벌레',
+//   tags: ['개발', '프론트엔드'],
+// };
 
-const UsersBookShelfPage = ({ children }: ChildrenType) => {
+const UsersBookShelfPage = ({ children, userName, tags }: ChildrenType) => {
   return (
     <VStack
       width="100%"
@@ -21,8 +23,8 @@ const UsersBookShelfPage = ({ children }: ChildrenType) => {
       maxWidth="43rem"
       padding="2rem 2rem 10rem 2rem"
     >
-      <TopNavigation pageTitle={`${DUMMY_USER.userName}님의 책장`} />
-      <UsersBookShelfHeader />
+      <TopNavigation pageTitle="" />
+      <UsersBookShelfHeader userName={userName} tags={tags} />
       <VStack width="100%" spacing="2rem">
         {children}
       </VStack>

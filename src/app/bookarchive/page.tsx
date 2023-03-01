@@ -6,7 +6,8 @@ import IconButton from '@/ui/common/IconButton';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InteractiveBook from '@/ui/InteractiveBook';
 import BookList from '@/ui/BookList';
-import { DUMMY_BOOKS } from '@/pages/api/dummyBooks';
+import { DUMMY_BOOKS, TOBI_BOOKS, UMGMO_BOOKS } from '@/pages/api/dummyBooks';
+import Link from 'next/link';
 
 export default function BookArchive() {
   return (
@@ -16,26 +17,28 @@ export default function BookArchive() {
       <Flex direction="column" width="100%" gap="3rem">
         <VStack align="flex-start" spacing="1rem">
           <Heading>
-            <Highlight query="토비" styles={{ color: 'main' }}>
-              토비님의 책장
-            </Highlight>
+            <Link href="/usersbookshelf1">
+              <Highlight query="토비" styles={{ color: 'main' }}>
+                토비님의 책장
+              </Highlight>
+            </Link>
           </Heading>
           <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
+            {TOBI_BOOKS.slice(4, 8).map((book) => {
               return <InteractiveBook key={book.id} src={book.src} />;
             })}
           </InteractiveBookShelf>
         </VStack>
         <VStack align="flex-start" spacing="1rem">
           <Heading>
-            <Highlight query="웅모" styles={{ color: 'main' }}>
-              웅모님의 책장
-            </Highlight>
+            <Link href="/usersbookshelf2">
+              <Highlight query="웅모" styles={{ color: 'main' }}>
+                웅모님의 책장
+              </Highlight>
+            </Link>
           </Heading>
           <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
+            {UMGMO_BOOKS.slice(2,6).map((book) => {
               return <InteractiveBook key={book.id} src={book.src} />;
             })}
           </InteractiveBookShelf>
@@ -47,8 +50,8 @@ export default function BookArchive() {
       <Flex direction="column" width="100%" gap="3rem">
         <VStack align="flex-start" spacing="1rem">
           <Heading>
-            <Highlight query="토비" styles={{ color: 'main' }}>
-              토비님의 책장
+            <Highlight query="김영수" styles={{ color: 'main' }}>
+              김영수님의 책장
             </Highlight>
           </Heading>
           <InteractiveBookShelf>
@@ -58,19 +61,7 @@ export default function BookArchive() {
             })}
           </InteractiveBookShelf>
         </VStack>
-        <VStack align="flex-start" spacing="1rem">
-          <Heading>
-            <Highlight query="웅모" styles={{ color: 'main' }}>
-              웅모님의 책장
-            </Highlight>
-          </Heading>
-          <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
-              return <InteractiveBook key={book.id} src={book.src} />;
-            })}
-          </InteractiveBookShelf>
-        </VStack>
+        
       </Flex>
     </VStack>
   );

@@ -7,7 +7,7 @@ const Goback = () => {
 
   return (
     <Box as="button" onClick={handleClick} p="1rem">
-      <Image src="/icons/goBackIcon.svg" alt="goBackIcon" />
+      <Image src="/icons/back.svg" alt="goBackIcon" />
     </Box>
   );
 };

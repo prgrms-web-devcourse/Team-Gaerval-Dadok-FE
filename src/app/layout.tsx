@@ -16,10 +16,12 @@ export default function RootLayout({
       <head />
       <body className={LineSeed.className}>
         <ReactQueryProvier>
+          {/* <CacheProvider> */}
           <ChakraThemeProvider>
             <Box mb="9rem">{children}</Box>
             <BottomNavigation />
           </ChakraThemeProvider>
+          {/* </CacheProvider> */}
         </ReactQueryProvier>
       </body>
     </html>

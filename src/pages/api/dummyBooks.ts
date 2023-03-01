@@ -3,50 +3,115 @@ import {
   imgFunctionalBook,
   imgJsDeepDiveBook,
   imgRefactoringBook,
+  imgJavaBook,
+  imgTypescriptBook,
+  imgAgi,
+  imgClean,
+  imgCore,
+  imgCs,
+  imgGenius,
+  imgGoogle,
+  imgJava,
+  imgSql,
+  imgSlam,
 } from '@public/images';
 
 export const DUMMY_BOOKS = [
   {
-    id: '0',
-    src: imgChatgptBook.src,
-    title: '챗지피티',
-  },
-  {
     id: '1',
-    src: imgFunctionalBook.src,
-    title: '함수형 코딩',
-  },
-  {
-    id: '2',
-    src: imgJsDeepDiveBook.src,
+    src: imgJava.src,
     title: '자바스크립트 딥다이브',
   },
   {
+    id: '2',
+    src: imgGenius.src,
+    title: '리팩터링 2판',
+  },
+  {
     id: '3',
-    src: imgRefactoringBook.src,
+    src: imgCs.src,
     title: '리팩터링 2판',
   },
   {
     id: '4',
-    src: imgChatgptBook.src,
-    title: '챗지피티',
+    src: imgSql.src,
+    title: '타입 스크립트',
+  },
+];
+
+
+export const TOBI_BOOKS = [
+  {
+    id: '1',
+    src: imgJava.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '2',
+    src: imgAgi.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '3',
+    src: imgClean.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '4',
+    src: imgCs.src,
+    title: '자바스크립트 딥다이브',
   },
   {
     id: '5',
-    src: imgFunctionalBook.src,
-    title: '함수형 코딩',
+    src: imgChatgptBook.src,
+    title: '자바스크립트 딥다이브',
   },
   {
     id: '6',
-    src: imgJsDeepDiveBook.src,
+    src: imgGoogle.src,
     title: '자바스크립트 딥다이브',
   },
   {
     id: '7',
-    src: imgRefactoringBook.src,
-    title: '리팩터링 2판',
+    src: imgSql.src,
+    title: '자바스크립트 딥다이브',
   },
-];
+  {
+    id: '8',
+    src: imgSlam.src,
+    title: '자바스크립트 딥다이브',
+  },
+]
+
+
+export const UMGMO_BOOKS = [
+  {
+    id: '7',
+    src: imgJsDeepDiveBook.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '8',
+    src: imgTypescriptBook.src,
+    title: '자바스크립트 딥다이브',
+  },  {
+    id: '9',
+    src: imgCore.src,
+    title: '자바스크립트 딥다이브',
+  },  {
+    id: '10',
+    src: imgAgi.src,
+    title: '자바스크립트 딥다이브',
+  },  {
+    id: '11',
+    src: imgRefactoringBook.src,
+    title: '자바스크립트 딥다이브',
+  },{
+    id: '12',
+    src: imgFunctionalBook.src,
+    title: '자바스크립트 딥다이브',
+  },
+]
 
 export const RECOMMENDED_BOOKS = [
   {
@@ -95,3 +160,42 @@ export const RECOMMENDED_BOOKS = [
     title: '유지보수하기 어렵게 코딩하는 방법',
   },
 ];
+
+
+export const DADOK2_BOOKS = [
+  {
+    id: '1',
+    src: imgJava.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '2',
+    src: imgAgi.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '3',
+    src: imgClean.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '4',
+    src: imgCs.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '5',
+    src: imgChatgptBook.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '6',
+    src: imgGoogle.src,
+    title: '자바스크립트 딥다이브',
+  },
+  {
+    id: '7',
+    src: imgFunctionalBook.src,
+    title: '자바스크립트 딥다이브',
+  },
+]

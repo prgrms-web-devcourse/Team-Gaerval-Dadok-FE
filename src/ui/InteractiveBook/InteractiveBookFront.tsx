@@ -6,6 +6,7 @@ interface BookFrontTypes {
 }
 
 const InteractiveBookFront = ({ src, bookColor }: BookFrontTypes) => {
+  console.log(src)
   return (
     <Image
       width="100%"

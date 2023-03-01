@@ -4,6 +4,9 @@ import { Flex, Box, useTheme, Text } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import LinkAvatar from '@/ui/LinkAvatar';
+import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
+import { DADOK2_BOOKS } from '@/pages/api/dummyBooks';
+import InteractiveBook from '@/ui/InteractiveBook';
 
 const User = {
   nickName: '다독이',
@@ -40,8 +43,14 @@ const MyPage = () => {
         <Text fontSize="md">{job}</Text>
       </Box>
       <Box>
-        <Text fontSize="sm">내 책장</Text>
-        <Text fontSize="md">책장이 비어있습니다.</Text>
+        <Link href='/usersbookshelf2'><Text fontSize="sm">내 책장</Text></Link>
+        {/* <Text fontSize="md">책장이 비어있습니다.</Text> */}
+
+        <InteractiveBookShelf>
+        {DADOK2_BOOKS.slice(3, 7).map((book) => {
+          return <InteractiveBook key={book.id} src={book.src} />;
+        })}
+      </InteractiveBookShelf>
       </Box>
       <Box
         as={Link}

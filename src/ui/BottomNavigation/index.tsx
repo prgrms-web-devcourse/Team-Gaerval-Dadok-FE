@@ -28,7 +28,7 @@ const navigationItems = [
 ];
 
 const BottomNavigation = () => {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <Flex
@@ -50,7 +50,7 @@ const BottomNavigation = () => {
           iconName={iconName}
           label={label}
           href={href}
-          isActive={pathname?.indexOf(href) === 0}
+          isActive={false}
         />
       ))}
     </Flex>
