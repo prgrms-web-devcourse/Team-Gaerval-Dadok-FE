@@ -1,6 +1,6 @@
 'use client';
 
-import UserInput from '@/ui/UserForm/UserInput';
+import UserInput from '@/ui/FormInput';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 

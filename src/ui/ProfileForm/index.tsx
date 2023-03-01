@@ -1,6 +1,6 @@
 import { Avatar, Box, Flex, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
-import UserInput from './UserInput/index';
+import FormInput from '../FormInput/index';
 
 const UserForm = () => {
   const methods = useForm({
@@ -51,10 +51,10 @@ const UserForm = () => {
         <Flex direction="column" gap="1rem" align="center">
           {/* TODO: API 받으면 프로필 이미지 구현 */}
           <Avatar w="8rem" h="8rem" />
-          <UserInput label="닉네임" name="nickname" />
-          <UserInput label="이메일" name="email" />
+          <FormInput label="닉네임" name="nickname" />
+          <FormInput label="이메일" name="email" />
           {/* #TODO: API 받으면 셀렉트 박스로 구현 */}
-          <UserInput label="직군 / 직업" name="job" />
+          <FormInput label="직군 / 직업" name="job" />
           {/* #TODO: 책장 컴포넌트 구현되면 연결 */}
         </Flex>
         <Box

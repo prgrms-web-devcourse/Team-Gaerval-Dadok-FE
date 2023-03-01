@@ -23,7 +23,7 @@ const navigationItems = [
   {
     iconName: 'user',
     label: '내 프로필',
-    href: '/mypage/',
+    href: '/profile/me/',
   },
 ];
 

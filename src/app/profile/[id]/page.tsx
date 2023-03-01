@@ -1,8 +1,9 @@
 'use client';
 
 import { Flex, Box, useTheme, Text } from '@chakra-ui/react';
-import LinkAvatar from '@/ui/LinkAvatar';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import LinkAvatar from '@/ui/LinkAvatar';
 
 const User = {
   nickName: '다독이',
@@ -15,6 +16,8 @@ const MyPage = () => {
   const { nickName, profileImage, email, job } = User;
 
   const theme = useTheme();
+
+  const pathname = usePathname();
 
   return (
     <Flex direction="column" justify="center" gap="2rem" py="4rem" px="2rem">
@@ -42,7 +45,7 @@ const MyPage = () => {
       </Box>
       <Box
         as={Link}
-        href="mypage/edit"
+        href={`${pathname}/edit`}
         px="2rem"
         py="1rem"
         color={theme.colors.main}

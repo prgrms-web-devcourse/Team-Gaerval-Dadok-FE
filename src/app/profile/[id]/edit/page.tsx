@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex } from '@chakra-ui/react';
-import UserForm from '@/ui/UserForm';
+import UserForm from '@/ui/ProfileForm';
 
 const EditMyPage = () => {
   return (
