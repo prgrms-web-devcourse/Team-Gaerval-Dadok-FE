@@ -28,3 +28,7 @@ export const publicApi = setInterceptor(
     ...options,
   })
 );
+
+export const setToken = (token: string | undefined) => {
+  publicApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
