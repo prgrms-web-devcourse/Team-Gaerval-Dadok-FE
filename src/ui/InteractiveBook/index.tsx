@@ -41,7 +41,6 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
 
   return (
     <Flex
-      display="flex"
       justifyContent="center"
       alignItems="center"
       ref={bookRef}
@@ -88,24 +87,3 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
 };
 
 export default InteractiveBook;
-
-// const moveLeft = keyframes`
-//   from { left: 0; }
-//   to   { left: -2rem; }
-// `;
-
-// const moveForward = keyframes`
-//   from { top: 0; }
-//   to   { top: 45vh; }
-// `;
-
-// css={{
-//   '&:focus': {
-//     '> div': {
-//       animationName: `${moveLeft}, ${moveForward}`,
-//       animationTimingFunction: 'ease',
-//       animationFillMode: 'forwards',
-//       animation: `${moveLeft} 0.8s ease forwards`,
-//     },
-//   },
-// }}
