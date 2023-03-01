@@ -20,6 +20,21 @@ export default function MyBookShelf() {
           return <InteractiveBook key={book.id} src={book.src} />;
         })}
       </InteractiveBookShelf>
+      <InteractiveBookShelf>
+        {DUMMY_BOOKS.map((book, idx) => {
+          if (idx >= 2) return;
+
+          return <InteractiveBook key={book.id} src={book.src} />;
+        })}
+      </InteractiveBookShelf>
+      <InteractiveBookShelf>
+        {DUMMY_BOOKS.map((book, idx) => {
+          if (idx >= 1) return;
+
+          return <InteractiveBook key={book.id} src={book.src} />;
+        })}
+      </InteractiveBookShelf>
+      <InteractiveBookShelf> 책 없음 </InteractiveBookShelf>
     </MyBookShelfPage>
   );
 }
