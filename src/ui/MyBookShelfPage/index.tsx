@@ -13,7 +13,7 @@ const MyBookShelfPage = ({ children }: ChildrenType) => {
         width="100%"
         height="100vh"
         maxWidth="43rem"
-        padding="1.6rem 1.6rem 8rem 1.6rem"
+        padding="2rem 2rem 8rem 2rem"
         color="black"
         border="0.1rem solid"
       >
@@ -30,7 +30,9 @@ const MyBookShelfPage = ({ children }: ChildrenType) => {
           내 책장
         </Flex>
         {/* BookShelves */}
-        {children}
+        <VStack width="100%" spacing="2rem">
+          {children}
+        </VStack>
       </VStack>
     </main>
   );

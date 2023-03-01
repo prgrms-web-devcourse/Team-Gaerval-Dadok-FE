@@ -8,7 +8,7 @@ export default function MyBookShelf() {
     <MyBookShelfPage>
       <InteractiveBookShelf>
         {DUMMY_BOOKS.map((book, idx) => {
-          if (idx >= 5) return;
+          if (idx >= 4) return;
 
           return <InteractiveBook key={book.id} src={book.src} />;
         })}

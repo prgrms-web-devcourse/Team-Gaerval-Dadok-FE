@@ -1,24 +1,34 @@
 'use client';
 
-import { Flex } from '@chakra-ui/react';
+import { Flex, useTheme } from '@chakra-ui/react';
 
 type ChildrenType = {
   children: React.ReactNode;
 };
 
 const InteractiveBookShelf = ({ children }: ChildrenType) => {
+  const theme = useTheme();
+
   return (
     <Flex
       width="100%"
-      height="18rem"
+      height="13.2rem"
       maxWidth="39.8rem"
-      padding="2.4rem 1.6rem"
-      margin="2rem 0"
+      padding="0 1.6rem"
+      border={`0.07rem solid ${theme.colors.white[600]}`}
       shadow="md"
+      // backgroundColor="white.900"
+      // boxShadow={`0rem 0.08rem 0.2rem ${theme.colors.black[600]}`}
     >
-      <Flex width="75%" justifyContent="space-between">
+      <Flex
+        width="calc(100% - 2rem)"
+        marginTop="0.8rem"
+        gap="25%"
+        justifyContent="flex-start"
+      >
         {children}
       </Flex>
+      <Flex width="2rem" />
     </Flex>
   );
 };
