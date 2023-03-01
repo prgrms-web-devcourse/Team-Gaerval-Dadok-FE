@@ -40,6 +40,7 @@ const BottomNavigation = () => {
       bottom={0}
       w="100%"
       maxW="43rem"
+      maxH="9rem"
     >
       {navigationItems.map(({ iconName, label, href }) => (
         <NavigationItem
