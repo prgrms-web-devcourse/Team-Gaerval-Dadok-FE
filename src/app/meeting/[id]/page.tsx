@@ -1,7 +1,7 @@
 import MeetingDetailPageContainer from '@/ui/MeetingDetail';
 
-const MeetingDetailPage = () => {
-  return <MeetingDetailPageContainer />;
+const MeetingDetail = ({ params }: { params: { id: string } }) => {
+  return <MeetingDetailPageContainer meetingId={params.id} />;
 };
 
-export default MeetingDetailPage;
+export default MeetingDetail;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 const MeetingList = () => {
   const dummyData = [
     {
-      title: '제목제목제1313133131목제목제',
+      title: '개발자들 모여라!',
       content:
         '용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용용내용내용내용내용내용내용내용내용내용내용내용내용내',
       id: 234,
@@ -15,9 +15,9 @@ const MeetingList = () => {
       bookImage: '대한민국',
     },
     {
-      title: 'CSS',
+      title: '모닥불과 함께하는 책읽기',
       content:
-        '하지만 위의 예제처럼 적용이 되지 않아 한참을 헤매였다. 항상 이유를 찾다보면 몇글자가 달라서이다🥲display 속성이 blcok 이어야 text-overflow 속성이 잘 동작한다는 것이다. 텍스트는 보통 <span> 이나 <p> 태그에 잘 쓴다. 얘네들은 inline 요소다. 그렇기 떄문에 속성 지정을 block 으로 변경해주고 나서야 비로소 잘 동작하게 되었다.',
+        '하지만 위의 예제처럼 적용이 되지 않아 한참을 헤매였다. 항상 이유를 찾다보면 몇글자가 달라서이다 display 속성이 blcok 이어야 text-overflow 속성이 잘 동작한다는 것이다. 텍스트는 보통 <span> 이나 <p> 태그에 잘 쓴다. 얘네들은 inline 요소다. 그렇기 떄문에 속성 지정을 block 으로 변경해주고 나서야 비로소 잘 동작하게 되었다.',
       id: 2525,
       avatar: 'https://bit.ly/dan-abramov',
       nickName: '잠실동쭈꾸미',
@@ -26,7 +26,7 @@ const MeetingList = () => {
       bookImage: '일본',
     },
     {
-      title: '제목제목목제목제목',
+      title: '타입스크립트',
       content:
         '용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내내용내용내용내용내용',
       id: 7575,
@@ -37,7 +37,7 @@ const MeetingList = () => {
       bookImage: '미국',
     },
     {
-      title: '모던 자바스크립트 딥다이브',
+      title: '나의 라임 오렌지 나무',
       content:
         '용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내',
       id: 90,
@@ -59,21 +59,22 @@ const MeetingList = () => {
                 <Flex
                   m="0.8rem 0"
                   w="100%"
-                  h="19rem"
+                  h="22rem"
                   justify="space-between"
                   backgroundColor="white"
                   borderRadius="1rem"
                   p="1.5rem"
-                  _hover={{ bgColor: '#FFFDFA' }}
+                  _hover={{ bgColor: 'white.800' }}
                   boxShadow="default"
                 >
                   <Box w="65%">
                     <Box h="70%">
                       <Text
                         w="100%"
-                        h="25%"
+                        h="30%"
                         fontSize="lg"
                         overflow="hidden"
+                        fontWeight={600}
                         whiteSpace="nowrap"
                         textOverflow="ellipsis"
                         _hover={{ textDecor: 'underLine' }}
@@ -82,7 +83,7 @@ const MeetingList = () => {
                       </Text>
                       <Text
                         h="75%"
-                        fontSize="sm"
+                        fontSize="md"
                         lineHeight="1.5"
                         overflow="hidden"
                         _hover={{ textDecor: 'underLine' }}
@@ -90,7 +91,7 @@ const MeetingList = () => {
                         {meeting.content}
                       </Text>
                     </Box>
-                    <Flex pt="1rem">
+                    <Flex pt="2rem">
                       <Avatar src={meeting.avatar} loading="lazy" />
                       <Flex direction="column" w="80%" ml="1rem">
                         <Box>{meeting.nickName}</Box>

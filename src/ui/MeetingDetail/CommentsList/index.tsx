@@ -56,7 +56,7 @@ const CommentsList = () => {
                   {data.nickName}
                 </Flex>
               </Flex>
-              <Box lineHeight="1.6rem" fontSize="sm">
+              <Box lineHeight="2.2rem" fontSize="md">
                 {data.contents}
               </Box>
             </Box>

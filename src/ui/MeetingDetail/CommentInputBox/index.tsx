@@ -15,7 +15,9 @@ const CommentInputBox = ({ joinedMember }: CommentInputBoxProps) => {
             <Avatar src="https://bit.ly/dan-abramov" loading="lazy" />
           </Box>
           <Flex align="center" ml="1rem">
-            <Box fontSize="sm">사용자 닉네임</Box>
+            <Box fontSize="sm" fontWeight={600}>
+              사용자 닉네임
+            </Box>
           </Flex>
         </Flex>
         <Box m="1rem 0">
@@ -23,11 +25,11 @@ const CommentInputBox = ({ joinedMember }: CommentInputBoxProps) => {
             bgColor="white.800"
             w="100%"
             h="12rem"
-            fontSize="sm"
+            fontSize="md"
             placeholder={
               !joinedMember
-                ? '모임에 참여해야 글을 작성할 수 있습니다'
-                : '댓글을 작성해 주세요'
+                ? '모임에 참여해야 글을 작성할 수 있습니다.'
+                : '댓글을 작성해 주세요.'
             }
             isDisabled={!joinedMember}
           />
