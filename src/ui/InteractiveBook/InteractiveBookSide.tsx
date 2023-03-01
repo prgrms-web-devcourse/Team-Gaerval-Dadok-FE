@@ -10,7 +10,7 @@ const InteractiveBookSide = ({ bookColor, bookThick }: BookSideTypes) => {
     <Box
       width={`${bookThick}rem`}
       height="100%"
-      transform={`translateX(-${bookThick / 2}rem) rotateY(90deg)`}
+      transform={`rotateY(90deg)`}
       bgColor={bookColor}
     />
   );

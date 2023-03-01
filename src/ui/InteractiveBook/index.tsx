@@ -12,8 +12,8 @@ type BookImageSrcType = {
   src: string;
 };
 
-const BOOK_WIDTH = 8.4;
-const BOOK_HEIGHT = 12;
+const BOOK_WIDTH = 8.5;
+const BOOK_HEIGHT = 11;
 const BOOK_THICK = 2;
 
 const InteractiveBook = ({ src }: BookImageSrcType) => {
@@ -41,20 +41,21 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
 
   return (
     <Flex
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       ref={bookRef}
       onClick={onClickBook}
       onBlur={onBlurBook}
       tabIndex={0}
       cursor="pointer"
-      transition="0.8s ease"
       _focus={{
         '> div': {
-          transform: 'translateX(-3rem) translateY(-2rem)',
+          transform: 'translateX(2rem) rotateY(15deg)',
         },
       }}
       style={{
         transformStyle: 'preserve-3d',
-        margin: '0 0.6rem 0 1rem',
         perspective: '30rem',
       }}
     >
@@ -64,12 +65,13 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
           width: `${BOOK_WIDTH}rem`,
           height: `${BOOK_HEIGHT}rem`,
           transformStyle: 'preserve-3d',
-          transform:
-            'translateX(-1rem) rotateX(-18deg) rotateY(26deg) rotateZ(-4deg)',
+          transform: 'translateX(4.5rem) rotateY(30deg)',
           transition: '0.8s ease',
 
           '> div, img': {
             position: 'absolute',
+            boxSizing: 'border-box',
+            transformOrigin: 'top left',
           },
         }}
       >
@@ -86,3 +88,24 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
 };
 
 export default InteractiveBook;
+
+// const moveLeft = keyframes`
+//   from { left: 0; }
+//   to   { left: -2rem; }
+// `;
+
+// const moveForward = keyframes`
+//   from { top: 0; }
+//   to   { top: 45vh; }
+// `;
+
+// css={{
+//   '&:focus': {
+//     '> div': {
+//       animationName: `${moveLeft}, ${moveForward}`,
+//       animationTimingFunction: 'ease',
+//       animationFillMode: 'forwards',
+//       animation: `${moveLeft} 0.8s ease forwards`,
+//     },
+//   },
+// }}

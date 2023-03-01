@@ -9,7 +9,7 @@ const InteractiveBookTop = ({ bookThick }: BookTopTypes) => {
     <Box
       width="100%"
       height={`${bookThick}rem`}
-      transform={`translateY(-${bookThick / 2}rem) rotateX(90deg)`}
+      transform={`rotateX(-90deg)`}
       bgColor="white.600"
     />
   );
