@@ -25,7 +25,6 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
             height={24}
           />
         </IconButton>
-        {/* <CloseButton onCancel={onClose} alignSelf="flex-end" /> */}
         <Logo />
         <Heading fontSize="lg">로그인이 필요한 서비스예요!</Heading>
         <Text
