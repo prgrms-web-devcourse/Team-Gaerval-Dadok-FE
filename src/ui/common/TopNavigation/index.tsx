@@ -20,9 +20,9 @@ const TopNavigation = ({ pageTitle }: PageTitleType) => {
     >
       <Image
         onClick={() => router.back()}
-        src="/icons/goBackIcon.svg"
-        width={48}
-        height={48}
+        src="/icons/back.svg"
+        width={32}
+        height={32}
         alt="goToRecentPage"
         priority
       />
