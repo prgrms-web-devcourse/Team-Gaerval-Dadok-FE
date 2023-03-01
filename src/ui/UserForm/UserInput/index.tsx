@@ -12,13 +12,12 @@ import {
 import CloseIcon from '@public/icons/close.svg';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { MouseEvent, TouchEvent } from 'react';
-import type { HTMLInputTypeAttribute } from 'react';
+import type { MouseEvent, TouchEvent, HTMLInputTypeAttribute } from 'react';
 
 interface UserInputProps {
   label: string;
   name: string;
-  type: HTMLInputTypeAttribute;
+  type?: HTMLInputTypeAttribute;
 }
 
 const UserInput = ({ label, name, type = 'text' }: UserInputProps) => {
