@@ -9,11 +9,11 @@ type UserTagType = {
 const UsersBookShelfTag = ({ tag }: UserTagType) => {
   return (
     <Box
-      padding="0.2rem 1.4rem"
+      padding="0.12rem 0.8rem"
       color="main"
       fontSize="sm"
       border="solid 0.1rem"
-      borderRadius="1.2rem"
+      borderRadius="1.6rem"
     >
       {tag}
     </Box>

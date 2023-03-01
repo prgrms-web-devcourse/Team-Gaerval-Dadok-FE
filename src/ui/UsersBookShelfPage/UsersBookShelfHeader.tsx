@@ -18,10 +18,10 @@ const UsersBookShelfHeader = () => {
         alt="bookshelfIcon"
         src="/icons/bookshelf.svg"
       />
-      <Text fontSize="lg" fontWeight="700" marginRight="0.8rem">
+      <Text fontSize="lg" fontWeight="700" marginRight="0.4rem">
         {DUMMY_USER.userName}님의 책장
       </Text>
-      <HStack gap="0.2rem">
+      <HStack gap="0.08rem">
         {DUMMY_USER.tags.map((tag, idx) => (
           <UsersBookShelfTag key={idx} tag={tag} />
         ))}
