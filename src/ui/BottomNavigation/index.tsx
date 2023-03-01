@@ -12,12 +12,12 @@ const navigationItems = [
   },
   {
     iconName: 'hashtag',
-    label: '도서 카테고리',
+    label: '도서 검색',
     href: '/book/',
   },
   {
     iconName: 'book',
-    label: '독서모임',
+    label: '독서 모임',
     href: '/meeting/',
   },
   {
@@ -40,6 +40,8 @@ const BottomNavigation = () => {
       bottom={0}
       w="100%"
       maxW="43rem"
+      borderTopRadius={20}
+      boxShadow="rgba(0, 0, 0, 0.05) 0px 0px 10px 1px"
     >
       {navigationItems.map(({ iconName, label, href }) => (
         <NavigationItem
