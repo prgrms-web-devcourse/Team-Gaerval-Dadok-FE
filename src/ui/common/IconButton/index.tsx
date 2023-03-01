@@ -37,6 +37,6 @@ const IconButton = ({
   );
 };
 
-type IconNameType = 'close' | 'back' | 'book';
+type IconNameType = 'close' | 'back' | 'book' | 'search';
 
 export default IconButton;
