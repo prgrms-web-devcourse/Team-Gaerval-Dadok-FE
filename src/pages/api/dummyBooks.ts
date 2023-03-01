@@ -47,3 +47,51 @@ export const DUMMY_BOOKS = [
     title: '리팩터링 2판',
   },
 ];
+
+export const RECOMMENDED_BOOKS = [
+  {
+    id: 292929,
+    imageURL: 'https://image.yes24.com/goods/102347474/XL',
+    title: '아무것도 없는 책책책책책책책책책책책책책책책책책책ㅍ',
+  },
+  {
+    id: 34345,
+    imageURL: 'https://image.yes24.com/Goods/117465944/L',
+    title: '내추럴 와인메이커스',
+  },
+  {
+    id: 292439,
+    imageURL: 'https://image.yes24.com/Goods/117584402/L',
+    title: '차를 담는 시간',
+  },
+  {
+    id: 242439,
+    imageURL: 'https://image.yes24.com/Goods/117459170/L',
+    title: '조선사 스무고개',
+  },
+  {
+    id: 2252439,
+    imageURL: 'https://image.yes24.com/Goods/117292516/L',
+    title: '배니시드',
+  },
+  {
+    id: 345555345,
+    imageURL: 'https://image.yes24.com/Goods/117465944/L',
+    title: '내추럴 와인메이커스',
+  },
+  {
+    id: 29445442439,
+    imageURL: 'https://image.yes24.com/Goods/117584402/L',
+    title: '차를 담는 시간',
+  },
+  {
+    id: 2422222439,
+    imageURL: 'https://image.yes24.com/Goods/117459170/L',
+    title: '조선사 스무고개',
+  },
+  {
+    id: 225444449,
+    imageURL: 'https://image.yes24.com/Goods/117292516/L',
+    title: '배니시드',
+  },
+];
