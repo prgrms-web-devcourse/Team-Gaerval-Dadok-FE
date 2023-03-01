@@ -3,7 +3,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
 import InteractiveBookTop from './InteractiveBookTop';
@@ -20,20 +19,8 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
   const router = useRouter();
   const { data, loading } = usePalette(src, 2, 'hex');
 
-  const [clickedCount, setClickedCount] = useState<number>(0);
-  const bookRef = useRef<HTMLDivElement>(null);
-
   const onClickBook = () => {
-    if (clickedCount > 0) return router.push('/bookdetailpage');
-    bookRef.current?.focus();
-
-    setClickedCount(clickedCount + 1);
-  };
-
-  const onBlurBook = () => {
-    bookRef.current?.blur();
-
-    setClickedCount(0);
+    return router.push('/bookdetailpage');
   };
 
   if (loading) return null;
@@ -43,16 +30,8 @@ const InteractiveBook = ({ src }: BookImageSrcType) => {
     <Flex
       justifyContent="center"
       alignItems="center"
-      ref={bookRef}
       onClick={onClickBook}
-      onBlur={onBlurBook}
-      tabIndex={0}
       cursor="pointer"
-      _focus={{
-        '> div': {
-          transform: 'translateX(2rem) rotateY(15deg)',
-        },
-      }}
       style={{
         transformStyle: 'preserve-3d',
         perspective: '30rem',
