@@ -42,6 +42,7 @@ const BottomNavigation = () => {
       maxW="43rem"
       borderTopRadius={20}
       boxShadow="rgba(0, 0, 0, 0.05) 0px 0px 10px 1px"
+      maxH="9rem"
     >
       {navigationItems.map(({ iconName, label, href }) => (
         <NavigationItem

@@ -3,13 +3,13 @@
 import SearchedBook from './SearchedBook';
 import { useState } from 'react';
 import {
-  Box,
   Input,
   Flex,
   Image,
   Button,
   VStack,
   SimpleGrid,
+  Text,
 } from '@chakra-ui/react';
 
 const SearchingBook = () => {
@@ -79,13 +79,13 @@ const SearchingBook = () => {
 
   return (
     /* bottom Sheet 높이는 maxWidth 지정 후 변경 예정 */
-    <VStack px="2rem" h="50rem">
-      <Flex h="10rem" fontSize="lg" align="center" mt="2rem">
-        <Box as="span" color="main">
+    <VStack px="2rem">
+      <Text fontSize="lg" align="center" mt="2rem">
+        <Text as="span" color="main">
           책
-        </Box>
+        </Text>
         을 선택해 주세요
-      </Flex>
+      </Text>
       <Flex justify="center" as="form" onSubmit={handleSubmit}>
         <Flex mb="3rem">
           <Input
@@ -112,7 +112,7 @@ const SearchingBook = () => {
           </Button>
         </Flex>
       </Flex>
-      <SimpleGrid columns={[2, null, 3]} spacing="2rem" overflowY="scroll">
+      <SimpleGrid columns={2} spacing="2rem">
         {DummyData.map(book => (
           <SearchedBook
             key={book.id}
