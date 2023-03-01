@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
-const MeetingDetail = () => {
+const ViewMeetingDetail = () => {
   const MeetingDetailDummay = {
     start: '2023-03-01',
     end: '2024-02-28',
@@ -81,4 +81,4 @@ const MeetingDetail = () => {
   );
 };
 
-export default MeetingDetail;
+export default ViewMeetingDetail;

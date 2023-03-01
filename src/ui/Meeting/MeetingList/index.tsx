@@ -61,7 +61,6 @@ const MeetingList = () => {
               justify="space-between"
               backgroundColor="white"
               borderRadius="1rem"
-              border="1px solid black"
               p="1.5rem"
             >
               <Box w="65%">

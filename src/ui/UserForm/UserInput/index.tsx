@@ -12,14 +12,15 @@ import {
 import CloseIcon from '@public/icons/close.svg';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { MouseEvent, TouchEvent } from 'react';
+import type { MouseEvent, TouchEvent, HTMLInputTypeAttribute } from 'react';
 
 interface UserInputProps {
   label: string;
   name: string;
+  type?: HTMLInputTypeAttribute;
 }
 
-const UserInput = ({ label, name }: UserInputProps) => {
+const UserInput = ({ label, name, type = 'text' }: UserInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
@@ -71,6 +72,7 @@ const UserInput = ({ label, name }: UserInputProps) => {
         <Input
           focusBorderColor={colors.main}
           py="2rem"
+          type={type}
           {...register(name, rules)}
         />
         {isFocus && getValues(name).length && (
