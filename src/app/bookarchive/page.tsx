@@ -16,8 +16,8 @@ export default function BookArchive() {
       <Flex direction="column" width="100%" gap="3rem">
         <VStack align="flex-start" spacing="1rem">
           <Heading>
-            <Highlight query="포비" styles={{ color: 'main' }}>
-              포비님의 책장
+            <Highlight query="토비" styles={{ color: 'main' }}>
+              토비님의 책장
             </Highlight>
           </Heading>
           <InteractiveBookShelf>
@@ -47,8 +47,8 @@ export default function BookArchive() {
       <Flex direction="column" width="100%" gap="3rem">
         <VStack align="flex-start" spacing="1rem">
           <Heading>
-            <Highlight query="포비" styles={{ color: 'main' }}>
-              포비님의 책장
+            <Highlight query="토비" styles={{ color: 'main' }}>
+              토비님의 책장
             </Highlight>
           </Heading>
           <InteractiveBookShelf>
