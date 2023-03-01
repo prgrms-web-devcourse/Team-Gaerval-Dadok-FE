@@ -7,6 +7,7 @@ const fontSizes = {
   md: '1.6rem',
   lg: '1.8rem',
   xl: '2rem',
+  '2xl': '2.2rem',
 };
 
 const colors = {
@@ -37,9 +38,40 @@ const colors = {
   },
 };
 
+interface SchemeTypings {
+  component: 'button';
+  colorScheme: 'orange' | 'kakao';
+  cssProps: {
+    color: string;
+    backgroundColor: string;
+    border: string;
+  };
+}
+
+const scheme: Record<
+  SchemeTypings['component'],
+  Record<SchemeTypings['colorScheme'], Partial<SchemeTypings['cssProps']>>
+> = {
+  button: {
+    orange: {
+      color: colors.main,
+      border: `${colors.main} 0.1rem solid`,
+    },
+    kakao: {
+      color: colors.kakao.brown,
+      backgroundColor: colors.kakao.yellow,
+    },
+  },
+};
+
 const theme: ThemeOverride = extendTheme({
   fontSizes,
   colors,
+  scheme,
+  fonts: {
+    heading: `'LineSeed', sans-serif`,
+    body: `'LineSeed', sans-serif`,
+  },
   styles: {
     global: {
       'html, body': {
@@ -53,3 +85,5 @@ const theme: ThemeOverride = extendTheme({
 });
 
 export default theme;
+
+export type Scheme = typeof scheme;
