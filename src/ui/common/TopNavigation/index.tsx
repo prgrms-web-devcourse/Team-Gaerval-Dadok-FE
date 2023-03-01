@@ -1,9 +1,12 @@
 'use client';
 
-import { Text, Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const TopNavigation = () => {
+  const router = useRouter();
+
   return (
     <Flex
       width="100%"
@@ -12,7 +15,7 @@ const TopNavigation = () => {
       alignItems="center"
     >
       <Image
-        onClick={() => console.log('goRecent')}
+        onClick={() => router.back()}
         src="/icons/goBackIcon.svg"
         width={48}
         height={48}
