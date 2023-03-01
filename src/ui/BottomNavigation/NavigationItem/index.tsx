@@ -35,7 +35,7 @@ const NavigationItem = ({
         <Box w="2.6rem" h="2.6rem" position="relative">
           <Icon width="100%" height="100%" strokeWidth={0} fill={color} />
         </Box>
-        <Text fontSize="sm" color={color}>
+        <Text fontSize="sm" fontWeight="bold" color={color}>
           {label}
         </Text>
       </Flex>
