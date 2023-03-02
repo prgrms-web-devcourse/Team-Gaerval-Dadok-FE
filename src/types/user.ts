@@ -7,10 +7,10 @@ export interface APIUser {
   gender: true;
   authProvider: true;
   job: {
-    jobGroupKoreanName: string;
-    jobGroupName: string;
-    jobNameKoreanName: string;
-    jobName: string;
-    order: string;
-  } | null;
+    jobGroupKoreanName: string | null;
+    jobGroupName: string | null;
+    jobNameKoreanName: string | null;
+    jobName: string | null;
+    order: string | null;
+  };
 }
