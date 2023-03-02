@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
-interface MeetingDetailDummy {
+interface MeetingInfoDataProps {
   title: string;
   content: string;
   start: string;
@@ -10,17 +10,14 @@ interface MeetingDetailDummy {
   comments: string;
   assession: boolean;
 }
-interface MeetingDetailProps {
-  joinedMember: boolean;
-  MeetingDetailDummy: MeetingDetailDummy;
+interface MeetingInfoProps {
+  isJoinedMember: boolean;
+  meetingInfoData: MeetingInfoDataProps;
 }
 
-const MeetingDetail = ({
-  joinedMember,
-  MeetingDetailDummy,
-}: MeetingDetailProps) => {
+const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
   const { title, content, start, end, book, people, comments, assession } =
-    MeetingDetailDummy;
+    meetingInfoData;
 
   return (
     <>
@@ -53,7 +50,11 @@ const MeetingDetail = ({
             </Box>
             <Box>
               <Box fontSize="1.2rem" fontWeight={500} color="red.800">
-                {joinedMember ? '' : assession ? '참여 가능' : '가입 승인 필요'}
+                {isJoinedMember
+                  ? ''
+                  : assession
+                  ? '참여 가능'
+                  : '가입 승인 필요'}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
@@ -91,4 +92,4 @@ const MeetingDetail = ({
   );
 };
 
-export default MeetingDetail;
+export default MeetingInfo;

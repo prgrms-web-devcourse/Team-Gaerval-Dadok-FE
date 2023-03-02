@@ -1,9 +1,9 @@
 import { Box, Flex, Textarea, Button, Avatar } from '@chakra-ui/react';
 interface CommentInputBoxProps {
-  joinedMember: boolean;
+  isJoinedMember: boolean;
 }
 
-const CommentInputBox = ({ joinedMember }: CommentInputBoxProps) => {
+const CommentInputBox = ({ isJoinedMember }: CommentInputBoxProps) => {
   return (
     <Box mt="1.5rem" h="100%">
       <Box fontSize="lg" fontWeight={700} mb="1rem">
@@ -27,11 +27,11 @@ const CommentInputBox = ({ joinedMember }: CommentInputBoxProps) => {
             h="12rem"
             fontSize="md"
             placeholder={
-              !joinedMember
+              !isJoinedMember
                 ? '모임에 참여해야 글을 작성할 수 있습니다.'
                 : '댓글을 작성해 주세요.'
             }
-            isDisabled={!joinedMember}
+            isDisabled={!isJoinedMember}
           />
         </Box>
         <Flex justify="flex-end">
@@ -43,7 +43,7 @@ const CommentInputBox = ({ joinedMember }: CommentInputBoxProps) => {
             color="main"
             backgroundColor="white.900"
             border="0.1rem solid"
-            isDisabled={!joinedMember}
+            isDisabled={!isJoinedMember}
           >
             작성하기
           </Button>

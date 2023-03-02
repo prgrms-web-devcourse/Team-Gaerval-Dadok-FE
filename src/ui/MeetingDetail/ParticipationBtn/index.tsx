@@ -1,12 +1,12 @@
 import { Box, Button } from '@chakra-ui/react';
 
 interface ParticipationBtnProps {
-  joinedMember: boolean;
+  isJoinedMember: boolean;
   setJoinedMember: (arg0: boolean) => void;
 }
 
 const ParticipationBtn = ({
-  joinedMember,
+  isJoinedMember,
   setJoinedMember,
 }: ParticipationBtnProps) => {
   const handleClick = () => {
@@ -29,14 +29,14 @@ const ParticipationBtn = ({
         border="0.1rem solid"
         backgroundColor="white.900"
         onClick={handleClick}
-        isDisabled={joinedMember}
+        isDisabled={isJoinedMember}
         _disabled={{
           color: 'white',
           background: 'main',
           pointerEvents: 'none',
         }}
       >
-        {joinedMember ? '참여 중' : '모임 참여하기'}
+        {isJoinedMember ? '참여 중' : '모임 참여하기'}
       </Button>
     </Box>
   );
