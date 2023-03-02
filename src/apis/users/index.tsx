@@ -2,6 +2,8 @@ import { APIUser } from '@/types/user';
 import { publicApi } from '../core/axios';
 
 export default {
-  getProfile: ({ id }: { id: APIUser['userId'] | string }) =>
-    publicApi.get<APIUser>(`/api/users/${id}`, { data: null }),
+  getOtherProfile: ({ id }: { id: APIUser['userId'] }) =>
+    publicApi.get<APIUser>(`/api/users/${id}/profile`, { data: null }),
+
+  getMyProfile: () => publicApi.get<APIUser>('/api/users/me', { data: null }),
 } as const;
