@@ -1,9 +1,9 @@
-import api from '@/apis';
+import bookshelfAPI from '@/apis/bookshelf';
 import { useQuery } from '@tanstack/react-query';
 
 const useMySummaryBookshlefQuery = () =>
   useQuery(['summaryBookshlef', 'me'], () =>
-    api.bookshelf.getMySummaryBookshelf().then(response => response.data)
+    bookshelfAPI.getMySummaryBookshelf().then(response => response.data)
   );
 
 export default useMySummaryBookshlefQuery;
