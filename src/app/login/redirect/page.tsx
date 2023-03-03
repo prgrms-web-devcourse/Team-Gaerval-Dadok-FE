@@ -2,9 +2,10 @@
 
 import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
+import { Flex, Spinner } from '@chakra-ui/react';
 
 import localStorage from '@/utils/storage';
-import { Flex, Spinner } from '@chakra-ui/react';
+import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants';
 
 const RedirectPage = ({
   searchParams,
@@ -15,7 +16,7 @@ const RedirectPage = ({
 
   useEffect(() => {
     const isAuthed = !!accessToken;
-    const storage = localStorage('accessToken');
+    const storage = localStorage(ACCESS_TOKEN_STORAGE_KEY);
 
     if (isAuthed) {
       storage.set(accessToken);

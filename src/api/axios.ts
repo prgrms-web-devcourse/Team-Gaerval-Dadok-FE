@@ -1,11 +1,13 @@
-import tokenStorage from '@/utils/storage';
 import axios, { AxiosInstance } from 'axios';
+
+import tokenStorage from '@/utils/storage';
+import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants';
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     config => {
       if (typeof window !== 'undefined') {
-        const token = tokenStorage('accessToken').get();
+        const token = tokenStorage(ACCESS_TOKEN_STORAGE_KEY).get();
         config.headers['Authorization'] = `Bearer ${token}`;
       }
 
