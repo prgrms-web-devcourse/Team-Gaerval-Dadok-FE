@@ -8,7 +8,7 @@ import Logo from '@/ui/common/Logo';
 import Button from '@/ui/common/Button';
 
 const LoginPage = () => {
-  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_CLIENT_REDIRECT_URI}`;
+  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
   return (
     <Flex

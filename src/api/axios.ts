@@ -1,11 +1,7 @@
 import tokenStorage from '@/utils/storage';
 import axios, { AxiosInstance } from 'axios';
 
-type RequestType = 'JSON' | 'FILE';
-const setInterceptor = (
-  instance: AxiosInstance,
-  type: RequestType = 'JSON'
-) => {
+const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     config => {
       if (typeof window !== 'undefined') {
@@ -13,9 +9,8 @@ const setInterceptor = (
         config.headers['Authorization'] = `Bearer ${token}`;
       }
 
-      if (type === 'JSON') {
+      if (config.method === 'GET') {
         config.data = {};
-        config.headers['Content-Type'] = 'application/json';
       }
 
       return config;
