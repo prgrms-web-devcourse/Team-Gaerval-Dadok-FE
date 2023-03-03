@@ -1,3 +1,5 @@
+import { APIJob } from './job';
+
 export interface APIUser {
   userId: number;
   name: string | null;
@@ -6,11 +8,5 @@ export interface APIUser {
   profileImage: string;
   gender: true;
   authProvider: true;
-  job: {
-    jobGroupKoreanName: string | null;
-    jobGroupName: string | null;
-    jobNameKoreanName: string | null;
-    jobName: string | null;
-    order: string | null;
-  };
+  job: APIJob;
 }
