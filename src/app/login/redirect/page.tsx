@@ -1,13 +1,12 @@
 'use client';
 
-import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 
 import localStorage from '@/utils/storage';
 import { Flex, Spinner } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
-const RedirectPage: NextPage = ({
+const RedirectPage = ({
   searchParams,
 }: {
   searchParams?: { [key: string]: string };
