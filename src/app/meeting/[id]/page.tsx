@@ -1,7 +1,17 @@
-import MeetingDetailPageContainer from '@/ui/MeetingDetail';
+'use client';
 
-const MeetingDetailPage = () => {
-  return <MeetingDetailPageContainer />;
+import { Flex } from '@chakra-ui/react';
+
+import MeetingDetail from '@/ui/MeetingDetail';
+import IconButton from '@/ui/common/IconButton';
+
+const MeetingDetailPage = ({ params: { id } }: { params: { id: string } }) => {
+  return (
+    <Flex px="5%" direction="column" justify="center" mt="1rem">
+      <IconButton name="back" />
+      <MeetingDetail meetingId={id} />
+    </Flex>
+  );
 };
 
 export default MeetingDetailPage;

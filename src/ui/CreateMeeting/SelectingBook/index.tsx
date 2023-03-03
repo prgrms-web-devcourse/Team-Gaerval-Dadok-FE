@@ -1,5 +1,6 @@
 import { Flex, useDisclosure } from '@chakra-ui/react';
-import BottomSheet from '../../common/BottomSheet';
+
+import BottomSheet from '@/ui/common/BottomSheet';
 import SearchingBook from './SearchingBook';
 
 const SelectingBook = () => {

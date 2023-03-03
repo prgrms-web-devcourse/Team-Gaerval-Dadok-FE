@@ -1,8 +1,7 @@
-'use client';
-
-import UserInput from '@/ui/FormInput';
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
+
+import UserInput from '@/ui/FormInput';
 
 const CreateMeetingForm = () => {
   const methods = useForm({
