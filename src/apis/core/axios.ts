@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, CreateAxiosDefaults } from 'axios';
 
 import tokenStorage from '@/utils/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants';
@@ -11,7 +11,7 @@ const setInterceptor = (instance: AxiosInstance) => {
         config.headers['Authorization'] = `Bearer ${token}`;
       }
 
-      if (config.method === 'GET') {
+      if (config.method === 'get') {
         config.data = {};
       }
 
@@ -33,7 +33,7 @@ const setInterceptor = (instance: AxiosInstance) => {
   return instance;
 };
 
-const options = {
+const options: CreateAxiosDefaults = {
   headers: {
     Accept: '*/*',
     'Content-Type': 'application/json',
