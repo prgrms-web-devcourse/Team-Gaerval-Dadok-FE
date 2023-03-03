@@ -9,7 +9,7 @@ interface MeetingInfoProps {
   nickName: string;
   people: number;
   comments: number;
-  bookImage: string;
+  bookImageURL: string;
 }
 interface MeetingListProps {
   meetingInfo: MeetingInfoProps[];
@@ -20,15 +20,24 @@ const MeetingList = ({ meetingInfo }: MeetingListProps) => {
     <List>
       <Box>
         {meetingInfo.map(meeting => {
-          const { title, content, id, avatar, nickName, people, comments } =
-            meeting;
+          const {
+            title,
+            content,
+            id,
+            avatar,
+            nickName,
+            people,
+            comments,
+            bookImageURL,
+          } = meeting;
           return (
             <Box key={id}>
               <Link href={`/meeting/${id}`}>
                 <Flex
                   m="0.8rem 0"
                   w="100%"
-                  h="22rem"
+                  h="24rem"
+                  direction="column"
                   justify="space-between"
                   backgroundColor="white"
                   borderRadius="1rem"
@@ -36,70 +45,95 @@ const MeetingList = ({ meetingInfo }: MeetingListProps) => {
                   _hover={{ bgColor: 'white.800' }}
                   boxShadow="default"
                 >
-                  <Box w="65%">
-                    <Box h="70%">
+                  <Flex
+                    justify="center"
+                    align="center"
+                    w="100%"
+                    h="20%"
+                    fontSize="lg"
+                    overflow="hidden"
+                    fontWeight={600}
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
+                    _hover={{ textDecor: 'underLine' }}
+                  >
+                    {title}
+                  </Flex>
+                  <Flex h="80%" w="100%">
+                    <Flex direction="column" w="70%">
                       <Text
+                        h="62%"
                         w="100%"
-                        h="30%"
-                        fontSize="lg"
-                        overflow="hidden"
-                        fontWeight={600}
-                        whiteSpace="nowrap"
-                        textOverflow="ellipsis"
-                        _hover={{ textDecor: 'underLine' }}
-                      >
-                        {title}
-                      </Text>
-                      <Text
-                        h="75%"
+                        mt="1rem"
                         fontSize="md"
-                        lineHeight="1.5"
+                        lineHeight="1.6"
                         overflow="hidden"
                         _hover={{ textDecor: 'underLine' }}
+                        color="black.700"
                       >
                         {content}
                       </Text>
-                    </Box>
-                    <Flex pt="2rem">
-                      <Avatar src={avatar} loading="lazy" />
-                      <Flex direction="column" w="80%" ml="1rem">
-                        <Box>{nickName}</Box>
-                        <Flex>
-                          <Flex w="4rem" align="center">
+
+                      <Box w="100%">
+                        <Flex direction="column" mt="2rem">
+                          <Flex w="100%">
+                            <Flex align="center">
+                              <Avatar src={avatar} loading="lazy" />
+                            </Flex>
                             <Box>
-                              <Image
-                                src="/icons/peopleIcon.svg"
-                                alt="peopleIcon"
-                              />
-                            </Box>
-                            <Box w="3rem" ml="0.5rem">
-                              {people}
-                            </Box>
-                          </Flex>
-                          <Flex w="4rem" align="center" ml="0.5rem">
-                            <Box>
-                              <Image
-                                src="/icons/commentIcon.svg"
-                                alt="bookCover"
-                              />
-                            </Box>
-                            <Box w="3rem" ml="0.5rem">
-                              {comments}
+                              <Flex
+                                w="100%"
+                                ml="1rem"
+                                align="center"
+                                fontSize="sm"
+                              >
+                                {nickName}
+                              </Flex>
+                              <Flex ml="1rem">
+                                <Flex w="6rem" align="center">
+                                  <Box>
+                                    <Image
+                                      src="/icons/peopleIcon.svg"
+                                      alt="peopleIcon"
+                                    />
+                                  </Box>
+                                  <Box w="4rem" ml="0.5rem" fontSize="1.2rem">
+                                    {people}
+                                  </Box>
+                                </Flex>
+                                <Flex w="6rem" align="center" ml="0.5rem">
+                                  <Box>
+                                    <Image
+                                      src="/icons/commentIcon.svg"
+                                      alt="bookCover"
+                                    />
+                                  </Box>
+                                  <Box w="4rem" ml="0.5rem" fontSize="1.2rem">
+                                    {comments}
+                                  </Box>
+                                </Flex>
+                              </Flex>
                             </Box>
                           </Flex>
                         </Flex>
-                      </Flex>
+                      </Box>
                     </Flex>
-                  </Box>
-                  <Flex w="35%" justify="center" align="center" pl="1rem">
-                    <Image
-                      src="http://image.yes24.com/goods/101865885/XL"
-                      alt="bookCover"
-                      w="10rem"
-                      objectFit="cover"
-                      boxShadow="default"
-                      borderRadius="0.5rem"
-                    />
+                    <Flex
+                      w="30%"
+                      justify="center"
+                      align="start"
+                      pl="1rem"
+                      pt="1.5rem"
+                    >
+                      <Image
+                        src={bookImageURL}
+                        alt="bookCover"
+                        w="10rem"
+                        objectFit="cover"
+                        boxShadow="default"
+                        borderRadius="0.5rem"
+                      />
+                    </Flex>
                   </Flex>
                 </Flex>
               </Link>

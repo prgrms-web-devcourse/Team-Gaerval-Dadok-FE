@@ -8,6 +8,7 @@ import {
   VStack,
   SimpleGrid,
   Text,
+  Box,
 } from '@chakra-ui/react';
 
 import SearchedBook from './SearchedBook';
@@ -80,11 +81,13 @@ const SearchingBook = () => {
     /* bottom Sheet 높이는 maxWidth 지정 후 변경 예정 */
     <VStack px="2rem" h="90vh">
       <Flex h="10rem" fontSize="lg" align="center" mt="2rem">
-        <Box as="span" color="main">
-          책
+        <Text>
+          <Box as="span" color="main">
+            책
+          </Box>
+          을 선택해 주세요
         </Text>
-        을 선택해 주세요
-      </Text>
+      </Flex>
       <Flex justify="center" as="form" onSubmit={handleSubmit}>
         <Flex mb="3rem">
           <Input
