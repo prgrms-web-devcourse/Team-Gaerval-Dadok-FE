@@ -1,6 +1,28 @@
+import tokenStorage from '@/utils/storage';
 import axios, { AxiosInstance } from 'axios';
 
-const setInterceptor = (instance: AxiosInstance) => {
+type RequestType = 'JSON' | 'FILE';
+const setInterceptor = (
+  instance: AxiosInstance,
+  type: RequestType = 'JSON'
+) => {
+  instance.interceptors.request.use(
+    config => {
+      if (typeof window !== 'undefined') {
+        const token = tokenStorage('accessToken').get();
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      if (type === 'JSON') {
+        config.data = {};
+        config.headers['Content-Type'] = 'application/json';
+      }
+
+      return config;
+    },
+    err => Promise.reject(err)
+  );
+
   instance.interceptors.response.use(
     response => response,
     error => {
@@ -28,7 +50,3 @@ export const publicApi = setInterceptor(
     ...options,
   })
 );
-
-export const setToken = (token: string | undefined) => {
-  publicApi.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-};

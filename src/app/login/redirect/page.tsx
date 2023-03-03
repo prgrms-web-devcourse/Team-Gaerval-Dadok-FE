@@ -1,8 +1,11 @@
 'use client';
 
-import { setToken } from '@/api/axios';
-import { NextPage } from 'next';
+import type { NextPage } from 'next';
 import { redirect } from 'next/navigation';
+
+import localStorage from '@/utils/storage';
+import { Flex, Spinner } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 const RedirectPage: NextPage = ({
   searchParams,
@@ -11,12 +14,21 @@ const RedirectPage: NextPage = ({
 }) => {
   const accessToken = searchParams && searchParams['access_token'];
 
-  if (accessToken) {
-    setToken(accessToken);
-    redirect('/');
-  }
+  useEffect(() => {
+    const isAuthed = !!accessToken;
+    const storage = localStorage('accessToken');
 
-  return <>redirect!</>;
+    if (isAuthed) {
+      storage.set(accessToken);
+      redirect('/');
+    }
+  }, [accessToken]);
+
+  return (
+    <Flex align="center" justify="center" height="95vh">
+      <Spinner />
+    </Flex>
+  );
 };
 
 export default RedirectPage;

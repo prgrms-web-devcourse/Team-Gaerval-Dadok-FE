@@ -8,6 +8,8 @@ import Logo from '@/ui/common/Logo';
 import Button from '@/ui/common/Button';
 
 const LoginPage = () => {
+  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_CLIENT_REDIRECT_URI}`;
+
   return (
     <Flex
       height="100vh"
@@ -32,7 +34,7 @@ const LoginPage = () => {
           </Highlight>
         </Heading>
       </VStack>
-      <Link href={'/'} style={{ width: '100%' }}>
+      <Link href={kakaoUrl} style={{ width: '100%' }}>
         <Button scheme="kakao" fullWidth>
           <Image
             src="/images/kakao.svg"
