@@ -1,9 +1,9 @@
-import api from '@/apis';
 import { useQuery } from '@tanstack/react-query';
+import userAPI from '@/apis/users';
 
 const useMyProfileQuery = () =>
   useQuery(['user', 'me'], () =>
-    api.users.getMyProfile().then(({ data }) => data)
+    userAPI.getMyProfile().then(({ data }) => data)
   );
 
 export default useMyProfileQuery;
