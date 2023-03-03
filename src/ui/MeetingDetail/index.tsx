@@ -66,7 +66,7 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
   }, [members, DUMMY_USER_ID, isJoinedMember]);
 
   return (
-    <Flex px="5%" direction="column" justify="center" mt="1rem">
+    <Flex px="5%" direction="column" justify="center" mt="1rem" mb="9rem">
       <MeetingInfo
         isJoinedMember={isJoinedMember}
         meetingInfoData={DUMMY_MEETING_DETAIL_INFO_DATA}

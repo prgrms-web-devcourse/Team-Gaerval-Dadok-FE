@@ -52,7 +52,7 @@ const MeetingPageContainer = () => {
     },
   ];
   return (
-    <Flex mt="2rem" direction="column" px="5%">
+    <Flex mt="2rem" direction="column" px="5%" mb="9rem">
       <MeetingListHeader />
       <MeetingList meetingInfo={DUMMY_DATA} />
     </Flex>

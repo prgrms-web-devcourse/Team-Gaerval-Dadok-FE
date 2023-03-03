@@ -38,7 +38,7 @@ const CommentInputBox = ({ isJoinedMember }: CommentInputBoxProps) => {
           <Button
             fontSize="sm"
             fontWeight="500"
-            w="20%"
+            w="30%"
             borderRadius="2rem"
             color="main"
             backgroundColor="white.900"

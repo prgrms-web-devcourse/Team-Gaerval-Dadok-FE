@@ -19,7 +19,7 @@ const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
   const { title, content, start, end, book, people, comments, assession } =
     meetingInfoData;
 
-  const messgae = assession ? '참여 가능' : '가입 승인 필요';
+  const message = assession ? '참여 가능' : '가입 승인 필요';
 
   return (
     <>
@@ -52,7 +52,7 @@ const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
             </Box>
             <Box>
               <Box fontSize="1.2rem" fontWeight={500} color="red.800">
-                {isJoinedMember ? '' : messgae}
+                {isJoinedMember ? '' : message}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
