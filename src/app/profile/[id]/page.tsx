@@ -3,7 +3,7 @@
 import { Flex, Box, Text, Avatar } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import useOtherProfileQuery from '@/queries/user/useOtherProfileQuery';
+import useUserProfileQuery from '@/queries/user/useUserProfileQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import { APIUser } from '@/types/user';
 import { ReactNode } from 'react';
@@ -15,7 +15,7 @@ interface ProfilePageProps {
 const ProfilePage = ({ params }: ProfilePageProps) => {
   const { id } = params;
 
-  return id === 'me' ? <MyProfile /> : <OtherProfile id={id} />;
+  return id === 'me' ? <MyProfile /> : <UserProfile id={id} />;
 };
 
 const MyProfile = () => {
@@ -45,8 +45,8 @@ const MyProfile = () => {
   return null;
 };
 
-const OtherProfile = ({ id }: { id: APIUser['userId'] }) => {
-  const userProfileQuery = useOtherProfileQuery({ id });
+const UserProfile = ({ id }: { id: APIUser['userId'] }) => {
+  const userProfileQuery = useUserProfileQuery({ id });
 
   if (userProfileQuery.isSuccess) {
     return <Template user={userProfileQuery.data} />;
