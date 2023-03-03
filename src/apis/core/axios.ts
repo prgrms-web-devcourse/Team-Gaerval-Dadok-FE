@@ -11,7 +11,7 @@ const setInterceptor = (instance: AxiosInstance) => {
         config.headers['Authorization'] = `Bearer ${token}`;
       }
 
-      if (config.method === 'GET') {
+      if (config.method === 'get') {
         config.data = {};
       }
 
