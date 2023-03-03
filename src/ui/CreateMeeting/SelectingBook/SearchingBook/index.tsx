@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import { useState } from 'react';
 import {
-  Box,
   Input,
   Flex,
   Image,
   Button,
   VStack,
   SimpleGrid,
+  Text,
 } from '@chakra-ui/react';
 
 import SearchedBook from './SearchedBook';
@@ -82,9 +82,9 @@ const SearchingBook = () => {
       <Flex h="10rem" fontSize="lg" align="center" mt="2rem">
         <Box as="span" color="main">
           책
-        </Box>
+        </Text>
         을 선택해 주세요
-      </Flex>
+      </Text>
       <Flex justify="center" as="form" onSubmit={handleSubmit}>
         <Flex mb="3rem">
           <Input
@@ -111,7 +111,7 @@ const SearchingBook = () => {
           </Button>
         </Flex>
       </Flex>
-      <SimpleGrid columns={[2, null, 3]} spacing="2rem" overflowY="scroll">
+      <SimpleGrid columns={2} spacing="2rem">
         {DummyData.map(book => (
           <SearchedBook
             key={book.id}
