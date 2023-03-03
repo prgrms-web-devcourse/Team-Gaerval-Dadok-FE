@@ -1,12 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Flex, Heading, Highlight, VStack } from '@chakra-ui/react';
 
 import Logo from '@/ui/common/Logo';
 import Button from '@/ui/common/Button';
 
 const LoginPage = () => {
+  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+
   return (
     <Flex
       height="100vh"
@@ -31,16 +34,18 @@ const LoginPage = () => {
           </Highlight>
         </Heading>
       </VStack>
-      <Button scheme="kakao" fullWidth>
-        <Image
-          src="/images/kakao.svg"
-          alt="카카오 로고"
-          width={21}
-          height={19}
-          priority
-        />
-        카카오 로그인
-      </Button>
+      <Link href={kakaoUrl} style={{ width: '100%' }}>
+        <Button scheme="kakao" fullWidth>
+          <Image
+            src="/images/kakao.svg"
+            alt="카카오 로고"
+            width={21}
+            height={19}
+            priority
+          />
+          카카오 로그인
+        </Button>
+      </Link>
     </Flex>
   );
 };
