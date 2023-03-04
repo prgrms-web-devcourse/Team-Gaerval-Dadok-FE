@@ -1,3 +1,5 @@
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -17,6 +19,14 @@ const nextConfig = {
         source: '/',
         destination: '/bookarchive/',
         permanent: false,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:url*',
+        destination: `${baseURL}/api/:url*`,
       },
     ];
   },
