@@ -43,7 +43,6 @@ const options: CreateAxiosDefaults = {
 
 export const publicApi = setInterceptor(
   axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
     ...options,
   })
 );
