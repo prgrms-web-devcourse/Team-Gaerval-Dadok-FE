@@ -1,8 +1,9 @@
 'use client';
 import { Flex } from '@chakra-ui/react';
 
-import MeetingList from './MeetingList';
 import MeetingListHeader from './MeetingListHeader';
+import MeetingSearch from './MeetingSearch';
+import MeetingList from './MeetingList';
 
 const MeetingPageContainer = () => {
   const DUMMY_DATA = [
@@ -54,6 +55,7 @@ const MeetingPageContainer = () => {
   return (
     <Flex mt="2rem" direction="column" px="5%" mb="9rem">
       <MeetingListHeader />
+      <MeetingSearch />
       <MeetingList meetingInfo={DUMMY_DATA} />
     </Flex>
   );
