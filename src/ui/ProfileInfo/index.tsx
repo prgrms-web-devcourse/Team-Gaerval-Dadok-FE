@@ -1,4 +1,4 @@
-import { APISummaryBookshelf } from '@/types/bookshelf';
+import { APIProfileBookshelf } from '@/types/bookshelf';
 import { APIUser } from '@/types/user';
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ const ProfileInfo = ({
   children,
 }: {
   user: APIUser;
-  summaryBookshelf: APISummaryBookshelf;
+  summaryBookshelf: APIProfileBookshelf;
   children?: ReactNode;
 }) => {
   const { nickname, profileImage, email, job } = user;

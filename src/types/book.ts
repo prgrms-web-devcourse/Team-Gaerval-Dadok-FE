@@ -1,16 +1,22 @@
-export interface APISummaryBook {
+export interface APIDefaultBook {
   bookId: number;
   title: string;
   imageUrl: string;
 }
 
-export type APIBook = {
-  bookId: number;
-  title: string;
+export interface APISubBook {
   author: string;
   isbn: string;
-  contents: string;
-  imageUrl: string;
   url: string;
   publisher: string;
-};
+}
+
+export interface APIRecommendedBook extends APIDefaultBook, APISubBook {
+  jobGroup: string;
+  jobName: string;
+  count: number;
+}
+
+export interface APIBook extends APIDefaultBook, APISubBook {
+  contents: string;
+}
