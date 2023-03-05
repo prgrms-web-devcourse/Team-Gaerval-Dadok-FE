@@ -14,13 +14,13 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import type { MouseEvent, TouchEvent, HTMLInputTypeAttribute } from 'react';
 
-interface UserInputProps {
+interface FormInputProps {
   label: string;
   name: string;
   type?: HTMLInputTypeAttribute;
 }
 
-const FormInput = ({ label, name, type = 'text' }: UserInputProps) => {
+const FormInput = ({ label, name, type = 'text' }: FormInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
@@ -83,7 +83,12 @@ const FormInput = ({ label, name, type = 'text' }: UserInputProps) => {
               onTouchEnd={onClearButtonClick}
               tabIndex={-1}
             >
-              <CloseIcon width="1.5rem" fill={colors.black['800']} />
+              <CloseIcon
+                fill={colors.black['800']}
+                width="16"
+                height="16"
+                viewBox="0,0,24,24"
+              />
             </button>
           </InputRightElement>
         )}
