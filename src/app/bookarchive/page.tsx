@@ -1,12 +1,11 @@
 'use client';
 
-import { Flex, Heading, VStack, Highlight } from '@chakra-ui/react';
+import { Flex, Heading, Highlight, VStack } from '@chakra-ui/react';
 
+import { DUMMY_BOOKS } from '@/pages/api/dummyBooks';
+import BookList from '@/ui/BookList';
 import IconButton from '@/ui/common/IconButton';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
-import InteractiveBook from '@/ui/InteractiveBook';
-import BookList from '@/ui/BookList';
-import { DUMMY_BOOKS } from '@/pages/api/dummyBooks';
 
 export default function BookArchive() {
   return (
@@ -20,12 +19,7 @@ export default function BookArchive() {
               토비님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
-              return <InteractiveBook key={book.id} src={book.src} />;
-            })}
-          </InteractiveBookShelf>
+          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
         </VStack>
         <VStack align="flex-start" spacing="1rem">
           <Heading>
@@ -33,12 +27,7 @@ export default function BookArchive() {
               웅모님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
-              return <InteractiveBook key={book.id} src={book.src} />;
-            })}
-          </InteractiveBookShelf>
+          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
         </VStack>
       </Flex>
 
@@ -51,12 +40,7 @@ export default function BookArchive() {
               토비님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
-              return <InteractiveBook key={book.id} src={book.src} />;
-            })}
-          </InteractiveBookShelf>
+          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
         </VStack>
         <VStack align="flex-start" spacing="1rem">
           <Heading>
@@ -64,12 +48,7 @@ export default function BookArchive() {
               웅모님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf>
-            {DUMMY_BOOKS.map((book, idx) => {
-              if (idx >= 4) return;
-              return <InteractiveBook key={book.id} src={book.src} />;
-            })}
-          </InteractiveBookShelf>
+          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
         </VStack>
       </Flex>
     </VStack>

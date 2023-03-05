@@ -1,7 +1,8 @@
 'use client';
 
 import { USERS_BOOKSHELF_BOOKLIST } from '@/pages/api/dummyBooks';
-import { APIBook, APIBookshelfBookList } from '@/types/book';
+import { APISummaryBook } from '@/types/book';
+import { APIBookshelfBookList } from '@/types/bookshelf';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import { VStack } from '@chakra-ui/react';
@@ -13,7 +14,9 @@ export default function MyBookShelf() {
   // TODO: 이후 bookshelfBookList로 response값 받기.
   const [bookshelfBookList, setBookshelfBookList] =
     useState<APIBookshelfBookList>(USERS_BOOKSHELF_BOOKLIST);
-  const [slicedBookLists, setSlicedBookLists] = useState<APIBook[][]>([[]]);
+  const [slicedBookLists, setSlicedBookLists] = useState<APISummaryBook[][]>([
+    [],
+  ]);
 
   const sliceBookList = (bookshelfBookList: APIBookshelfBookList) => {
     const slicedList = [];
