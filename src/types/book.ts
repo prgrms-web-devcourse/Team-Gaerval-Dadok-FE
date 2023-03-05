@@ -14,11 +14,3 @@ export type APIBook = {
   url: string;
   publisher: string;
 };
-
-export type APIBookshelfBookList = {
-  count: number;
-  books: APIBook[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-};
