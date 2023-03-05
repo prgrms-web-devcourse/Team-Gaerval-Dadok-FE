@@ -9,27 +9,30 @@ interface MeetingInfoDataProps {
   people: string;
   comments: string;
   assession: boolean;
+  isPartInUser: boolean;
 }
 interface MeetingInfoProps {
-  isJoinedMember: boolean;
   meetingInfoData: MeetingInfoDataProps;
-  setIsJoinedMember: (arg0: boolean) => void;
 }
 
-const MeetingInfo = ({
-  isJoinedMember,
-  meetingInfoData,
-  setIsJoinedMember,
-}: MeetingInfoProps) => {
-  const { title, content, start, end, book, people, comments, assession } =
-    meetingInfoData;
+const MeetingInfo = ({ meetingInfoData }: MeetingInfoProps) => {
+  const {
+    title,
+    content,
+    start,
+    end,
+    book,
+    people,
+    comments,
+    assession,
+    isPartInUser,
+  } = meetingInfoData;
 
   const handleClick = () => {
     /*모임 참여 버튼 클릭시, 
       1) 모임 참여 관련 API 호출 예정
       2) 유저의 책장에 책 꽂기 API 호출 예정
       setJoinedMember 함수는 테스트용으로 연결해 놓았습니다.*/
-    setIsJoinedMember(true);
   };
 
   const message = assession ? '참여 가능' : '가입 승인 필요';
@@ -65,7 +68,7 @@ const MeetingInfo = ({
             </Box>
             <Box>
               <Box fontSize="1.2rem" fontWeight={500} color="red.800">
-                {isJoinedMember ? '' : message}
+                {isPartInUser ? '' : message}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
@@ -106,18 +109,19 @@ const MeetingInfo = ({
           fontSize="sm"
           fontWeight="500"
           borderRadius="2rem"
-          color="main"
+          color="white.900"
           border="0.1rem solid"
-          backgroundColor="white.900"
+          backgroundColor="main"
           onClick={handleClick}
-          isDisabled={isJoinedMember}
+          isDisabled={isPartInUser}
           _disabled={{
-            color: 'white',
-            background: 'main',
+            border: 'none',
+            color: 'main',
+            background: 'white',
             pointerEvents: 'none',
           }}
         >
-          {isJoinedMember ? '참여 중' : '모임 참여하기'}
+          {isPartInUser ? '참여 중' : '모임 참여하기'}
         </Button>
       </Box>
     </>
