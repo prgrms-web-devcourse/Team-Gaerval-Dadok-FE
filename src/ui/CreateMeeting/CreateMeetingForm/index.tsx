@@ -1,7 +1,7 @@
 import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import UserInput from '@/ui/FormInput';
+import FormInput from '@/ui/FormInput';
 
 const CreateMeetingForm = () => {
   const methods = useForm({
@@ -50,11 +50,11 @@ const CreateMeetingForm = () => {
         onSubmit={methods.handleSubmit(handleInputSubmit)}
       >
         <Flex direction="column" gap="2rem" align="center">
-          <UserInput label="모임제목" name="meetingTitle" />
-          <UserInput label="모임설명" name="meetingExplanation" />
-          <UserInput label="모임인원" name="meetingPersonnelNumber" />
-          <UserInput label="모임 시작일" name="meetingStartDate" type="date" />
-          <UserInput label="모임 종료일" name="meetingEndDate" type="date" />
+          <FormInput label="모임제목" name="meetingTitle" />
+          <FormInput label="모임설명" name="meetingExplanation" />
+          <FormInput label="모임인원" name="meetingPersonnelNumber" />
+          <FormInput label="모임 시작일" name="meetingStartDate" type="date" />
+          <FormInput label="모임 종료일" name="meetingEndDate" type="date" />
         </Flex>
         <Box
           as="button"

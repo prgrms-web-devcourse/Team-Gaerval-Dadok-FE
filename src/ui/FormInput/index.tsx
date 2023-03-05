@@ -20,7 +20,7 @@ interface UserInputProps {
   type?: HTMLInputTypeAttribute;
 }
 
-const UserInput = ({ label, name, type = 'text' }: UserInputProps) => {
+const FormInput = ({ label, name, type = 'text' }: UserInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
@@ -95,4 +95,4 @@ const UserInput = ({ label, name, type = 'text' }: UserInputProps) => {
   );
 };
 
-export default UserInput;
+export default FormInput;
