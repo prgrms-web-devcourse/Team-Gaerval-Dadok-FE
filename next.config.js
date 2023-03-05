@@ -22,14 +22,14 @@ const nextConfig = {
       },
     ];
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/api/:url*',
-  //       destination: `${baseURL}/api/:url*`,
-  //     },
-  //   ];
-  // },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:url*',
+        destination: `${baseURL}/api/:url*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
