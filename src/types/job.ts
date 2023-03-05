@@ -1,7 +1,7 @@
 export interface APIJob {
-  jobGroupKoreanName: string | null;
-  jobGroupName: string | null;
+  jobGroupKoreanName: string;
+  jobGroupName: string;
   jobNameKoreanName: string | null;
-  jobName: string | null;
-  order: string | null;
+  jobName: string;
+  order: string;
 }
