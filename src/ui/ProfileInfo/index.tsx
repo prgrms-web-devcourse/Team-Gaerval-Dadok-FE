@@ -15,15 +15,15 @@ const ProfileInfo = ({
   summaryBookshelf: APISummaryBookshelf;
   children?: ReactNode;
 }) => {
-  const { nickname, profileImage, email, job } = user;
+  const { nickname, oauthNickname, profileImage, email, job } = user;
   const { jobGroupKoreanName, jobNameKoreanName } = job;
   const { bookshelfName, books } = summaryBookshelf;
   return (
     <Flex direction="column" justify="center" gap="2rem" pt="4rem" px="2rem">
       <Flex width="100%" gap="1.5rem">
-        <Avatar src={profileImage} name={nickname} w="8rem" h="8rem" />
+        <Avatar src={profileImage} w="8rem" h="8rem" />
         <Flex direction="column" justify="center">
-          <Text fontSize="xl">{nickname}</Text>
+          <Text fontSize="xl">{nickname || oauthNickname}</Text>
           <Text fontSize="sm">{email}</Text>
         </Flex>
       </Flex>
