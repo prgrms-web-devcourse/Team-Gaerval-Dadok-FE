@@ -1,4 +1,6 @@
-import { Avatar, Box, Button, Flex } from '@chakra-ui/react';
+import { Avatar, Box, Flex } from '@chakra-ui/react';
+
+import CommentEdit from '../CommentEdit';
 
 interface CommentsListDataProps {
   id: number;
@@ -35,22 +37,17 @@ const CommentsList = ({ commentsListData }: CommentsListPorps) => {
                   </Flex>
                 </Flex>
                 <Flex align="center" pt="0.4rem">
-                  <Button
-                    bgColor="white"
-                    fontSize="sm"
-                    fontWeight={500}
-                    color="main"
-                  >
-                    수정
-                  </Button>
-                  <Button
-                    bgColor="white"
-                    fontSize="sm"
-                    fontWeight={500}
-                    color="red.900"
-                  >
-                    삭제
-                  </Button>
+                  <CommentEdit
+                    title="글 수정하기"
+                    name="수정"
+                    fontColor="main"
+                    content={comment.contents}
+                  />
+                  <CommentEdit
+                    title="글 삭제하기"
+                    name="삭제"
+                    fontColor="red.900"
+                  />
                 </Flex>
               </Flex>
               <Box lineHeight="2.2rem" fontSize="md">
