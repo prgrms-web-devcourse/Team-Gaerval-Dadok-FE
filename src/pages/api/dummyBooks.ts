@@ -1,3 +1,4 @@
+import { APIBook } from '@/types/book';
 import {
   imgChatgptBook,
   imgFunctionalBook,
@@ -119,47 +120,67 @@ export const USERS_BOOKSHELF_BOOKLIST = {
   last: true,
 };
 
-export const DUMMY_BOOKS = [
+export const DUMMY_BOOKS: APIBook[] = [
   {
-    id: '0',
-    src: imgChatgptBook.src,
+    bookId: 0,
     title: '챗지피티',
+    author: '기시미 이치로, 고가 후미타케',
+    contents: '뭘봐',
+    isbn: '9788996991342',
+    imageUrl: imgChatgptBook.src,
+    url: 'https://search.daum.net/search?w=bookpage&bookId=1467038&q=%EB%AF%B8%EC%9B%80%EB%B0%9B%EC%9D%84+%EC%9A%A9%EA%B8%B0',
+    publisher: '인플루엔셜',
   },
   {
-    id: '1',
-    src: imgFunctionalBook.src,
+    bookId: 1,
     title: '함수형 코딩',
+    author: '기시미 이치로, 고가 후미타케',
+    contents: '뭘봐',
+    isbn: '9788996991342',
+    imageUrl: imgFunctionalBook.src,
+    url: 'https://search.daum.net/search?w=bookpage&bookId=1467038&q=%EB%AF%B8%EC%9B%80%EB%B0%9B%EC%9D%84+%EC%9A%A9%EA%B8%B0',
+    publisher: '인플루엔셜',
   },
   {
-    id: '2',
-    src: imgJsDeepDiveBook.src,
+    bookId: 2,
     title: '자바스크립트 딥다이브',
+    author: '기시미 이치로, 고가 후미타케',
+    contents: '뭘봐',
+    isbn: '9788996991342',
+    imageUrl: imgJsDeepDiveBook.src,
+    url: 'https://search.daum.net/search?w=bookpage&bookId=1467038&q=%EB%AF%B8%EC%9B%80%EB%B0%9B%EC%9D%84+%EC%9A%A9%EA%B8%B0',
+    publisher: '인플루엔셜',
   },
   {
-    id: '3',
-    src: imgRefactoringBook.src,
+    bookId: 3,
     title: '리팩터링 2판',
+    author: '기시미 이치로, 고가 후미타케',
+    contents: '뭘봐',
+    isbn: '9788996991342',
+    imageUrl: imgRefactoringBook.src,
+    url: 'https://search.daum.net/search?w=bookpage&bookId=1467038&q=%EB%AF%B8%EC%9B%80%EB%B0%9B%EC%9D%84+%EC%9A%A9%EA%B8%B0',
+    publisher: '인플루엔셜',
   },
-  {
-    id: '4',
-    src: imgChatgptBook.src,
-    title: '챗지피티',
-  },
-  {
-    id: '5',
-    src: imgFunctionalBook.src,
-    title: '함수형 코딩',
-  },
-  {
-    id: '6',
-    src: imgJsDeepDiveBook.src,
-    title: '자바스크립트 딥다이브',
-  },
-  {
-    id: '7',
-    src: imgRefactoringBook.src,
-    title: '리팩터링 2판',
-  },
+  // {
+  //   id: '4',
+  //   src: imgChatgptBook.src,
+  //   title: '챗지피티',
+  // },
+  // {
+  //   id: '5',
+  //   src: imgFunctionalBook.src,
+  //   title: '함수형 코딩',
+  // },
+  // {
+  //   id: '6',
+  //   src: imgJsDeepDiveBook.src,
+  //   title: '자바스크립트 딥다이브',
+  // },
+  // {
+  //   id: '7',
+  //   src: imgRefactoringBook.src,
+  //   title: '리팩터링 2판',
+  // },
 ];
 
 export const RECOMMENDED_BOOKS = [
