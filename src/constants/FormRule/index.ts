@@ -13,6 +13,10 @@ const FORM_RULES: {
       value: 10,
       message: '닉네임을 10자 이하로 입력해주세요.',
     },
+    pattern: {
+      value: /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{2,10}$/,
+      message: '한글, 영문, 숫자만 입력 가능해요.',
+    },
   },
   email: {
     required: '이메일을 입력해주세요',
