@@ -1,13 +1,22 @@
 'use client';
 
+import { APIDefaultBook } from '@/types/book';
+import InteractiveBook from '@/ui//InteractiveBook';
 import { Flex, useTheme } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-type ChildrenType = {
-  children: React.ReactNode;
+type BookListTypes = {
+  bookList: APIDefaultBook[];
 };
 
-const InteractiveBookShelf = ({ children }: ChildrenType) => {
+const InteractiveBookShelf = ({ bookList }: BookListTypes) => {
   const theme = useTheme();
+
+  const [books, setBooks] = useState<APIDefaultBook[]>(bookList);
+
+  useEffect(() => {
+    setBooks(bookList);
+  }, [bookList]);
 
   return (
     <Flex
@@ -21,7 +30,9 @@ const InteractiveBookShelf = ({ children }: ChildrenType) => {
       gap="24%"
       justifyContent="flex-start"
     >
-      {children}
+      {books.map(book => (
+        <InteractiveBook key={book.bookId} imageUrl={book.imageUrl} />
+      ))}
     </Flex>
   );
 };

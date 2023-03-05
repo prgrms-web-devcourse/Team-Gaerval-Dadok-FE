@@ -1,9 +1,8 @@
-import { APISummaryBookshelf } from '@/types/bookshelf';
+import { APIProfileBookshelf } from '@/types/bookshelf';
 import { APIUser } from '@/types/user';
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import InteractiveBook from '../InteractiveBook';
 import InteractiveBookShelf from '../InteractiveBookShelf';
 
 const ProfileInfo = ({
@@ -12,7 +11,7 @@ const ProfileInfo = ({
   children,
 }: {
   user: APIUser;
-  summaryBookshelf: APISummaryBookshelf;
+  summaryBookshelf: APIProfileBookshelf;
   children?: ReactNode;
 }) => {
   const { nickname, profileImage, email, job } = user;
@@ -42,11 +41,7 @@ const ProfileInfo = ({
         {books.length === 0 ? (
           <Text fontSize="md">책장이 비어있습니다.</Text>
         ) : (
-          <InteractiveBookShelf>
-            {books.map(({ bookId, imageUrl }) => (
-              <InteractiveBook key={bookId} src={imageUrl} />
-            ))}
-          </InteractiveBookShelf>
+          <InteractiveBookShelf bookList={books} />
         )}
       </Box>
       {children}
