@@ -12,6 +12,10 @@ const InteractiveBookSide = ({ bookColor, bookThick }: BookSideTypes) => {
       height="100%"
       transform={`rotateY(90deg)`}
       bgColor={bookColor}
+      // CORS 대안
+      // backgroundImage={src}
+      // backgroundSize="100000%"
+      // backgroundPosition="top left"
     />
   );
 };

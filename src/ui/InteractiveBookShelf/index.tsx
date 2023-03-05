@@ -1,13 +1,22 @@
 'use client';
 
+import { APIBook } from '@/types/book';
+import InteractiveBook from '@/ui//InteractiveBook';
 import { Flex, useTheme } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-type ChildrenType = {
-  children: React.ReactNode;
+type BookListTypes = {
+  bookList: APIBook[];
 };
 
-const InteractiveBookShelf = ({ children }: ChildrenType) => {
+const InteractiveBookShelf = ({ bookList }: BookListTypes) => {
   const theme = useTheme();
+
+  const [books, setBooks] = useState<APIBook[]>(bookList);
+
+  useEffect(() => {
+    setBooks(bookList);
+  }, [bookList]);
 
   return (
     <Flex
@@ -21,7 +30,11 @@ const InteractiveBookShelf = ({ children }: ChildrenType) => {
       gap="24%"
       justifyContent="flex-start"
     >
-      {children}
+      {books.map((book: APIBook, idx: number) => (
+        // TODO: 이후에 key값 bookID로 바꿀 것
+        // <InteractiveBook key={book.bookId} src={book.imageUrl} />
+        <InteractiveBook key={idx} src={book.imageUrl} />
+      ))}
     </Flex>
   );
 };
