@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import {
   Modal,
@@ -12,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 import CommentDelete from './CommentDelete';
-import CommentFix from './CommentFix';
+import CommentFix from './CommentModify';
 
 interface CommentEditProps {
   title: string;
@@ -22,7 +23,10 @@ interface CommentEditProps {
 }
 
 const CommentEdit = ({ name, fontColor, title, content }: CommentEditProps) => {
+  const [modifyValue, setModifyValue] = useState(`${content}`);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log(modifyValue);
 
   return (
     <>
@@ -52,7 +56,10 @@ const CommentEdit = ({ name, fontColor, title, content }: CommentEditProps) => {
             {name === '삭제' ? (
               <CommentDelete />
             ) : (
-              <CommentFix content={content} />
+              <CommentFix
+                modifyValue={modifyValue}
+                setModifyValue={setModifyValue}
+              />
             )}
           </ModalBody>
 
