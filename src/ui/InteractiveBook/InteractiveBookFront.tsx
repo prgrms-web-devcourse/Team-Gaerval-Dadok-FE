@@ -1,10 +1,8 @@
+import { APIBook } from '@/types/book';
 import { Image } from '@chakra-ui/react';
-interface BookFrontTypes {
-  src: string;
-}
 
-const InteractiveBookFront = ({ src }: BookFrontTypes) => {
-  return <Image width="100%" height="100%" src={src} alt="" shadow="lg" />;
+const InteractiveBookFront = ({ imageUrl }: Pick<APIBook, 'imageUrl'>) => {
+  return <Image width="100%" height="100%" src={imageUrl} alt="" shadow="lg" />;
 };
 
 export default InteractiveBookFront;

@@ -31,7 +31,7 @@ const InteractiveBookShelf = ({ bookList }: BookListTypes) => {
       justifyContent="flex-start"
     >
       {books.map(book => (
-        <InteractiveBook key={book.bookId} src={book.imageUrl} />
+        <InteractiveBook key={book.bookId} imageUrl={book.imageUrl} />
       ))}
     </Flex>
   );
