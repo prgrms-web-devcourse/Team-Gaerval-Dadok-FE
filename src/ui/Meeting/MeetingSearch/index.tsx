@@ -8,12 +8,12 @@ import {
   InputGroup,
 } from '@chakra-ui/react';
 
-interface setSearchValueProps {
+interface SearchValue {
   input: string;
   select: string;
 }
 interface MeetingSearchProps {
-  searchValue: setSearchValueProps;
+  searchValue: SearchValue;
   handleChange: (name: string, value: string) => void;
   handleSumbit: () => void;
 }
