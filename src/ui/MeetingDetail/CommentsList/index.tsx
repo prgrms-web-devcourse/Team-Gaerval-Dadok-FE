@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex } from '@chakra-ui/react';
 
 interface CommentsListDataProps {
   id: number;
@@ -27,12 +27,30 @@ const CommentsList = ({ commentsListData }: CommentsListPorps) => {
               borderRadius="1.5rem"
               boxShadow="default"
             >
-              <Flex mb="0.5rem">
-                <Box>
+              <Flex mb="0.5rem" justify="space-between">
+                <Flex>
                   <Avatar src={comment.avatarURL} loading="lazy" />
-                </Box>
-                <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
-                  {comment.nickName}
+                  <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
+                    {comment.nickName}
+                  </Flex>
+                </Flex>
+                <Flex align="center" pt="0.4rem">
+                  <Button
+                    bgColor="white"
+                    fontSize="sm"
+                    fontWeight={500}
+                    color="main"
+                  >
+                    수정
+                  </Button>
+                  <Button
+                    bgColor="white"
+                    fontSize="sm"
+                    fontWeight={500}
+                    color="red.900"
+                  >
+                    삭제
+                  </Button>
                 </Flex>
               </Flex>
               <Box lineHeight="2.2rem" fontSize="md">
