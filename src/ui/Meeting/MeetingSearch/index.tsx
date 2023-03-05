@@ -1,64 +1,80 @@
-import { useState } from 'react';
-import { Input, Select, Button, Image, Flex } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import {
+  Input,
+  Select,
+  Flex,
+  InputRightElement,
+  IconButton,
+  InputGroup,
+} from '@chakra-ui/react';
 
 interface setSearchValueProps {
   input: string;
   select: string;
 }
 interface MeetingSearchProps {
-  setSearchValue: (arg0: setSearchValueProps) => void;
+  searchValue: setSearchValueProps;
+  handleChange: (name: string, value: string) => void;
+  handleSumbit: () => void;
 }
 
-const MeetingSearch = ({ setSearchValue }: MeetingSearchProps) => {
-  const [inputValue, setInputValue] = useState('');
-  const [selectValue, setSelectValue] = useState('모임');
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue(event.target.value);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+const MeetingSearch = ({
+  searchValue,
+  handleChange,
+  handleSumbit,
+}: MeetingSearchProps) => {
+  const { input, select } = searchValue;
 
   const handleSubmit = (event: React.FormEvent<HTMLDivElement>) => {
     event && event.preventDefault();
-    setSearchValue({
-      input: inputValue,
-      select: selectValue,
-    });
+    handleSumbit();
   };
 
   return (
-    <Flex as="form" m="1rem 0" boxShadow="default" onSubmit={handleSubmit}>
+    <Flex
+      as="form"
+      m="1rem 0"
+      onSubmit={handleSubmit}
+      borderRadius="1rem"
+      boxShadow="default"
+    >
       <Select
         w="14rem"
         h="3.5rem"
         borderRightRadius="none"
+        borderLeftRadius="1rem"
         borderRight="none"
         variant="filled"
-        onChange={handleSelectChange}
+        onChange={event => handleChange('select', event.target.value)}
+        value={select}
       >
         <option value="모임">모임</option>
         <option value="책 제목">책 제목</option>
       </Select>
-      <Input
-        borderRadius="none"
-        h="3.5rem"
-        background="white"
-        border="none"
-        placeholder="검색어를 입력해 주세요."
-        onChange={handleInputChange}
-      />
-      <Button
-        type="submit"
-        h="3.5rem"
-        background="white"
-        border="none"
-        borderLeftRadius="none"
-      >
-        <Image src="/icons/search.svg" alt="검색버튼" />
-      </Button>
+      <InputGroup>
+        <Input
+          borderRightRadius="1rem"
+          borderLeftRadius="none"
+          h="3.5rem"
+          background="white"
+          border="none"
+          placeholder="검색어를 입력해 주세요."
+          onChange={event => handleChange('input', event.target.value)}
+          value={input}
+        />
+        <InputRightElement>
+          <IconButton
+            m="1rem 0.6rem 0 0"
+            bgColor="white"
+            borderRightRadius="1rem"
+            h="3.5rem"
+            aria-label="Search database"
+            icon={<SearchIcon />}
+            type="submit"
+            size="lg"
+          />
+        </InputRightElement>
+      </InputGroup>
     </Flex>
   );
 };

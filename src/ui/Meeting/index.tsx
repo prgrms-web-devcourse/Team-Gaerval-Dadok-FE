@@ -64,23 +64,48 @@ interface props {
   bookImageURL: string;
 }
 
+interface SearchValue {
+  [key: string]: string;
+  input: string;
+  select: string;
+}
+
 const MeetingPageContainer = () => {
   const [MeetingListData, setMeetingListData] = useState<props[]>([]);
-  const [searchValue, setSearchValue] = useState({
+  const [searchValue, setSearchValue] = useState<SearchValue>({
     input: '',
-    select: '',
+    select: '모임',
   });
+
+  const handleSumbit = () => {
+    console.log(searchValue);
+    const { input } = searchValue;
+    if (input.trim().length === 0) {
+      /*공백만 입력한 경우 전체 데이터 렌더링 */
+    } else {
+      /*검색 API호출 및 setMeetingListData 업데이트 */
+    }
+  };
+
+  const handleChange = (name: string, value: string) => {
+    if (!(name in searchValue)) return;
+    const tempSearchValue = { ...searchValue };
+    tempSearchValue[name] = value;
+    setSearchValue(tempSearchValue);
+  };
 
   useEffect(() => {
     setMeetingListData(DUMMY_DATA);
-    /* 검색시 API 호출 예정*/
-    console.log(searchValue);
-  }, [searchValue]);
+  }, []);
 
   return (
     <Flex mt="2rem" direction="column" px="5%" mb="9rem">
       <MeetingListHeader />
-      <MeetingSearch setSearchValue={setSearchValue} />
+      <MeetingSearch
+        searchValue={searchValue}
+        handleChange={handleChange}
+        handleSumbit={handleSumbit}
+      />
       <MeetingList meetingInfo={MeetingListData} />
     </Flex>
   );
