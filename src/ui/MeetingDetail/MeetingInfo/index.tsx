@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Button } from '@chakra-ui/react';
 
 interface MeetingInfoDataProps {
   title: string;
@@ -13,11 +13,24 @@ interface MeetingInfoDataProps {
 interface MeetingInfoProps {
   isJoinedMember: boolean;
   meetingInfoData: MeetingInfoDataProps;
+  setIsJoinedMember: (arg0: boolean) => void;
 }
 
-const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
+const MeetingInfo = ({
+  isJoinedMember,
+  meetingInfoData,
+  setIsJoinedMember,
+}: MeetingInfoProps) => {
   const { title, content, start, end, book, people, comments, assession } =
     meetingInfoData;
+
+  const handleClick = () => {
+    /*모임 참여 버튼 클릭시, 
+      1) 모임 참여 관련 API 호출 예정
+      2) 유저의 책장에 책 꽂기 API 호출 예정
+      setJoinedMember 함수는 테스트용으로 연결해 놓았습니다.*/
+    setIsJoinedMember(true);
+  };
 
   const message = assession ? '참여 가능' : '가입 승인 필요';
 
@@ -86,6 +99,27 @@ const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
           />
         </Flex>
       </Flex>
+      <Box mt="1.5rem">
+        <Button
+          w="100%"
+          h="3.5rem"
+          fontSize="sm"
+          fontWeight="500"
+          borderRadius="2rem"
+          color="main"
+          border="0.1rem solid"
+          backgroundColor="white.900"
+          onClick={handleClick}
+          isDisabled={isJoinedMember}
+          _disabled={{
+            color: 'white',
+            background: 'main',
+            pointerEvents: 'none',
+          }}
+        >
+          {isJoinedMember ? '참여 중' : '모임 참여하기'}
+        </Button>
+      </Box>
     </>
   );
 };

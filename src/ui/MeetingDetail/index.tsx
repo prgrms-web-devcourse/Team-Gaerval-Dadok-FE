@@ -5,7 +5,6 @@ import { Flex } from '@chakra-ui/react';
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
 import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
-import ParticipationBtn from '@/ui/MeetingDetail/ParticipationBtn';
 
 interface MeetingDetailProps {
   meetingId: string;
@@ -25,36 +24,7 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
     assession: true,
     members: ['a', 'b', 'c', 'd'],
   };
-  const DUMMY_COMMENTS_LIST_DATA = [
-    {
-      id: 1,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '김규란',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 2,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '김재현',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 3,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '백민종',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 4,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '동해물과',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-  ];
+
   const { members } =
     DUMMY_MEETING_DETAIL_INFO_DATA; /* 테스트용 더미 데이터 입니다 */
   console.log(meetingId); /*추후 API 연동하여 모임 상세 정보를 받아올 예정 */
@@ -70,13 +40,10 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
       <MeetingInfo
         isJoinedMember={isJoinedMember}
         meetingInfoData={DUMMY_MEETING_DETAIL_INFO_DATA}
-      />
-      <ParticipationBtn
-        isJoinedMember={isJoinedMember}
-        setJoinedMember={setIsJoinedMember}
+        setIsJoinedMember={setIsJoinedMember}
       />
       <CommentInputBox isJoinedMember={isJoinedMember} />
-      <CommentsList commentsListData={DUMMY_COMMENTS_LIST_DATA} />
+      <CommentsList />
     </Flex>
   );
 };
