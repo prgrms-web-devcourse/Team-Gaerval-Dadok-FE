@@ -1,3 +1,9 @@
+export interface APISummaryBook {
+  bookId: number;
+  title: string;
+  imageUrl: string;
+}
+
 export type APIBook = {
   bookId: number;
   title: string;

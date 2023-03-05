@@ -1,68 +1,42 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Avatar, Box, Flex } from '@chakra-ui/react';
 
-const CommentsList = () => {
-  const dummyData = [
-    {
-      id: 1,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '김규란',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 2,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '김재현',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 3,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '백민종',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-    {
-      id: 4,
-      avatarURL: 'https://bit.ly/dan-abramov',
-      nickName: '동해물과',
-      contents:
-        '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
-    },
-  ];
+interface CommentsListDataProps {
+  id: number;
+  avatarURL: string;
+  nickName: string;
+  contents: string;
+}
+interface CommentsListPorps {
+  commentsListData: CommentsListDataProps[];
+}
 
+const CommentsList = ({ commentsListData }: CommentsListPorps) => {
   return (
     <Box mt="1.5rem">
-      <Box fontSize="1.8rem" fontWeight={700}>
+      <Box fontSize="lg" fontWeight={700}>
         댓글
       </Box>
       <Box>
-        {dummyData.map(data => {
+        {commentsListData.map(comment => {
           return (
-            <Box key={data.id}>
-              <Box mt="1rem" p="1rem" bgColor="white" borderRadius="1.5rem">
-                <Flex mb="0.5rem">
-                  <Box>
-                    <Image
-                      src={data.avatarURL}
-                      alt="avatar"
-                      borderRadius="full"
-                      boxSize="3rem"
-                    />
-                  </Box>
-                  <Flex
-                    align="center"
-                    fontSize="1.4rem"
-                    ml="1rem"
-                    fontWeight={500}
-                  >
-                    {data.nickName}
-                  </Flex>
-                </Flex>
-                <Box lineHeight="1.6rem" fontSize="1.4rem">
-                  {data.contents}
+            <Box
+              key={comment.id}
+              mt="1rem"
+              p="1rem"
+              bgColor="white"
+              borderRadius="1.5rem"
+              boxShadow="default"
+            >
+              <Flex mb="0.5rem">
+                <Box>
+                  <Avatar src={comment.avatarURL} loading="lazy" />
                 </Box>
+                <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
+                  {comment.nickName}
+                </Flex>
+              </Flex>
+              <Box lineHeight="2.2rem" fontSize="md">
+                {comment.contents}
               </Box>
             </Box>
           );

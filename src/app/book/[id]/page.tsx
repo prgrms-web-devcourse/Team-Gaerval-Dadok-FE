@@ -1,13 +1,14 @@
 'use client';
 
-import Goback from '@/ui/GoBack';
 import { Avatar, AvatarGroup, Box, Flex, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
+
+import IconButton from '@/ui/common/IconButton';
 
 const BookDetailPage = () => {
   return (
     <Box w="100%">
-      <Goback />
+      <IconButton name="back" />
       <VStack
         bgColor="white"
         ml="2rem"

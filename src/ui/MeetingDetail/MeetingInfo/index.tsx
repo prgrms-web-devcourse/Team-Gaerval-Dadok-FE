@@ -1,50 +1,58 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 
-const ViewMeetingDetail = () => {
-  const MeetingDetailDummay = {
-    start: '2023-03-01',
-    end: '2024-02-28',
-    bookTitle: '리팩터링 2판 리팩터링 2판 리팩터링 2판 리팩터링 2판',
-    people: '1234',
-    comments: '2334',
-    assession: true,
-  };
+interface MeetingInfoDataProps {
+  title: string;
+  content: string;
+  start: string;
+  end: string;
+  book: string;
+  people: string;
+  comments: string;
+  assession: boolean;
+}
+interface MeetingInfoProps {
+  isJoinedMember: boolean;
+  meetingInfoData: MeetingInfoDataProps;
+}
+
+const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
+  const { title, content, start, end, book, people, comments, assession } =
+    meetingInfoData;
+
+  const message = assession ? '참여 가능' : '가입 승인 필요';
 
   return (
     <>
       <Flex direction="column" align="center">
-        <Text fontSize="2rem" fontWeight={700}>
-          모임 이름입니다.
+        <Text fontSize="xl" fontWeight={700}>
+          {title}
         </Text>
-        <Text fontSize="1.4rem" mt="0.5rem">
-          모임 설명을 시작하겠습니다. 우리는 이러한 책을 읽고 이러한 내용을
-          작성할 예정입니다.
+        <Text fontSize="md" m="1rem 0">
+          {content}
         </Text>
       </Flex>
       <Flex mt="1.5rem" justify="space-between" h="13rem">
-        <Box w="68%" bgColor="white" borderRadius="1rem">
+        <Box w="68%" bgColor="white" borderRadius="1rem" boxShadow="default">
           <Flex p="1rem" h="100%" direction="column" justify="space-between">
             <Box h="60%">
               <Box fontSize="1.2rem">
-                {MeetingDetailDummay.start} ~ {MeetingDetailDummay.end}
+                {start} ~ {end}
               </Box>
-              <Flex h="70%" align="center">
+              <Flex h="70%">
                 <Text
-                  fontSize="1.8rem"
-                  fontWeight={500}
+                  fontSize="md"
                   overflow="hidden"
                   textOverflow="ellipsis"
                   whiteSpace="nowrap"
+                  fontWeight={600}
                 >
-                  {MeetingDetailDummay.bookTitle}
+                  책: {book}
                 </Text>
               </Flex>
             </Box>
             <Box>
-              <Box fontSize="1.2rem" fontWeight={500}>
-                {MeetingDetailDummay.assession
-                  ? '바로 가입 가능합니다'
-                  : '가입 승인이 필요합니다'}
+              <Box fontSize="1.2rem" fontWeight={500} color="red.800">
+                {isJoinedMember ? '' : message}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
@@ -52,7 +60,7 @@ const ViewMeetingDetail = () => {
                     <Image src="/icons/peopleIcon.svg" alt="peopleIcon" />
                   </Box>
                   <Box fontSize="1rem" w="3rem" ml="0.5rem">
-                    {MeetingDetailDummay.people}
+                    {people}
                   </Box>
                 </Flex>
                 <Flex align="center" w="4rem" ml="0.5rem">
@@ -60,7 +68,7 @@ const ViewMeetingDetail = () => {
                     <Image src="/icons/commentIcon.svg" alt="commentIcon" />
                   </Box>
                   <Text fontSize="1rem" w="3rem" ml="0.5rem">
-                    {MeetingDetailDummay.comments}
+                    {comments}
                   </Text>
                 </Flex>
               </Flex>
@@ -74,6 +82,7 @@ const ViewMeetingDetail = () => {
             w="10rem"
             objectFit="cover"
             borderRadius="1rem"
+            boxShadow="default"
           />
         </Flex>
       </Flex>
@@ -81,4 +90,4 @@ const ViewMeetingDetail = () => {
   );
 };
 
-export default ViewMeetingDetail;
+export default MeetingInfo;
