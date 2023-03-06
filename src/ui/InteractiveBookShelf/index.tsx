@@ -1,18 +1,13 @@
 'use client';
 
 import { APIDefaultBook } from '@/types/book';
-import { APIBookshelfBookList } from '@/types/bookshelf';
 import InteractiveBook from '@/ui//InteractiveBook';
 import { Flex, useTheme } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 
 const BOOKSHELF_BOOK_LIMIT = 4;
 
-const InteractiveBookShelf = ({
-  books,
-}: {
-  books: APIBookshelfBookList['books'] | APIDefaultBook[];
-}) => {
+const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
   const theme = useTheme();
 
   const [slicedBooks, setSlicedBooks] = useState<APIDefaultBook[][]>([[]]);
