@@ -2,6 +2,7 @@ import {
   APIProfileBookshelf,
   APIBookshelfBookList,
   APIDefaultBookshelf,
+  APIBookshelfInfo,
 } from '@/types/bookshelf';
 import { APIUser } from '@/types/user';
 import { publicApi } from '../core/axios';
@@ -14,16 +15,16 @@ const bookshelfAPI = {
     publicApi.get<APIProfileBookshelf>('/api/bookshelves/me'),
 
   getBookshelfInfo: ({ userId }: { userId: APIUser['userId'] }) =>
-    publicApi.get<APIProfileBookshelf>(`/api/bookshelves?userId=${userId}`),
+    publicApi.get<APIBookshelfInfo>(`/api/bookshelves?userId=${userId}`),
 
   // 초기에 16개의 책 리스트 가져옴
   getBookshelfBookList: ({
-    bookshelvesId,
+    bookshelfId,
   }: {
-    bookshelvesId: APIDefaultBookshelf['bookshelfId'];
+    bookshelfId: APIDefaultBookshelf['bookshelfId'];
   }) =>
     publicApi.get<APIBookshelfBookList>(
-      `/api/bookshelves/${bookshelvesId}/books?type=READ&pageSize=16&bookCursorId=3&sortDirection=DESC`
+      `/api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookCursorId=3&sortDirection=DESC`
     ),
 };
 

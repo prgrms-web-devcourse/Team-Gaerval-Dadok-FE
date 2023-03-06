@@ -3,13 +3,13 @@ import { APIDefaultBookshelf } from '@/types/bookshelf';
 import { useQuery } from '@tanstack/react-query';
 
 const useBookshelfBookListQuery = ({
-  bookshelvesId,
+  bookshelfId,
 }: {
-  bookshelvesId: APIDefaultBookshelf['bookshelfId'];
+  bookshelfId: APIDefaultBookshelf['bookshelfId'];
 }) =>
-  useQuery(['defaultBookshelf', bookshelvesId], () =>
+  useQuery(['defaultBookshelf', bookshelfId], () =>
     bookshelfAPI
-      .getBookshelfBookList({ bookshelvesId })
+      .getBookshelfBookList({ bookshelfId })
       .then(response => response.data)
   );
 
