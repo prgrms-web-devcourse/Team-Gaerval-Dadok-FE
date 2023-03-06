@@ -19,7 +19,7 @@ export default function BookArchive() {
               토비님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
+          <InteractiveBookShelf books={DUMMY_BOOKS.books} />
         </VStack>
         <VStack align="flex-start" spacing="1rem">
           <Heading>
@@ -27,7 +27,7 @@ export default function BookArchive() {
               웅모님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
+          <InteractiveBookShelf books={DUMMY_BOOKS.books} />
         </VStack>
       </Flex>
 
@@ -40,7 +40,7 @@ export default function BookArchive() {
               토비님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
+          <InteractiveBookShelf books={DUMMY_BOOKS.books} />
         </VStack>
         <VStack align="flex-start" spacing="1rem">
           <Heading>
@@ -48,7 +48,7 @@ export default function BookArchive() {
               웅모님의 책장
             </Highlight>
           </Heading>
-          <InteractiveBookShelf bookList={DUMMY_BOOKS} />
+          <InteractiveBookShelf books={DUMMY_BOOKS.books} />
         </VStack>
       </Flex>
     </VStack>

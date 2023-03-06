@@ -41,7 +41,7 @@ const ProfileInfo = ({
         {books.length === 0 ? (
           <Text fontSize="md">책장이 비어있습니다.</Text>
         ) : (
-          <InteractiveBookShelf bookList={books} />
+          <InteractiveBookShelf books={books} />
         )}
       </Box>
       {children}
