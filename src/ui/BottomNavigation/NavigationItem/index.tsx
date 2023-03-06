@@ -1,13 +1,14 @@
 import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import type { SVGProps } from 'react';
+import type { MouseEvent, SVGProps } from 'react';
 
 interface NavigationItemPorps {
   iconName: string;
   label: string;
   href: string;
   isActive: boolean;
+  onClick?: (event: MouseEvent) => void;
 }
 
 const NavigationItem = ({
@@ -15,6 +16,7 @@ const NavigationItem = ({
   label,
   href,
   isActive,
+  onClick,
 }: NavigationItemPorps) => {
   const theme = useTheme();
   const color = isActive ? theme.colors.main : theme.colors.black['900'];
@@ -24,7 +26,7 @@ const NavigationItem = ({
   );
 
   return (
-    <Link href={href}>
+    <Link onClick={onClick} href={href}>
       <Flex
         direction="column"
         justify="center"
