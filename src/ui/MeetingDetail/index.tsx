@@ -114,6 +114,23 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
       3) commentsListData update*/
   };
 
+  const handleModifyCommentBtnClick = (modifiedComment: string) => {
+    console.log('댓글이 수정되었습니다.');
+    console.log(modifiedComment);
+    /*댓글 수정하기 버튼 클릭시,
+      1) 댓글 수정 API 호출
+      2) 댓글 리스트 API 호출
+      3) commentsListData update*/
+  };
+
+  const handleDeleteCommentBtnClick = () => {
+    console.log('댓글이 삭제되었습니다.');
+    /*댓글 삭제하기 버튼 클릭시,
+      1) 댓글 삭제 API 호출
+      2) 댓글 리스트 API 호출
+      3) commentsListData update*/
+  };
+
   useEffect(() => {
     console.log(
       meetingId
@@ -132,7 +149,11 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
         isPartInUser={meetingInfoData.isPartInUser}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
-      <CommentsList commentsListData={commentsListData} />
+      <CommentsList
+        commentsListData={commentsListData}
+        handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
+        handleModifyCommentBtnClick={handleModifyCommentBtnClick}
+      />
     </Flex>
   );
 };

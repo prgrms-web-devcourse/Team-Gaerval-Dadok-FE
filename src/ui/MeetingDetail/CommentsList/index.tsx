@@ -1,8 +1,7 @@
 import { Avatar, Box, Flex } from '@chakra-ui/react';
-import CommentDelete from '../CommentModal/CommentDelete';
 
-// import CommentEdit from '../CommentModal';
-import CommentModify from '../CommentModal/CommentModify';
+import CommentDeleteModal from '../CommentDeleteModal';
+import CommentModifyModal from '../CommentModifyModal';
 
 interface CommentsListDataProps {
   id: number;
@@ -13,9 +12,15 @@ interface CommentsListDataProps {
 }
 interface commentsListProps {
   commentsListData: CommentsListDataProps[];
+  handleDeleteCommentBtnClick: () => void;
+  handleModifyCommentBtnClick: (modifiedComment: string) => void;
 }
 
-const CommentsList = ({ commentsListData }: commentsListProps) => {
+const CommentsList = ({
+  commentsListData,
+  handleDeleteCommentBtnClick,
+  handleModifyCommentBtnClick,
+}: commentsListProps) => {
   return (
     <Box mt="1.5rem">
       <Box fontSize="lg" fontWeight={700}>
@@ -42,8 +47,17 @@ const CommentsList = ({ commentsListData }: commentsListProps) => {
                 <Flex align="center" pt="0.4rem">
                   {comment.isWrittenUser ? (
                     <>
-                      <CommentModify comment={comment.contents} />
-                      <CommentDelete />
+                      <CommentModifyModal
+                        comment={comment.contents}
+                        handleModifyCommentBtnClick={
+                          handleModifyCommentBtnClick
+                        }
+                      />
+                      <CommentDeleteModal
+                        handleDeleteCommentBtnClick={
+                          handleDeleteCommentBtnClick
+                        }
+                      />
                     </>
                   ) : (
                     ''

@@ -33,7 +33,6 @@ const MeetingInfo = ({
   } = meetingInfoData;
 
   const message = assession ? '참여 가능' : '가입 승인 필요';
-  console.log(isPartInUser, '아니 왜 안돼...');
 
   return (
     <>
