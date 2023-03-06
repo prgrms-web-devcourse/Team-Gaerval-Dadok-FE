@@ -1,5 +1,6 @@
 import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 import { APIJobGroup } from '@/types/job';
+import { APIUser } from '@/types/user';
 import { Box, useTheme, VStack } from '@chakra-ui/react';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -8,10 +9,14 @@ import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
 
 interface AdditionalProfileFormProps {
+  nickname: APIUser['nickname'];
   jobGroups: APIJobGroup[];
 }
 
-const AdditionalProfileForm = ({ jobGroups }: AdditionalProfileFormProps) => {
+const AdditionalProfileForm = ({
+  jobGroups,
+  nickname,
+}: AdditionalProfileFormProps) => {
   const theme = useTheme();
   const myProfileMutation = useMyProfileMutation();
   const router = useRouter();
@@ -40,7 +45,7 @@ const AdditionalProfileForm = ({ jobGroups }: AdditionalProfileFormProps) => {
   const methods = useForm({
     mode: 'all',
     defaultValues: {
-      nickname: '',
+      nickname: nickname || '',
       jobGroup: '',
       job: '',
     },
