@@ -2,6 +2,7 @@ import { Box, Flex, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import FormInput from '@/ui/FormInput';
+import FormTextarea from '@/ui/FormTextarea';
 
 const CreateMeetingForm = () => {
   const methods = useForm({
@@ -9,7 +10,6 @@ const CreateMeetingForm = () => {
     defaultValues: {
       meetingTitle: '',
       meetingExplanation: '',
-      meetingPersonnelNumber: '',
       meetingStartDate: '',
       meetingEndDate: '',
     },
@@ -20,7 +20,6 @@ const CreateMeetingForm = () => {
   const handleInputSubmit: Parameters<typeof methods.handleSubmit>[0] = async ({
     meetingTitle,
     meetingExplanation,
-    meetingPersonnelNumber,
     meetingStartDate,
     meetingEndDate,
   }) => {
@@ -36,7 +35,6 @@ const CreateMeetingForm = () => {
 
     console.log(meetingTitle);
     console.log(meetingExplanation);
-    console.log(meetingPersonnelNumber);
     console.log(meetingStartDate);
     console.log(meetingEndDate);
   };
@@ -50,9 +48,8 @@ const CreateMeetingForm = () => {
         onSubmit={methods.handleSubmit(handleInputSubmit)}
       >
         <Flex direction="column" gap="2rem" align="center">
-          <FormInput label="모임제목" name="meetingTitle" />
-          <FormInput label="모임설명" name="meetingExplanation" />
-          <FormInput label="모임인원" name="meetingPersonnelNumber" />
+          <FormInput label="모임 제목" name="meetingTitle" />
+          <FormTextarea label="모임 설명" name="meetingExplanation" />
           <FormInput label="모임 시작일" name="meetingStartDate" type="date" />
           <FormInput label="모임 종료일" name="meetingEndDate" type="date" />
         </Flex>

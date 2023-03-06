@@ -44,29 +44,14 @@ const FORM_RULES: {
     },
   },
   meetingExplanation: {
-    required: '모임 설명을 입력해 주세요.',
+    required: '모임 내용을 입력해 주세요.',
     minLength: {
       value: 10,
-      message: '모임 설명을 10자 이상 입력해 주세요.',
+      message: '모임 제목을 10자 이상 입력해 주세요.',
     },
     maxLength: {
-      value: 150,
-      message: '모임 설명을 150자 이하로 입력해 주세요.',
-    },
-  },
-  meetingPersonnelNumber: {
-    required: '모임 인원을 입력해 주세요.',
-    minLength: {
-      value: 1,
-      message: '모임 인원을 1명 이상 입력해 주세요.',
-    },
-    maxLength: {
-      value: 4,
-      message: '인원이 너무 많습니다.',
-    },
-    pattern: {
-      value: /^[0-9]+$/,
-      message: '숫자를 입력해 주세요.',
+      value: 200,
+      message: '모임 제목을 200자 이하로 입력해 주세요.',
     },
   },
   meetingStartDate: {

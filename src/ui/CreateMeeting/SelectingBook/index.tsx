@@ -23,7 +23,7 @@ const SelectingBook = () => {
           bgColor: 'white.400',
         }}
       >
-        책을 선택해 주세요
+        책을 선택해 주세요.
       </Flex>
       <BottomSheet isOpen={isOpen} onClose={onClose}>
         <SearchingBook />
