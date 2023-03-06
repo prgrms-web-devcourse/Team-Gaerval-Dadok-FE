@@ -7,16 +7,16 @@ import {
   Text,
   useTheme,
 } from '@chakra-ui/react';
-import type { OptionHTMLAttributes } from 'react';
+import type { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface FormSelectProps {
   label: string;
   name: string;
-  options: Pick<OptionHTMLAttributes<HTMLOptionElement>, 'value' | 'label'>[];
+  children: ReactNode;
 }
 
-const FormSelect = ({ label, name, options }: FormSelectProps) => {
+const FormSelect = ({ label, name, children }: FormSelectProps) => {
   const theme = useTheme();
   const {
     register,
@@ -43,11 +43,7 @@ const FormSelect = ({ label, name, options }: FormSelectProps) => {
         h="4.2rem"
         {...register(name, rules)}
       >
-        {options.map(({ label, value }) => (
-          <option key={String(value)} value={value}>
-            {label}
-          </option>
-        ))}
+        {children}
       </Select>
       {error?.message && (
         <FormErrorMessage>{String(error.message)}</FormErrorMessage>
