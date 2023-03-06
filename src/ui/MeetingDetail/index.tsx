@@ -13,6 +13,7 @@ const DUMMY_COMMENTS_LIST_DATA = [
     nickName: '김규란',
     contents:
       '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+    isWrittenUser: false,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ const DUMMY_COMMENTS_LIST_DATA = [
     nickName: '김재현',
     contents:
       '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+    isWrittenUser: true,
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const DUMMY_COMMENTS_LIST_DATA = [
     nickName: '백민종',
     contents:
       '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+    isWrittenUser: false,
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const DUMMY_COMMENTS_LIST_DATA = [
     nickName: '동해물과',
     contents:
       '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+    isWrittenUser: false,
   },
 ];
 
@@ -60,6 +64,7 @@ interface commentsListDataProps {
   avatarURL: string;
   nickName: string;
   contents: string;
+  isWrittenUser: boolean;
 }
 interface MeetingInfoDataProps {
   title: string;

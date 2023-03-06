@@ -1,12 +1,15 @@
 import { Avatar, Box, Flex } from '@chakra-ui/react';
+import CommentDelete from '../CommentModal/CommentDelete';
 
-import CommentEdit from '../CommentEdit';
+// import CommentEdit from '../CommentModal';
+import CommentModify from '../CommentModal/CommentModify';
 
 interface CommentsListDataProps {
   id: number;
   avatarURL: string;
   nickName: string;
   contents: string;
+  isWrittenUser: boolean;
 }
 interface commentsListProps {
   commentsListData: CommentsListDataProps[];
@@ -37,17 +40,14 @@ const CommentsList = ({ commentsListData }: commentsListProps) => {
                   </Flex>
                 </Flex>
                 <Flex align="center" pt="0.4rem">
-                  <CommentEdit
-                    title="글 수정하기"
-                    name="수정"
-                    fontColor="main"
-                    content={comment.contents}
-                  />
-                  <CommentEdit
-                    title="글 삭제하기"
-                    name="삭제"
-                    fontColor="red.900"
-                  />
+                  {comment.isWrittenUser ? (
+                    <>
+                      <CommentModify comment={comment.contents} />
+                      <CommentDelete />
+                    </>
+                  ) : (
+                    ''
+                  )}
                 </Flex>
               </Flex>
               <Box lineHeight="2.2rem" fontSize="md">

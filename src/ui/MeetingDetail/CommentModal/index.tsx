@@ -1,32 +1,32 @@
 'use client';
-import { useState } from 'react';
-import { Button } from '@chakra-ui/react';
+
 import {
+  Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  ModalFooter,
   useDisclosure,
 } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 
-import CommentDelete from './CommentDelete';
-import CommentFix from './CommentModify';
-
-interface CommentEditProps {
+interface CommentModalProps {
   title: string;
   name: string;
   fontColor: string;
-  content?: string | undefined;
+  children: ReactNode;
 }
 
-const CommentEdit = ({ name, fontColor, title, content }: CommentEditProps) => {
-  const [modifyValue, setModifyValue] = useState(`${content}`);
+const CommentModal = ({
+  children,
+  title,
+  name,
+  fontColor,
+}: CommentModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  console.log(modifyValue);
 
   return (
     <>
@@ -52,23 +52,13 @@ const CommentEdit = ({ name, fontColor, title, content }: CommentEditProps) => {
         <ModalContent>
           <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            {name === '삭제' ? (
-              <CommentDelete />
-            ) : (
-              <CommentFix
-                modifyValue={modifyValue}
-                setModifyValue={setModifyValue}
-              />
-            )}
-          </ModalBody>
-
+          <ModalBody>{children}</ModalBody>
           <ModalFooter>
-            <Button mr={3} onClick={onClose} bgColor={fontColor} color="white">
-              {name}
+            <Button mr={3} onClick={onClose} bgColor="white" color={fontColor}>
+              {name}하기
             </Button>
             <Button variant="ghost" onClick={onClose}>
-              나가기
+              취소
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -77,4 +67,4 @@ const CommentEdit = ({ name, fontColor, title, content }: CommentEditProps) => {
   );
 };
 
-export default CommentEdit;
+export default CommentModal;
