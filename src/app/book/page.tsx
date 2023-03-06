@@ -1,6 +1,6 @@
 'use client';
 
-import SearchingBook from '@/ui/CreateMeeting/SelectingBook/SearchingBook';
+import SearchingBook from '@/ui/CreateMeetingForm/SelectingBook/SearchingBook';
 import { Box } from '@chakra-ui/react';
 
 const BookPage = () => {

@@ -1,11 +1,11 @@
-import CreateMeeting from '@/ui/CreateMeeting';
+import CreateMeetingForm from '@/ui/CreateMeetingForm';
 import IconButton from '@/ui/common/IconButton';
 
 const createMeeting = () => {
   return (
     <>
       <IconButton name="back" />
-      <CreateMeeting />
+      <CreateMeetingForm />
     </>
   );
 };
