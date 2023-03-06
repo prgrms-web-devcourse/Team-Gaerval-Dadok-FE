@@ -1,25 +1,23 @@
-export interface APIJob {
+export interface APIProfileJob {
   jobGroupKoreanName: APIJobGroup['koreanName'];
   jobGroupName: APIJobGroup['name'];
-  jobNameKoreanName: APIJobName['koreanName'] | null;
-  jobName: APIJobName['name'];
-  order: APIJobName['order'];
+  jobNameKoreanName: APIJob['koreanName'] | null;
+  jobName: APIJob['name'];
+  order: APIJob['order'];
 }
 
 export interface APIJobGroup {
   koreanName: string;
   name: string;
+  jobs: APIJob[];
 }
 
-export interface APIJobName {
+export interface APIJob {
   koreanName: string;
   name: string;
   order: number;
 }
 
 export interface APIAllJob {
-  jobs: {
-    jobGroup: APIJobGroup;
-    jobNames: APIJobName[];
-  }[];
+  jobGroups: APIJobGroup[];
 }
