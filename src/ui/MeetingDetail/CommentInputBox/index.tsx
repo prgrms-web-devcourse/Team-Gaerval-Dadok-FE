@@ -1,9 +1,13 @@
 import { Box, Flex, Textarea, Button, Avatar } from '@chakra-ui/react';
 interface CommentInputBoxProps {
   isPartInUser: boolean;
+  handleCreateCommentBtnClick: () => void;
 }
 
-const CommentInputBox = ({ isPartInUser }: CommentInputBoxProps) => {
+const CommentInputBox = ({
+  isPartInUser,
+  handleCreateCommentBtnClick,
+}: CommentInputBoxProps) => {
   return (
     <Box mt="1.5rem" h="100%">
       <Box fontSize="lg" fontWeight={700} mb="1rem">
@@ -27,9 +31,9 @@ const CommentInputBox = ({ isPartInUser }: CommentInputBoxProps) => {
             h="12rem"
             fontSize="md"
             placeholder={
-              !isPartInUser
-                ? '모임에 참여해야 글을 작성할 수 있습니다.'
-                : '댓글을 작성해 주세요.'
+              isPartInUser
+                ? '댓글을 작성해 주세요.'
+                : '모임에 참여해야 글을 작성할 수 있습니다.'
             }
             isDisabled={!isPartInUser}
           />
@@ -44,6 +48,9 @@ const CommentInputBox = ({ isPartInUser }: CommentInputBoxProps) => {
             backgroundColor="white.900"
             border="0.1rem solid"
             isDisabled={!isPartInUser}
+            onClick={() => {
+              handleCreateCommentBtnClick();
+            }}
           >
             작성하기
           </Button>

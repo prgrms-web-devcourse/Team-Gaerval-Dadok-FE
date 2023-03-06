@@ -13,9 +13,13 @@ interface MeetingInfoDataProps {
 }
 interface MeetingInfoProps {
   meetingInfoData: MeetingInfoDataProps;
+  handleParticipateBtnClick: () => void;
 }
 
-const MeetingInfo = ({ meetingInfoData }: MeetingInfoProps) => {
+const MeetingInfo = ({
+  meetingInfoData,
+  handleParticipateBtnClick,
+}: MeetingInfoProps) => {
   const {
     title,
     content,
@@ -28,14 +32,8 @@ const MeetingInfo = ({ meetingInfoData }: MeetingInfoProps) => {
     isPartInUser,
   } = meetingInfoData;
 
-  const handleClick = () => {
-    /*모임 참여 버튼 클릭시, 
-      1) 모임 참여 관련 API 호출 예정
-      2) 유저의 책장에 책 꽂기 API 호출 예정
-      setJoinedMember 함수는 테스트용으로 연결해 놓았습니다.*/
-  };
-
   const message = assession ? '참여 가능' : '가입 승인 필요';
+  console.log(isPartInUser, '아니 왜 안돼...');
 
   return (
     <>
@@ -112,7 +110,9 @@ const MeetingInfo = ({ meetingInfoData }: MeetingInfoProps) => {
           color="white.900"
           border="0.1rem solid"
           backgroundColor="main"
-          onClick={handleClick}
+          onClick={() => {
+            handleParticipateBtnClick();
+          }}
           isDisabled={isPartInUser}
           _disabled={{
             border: 'none',

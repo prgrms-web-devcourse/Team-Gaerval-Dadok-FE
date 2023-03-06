@@ -6,6 +6,37 @@ import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
 import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
 
+const DUMMY_COMMENTS_LIST_DATA = [
+  {
+    id: 1,
+    avatarURL: 'https://bit.ly/dan-abramov',
+    nickName: '김규란',
+    contents:
+      '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+  },
+  {
+    id: 2,
+    avatarURL: 'https://bit.ly/dan-abramov',
+    nickName: '김재현',
+    contents:
+      '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+  },
+  {
+    id: 3,
+    avatarURL: 'https://bit.ly/dan-abramov',
+    nickName: '백민종',
+    contents:
+      '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+  },
+  {
+    id: 4,
+    avatarURL: 'https://bit.ly/dan-abramov',
+    nickName: '동해물과',
+    contents:
+      '백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세 무궁화 삼천리 화려 강산 대한 사람 대한으로 길이 보전하세',
+  },
+];
+
 const DUMMY_MEETING_DETAIL_INFO_DATA = {
   title: '개발자들 모여라!!',
   content:
@@ -17,13 +48,19 @@ const DUMMY_MEETING_DETAIL_INFO_DATA = {
   comments: '2334',
   assession: true,
   members: ['a', 'b', 'c', 'd'],
-  isPartInUser: false,
+  isPartInUser: true,
 };
 
 interface MeetingDetailProps {
   meetingId: string;
 }
 
+interface commentsListDataProps {
+  id: number;
+  avatarURL: string;
+  nickName: string;
+  contents: string;
+}
 interface MeetingInfoDataProps {
   title: string;
   content: string;
@@ -38,7 +75,10 @@ interface MeetingInfoDataProps {
 }
 
 const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
-  const [MeetingInfoData, setMeetingInfoData] = useState<MeetingInfoDataProps>({
+  const [commentsListData, setCommentsListDate] = useState<
+    commentsListDataProps[]
+  >([]);
+  const [meetingInfoData, setMeetingInfoData] = useState<MeetingInfoDataProps>({
     title: '',
     content: '',
     start: '',
@@ -48,19 +88,46 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
     comments: '',
     assession: true,
     members: [],
-    isPartInUser: false,
+    isPartInUser: true,
   });
 
+  const handleParticipateBtnClick = () => {
+    console.log('모임에 참여했습니다.');
+    /*모임 참여 버튼 클릭시, 
+      1) 모임 참여 관련 API 호출 예정
+      2) 유저의 책장에 책 꽂기 API 호출 예정 
+      3) 모임 상세 정보 API 재호출 예정 
+      4) meetingInfoData update
+      */
+  };
+
+  const handleCreateCommentBtnClick = () => {
+    console.log('댓글을 생성했습니다.');
+    /*댓글 작성하기 버튼 클릭시,
+      1) 댓글 생성 API 호출 예정
+      2) 댓글 리스트 API 재호출 예정
+      3) commentsListData update*/
+  };
+
   useEffect(() => {
-    console.log(meetingId); /*추후 API 연동하여 모임 상세 정보를 받아올 예정 */
+    console.log(
+      meetingId
+    ); /*추후 API 연동하여 모임 상세 정보 및 댓글 리스트를 받아올 예정 */
     setMeetingInfoData(DUMMY_MEETING_DETAIL_INFO_DATA);
+    setCommentsListDate(DUMMY_COMMENTS_LIST_DATA);
   }, [meetingId]);
 
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
-      <MeetingInfo meetingInfoData={MeetingInfoData} />
-      <CommentInputBox isPartInUser={MeetingInfoData.isPartInUser} />
-      <CommentsList />
+      <MeetingInfo
+        meetingInfoData={meetingInfoData}
+        handleParticipateBtnClick={handleParticipateBtnClick}
+      />
+      <CommentInputBox
+        isPartInUser={meetingInfoData.isPartInUser}
+        handleCreateCommentBtnClick={handleCreateCommentBtnClick}
+      />
+      <CommentsList commentsListData={commentsListData} />
     </Flex>
   );
 };
