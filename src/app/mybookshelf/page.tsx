@@ -1,21 +1,20 @@
 'use client';
 
-import useBookshelfBookListQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
-import { APIDefaultBookshelf } from '@/types/bookshelf';
+import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import { APIUser } from '@/types/user';
+import BookShelfBody from '@/ui/BookShelfPage/BookShelfBody';
 import TopNavigation from '@/ui/common/TopNavigation';
-import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import { VStack } from '@chakra-ui/react';
 
 interface MyBookShelfPageProps {
-  params: { bookshelvesId: APIDefaultBookshelf['bookshelfId'] };
+  params: { userId: APIUser['userId'] };
 }
 
 export default function MyBookShelf({
-  params: { bookshelvesId },
+  params: { userId },
 }: MyBookShelfPageProps) {
-  const bookshelfBookListQuery = useBookshelfBookListQuery({ bookshelvesId });
+  const { data, isSuccess } = useBookshelfInfoQuery({ userId });
 
-  const isSuccess = bookshelfBookListQuery.isSuccess;
   if (!isSuccess) return null;
 
   return (
@@ -26,9 +25,7 @@ export default function MyBookShelf({
       padding="2rem 2rem 9rem 2rem"
     >
       <TopNavigation pageTitle="내 책장" />
-      <VStack width="100%" spacing="2rem>">
-        <InteractiveBookShelf books={bookshelfBookListQuery.data.books} />
-      </VStack>
+      <BookShelfBody bookshelfId={data.bookshelfId} />
     </VStack>
   );
 }

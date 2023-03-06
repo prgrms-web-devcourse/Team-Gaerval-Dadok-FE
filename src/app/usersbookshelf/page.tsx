@@ -1,26 +1,21 @@
 'use client';
 
-import useBookshelfBookListQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
-import { APIDefaultBookshelf } from '@/types/bookshelf';
+import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import { APIUser } from '@/types/user';
 import TopNavigation from '@/ui/common/TopNavigation';
-import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
-import UsersBookShelfHeader from '@/ui/UsersBookShelfPage/UsersBookShelfHeader';
+import BookShelfBody from '@/ui/BookShelfPage/BookShelfBody';
+import BookShelfHeader from '@/ui/BookShelfPage/BookShelfHeader';
 import { VStack } from '@chakra-ui/react';
 
-const DUMMY_USER = {
-  userName: '벌레',
-  tags: ['개발', '프론트엔드'],
-};
 interface UsersBookShelfPageProps {
-  params: { bookshelvesId: APIDefaultBookshelf['bookshelfId'] };
+  params: { userId: APIUser['userId'] };
 }
 
 export default function UsersBookShelf({
-  params: { bookshelvesId },
+  params: { userId },
 }: UsersBookShelfPageProps) {
-  const bookshelfBookListQuery = useBookshelfBookListQuery({ bookshelvesId });
+  const { data, isSuccess } = useBookshelfInfoQuery({ userId });
 
-  const isSuccess = bookshelfBookListQuery.isSuccess;
   if (!isSuccess) return null;
 
   return (
@@ -30,11 +25,9 @@ export default function UsersBookShelf({
       maxWidth="43rem"
       padding="2rem 2rem 10rem 2rem"
     >
-      <TopNavigation pageTitle={`${DUMMY_USER.userName}님의 책장`} />
-      <UsersBookShelfHeader />
-      <VStack width="100%" spacing="2rem">
-        <InteractiveBookShelf books={bookshelfBookListQuery.data.books} />
-      </VStack>
+      <TopNavigation pageTitle={`${data.userNickname}님의 책장`} />
+      <BookShelfHeader bookshelfInfo={data} />
+      <BookShelfBody bookshelfId={data.bookshelfId} />
     </VStack>
   );
 }
