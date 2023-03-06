@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Button } from '@chakra-ui/react';
 
 interface MeetingInfoDataProps {
   title: string;
@@ -9,15 +9,28 @@ interface MeetingInfoDataProps {
   people: string;
   comments: string;
   assession: boolean;
+  isPartInUser: boolean;
 }
 interface MeetingInfoProps {
-  isJoinedMember: boolean;
   meetingInfoData: MeetingInfoDataProps;
+  handleParticipateBtnClick: () => void;
 }
 
-const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
-  const { title, content, start, end, book, people, comments, assession } =
-    meetingInfoData;
+const MeetingInfo = ({
+  meetingInfoData,
+  handleParticipateBtnClick,
+}: MeetingInfoProps) => {
+  const {
+    title,
+    content,
+    start,
+    end,
+    book,
+    people,
+    comments,
+    assession,
+    isPartInUser,
+  } = meetingInfoData;
 
   const message = assession ? '참여 가능' : '가입 승인 필요';
 
@@ -52,7 +65,7 @@ const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
             </Box>
             <Box>
               <Box fontSize="1.2rem" fontWeight={500} color="red.800">
-                {isJoinedMember ? '' : message}
+                {isPartInUser ? '' : message}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
@@ -86,6 +99,30 @@ const MeetingInfo = ({ isJoinedMember, meetingInfoData }: MeetingInfoProps) => {
           />
         </Flex>
       </Flex>
+      <Box mt="1.5rem">
+        <Button
+          w="100%"
+          h="3.5rem"
+          fontSize="sm"
+          fontWeight="500"
+          borderRadius="2rem"
+          color="white.900"
+          border="0.1rem solid"
+          backgroundColor="main"
+          onClick={() => {
+            handleParticipateBtnClick();
+          }}
+          isDisabled={isPartInUser}
+          _disabled={{
+            border: 'none',
+            color: 'main',
+            background: 'white',
+            pointerEvents: 'none',
+          }}
+        >
+          {isPartInUser ? '참여 중' : '모임 참여하기'}
+        </Button>
+      </Box>
     </>
   );
 };

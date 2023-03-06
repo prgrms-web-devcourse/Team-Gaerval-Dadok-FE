@@ -1,16 +1,26 @@
 import { Avatar, Box, Flex } from '@chakra-ui/react';
 
+import CommentDeleteModal from '../CommentDeleteModal';
+import CommentModifyModal from '../CommentModifyModal';
+
 interface CommentsListDataProps {
   id: number;
   avatarURL: string;
   nickName: string;
   contents: string;
+  isWrittenUser: boolean;
 }
-interface CommentsListPorps {
+interface commentsListProps {
   commentsListData: CommentsListDataProps[];
+  handleDeleteCommentBtnClick: () => void;
+  handleModifyCommentBtnClick: (modifiedComment: string) => void;
 }
 
-const CommentsList = ({ commentsListData }: CommentsListPorps) => {
+const CommentsList = ({
+  commentsListData,
+  handleDeleteCommentBtnClick,
+  handleModifyCommentBtnClick,
+}: commentsListProps) => {
   return (
     <Box mt="1.5rem">
       <Box fontSize="lg" fontWeight={700}>
@@ -27,12 +37,31 @@ const CommentsList = ({ commentsListData }: CommentsListPorps) => {
               borderRadius="1.5rem"
               boxShadow="default"
             >
-              <Flex mb="0.5rem">
-                <Box>
+              <Flex mb="0.5rem" justify="space-between">
+                <Flex>
                   <Avatar src={comment.avatarURL} loading="lazy" />
-                </Box>
-                <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
-                  {comment.nickName}
+                  <Flex align="center" fontSize="sm" ml="1rem" fontWeight={600}>
+                    {comment.nickName}
+                  </Flex>
+                </Flex>
+                <Flex align="center" pt="0.4rem">
+                  {comment.isWrittenUser ? (
+                    <>
+                      <CommentModifyModal
+                        comment={comment.contents}
+                        handleModifyCommentBtnClick={
+                          handleModifyCommentBtnClick
+                        }
+                      />
+                      <CommentDeleteModal
+                        handleDeleteCommentBtnClick={
+                          handleDeleteCommentBtnClick
+                        }
+                      />
+                    </>
+                  ) : (
+                    ''
+                  )}
                 </Flex>
               </Flex>
               <Box lineHeight="2.2rem" fontSize="md">
