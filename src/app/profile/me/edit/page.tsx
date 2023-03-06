@@ -1,19 +1,26 @@
 'use client';
 
-import { Flex } from '@chakra-ui/react';
-import UserForm from '@/ui/ProfileForm';
+import { VStack } from '@chakra-ui/react';
+import AdditionalProfileForm from '@/ui/AdditionalProfileForm';
+import useAllJobQuery from '@/queries/job/useAllJobQuery';
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
+import TopNavigation from '@/ui/common/TopNavigation';
 
 const EditMyPage = () => {
+  const allJobQuery = useAllJobQuery();
+  const userProfileQuery = useMyProfileQuery();
+
+  const isSuccess = allJobQuery.isSuccess && userProfileQuery.isSuccess;
+  if (!isSuccess) return null;
+
   return (
-    <Flex
-      direction="column"
-      justify="center"
-      align="center"
-      gap="2rem"
-      py="4rem"
-    >
-      <UserForm />
-    </Flex>
+    <VStack justify="center" align="center" pt="2rem" px="2rem">
+      <TopNavigation pageTitle="" />
+      <AdditionalProfileForm
+        profile={userProfileQuery.data}
+        jobGroups={allJobQuery.data.jobGroups}
+      />
+    </VStack>
   );
 };
 
