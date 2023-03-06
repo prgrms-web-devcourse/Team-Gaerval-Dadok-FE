@@ -31,7 +31,7 @@ const AdditionalProfile = () => {
         이 추천하는 책장을 볼 수 있어요!
       </Text>
       <AdditionalProfileForm
-        nickname={userProfileQuery.data.nickname}
+        profile={userProfileQuery.data}
         jobGroups={allJobQuery.data.jobGroups}
       />
     </VStack>

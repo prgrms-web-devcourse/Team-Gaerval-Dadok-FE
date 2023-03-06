@@ -9,13 +9,13 @@ import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
 
 interface AdditionalProfileFormProps {
-  nickname: APIUser['nickname'];
+  profile: Pick<APIUser, 'nickname' | 'job'>;
   jobGroups: APIJobGroup[];
 }
 
 const AdditionalProfileForm = ({
   jobGroups,
-  nickname,
+  profile,
 }: AdditionalProfileFormProps) => {
   const theme = useTheme();
   const myProfileMutation = useMyProfileMutation();
@@ -45,9 +45,9 @@ const AdditionalProfileForm = ({
   const methods = useForm({
     mode: 'all',
     defaultValues: {
-      nickname: nickname || '',
-      jobGroup: '',
-      job: '',
+      nickname: profile.nickname || '',
+      jobGroup: profile.job.jobGroupName || '',
+      job: profile.job.jobName || '',
     },
   });
 
