@@ -1,5 +1,8 @@
+import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 import { APIJobGroup } from '@/types/job';
 import { Box, useTheme, VStack } from '@chakra-ui/react';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
@@ -10,19 +13,34 @@ interface AdditionalProfileFormProps {
 
 const AdditionalProfileForm = ({ jobGroups }: AdditionalProfileFormProps) => {
   const theme = useTheme();
+  const myProfileMutation = useMyProfileMutation();
+  const router = useRouter();
 
   const onSubmit: Parameters<typeof methods.handleSubmit>[0] = ({
+    nickname,
     jobGroup,
     job,
   }) => {
-    // TODO: API 연결!
-    console.log(jobGroup);
-    console.log(job);
+    myProfileMutation.mutateAsync(
+      { nickname, job: { jobGroup, jobName: job } },
+      {
+        onSuccess: () => {
+          router.replace('/profile/me');
+        },
+        onError: error => {
+          if (error instanceof AxiosError && error.response?.data.message) {
+            // TODO: Toast로 띄우기
+            alert(error.response?.data.message);
+          }
+        },
+      }
+    );
   };
 
   const methods = useForm({
     mode: 'all',
     defaultValues: {
+      nickname: '',
       jobGroup: '',
       job: '',
     },
