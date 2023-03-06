@@ -58,7 +58,7 @@ const AdditionalProfileForm = ({
             border: '1px solid',
           }}
         >
-          가입 완료
+          저장
         </Box>
       </Box>
     </FormProvider>

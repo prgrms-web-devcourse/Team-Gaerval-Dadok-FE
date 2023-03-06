@@ -18,7 +18,7 @@ const AdditionalProfile = () => {
       p="6rem 2rem"
       gap="1rem"
     >
-      <Heading fontSize="lg">추가 정보를 선택해주세요!</Heading>
+      <Heading fontSize="lg">추가 정보를 입력해주세요!</Heading>
       <Text fontSize="md" textAlign="center">
         추가 정보를 입력하면
         <br />
