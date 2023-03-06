@@ -22,8 +22,8 @@ const MyProfilePage = () => {
       nickname,
       job: { jobGroupName, jobName },
     } = userProfileQuery.data;
-    const isSavedAdditioanlInfo = !!(nickname && jobGroupName && jobName);
-    if (!isSavedAdditioanlInfo) router.replace(`${pathname}/add`);
+    const isSavedAdditionalInfo = !!(nickname && jobGroupName && jobName);
+    if (!isSavedAdditionalInfo) router.replace(`${pathname}/add`);
   }, [userProfileQuery, isSuccess, pathname, router]);
 
   if (!isSuccess) return null;
