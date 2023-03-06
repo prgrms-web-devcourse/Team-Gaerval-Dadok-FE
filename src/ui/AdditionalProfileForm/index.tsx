@@ -1,33 +1,49 @@
+import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
+import { APIJobGroup } from '@/types/job';
 import { Box, useTheme, VStack } from '@chakra-ui/react';
-import { OptionHTMLAttributes } from 'react';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
 
 interface AdditionalProfileFormProps {
-  jobGroups: OptionHTMLAttributes<HTMLOptionElement>[];
-  jobs: {
-    [index: string]: OptionHTMLAttributes<HTMLOptionElement>[];
-  };
+  jobGroups: APIJobGroup[];
 }
 
-const AdditionalProfileForm = ({
-  jobGroups,
-  jobs,
-}: AdditionalProfileFormProps) => {
+const AdditionalProfileForm = ({ jobGroups }: AdditionalProfileFormProps) => {
   const theme = useTheme();
+  const myProfileMutation = useMyProfileMutation();
+  const router = useRouter();
 
   const onSubmit: Parameters<typeof methods.handleSubmit>[0] = ({
+    nickname,
     jobGroup,
     job,
   }) => {
-    // TODO: API 연결!
-    console.log(jobGroup);
-    console.log(job);
+    myProfileMutation.mutateAsync(
+      { nickname, job: { jobGroup, jobName: job } },
+      {
+        onSuccess: () => {
+          router.replace('/profile/me');
+        },
+        onError: error => {
+          if (error instanceof AxiosError && error.response?.data.message) {
+            // TODO: Toast로 띄우기
+            alert(error.response?.data.message);
+          }
+        },
+      }
+    );
   };
 
   const methods = useForm({
     mode: 'all',
+    defaultValues: {
+      nickname: '',
+      jobGroup: '',
+      job: '',
+    },
   });
 
   return (
@@ -35,12 +51,22 @@ const AdditionalProfileForm = ({
       <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
         <VStack gap="1rem">
           <FormInput label="닉네임" name="nickname" />
-          <FormSelect label="직군" name="jobGroup" options={jobGroups} />
-          <FormSelect
-            label="직업"
-            name="job"
-            options={jobs[methods.watch('jobGroup')] || []}
-          />
+          <FormSelect label="직군" name="jobGroup">
+            {jobGroups.map(({ name, koreanName }) => (
+              <option key={name} value={name}>
+                {koreanName}
+              </option>
+            ))}
+          </FormSelect>
+          <FormSelect label="직업" name="job">
+            {jobGroups
+              .find(({ name }) => name === methods.watch('jobGroup'))
+              ?.jobs.map(({ name, koreanName }) => (
+                <option key={name} value={name}>
+                  {koreanName}
+                </option>
+              ))}
+          </FormSelect>
         </VStack>
         <Box
           as="button"

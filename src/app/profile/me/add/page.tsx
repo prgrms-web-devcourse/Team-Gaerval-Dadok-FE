@@ -27,10 +27,7 @@ const AdditionalProfile = () => {
         </Text>
         이 추천하는 책장을 볼 수 있어요!
       </Text>
-      <AdditionalProfileForm
-        jobGroups={allJobQuery.data.jobGroups}
-        jobs={allJobQuery.data.jobs}
-      />
+      <AdditionalProfileForm jobGroups={allJobQuery.data.jobGroups} />
     </VStack>
   );
 };

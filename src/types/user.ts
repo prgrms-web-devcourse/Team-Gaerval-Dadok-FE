@@ -1,4 +1,4 @@
-import { APIJob } from './job';
+import { APIProfileJob } from './job';
 
 export interface APIUser {
   userId: number;
@@ -9,5 +9,5 @@ export interface APIUser {
   profileImage: string;
   gender: true;
   authProvider: true;
-  job: APIJob;
+  job: APIProfileJob;
 }
