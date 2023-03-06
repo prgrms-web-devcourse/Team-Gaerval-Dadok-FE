@@ -7,6 +7,7 @@ import BottomSheet from '@/ui/common/BottomSheet';
 import IconButton from '@/ui/common/IconButton';
 import Button from '@/ui/common/Button';
 import Logo from '@/ui/common/Logo';
+import Link from 'next/link';
 
 interface Props {
   isOpen: boolean;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
+  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <Flex direction="column" align="center" gap="3rem" p="3rem 3rem 4rem">
@@ -32,16 +35,18 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
             다독다독의 다양한 서비스를 이용해보세요!
           </Highlight>
         </Text>
-        <Button scheme="kakao" fullWidth>
-          <Image
-            src="/images/kakao.svg"
-            alt="카카오 로고"
-            width={21}
-            height={19}
-            priority
-          />
-          카카오 로그인
-        </Button>
+        <Link href={kakaoUrl} style={{ width: '100%' }}>
+          <Button scheme="kakao" fullWidth>
+            <Image
+              src="/images/kakao.svg"
+              alt="카카오 로고"
+              width={21}
+              height={19}
+              priority
+            />
+            카카오 로그인
+          </Button>
+        </Link>
       </Flex>
     </BottomSheet>
   );
