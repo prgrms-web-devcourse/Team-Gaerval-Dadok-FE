@@ -17,7 +17,7 @@ const MyProfilePage = () => {
   const isSuccess = userProfileQuery.isSuccess && bookshelfQuery.isSuccess;
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!userProfileQuery.isSuccess) return;
     const {
       nickname,
       job: { jobGroupName, jobName },
