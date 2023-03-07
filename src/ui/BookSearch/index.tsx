@@ -60,6 +60,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
               p="1rem"
               borderRadius={10}
               boxShadow="lg"
+              cursor="pointer"
               onClick={onClick(book)}
             >
               {book.imageUrl ? (
