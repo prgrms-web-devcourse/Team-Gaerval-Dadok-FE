@@ -1,6 +1,6 @@
 'use client';
 
-import useBookshelfBookListQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
+import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelfInfo } from '@/types/bookshelf';
 import TopNavigation from '@/ui/common/TopNavigation';
@@ -18,10 +18,10 @@ export default function UserBookShelfPage({
   const bookshelfInfoQuery = useBookshelfInfoQuery({
     bookshelfId,
   });
-  const bookshelfBookListQuery = useBookshelfBookListQuery({ bookshelfId });
+  const bookshelfBooksQuery = useBookshelfBooksQuery({ bookshelfId });
 
   const isSuccess =
-    bookshelfInfoQuery.isSuccess && bookshelfBookListQuery.isSuccess;
+    bookshelfInfoQuery.isSuccess && bookshelfBooksQuery.isSuccess;
   if (!isSuccess) return null;
 
   return (
@@ -41,7 +41,7 @@ export default function UserBookShelfPage({
         )}
       </HStack>
       <VStack width="100%" spacing="2rem">
-        <InteractiveBookShelf books={bookshelfBookListQuery.data.books} />
+        <InteractiveBookShelf books={bookshelfBooksQuery.data.books} />
       </VStack>
     </VStack>
   );

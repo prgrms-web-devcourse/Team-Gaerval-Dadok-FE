@@ -20,7 +20,7 @@ const bookshelfAPI = {
     bookshelfId: APIBookshelfInfo['bookshelfId'];
   }) => publicApi.get<APIBookshelfInfo>(`/api/bookshelves/${bookshelfId}`),
 
-  getBookshelfBookList: ({
+  getBookshelfBooks: ({
     bookshelfId,
   }: {
     bookshelfId: APIDefaultBookshelf['bookshelfId'];
