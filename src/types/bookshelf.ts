@@ -1,4 +1,5 @@
 import { APIBook, APIDefaultBook } from './book';
+import { APIProfileJob } from './job';
 
 export interface APIDefaultBookshelf {
   bookshelfId: number;
@@ -23,12 +24,5 @@ export interface APIBookshelfInfo extends APIDefaultBookshelf {
   username: string;
   userNickname: string;
   userProfileImage: string;
-  // TODO: APIJob 타입 나오면 상속받기
-  job: {
-    jobGroupKoreanName: string;
-    jobGroupName: string;
-    jobNameKoreanName: string;
-    jobName: string;
-    order: number;
-  };
+  job: APIProfileJob;
 }

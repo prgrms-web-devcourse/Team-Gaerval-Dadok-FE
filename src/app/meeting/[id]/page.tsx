@@ -9,7 +9,7 @@ const MeetingDetailPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
       <IconButton name="back" />
-      <MeetingDetail meetingId={id} />
+      <MeetingDetail bookGroupId={Number(id)} />
     </Flex>
   );
 };
