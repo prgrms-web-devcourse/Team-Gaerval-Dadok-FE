@@ -1,6 +1,5 @@
 'use clinet';
 
-import { HamburgerIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Flex,
@@ -12,6 +11,7 @@ import {
   MenuButton,
   IconButton,
 } from '@chakra-ui/react';
+import MoreIcon from '@public/icons/more.svg';
 
 interface APIBookComment {
   userId: number;
@@ -49,14 +49,13 @@ const getBookComments = (_id: number) => {
 
 const BookCommentList = ({ bookId }: Props) => {
   const comments: APIBookComment[] = getBookComments(bookId);
+
   return (
-    comments && (
-      <VStack align="stretch" spacing="2rem" width="100%">
-        {comments.map(props => (
-          <Comment key={props.userId} {...props} />
-        ))}
-      </VStack>
-    )
+    <VStack align="stretch" spacing="2rem" width="100%">
+      {comments.map(props => (
+        <Comment key={props.userId} {...props} />
+      ))}
+    </VStack>
   );
 };
 
@@ -82,13 +81,13 @@ const Comment = ({
           <MenuButton
             as={IconButton}
             aria-label="Options"
-            icon={<HamburgerIcon />}
+            icon={<MoreIcon />}
             background="inherit"
             border="none"
           />
           <MenuList fontSize="md">
             <MenuItem>수정</MenuItem>
-            <MenuItem>삭제</MenuItem>
+            <MenuItem color="red.300">삭제</MenuItem>
           </MenuList>
         </Menu>
       </Flex>

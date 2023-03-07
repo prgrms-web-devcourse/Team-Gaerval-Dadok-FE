@@ -1,2 +1,2 @@
 export { default as BookInfo } from './BookInfo';
-export { default as BookCommentList } from './CommentList';
+export { default as BookCommentList } from './BookCommentList';

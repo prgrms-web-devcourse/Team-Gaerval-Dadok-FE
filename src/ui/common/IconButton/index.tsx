@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic';
 import { ComponentPropsWithoutRef, SVGProps } from 'react';
-import { Center, IconButton as ChakraIconButton } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
 
-interface Props extends ComponentPropsWithoutRef<typeof ChakraIconButton> {
+interface Props extends ComponentPropsWithoutRef<typeof Center> {
   name: IconNameType;
   size?: number | string;
   strokeWidth?: string;
@@ -26,7 +26,7 @@ const IconButton = ({
 
   return (
     <Center
-      as={ChakraIconButton}
+      as="button"
       width={size}
       height={size}
       background="transparent"

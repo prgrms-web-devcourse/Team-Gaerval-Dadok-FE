@@ -3,7 +3,7 @@
 import IconButton from '@/ui/common/IconButton';
 import { BookInfo, BookCommentList } from '@/ui/BookDetail';
 import type { APIBookInfo, APIDefaultBook } from '@/types/book';
-import { Heading, VStack } from '@chakra-ui/react';
+import { Box, Heading, VStack } from '@chakra-ui/react';
 
 const BookDetailPage = ({
   params: { id: bookId },
@@ -27,7 +27,7 @@ const BookDetailPage = ({
   };
 
   return (
-    <>
+    <Box pt="2rem" px="2rem">
       <IconButton name="back" />
       <BookInfo
         bookId={bookId}
@@ -37,12 +37,12 @@ const BookDetailPage = ({
         contents={contents}
       />
       <VStack align="flex-start">
-        <Heading pt="3rem" pb="1rem">
+        <Heading pt="3rem" pb="1rem" fontSize="lg">
           이 책에 남긴 글
         </Heading>
         <BookCommentList bookId={bookId} />
       </VStack>
-    </>
+    </Box>
   );
 };
 
