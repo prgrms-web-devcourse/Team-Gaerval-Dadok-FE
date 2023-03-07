@@ -13,10 +13,10 @@ const MeetingAPI = {
       },
     }),
   getMeetingDetailInfo: ({
-    groupId,
+    bookGroupId,
   }: {
-    groupId: APIMeetingGroup['bookGroupId'];
-  }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${groupId}`),
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+  }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${bookGroupId}`),
 };
 
 export default MeetingAPI;
