@@ -7,7 +7,6 @@ import {
   Text,
   SimpleGrid,
   Center,
-  LayoutProps,
 } from '@chakra-ui/react';
 
 import { APIBook } from '@/types/book';
@@ -17,11 +16,11 @@ import LogoSmallIcon from '@public/icons/logo_sm.svg';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-interface BookSearchProps extends LayoutProps {
+interface BookSearchProps {
   onBookClick?: (book: APIBook) => void;
 }
 
-const BookSearch = ({ onBookClick, h }: BookSearchProps) => {
+const BookSearch = ({ onBookClick }: BookSearchProps) => {
   const [books, setBooks] = useState<APIBook[]>([]);
   const pathname = usePathname();
 
@@ -44,7 +43,7 @@ const BookSearch = ({ onBookClick, h }: BookSearchProps) => {
   };
 
   return (
-    <VStack w="100%" h={h}>
+    <VStack w="100%">
       <InputGroup size="lg">
         <Input py="2rem" onChange={onInputChange} placeholder="책 검색" />
       </InputGroup>
