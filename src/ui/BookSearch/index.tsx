@@ -53,11 +53,14 @@ const BookSearch = ({ onBookClick, h }: BookSearchProps) => {
           <Link key={book.isbn} href={`${pathname}/${book.isbn}`}>
             <VStack
               w="100%"
+              minH="18rem"
+              h="100%"
               justify="center"
               fontSize="sm"
               bgColor="white"
               p="1rem"
               borderRadius={10}
+              boxShadow="lg"
               onClick={onClick(book)}
             >
               {book.imageUrl ? (
