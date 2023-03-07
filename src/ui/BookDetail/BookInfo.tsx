@@ -37,7 +37,6 @@ const BookInfo = ({
   return (
     <VStack
       w="100%"
-      pl="2rem"
       bgColor="white"
       p="2rem"
       shadow="lg"
