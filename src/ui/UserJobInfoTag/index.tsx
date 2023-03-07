@@ -6,7 +6,7 @@ type UserTagType = {
   tag: string;
 };
 
-const BookShelfTag = ({ tag }: UserTagType) => {
+const UserJobInfoTag = ({ tag }: UserTagType) => {
   return (
     <Box
       padding="0.12rem 0.8rem"
@@ -20,4 +20,4 @@ const BookShelfTag = ({ tag }: UserTagType) => {
   );
 };
 
-export default BookShelfTag;
+export default UserJobInfoTag;
