@@ -7,7 +7,7 @@ const useMeetingDetailInfoQuery = ({
 }: {
   bookGroupId: APIMeetingDetail['bookGroupId'];
 }) => {
-  useQuery(['meetingDetailInfo', bookGroupId], () =>
+  return useQuery(['meetingDetailInfo', bookGroupId], () =>
     MeetingAPI.getMeetingDetailInfo({ bookGroupId }).then(
       response => response.data
     )

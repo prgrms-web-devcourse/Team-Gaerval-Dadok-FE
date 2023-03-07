@@ -5,6 +5,7 @@ import { Flex } from '@chakra-ui/react';
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
 import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
+import useMeetingDetailInfoQuery from '@/queries/meeting/useMeetingDetailInfoQuery';
 
 const DUMMY_COMMENTS_LIST_DATA = [
   {
@@ -41,22 +42,8 @@ const DUMMY_COMMENTS_LIST_DATA = [
   },
 ];
 
-const DUMMY_MEETING_DETAIL_INFO_DATA = {
-  title: '개발자들 모여라!!',
-  content:
-    '아키텍처를 잘 모르는 개발자라면, 이 책을 읽으며 개발 업무의 구조를 이해하는 실력을 향상할 수 있다. 현업 아키텍트라면, 결정사항을 잘 설명하여 팀을 이끌고 이해관계자와 소통하는 능력을 키울 것이다. 이 책과 함께 프로젝트와 팀을 성공으로 이끄는 훌륭한 아키텍트로 거듭나길 바란다. 이 책과 관련된 여러분의 생각을 적어주세요!!',
-  start: '2023-03-01',
-  end: '2024-02-28',
-  book: '개발자에서 아키텍트로',
-  people: '1234',
-  comments: '2334',
-  assession: true,
-  members: ['a', 'b', 'c', 'd'],
-  isPartInUser: true,
-};
-
 interface MeetingDetailProps {
-  meetingId: string;
+  bookGroupId: number;
 }
 
 interface commentsListDataProps {
@@ -66,38 +53,31 @@ interface commentsListDataProps {
   contents: string;
   isWrittenUser: boolean;
 }
-interface MeetingInfoDataProps {
-  title: string;
-  content: string;
-  start: string;
-  end: string;
-  book: string;
-  people: string;
-  comments: string;
-  assession: boolean;
-  members: string[];
-  isPartInUser: boolean;
-}
 
-const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
+const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const [commentsListData, setCommentsListDate] = useState<
     commentsListDataProps[]
   >([]);
-  const [meetingInfoData, setMeetingInfoData] = useState<MeetingInfoDataProps>({
-    title: '',
-    content: '',
-    start: '',
-    end: '',
-    book: '',
-    people: '',
-    comments: '',
-    assession: true,
-    members: [],
-    isPartInUser: true,
-  });
+
+  // const userProfileQuery = useUserProfileQuery({ id });
+  // const bookshelfQuery = useUserSummaryBookshlefQuery({ id });
+
+  // const isSuccess = userProfileQuery.isSuccess && bookshelfQuery.isSuccess;
+  // if (!isSuccess) return null;
+
+  useEffect(() => {
+    setCommentsListDate(DUMMY_COMMENTS_LIST_DATA);
+  }, []);
+
+  const meetingDetailInfoQuery = useMeetingDetailInfoQuery({ bookGroupId });
+  const isSuccess = meetingDetailInfoQuery.isSuccess;
+  if (!isSuccess) return null;
+
+  console.log('API 호출 결과 >>>>>>', meetingDetailInfoQuery.data);
 
   const handleParticipateBtnClick = () => {
     console.log('모임에 참여했습니다.');
+    meetingDetailInfoQuery.refetch();
     /*모임 참여 버튼 클릭시, 
       1) 모임 참여 관련 API 호출 예정
       2) 유저의 책장에 책 꽂기 API 호출 예정 
@@ -131,22 +111,14 @@ const MeetingDetail = ({ meetingId }: MeetingDetailProps) => {
       3) commentsListData update*/
   };
 
-  useEffect(() => {
-    console.log(
-      meetingId
-    ); /*추후 API 연동하여 모임 상세 정보 및 댓글 리스트를 받아올 예정 */
-    setMeetingInfoData(DUMMY_MEETING_DETAIL_INFO_DATA);
-    setCommentsListDate(DUMMY_COMMENTS_LIST_DATA);
-  }, [meetingId]);
-
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
       <MeetingInfo
-        meetingInfoData={meetingInfoData}
+        meetingInfoData={meetingDetailInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
       />
       <CommentInputBox
-        isPartInUser={meetingInfoData.isPartInUser}
+        isPartInUser={meetingDetailInfoQuery.data.isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
       <CommentsList
