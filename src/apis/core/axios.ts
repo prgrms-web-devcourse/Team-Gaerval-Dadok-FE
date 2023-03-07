@@ -8,7 +8,9 @@ const setInterceptor = (instance: AxiosInstance) => {
     config => {
       if (typeof window !== 'undefined') {
         const token = tokenStorage(ACCESS_TOKEN_STORAGE_KEY).get();
-        config.headers['Authorization'] = `Bearer ${token}`;
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
       }
 
       if (config.method === 'get') {
