@@ -1,9 +1,10 @@
 'use client';
 
+import { Box, Heading, VStack } from '@chakra-ui/react';
+
 import IconButton from '@/ui/common/IconButton';
 import { BookInfo, BookCommentList } from '@/ui/BookDetail';
 import type { APIBookInfo, APIDefaultBook } from '@/types/book';
-import { Box, Heading, VStack } from '@chakra-ui/react';
 
 const BookDetailPage = ({
   params: { id: bookId },
