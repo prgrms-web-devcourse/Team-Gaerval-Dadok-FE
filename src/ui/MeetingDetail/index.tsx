@@ -59,12 +59,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     commentsListDataProps[]
   >([]);
 
-  // const userProfileQuery = useUserProfileQuery({ id });
-  // const bookshelfQuery = useUserSummaryBookshlefQuery({ id });
-
-  // const isSuccess = userProfileQuery.isSuccess && bookshelfQuery.isSuccess;
-  // if (!isSuccess) return null;
-
+  /* 댓글 리스트 조회 API 연동시, useEffect 삭제 예정 */
   useEffect(() => {
     setCommentsListDate(DUMMY_COMMENTS_LIST_DATA);
   }, []);
