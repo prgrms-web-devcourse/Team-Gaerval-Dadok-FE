@@ -7,7 +7,7 @@ const useBookshelfBookListQuery = ({
 }: {
   bookshelfId: APIDefaultBookshelf['bookshelfId'];
 }) =>
-  useQuery(['defaultBookshelf', bookshelfId], () =>
+  useQuery(['bookshelfBookList', bookshelfId], () =>
     bookshelfAPI
       .getBookshelfBookList({ bookshelfId })
       .then(response => response.data)
