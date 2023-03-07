@@ -9,7 +9,7 @@ const useMeetingDetailInfoQuery = ({
 }) => {
   return useQuery(['meetingDetailInfo', bookGroupId], () =>
     MeetingAPI.getMeetingDetailInfo({ bookGroupId }).then(
-      response => response.data
+      ({data}) => data
     )
   );
 };
