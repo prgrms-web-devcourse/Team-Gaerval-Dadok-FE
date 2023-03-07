@@ -25,7 +25,14 @@ const IconButton = ({
   );
 
   return (
-    <Center as="button" width={size} height={size} {...props}>
+    <Center
+      as="button"
+      width={size}
+      height={size}
+      background="transparent"
+      _hover={{ bg: 'transparent' }}
+      {...props}
+    >
       <Icon
         width="100%"
         height="100%"
@@ -37,6 +44,6 @@ const IconButton = ({
   );
 };
 
-type IconNameType = 'close' | 'back' | 'book' | 'search' | 'bookmark';
+type IconNameType = 'close' | 'back' | 'book' | 'search' | 'bookmark' | 'more';
 
 export default IconButton;

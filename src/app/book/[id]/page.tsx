@@ -1,8 +1,17 @@
-import BookInfo from '@/ui/BookDetail/BookInfo';
-import type { APIBookInfo } from '@/types/book';
+'use client';
 
-const BookDetailPage = () => {
-  const { bookId, title, author, contents, imageUrl }: APIBookInfo = {
+import { Box, Heading, VStack } from '@chakra-ui/react';
+
+import IconButton from '@/ui/common/IconButton';
+import { BookInfo, BookCommentList } from '@/ui/BookDetail';
+import type { APIBookInfo, APIDefaultBook } from '@/types/book';
+
+const BookDetailPage = ({
+  params: { id: bookId },
+}: {
+  params: { id: APIDefaultBook['bookId'] };
+}) => {
+  const { title, author, contents, imageUrl }: APIBookInfo = {
     title: '미움받을 용기',
     author: '기시미 이치로, 고가 후미타케',
     isbn: '9788996991342',
@@ -19,7 +28,8 @@ const BookDetailPage = () => {
   };
 
   return (
-    <>
+    <Box pt="2rem" px="2rem">
+      <IconButton name="back" />
       <BookInfo
         bookId={bookId}
         title={title}
@@ -27,8 +37,13 @@ const BookDetailPage = () => {
         imageUrl={imageUrl}
         contents={contents}
       />
-      {/** @todo BookComment 컴포넌트 구현 */}
-    </>
+      <VStack align="flex-start">
+        <Heading pt="3rem" pb="1rem" fontSize="lg">
+          이 책에 남긴 글
+        </Heading>
+        <BookCommentList bookId={bookId} />
+      </VStack>
+    </Box>
   );
 };
 
