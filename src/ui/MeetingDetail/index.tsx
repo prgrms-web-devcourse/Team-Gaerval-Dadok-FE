@@ -68,7 +68,6 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const isSuccess = meetingDetailInfoQuery.isSuccess;
   if (!isSuccess) return null;
 
-  console.log('API 호출 결과 >>>>>>', meetingDetailInfoQuery.data);
 
   const handleParticipateBtnClick = () => {
     console.log('모임에 참여했습니다.');
