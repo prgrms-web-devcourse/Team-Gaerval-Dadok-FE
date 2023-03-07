@@ -1,6 +1,7 @@
 import { APIEntireMeetingList } from '@/types/meeting';
-import { publicApi } from '../core/axios';
+import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
 import { APIMeetingGroup } from '@/types/meeting';
+import { publicApi } from '../core/axios';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 
 const MeetingAPI = {
@@ -17,6 +18,21 @@ const MeetingAPI = {
   }: {
     bookGroupId: APIMeetingGroup['bookGroupId'];
   }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${bookGroupId}`),
+  getMeetingDetailCommentsList: ({
+    bookGroupId,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+  }) =>
+    publicApi.get<APIMeetingDetailCommentsList>(
+      `/api/book-groups/${bookGroupId}/comments`,
+      {
+        params: {
+          groupCommentCursorId: 100,
+          pageSize: 10,
+          sortDirection: 'DESC',
+        },
+      }
+    ),
 };
 
 export default MeetingAPI;

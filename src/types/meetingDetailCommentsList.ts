@@ -14,7 +14,7 @@ export interface APIBookGroupComments {
   modifiedAt: APIDateAt[];
 }
 
-export interface APIBookGroupCommentsReference {
+export interface APIMeetingDetailCommentsList {
   isFirst: boolean;
   isLast: boolean;
   hasNext: boolean;
