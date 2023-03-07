@@ -35,15 +35,7 @@ const BookInfo = ({
   };
 
   return (
-    <VStack
-      w="100%"
-      bgColor="white"
-      p="2rem"
-      shadow="lg"
-      align="stretch"
-      borderLeftRadius={15}
-      gap="2rem"
-    >
+    <>
       <Flex gap="2rem" align="flex-end">
         <Box shadow="lg">
           <Image src={imageUrl} alt="book" width={180} height={240} />
@@ -75,7 +67,7 @@ const BookInfo = ({
         </AvatarGroup>
         <Text fontSize="sm">외 3명이 이 책을 책장에 꽂았습니다.</Text>
       </Flex>
-    </VStack>
+    </>
   );
 };
 
