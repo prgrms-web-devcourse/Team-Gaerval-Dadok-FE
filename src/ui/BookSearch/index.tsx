@@ -6,11 +6,13 @@ import {
   Image,
   Text,
   SimpleGrid,
+  Center,
 } from '@chakra-ui/react';
 
 import { APIBook } from '@/types/book';
 import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
+import LogoSmallIcon from '@public/icons/logo_sm.svg';
 
 const BookSearch = () => {
   const [books, setBooks] = useState<APIBook[]>([]);
@@ -42,7 +44,13 @@ const BookSearch = () => {
             p="1rem"
             borderRadius={10}
           >
-            <Image src={imageUrl} alt="book-cover" />
+            {imageUrl ? (
+              <Image src={imageUrl} alt="book-cover" />
+            ) : (
+              <Center bgColor="white" w="100%" h="100%">
+                <LogoSmallIcon />
+              </Center>
+            )}
             <Text
               w="100%"
               overflow="hidden"
