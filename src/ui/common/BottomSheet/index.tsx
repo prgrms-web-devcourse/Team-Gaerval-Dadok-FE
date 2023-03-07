@@ -13,7 +13,7 @@ type Props = PropsWithChildren<
 >;
 
 const BottomSheet = ({ isOpen, onClose, children }: Props) => {
-  return isOpen ? (
+  return (
     <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay onClick={onClose} />
       <DrawerContent
@@ -27,7 +27,7 @@ const BottomSheet = ({ isOpen, onClose, children }: Props) => {
         {children}
       </DrawerContent>
     </Drawer>
-  ) : null;
+  );
 };
 
 export default BottomSheet;
