@@ -13,20 +13,21 @@ import { APIBook } from '@/types/book';
 import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
 import LogoSmallIcon from '@public/icons/logo_sm.svg';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 interface BookSearchProps {
-  onBookClick?: (book: APIBook) => void;
+  onBookClick?: (bookId: APIBook['bookId']) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
   const [books, setBooks] = useState<APIBook[]>([]);
-  const pathname = usePathname();
+
+  const router = useRouter();
 
   const onInputChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const query = event.target.value;
+      if (!query.trim()) return;
       const {
         data: { searchBookResponseList },
       } = await bookAPI.getBooks({ query });
@@ -35,11 +36,20 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     1000
   );
 
-  const onClick = (book: APIBook) => (event: MouseEvent) => {
-    if (!onBookClick) return;
-
-    onBookClick(book);
-    event.preventDefault();
+  const onClick = (book: APIBook) => async (event: MouseEvent) => {
+    try {
+      const {
+        data: { bookId },
+      } = await bookAPI.createBook({ book });
+      if (onBookClick) {
+        onBookClick(bookId);
+        event.preventDefault();
+      } else {
+        router.push(`/book/${bookId}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -49,39 +59,38 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       </InputGroup>
       <SimpleGrid columns={3} gap="1rem">
         {books.map(book => (
-          <Link key={book.isbn} href={`${pathname}/${book.isbn}`}>
-            <VStack
+          <VStack
+            key={book.isbn}
+            w="100%"
+            minH="18rem"
+            h="100%"
+            justify="center"
+            fontSize="sm"
+            bgColor="white"
+            p="1rem"
+            borderRadius={10}
+            boxShadow="lg"
+            cursor="pointer"
+            onClick={onClick(book)}
+          >
+            {book.imageUrl ? (
+              <Image src={book.imageUrl} alt="book-cover" />
+            ) : (
+              <Center bgColor="white" w="100%" h="100%">
+                <LogoSmallIcon />
+              </Center>
+            )}
+            <Text
               w="100%"
-              minH="18rem"
-              h="100%"
-              justify="center"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+              textAlign="center"
               fontSize="sm"
-              bgColor="white"
-              p="1rem"
-              borderRadius={10}
-              boxShadow="lg"
-              cursor="pointer"
-              onClick={onClick(book)}
             >
-              {book.imageUrl ? (
-                <Image src={book.imageUrl} alt="book-cover" />
-              ) : (
-                <Center bgColor="white" w="100%" h="100%">
-                  <LogoSmallIcon />
-                </Center>
-              )}
-              <Text
-                w="100%"
-                overflow="hidden"
-                whiteSpace="nowrap"
-                textOverflow="ellipsis"
-                textAlign="center"
-                fontSize="sm"
-              >
-                {book.title}
-              </Text>
-            </VStack>
-          </Link>
+              {book.title}
+            </Text>
+          </VStack>
         ))}
       </SimpleGrid>
     </VStack>

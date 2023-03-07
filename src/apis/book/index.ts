@@ -6,6 +6,9 @@ const bookAPI = {
     publicApi.get<{ searchBookResponseList: APIBook[] }>(
       `/api/books?query=${query}`
     ),
+
+  createBook: ({ book }: { book: APIBook }) =>
+    publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
 };
 
 export default bookAPI;
