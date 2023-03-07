@@ -20,3 +20,9 @@ export interface APIRecommendedBook extends APIDefaultBook, APISubBook {
 export interface APIBook extends APIDefaultBook, APISubBook {
   contents: string;
 }
+
+export interface APIBookInfo extends APIDefaultBook, APISubBook {
+  contents: string;
+  apiProvider: string;
+  imageKey: string;
+}
