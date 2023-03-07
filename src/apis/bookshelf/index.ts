@@ -14,17 +14,10 @@ const bookshelfAPI = {
   getMySummaryBookshelf: () =>
     publicApi.get<APIProfileBookshelf>('/api/bookshelves/me'),
 
-  getBookshelfInfo: ({
-    bookshelfId,
-  }: {
-    bookshelfId: APIBookshelfInfo['bookshelfId'];
-  }) => publicApi.get<APIBookshelfInfo>(`/api/bookshelves/${bookshelfId}`),
+  getBookshelfInfo: (bookshelfId: APIBookshelfInfo['bookshelfId']) =>
+    publicApi.get<APIBookshelfInfo>(`/api/bookshelves/${bookshelfId}`),
 
-  getBookshelfBooks: ({
-    bookshelfId,
-  }: {
-    bookshelfId: APIDefaultBookshelf['bookshelfId'];
-  }) =>
+  getBookshelfBooks: (bookshelfId: APIDefaultBookshelf['bookshelfId']) =>
     publicApi.get<APIBookshelfBookList>(
       `/api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookCursorId=3&sortDirection=DESC`
     ),

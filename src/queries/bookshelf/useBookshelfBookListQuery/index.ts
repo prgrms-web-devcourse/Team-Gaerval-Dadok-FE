@@ -8,9 +8,7 @@ const useBookshelfBooksQuery = ({
   bookshelfId: APIDefaultBookshelf['bookshelfId'];
 }) =>
   useQuery(['bookshelfBooks', bookshelfId], () =>
-    bookshelfAPI
-      .getBookshelfBooks({ bookshelfId })
-      .then(response => response.data)
+    bookshelfAPI.getBookshelfBooks(bookshelfId).then(response => response.data)
   );
 
 export default useBookshelfBooksQuery;
