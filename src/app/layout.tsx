@@ -20,7 +20,9 @@ export default function RootLayout({
         <RecoilRoot>
           <ReactQueryProvier>
             <ChakraThemeProvider>
-              <Box mb="9rem">{children}</Box>
+              <Box px="2rem" pt="2rem" mb="9rem">
+                {children}
+              </Box>
               <BottomNavigation />
             </ChakraThemeProvider>
           </ReactQueryProvier>
