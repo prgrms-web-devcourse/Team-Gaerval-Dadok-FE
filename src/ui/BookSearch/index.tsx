@@ -16,7 +16,7 @@ import LogoSmallIcon from '@public/icons/logo_sm.svg';
 import { useRouter } from 'next/navigation';
 
 interface BookSearchProps {
-  onBookClick?: (bookId: APIBook['bookId']) => void;
+  onBookClick?: (bookId: APIBook) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
@@ -42,7 +42,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         data: { bookId },
       } = await bookAPI.createBook({ book });
       if (onBookClick) {
-        onBookClick(bookId);
+        onBookClick({ ...book, bookId });
         event.preventDefault();
       } else {
         router.push(`/book/${bookId}`);

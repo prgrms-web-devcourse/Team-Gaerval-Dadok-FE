@@ -1,4 +1,4 @@
-import { APIEntireMeetingList } from '@/types/meeting';
+import { APICreateMeetingReqeust, APIEntireMeetingList } from '@/types/meeting';
 import { publicApi } from '../core/axios';
 
 const MeetingAPI = {
@@ -10,6 +10,9 @@ const MeetingAPI = {
         sortDirection: 'DESC',
       },
     }),
+
+  createMeeting: ({ meeting }: { meeting: APICreateMeetingReqeust }) =>
+    publicApi.post('/api/book-groups', meeting),
 };
 
 export default MeetingAPI;
