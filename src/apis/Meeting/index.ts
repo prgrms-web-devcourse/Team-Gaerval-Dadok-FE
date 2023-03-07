@@ -1,5 +1,7 @@
 import { APIEntireMeetingList } from '@/types/meeting';
 import { publicApi } from '../core/axios';
+import { APIMeetingGroup } from '@/types/meeting';
+import { APIMeetingDetail } from '@/types/meetingDetail';
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
@@ -10,6 +12,11 @@ const MeetingAPI = {
         sortDirection: 'DESC',
       },
     }),
+  getMeetingDetailInfo: ({
+    groupId,
+  }: {
+    groupId: APIMeetingGroup['bookGroupId'];
+  }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${groupId}`),
 };
 
 export default MeetingAPI;
