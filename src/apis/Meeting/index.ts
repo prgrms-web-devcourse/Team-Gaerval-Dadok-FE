@@ -59,7 +59,7 @@ const MeetingAPI = {
     comment: string;
   }) =>
     publicApi.post(`/api/book-groups/${bookGroupId}/comment`, {
-      comment: `${comment}`,
+      comment,
     }),
 };
 
