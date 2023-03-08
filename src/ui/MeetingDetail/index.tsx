@@ -28,14 +28,21 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       console.error(error);
     }
     meetingInfoQuery.refetch();
+    /*모임 참여 버튼 클릭시, 
+      TODO
+      2) 유저의 책장에 책 꽂기 API 호출 예정 
+      */
   };
 
-  const handleCreateCommentBtnClick = () => {
-    console.log('댓글을 생성했습니다.');
-    /*댓글 작성하기 버튼 클릭시,
-      1) 댓글 생성 API 호출 예정
-      2) 댓글 리스트 API 재호출 예정
-      3) commentsListData update*/
+  const handleCreateCommentBtnClick = async (comment: string) => {
+    if (comment.trim() === '') return;
+    try {
+      await MeetingAPI.createMeetingComment({ bookGroupId, comment });
+    } catch (error) {
+      console.error(error);
+    }
+    meetingInfoQuery.refetch();
+    meetingCommentsQuery.refetch();
   };
 
   const handleModifyCommentBtnClick = (modifiedComment: string) => {
