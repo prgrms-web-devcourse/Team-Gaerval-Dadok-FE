@@ -16,6 +16,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
 
+  console.log('깃 브랜치 테스트!!!!!!!!!');
   const isSuccess =
     meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
   if (!isSuccess) return null;
