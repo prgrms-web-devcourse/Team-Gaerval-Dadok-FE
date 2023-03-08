@@ -41,6 +41,7 @@ const FormSelect = ({ label, name, children }: FormSelectProps) => {
         placeholder={`${label}을 선택해주세요.`}
         size="md"
         h="4.2rem"
+        bgColor="white"
         {...register(name, rules)}
       >
         {children}

@@ -50,7 +50,6 @@ const BottomNavigation = () => {
         py="1.6rem"
         pos="fixed"
         bottom={0}
-        left={0}
         w="100%"
         maxW="43rem"
         borderTopRadius={20}

@@ -73,6 +73,7 @@ const FormInput = ({ label, name, type = 'text' }: FormInputProps) => {
           focusBorderColor={colors.main}
           py="2rem"
           type={type}
+          bgColor="white"
           {...register(name, rules)}
         />
         {isFocus && getValues(name).length && (

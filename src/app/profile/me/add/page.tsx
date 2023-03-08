@@ -13,14 +13,7 @@ const AdditionalProfile = () => {
   if (!isSuccess) return null;
 
   return (
-    <VStack
-      h="100vh"
-      bgColor="white"
-      position="relative"
-      zIndex={10}
-      p="6rem 2rem"
-      gap="1rem"
-    >
+    <VStack position="relative" zIndex={10} pt="6rem" gap="1rem">
       <Heading fontSize="lg">추가 정보를 입력해 주세요!</Heading>
       <Text fontSize="md" textAlign="center">
         추가 정보를 입력하면

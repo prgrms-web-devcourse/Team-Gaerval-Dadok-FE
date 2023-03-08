@@ -34,6 +34,7 @@ const MeetingSearch = ({
     <Flex
       as="form"
       m="1rem 0"
+      w="100%"
       onSubmit={handleSubmit}
       borderRadius="1rem"
       boxShadow="default"
