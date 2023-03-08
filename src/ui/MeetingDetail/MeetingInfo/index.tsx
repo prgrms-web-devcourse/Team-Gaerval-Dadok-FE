@@ -23,7 +23,7 @@ const MeetingInfo = ({
     commentCount,
     owner: _owner,
     book,
-    isOwner: _isOwner,
+    isOwner,
     isGroupMember,
   } = meetingInfoData;
 
@@ -95,28 +95,58 @@ const MeetingInfo = ({
         </Flex>
       </Flex>
       <Box mt="1.5rem">
-        <Button
-          w="100%"
-          h="3.5rem"
-          fontSize="sm"
-          fontWeight="500"
-          borderRadius="2rem"
-          color="white.900"
-          border="0.1rem solid"
-          backgroundColor="main"
-          onClick={() => {
-            handleParticipateBtnClick();
-          }}
-          isDisabled={isGroupMember}
-          _disabled={{
-            border: 'none',
-            color: 'main',
-            background: 'white',
-            pointerEvents: 'none',
-          }}
-        >
-          {isGroupMember ? '참여 중' : '모임 참여하기'}
-        </Button>
+        {isOwner ? (
+          <>
+            <Button
+              w="50%"
+              h="3.5rem"
+              fontSize="sm"
+              fontWeight="500"
+              borderRadius="2rem"
+              color="white.900"
+              border="0.1rem solid"
+              backgroundColor="main"
+            >
+              모임 수정하기
+            </Button>
+            <Button
+              w="50%"
+              h="3.5rem"
+              fontSize="sm"
+              fontWeight="500"
+              borderRadius="2rem"
+              color="white.900"
+              border="0.1rem solid"
+              borderColor="main"
+              backgroundColor="white.900"
+            >
+              모임 삭제하기
+            </Button>
+          </>
+        ) : (
+          <Button
+            w="100%"
+            h="3.5rem"
+            fontSize="sm"
+            fontWeight="500"
+            borderRadius="2rem"
+            color="white.900"
+            border="0.1rem solid"
+            backgroundColor="main"
+            onClick={() => {
+              handleParticipateBtnClick();
+            }}
+            isDisabled={isGroupMember}
+            _disabled={{
+              border: 'none',
+              color: 'main',
+              background: 'white',
+              pointerEvents: 'none',
+            }}
+          >
+            {isGroupMember ? '참여 중' : '모임 참여하기'}
+          </Button>
+        )}
       </Box>
     </>
   );
