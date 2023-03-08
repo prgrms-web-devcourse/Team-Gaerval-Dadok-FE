@@ -1,16 +1,14 @@
 'use client';
 
-import BottomNavigation from '@/ui/BottomNavigation';
 import MeetingPageContainer from '@/ui/Meeting';
 
-import { Flex } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 
 const Meeting = () => {
   return (
-    <Flex mt="2rem" direction="column" px="5%" align="center">
+    <VStack align="center">
       <MeetingPageContainer />
-      <BottomNavigation />
-    </Flex>
+    </VStack>
   );
 };
 

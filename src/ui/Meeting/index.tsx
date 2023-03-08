@@ -6,6 +6,7 @@ import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQue
 import MeetingListHeader from './MeetingListHeader';
 import MeetingSearch from './MeetingSearch';
 import MeetingList from './MeetingList';
+import { Box } from '@chakra-ui/react';
 
 interface SearchValue {
   [key: string]: string;
@@ -20,8 +21,6 @@ const MeetingPageContainer = () => {
   });
 
   const { isSuccess, data } = useEntireMeetingListQuery();
-
-  if (!isSuccess) return null;
 
   const handleSumbit = () => {
     console.log(searchValue);
@@ -41,17 +40,15 @@ const MeetingPageContainer = () => {
   };
 
   return (
-    data && (
-      <>
-        <MeetingListHeader />
-        <MeetingSearch
-          searchValue={searchValue}
-          handleChange={handleChange}
-          handleSumbit={handleSumbit}
-        />
-        <MeetingList bookGroups={data.bookGroups} />
-      </>
-    )
+    <Box>
+      <MeetingListHeader />
+      <MeetingSearch
+        searchValue={searchValue}
+        handleChange={handleChange}
+        handleSumbit={handleSumbit}
+      />
+      {isSuccess && <MeetingList bookGroups={data.bookGroups} />}
+    </Box>
   );
 };
 

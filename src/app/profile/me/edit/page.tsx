@@ -14,7 +14,7 @@ const EditMyPage = () => {
   if (!isSuccess) return null;
 
   return (
-    <VStack justify="center" align="center" pt="2rem" px="2rem">
+    <VStack justify="center" align="center">
       <TopNavigation pageTitle="" />
       <AdditionalProfileForm
         profile={userProfileQuery.data}

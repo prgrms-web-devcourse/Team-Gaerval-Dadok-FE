@@ -13,7 +13,6 @@ import {
 import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
 import LogoSmallIcon from '@public/icons/logo_sm.svg';
-import BottomNavigation from '@/ui/BottomNavigation';
 
 import type { APIBook } from '@/types/book';
 
@@ -95,7 +94,6 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
           </VStack>
         ))}
       </SimpleGrid>
-      <BottomNavigation />
     </VStack>
   );
 };
