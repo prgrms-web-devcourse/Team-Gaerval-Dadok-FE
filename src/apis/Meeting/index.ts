@@ -1,8 +1,8 @@
-import { APIEntireMeetingList } from '@/types/meeting';
+import { APICreateMeetingReqeust, APIEntireMeetingList, APIMeetingGroup } from '@/types/meeting';
 import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
+import { APIMeetingDetail } from '@/types/meetingDetail';
 import { APIMeetingGroup } from '@/types/meeting';
 import { publicApi } from '../core/axios';
-import { APIMeetingDetail } from '@/types/meetingDetail';
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
@@ -13,11 +13,16 @@ const MeetingAPI = {
         sortDirection: 'DESC',
       },
     }),
+
+  createMeeting: ({ meeting }: { meeting: APICreateMeetingReqeust }) =>
+    publicApi.post('/api/book-groups', meeting),
+
   getMeetingDetailInfo: ({
     bookGroupId,
   }: {
     bookGroupId: APIMeetingGroup['bookGroupId'];
   }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${bookGroupId}`),
+
   getMeetingDetailCommentsList: ({
     bookGroupId,
   }: {
