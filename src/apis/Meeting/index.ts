@@ -51,6 +51,16 @@ const MeetingAPI = {
         joinPassword: null,
       },
     }),
+  createMeetingComment: ({
+    bookGroupId,
+    comment,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+    comment: string;
+  }) =>
+    publicApi.post(`/api/book-groups/${bookGroupId}/comment`, {
+      comment,
+    }),
 };
 
 export default MeetingAPI;
