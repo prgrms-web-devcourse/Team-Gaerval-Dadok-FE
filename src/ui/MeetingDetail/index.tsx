@@ -7,6 +7,7 @@ import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
+import MeetingAPI from '@/apis/Meeting';
 
 interface MeetingDetailProps {
   bookGroupId: number;
@@ -20,15 +21,13 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
   if (!isSuccess) return null;
 
-  const handleParticipateBtnClick = () => {
-    console.log('모임에 참여했습니다.');
+  const handleParticipateBtnClick = async () => {
+    try {
+      await MeetingAPI.postMeetingJoin({ bookGroupId });
+    } catch (error) {
+      console.error(error);
+    }
     meetingInfoQuery.refetch();
-    /*모임 참여 버튼 클릭시, 
-      1) 모임 참여 관련 API 호출 예정
-      2) 유저의 책장에 책 꽂기 API 호출 예정 
-      3) 모임 상세 정보 API 재호출 예정 
-      4) meetingInfoData update
-      */
   };
 
   const handleCreateCommentBtnClick = () => {
