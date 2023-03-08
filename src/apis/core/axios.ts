@@ -13,7 +13,7 @@ const setInterceptor = (instance: AxiosInstance) => {
         }
       }
 
-      if (config.method === 'get') {
+      if (config.method === 'get' || config.method === 'delete') {
         config.data = {};
       }
 
