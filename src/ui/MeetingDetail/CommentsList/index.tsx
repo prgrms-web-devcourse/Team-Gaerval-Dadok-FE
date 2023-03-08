@@ -15,8 +15,6 @@ const CommentsList = ({
   handleDeleteCommentBtnClick,
   handleModifyCommentBtnClick,
 }: commentsListProps) => {
-  const isWrittenUser = true;
-
   return (
     <Box mt="1.5rem">
       <Box fontSize="lg" fontWeight={700}>
@@ -29,10 +27,12 @@ const CommentsList = ({
             contents,
             bookGroupId: _bookGroupId,
             parentCommentId: _parentCommentId,
-            userId,
+            userId: _userId,
             userProfileImage,
             createdAt: _createdAt,
             modifiedAt: _modifiedAt,
+            nickname,
+            writtenByCurrentUser,
           }) => {
             return (
               <Box
@@ -52,11 +52,11 @@ const CommentsList = ({
                       ml="1rem"
                       fontWeight={600}
                     >
-                      {userId}
+                      {nickname}
                     </Flex>
                   </Flex>
                   <Flex align="center" pt="0.4rem">
-                    {isWrittenUser ? (
+                    {writtenByCurrentUser ? (
                       <>
                         <CommentModifyModal
                           comment={contents}
