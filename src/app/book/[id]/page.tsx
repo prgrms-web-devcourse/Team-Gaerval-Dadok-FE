@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import IconButton from '@/ui/common/IconButton';
 import { BookInfo, BookCommentList } from '@/ui/BookDetail';
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
-
 import type { APIDefaultBook } from '@/types/book';
 
 const BookDetailPage = ({
@@ -17,6 +16,7 @@ const BookDetailPage = ({
   const router = useRouter();
   const bookQueryInfo = useBookInfoQuery(bookId, {
     onError: () => {
+      /** @todo /404 페이지로 교체 */
       router.replace('/');
     },
   });
@@ -54,9 +54,10 @@ const BookDetailPage = ({
           </VStack>
         )}
       </VStack>
-      <VStack align="flex-start">
+
+      <VStack align="stretch">
         <Heading pt="3rem" pb="1rem" fontSize="lg">
-          이 책에 남긴 글
+          책 코멘트
         </Heading>
         <BookCommentList bookId={bookId} />
       </VStack>

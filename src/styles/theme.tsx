@@ -41,7 +41,7 @@ const colors = {
 
 interface SchemeTypings {
   component: 'button';
-  colorScheme: 'orange' | 'kakao';
+  colorScheme: 'orange' | 'kakao' | 'orange-fill';
   cssProps: {
     color: string;
     backgroundColor: string;
@@ -57,6 +57,10 @@ const scheme: Record<
     orange: {
       color: colors.main,
       border: `${colors.main} 0.1rem solid`,
+    },
+    'orange-fill': {
+      color: colors.white[900],
+      backgroundColor: colors.main,
     },
     kakao: {
       color: colors.kakao.brown,

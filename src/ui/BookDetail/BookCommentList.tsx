@@ -1,25 +1,10 @@
 'use clinet';
 
-import {
-  Avatar,
-  Flex,
-  VStack,
-  Text,
-  Menu,
-  MenuItem,
-  MenuList,
-  MenuButton,
-  IconButton,
-} from '@chakra-ui/react';
-import MoreIcon from '@public/icons/more.svg';
+import { VStack } from '@chakra-ui/react';
 
-interface APIBookComment {
-  userId: number;
-  nickName: string;
-  profileImageUrl: string;
-  createdAt: string;
-  contents: string;
-}
+import Button from '@/ui/common/Button';
+import BookComment from './BookComment';
+import type { APIBookComment } from './type';
 
 interface Props {
   bookId: number;
@@ -47,54 +32,43 @@ const getBookComments = (_id: number) => {
   ];
 };
 
-const BookCommentList = ({ bookId }: Props) => {
-  const comments: APIBookComment[] = getBookComments(bookId);
-
-  return (
-    <VStack align="stretch" spacing="2rem" width="100%">
-      {comments.map(props => (
-        <Comment key={props.userId} {...props} />
-      ))}
-    </VStack>
-  );
+const getMyComment = () => {
+  return {
+    userId: 1,
+    nickName: '계란',
+    profileImageUrl:
+      'http://k.kakaocdn.net/dn/bjK45U/btrWRWU4xna/eK9gq12S5wMiROieJDvIuK/img_640x640.jpg',
+    createdAt: '방금 전',
+    contents: '요즘 핫한 챗GPT에 대한 내용을 잘 담은 책입니다.',
+  };
 };
 
-const Comment = ({
-  nickName,
-  profileImageUrl,
-  createdAt,
-  contents,
-}: APIBookComment) => {
+const BookCommentList = ({ bookId }: Props) => {
+  const myComment: APIBookComment = getMyComment();
+  const userComments: APIBookComment[] = getBookComments(bookId);
+
   return (
-    <VStack align="flex-start">
-      <Flex gap="1rem" align="center" width="100%">
-        <Avatar src={profileImageUrl} />
-        <VStack flexGrow="1" align="flex-start">
-          <Text fontSize="sm" fontWeight="bold">
-            {nickName}
-          </Text>
-          <Text fontSize="xs" style={{ margin: 0 }} color="black.500">
-            {createdAt}
-          </Text>
-        </VStack>
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label="Options"
-            icon={<MoreIcon />}
-            background="inherit"
-            border="none"
-          />
-          <MenuList fontSize="md">
-            <MenuItem>수정</MenuItem>
-            <MenuItem color="red.300">삭제</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
-      <Text fontSize="md" py="0.5rem">
-        {contents}
-      </Text>
-    </VStack>
+    <>
+      {myComment ? (
+        <BookComment
+          nickName="잇츠미"
+          profileImageUrl=""
+          createdAt="3일 전"
+          contents="정말 어려운 내용이에요."
+          editable
+          style={{ border: '1px solid #ffe6c6' }}
+        />
+      ) : (
+        <Button scheme="orange-fill" mt="2rem" fullWidth>
+          코멘트 남기기
+        </Button>
+      )}
+      <VStack align="stretch" spacing="2rem" width="100%" pt="2rem">
+        {userComments.map(({ userId, ...props }) => (
+          <BookComment key={userId} {...props} />
+        ))}
+      </VStack>
+    </>
   );
 };
 
