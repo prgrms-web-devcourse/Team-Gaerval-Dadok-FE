@@ -18,14 +18,15 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const userProfile = useMyProfileQuery();
-  const userNickname = userProfile.data?.nickname;
-  const userAvatar = userProfile.data?.profileImage;
 
   const isSuccess =
     meetingInfoQuery.isSuccess &&
     meetingCommentsQuery.isSuccess &&
     userProfile.isSuccess;
   if (!isSuccess) return null;
+
+  const userNickname = userProfile.data.nickname;
+  const userAvatar = userProfile.data.profileImage;
 
   const handleParticipateBtnClick = async () => {
     try {
