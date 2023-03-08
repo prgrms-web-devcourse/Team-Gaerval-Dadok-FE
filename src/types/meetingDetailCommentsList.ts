@@ -3,15 +3,13 @@ export interface APIDateAt {
   modifiedAt: number;
 }
 
-export interface APIBookGroupComments {
+export interface APIBookGroupComments extends APIDateAt {
   commentId: number;
   contents: string;
   bookGroupId: number;
   parentCommentId: number;
   userId: number;
   userProfileImage: string;
-  createdAt: APIDateAt[];
-  modifiedAt: APIDateAt[];
 }
 
 export interface APIMeetingDetailCommentsList {
