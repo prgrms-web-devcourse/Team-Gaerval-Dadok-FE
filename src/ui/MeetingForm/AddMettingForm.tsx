@@ -21,6 +21,13 @@ import { useRouter } from 'next/navigation';
 
 const AddMeetingForm = () => {
   const [selectedBook, setSeletedBook] = useState<APIBook>();
+
+  const date = new Date();
+  const today = Date.now();
+  const startDate = new Date(today - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split('T')[0];
+
   const methods = useForm({
     mode: 'all',
     defaultValues: {
@@ -28,7 +35,7 @@ const AddMeetingForm = () => {
       title: '',
       introduce: '',
       maxMemberCount: 100,
-      startDate: '',
+      startDate,
       endDate: '',
       hasJoinPasswd: false,
       isPublic: true,
@@ -120,7 +127,6 @@ const AddMeetingForm = () => {
             onBookClick={async book => {
               setSeletedBook(book);
               methods.setValue('bookId', book.bookId);
-              await methods.trigger();
               onClose();
             }}
           />

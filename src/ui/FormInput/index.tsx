@@ -74,14 +74,25 @@ const FormInput = ({
         )}
       </FormLabel>
       <InputGroup>
-        <Input
-          focusBorderColor={colors.main}
-          py="2rem"
-          type={type}
-          bgColor="white"
-          disabled={disabled}
-          {...register(name, rules)}
-        />
+        {disabled ? (
+          <Input
+            focusBorderColor={colors.main}
+            py="2rem"
+            type={type}
+            bgColor="white"
+            disabled
+            {...register(name)}
+          />
+        ) : (
+          <Input
+            focusBorderColor={colors.main}
+            py="2rem"
+            type={type}
+            bgColor="white"
+            {...register(name, rules)}
+          />
+        )}
+
         {isFocus && getValues(name).length && (
           <InputRightElement h="100%">
             <button
