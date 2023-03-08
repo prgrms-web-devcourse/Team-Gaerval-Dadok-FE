@@ -1,8 +1,11 @@
-import { APICreateMeetingReqeust, APIEntireMeetingList, APIMeetingGroup } from '@/types/meeting';
-import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
-import { APIMeetingDetail } from '@/types/meetingDetail';
-import { APIMeetingGroup } from '@/types/meeting';
-import { publicApi } from '../core/axios';
+import {
+  APICreateMeetingReqeust,
+  APIEntireMeetingList,
+  APIMeetingGroup,
+} from "@/types/meeting";
+import { APIMeetingDetailCommentsList } from "@/types/meetingDetailCommentsList";
+import { APIMeetingDetail } from "@/types/meetingDetail";
+import { publicApi } from "../core/axios";
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
@@ -10,23 +13,23 @@ const MeetingAPI = {
       params: {
         pageSize: 10,
         groupCursorId: 999,
-        sortDirection: 'DESC',
+        sortDirection: "DESC",
       },
     }),
 
   createMeeting: ({ meeting }: { meeting: APICreateMeetingReqeust }) =>
-    publicApi.post('/api/book-groups', meeting),
+    publicApi.post("/api/book-groups", meeting),
 
   getMeetingDetailInfo: ({
     bookGroupId,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIMeetingGroup["bookGroupId"];
   }) => publicApi.get<APIMeetingDetail>(`/api/book-groups/${bookGroupId}`),
 
   getMeetingDetailCommentsList: ({
     bookGroupId,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIMeetingGroup["bookGroupId"];
   }) =>
     publicApi.get<APIMeetingDetailCommentsList>(
       `/api/book-groups/${bookGroupId}/comments`,
@@ -34,7 +37,7 @@ const MeetingAPI = {
         params: {
           groupCommentCursorId: 100,
           pageSize: 10,
-          sortDirection: 'DESC',
+          sortDirection: "DESC",
         },
       }
     ),
