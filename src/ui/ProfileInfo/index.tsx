@@ -3,6 +3,7 @@ import { APIUser } from '@/types/user';
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import BottomNavigation from '../BottomNavigation';
 import InteractiveBookShelf from '../InteractiveBookShelf';
 
 const ProfileInfo = ({
@@ -45,6 +46,7 @@ const ProfileInfo = ({
         )}
       </Box>
       {children}
+      <BottomNavigation />
     </Flex>
   );
 };

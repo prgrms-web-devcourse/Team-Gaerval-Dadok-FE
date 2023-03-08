@@ -1,4 +1,5 @@
 import { MouseEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Input,
   VStack,
@@ -9,11 +10,12 @@ import {
   Center,
 } from '@chakra-ui/react';
 
-import { APIBook } from '@/types/book';
 import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
 import LogoSmallIcon from '@public/icons/logo_sm.svg';
-import { useRouter } from 'next/navigation';
+import BottomNavigation from '@/ui/BottomNavigation';
+
+import type { APIBook } from '@/types/book';
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
@@ -93,6 +95,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
           </VStack>
         ))}
       </SimpleGrid>
+      <BottomNavigation />
     </VStack>
   );
 };
