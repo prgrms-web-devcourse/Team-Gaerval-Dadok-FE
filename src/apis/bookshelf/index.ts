@@ -19,7 +19,7 @@ const bookshelfAPI = {
 
   getBookshelfBooks: (bookshelfId: APIDefaultBookshelf['bookshelfId']) =>
     publicApi.get<APIBookshelfBookList>(
-      `/api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookCursorId=3&sortDirection=DESC`
+      `/api/bookshelves/${bookshelfId}/books?type=READ&pageSize=100&bookCursorId=10&sortDirection=DESC`
     ),
 };
 
