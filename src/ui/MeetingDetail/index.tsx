@@ -69,11 +69,20 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       3) commentsListData update*/
   };
 
+  const handleDeleteMeetingBtnClick = () => {
+    console.log('모임이 삭제되었습니다.');
+    /*모임 삭제 버튼 클릭시,
+      1) 모임 삭제 API 호출
+      2) 모임 목록 페이지 API 호출
+      3) router로 모임 목록 페이지로 이동*/
+  };
+
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
       <MeetingInfo
         meetingInfoData={meetingInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
+        handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
       />
       <CommentInputBox
         userNickname={userNickname}
