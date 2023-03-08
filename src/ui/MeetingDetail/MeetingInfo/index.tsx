@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Text, Button } from '@chakra-ui/react';
 import { APIMeetingDetail } from '@/types/meetingDetail';
+import { useRouter } from 'next/navigation';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
@@ -10,6 +11,10 @@ const MeetingInfo = ({
   meetingInfoData,
   handleParticipateBtnClick,
 }: MeetingInfoProps) => {
+  /* TODO 모임 수정하기 버튼 클릭시 해당 모임 수정 페이지로 bookGroupId를 통해 이동할 예정 
+   (현재 모임 수정 페이지 완성 전으로 모임 리스트 페이지로 router 연결해 놓은 상태입니다.) */
+  const router = useRouter();
+
   const {
     bookGroupId: _bookGroupId,
     title,
@@ -96,33 +101,35 @@ const MeetingInfo = ({
       </Flex>
       <Box mt="1.5rem">
         {isOwner ? (
-          <>
+          <Flex justify="space-around">
             <Button
-              w="50%"
+              w="48%"
               h="3.5rem"
               fontSize="sm"
               fontWeight="500"
               borderRadius="2rem"
-              color="white.900"
+              color="main"
               border="0.1rem solid"
-              backgroundColor="main"
+              backgroundColor="white.900"
+              onClick={() => {
+                router.push(`/meeting`);
+              }}
             >
               모임 수정하기
             </Button>
             <Button
-              w="50%"
+              w="48%"
               h="3.5rem"
               fontSize="sm"
               fontWeight="500"
               borderRadius="2rem"
-              color="white.900"
+              color="red.900"
               border="0.1rem solid"
-              borderColor="main"
               backgroundColor="white.900"
             >
               모임 삭제하기
             </Button>
-          </>
+          </Flex>
         ) : (
           <Button
             w="100%"
