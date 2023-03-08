@@ -78,7 +78,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   };
 
   return (
-    <Flex px="5%" direction="column" justify="center" mt="1rem">
+    <Flex direction="column" justify="center">
       <MeetingInfo
         meetingInfoData={meetingInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
