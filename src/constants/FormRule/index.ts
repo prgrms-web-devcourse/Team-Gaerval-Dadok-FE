@@ -32,7 +32,7 @@ const FORM_RULES: {
   job: {
     required: '직업을 선택해주세요.',
   },
-  meetingTitle: {
+  title: {
     required: '모임 제목을 입력해 주세요.',
     minLength: {
       value: 2,
@@ -43,7 +43,7 @@ const FORM_RULES: {
       message: '모임 제목을 30자 이하로 입력해 주세요.',
     },
   },
-  meetingExplanation: {
+  introduce: {
     required: '모임 설명을 입력해 주세요.',
     minLength: {
       value: 10,
@@ -54,14 +54,14 @@ const FORM_RULES: {
       message: '모임 설명을 150자 이하로 입력해 주세요.',
     },
   },
-  meetingPersonnelNumber: {
+  maxMemberCount: {
     required: '모임 인원을 입력해 주세요.',
-    minLength: {
+    min: {
       value: 1,
       message: '모임 인원을 1명 이상 입력해 주세요.',
     },
-    maxLength: {
-      value: 4,
+    max: {
+      value: 500,
       message: '인원이 너무 많습니다.',
     },
     pattern: {
@@ -69,11 +69,17 @@ const FORM_RULES: {
       message: '숫자를 입력해 주세요.',
     },
   },
-  meetingStartDate: {
+  startDate: {
     required: '모임 시작일을 선택해 주세요.',
   },
-  meetingEndDate: {
+  endDate: {
     required: '모임 종료일을 선택해 주세요.',
+  },
+  bookId: {
+    required: true,
+    validate: {
+      positive: value => Number(value) > 0,
+    },
   },
 } as const;
 

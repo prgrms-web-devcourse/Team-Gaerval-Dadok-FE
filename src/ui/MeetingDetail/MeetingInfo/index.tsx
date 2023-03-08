@@ -1,18 +1,8 @@
 import { Box, Flex, Image, Text, Button } from '@chakra-ui/react';
+import { APIMeetingDetail } from '@/types/meetingDetail';
 
-interface MeetingInfoDataProps {
-  title: string;
-  content: string;
-  start: string;
-  end: string;
-  book: string;
-  people: string;
-  comments: string;
-  assession: boolean;
-  isPartInUser: boolean;
-}
 interface MeetingInfoProps {
-  meetingInfoData: MeetingInfoDataProps;
+  meetingInfoData: APIMeetingDetail;
   handleParticipateBtnClick: () => void;
 }
 
@@ -21,18 +11,23 @@ const MeetingInfo = ({
   handleParticipateBtnClick,
 }: MeetingInfoProps) => {
   const {
+    bookGroupId: _bookGroupId,
     title,
-    content,
-    start,
-    end,
+    introduce,
+    startDate,
+    endDate,
+    hasJoinPasswd,
+    isPublic: _isPublic,
+    maxMemberCount: _maxMemberCount,
+    currentMemberCount,
+    commentCount,
+    owner: _owner,
     book,
-    people,
-    comments,
-    assession,
-    isPartInUser,
+    isOwner: _isOwner,
+    isGroupMember,
   } = meetingInfoData;
 
-  const message = assession ? '참여 가능' : '가입 승인 필요';
+  const message = hasJoinPasswd ? '가입 승인 필요' : '참여 가능';
 
   return (
     <>
@@ -41,7 +36,7 @@ const MeetingInfo = ({
           {title}
         </Text>
         <Text fontSize="md" m="1rem 0">
-          {content}
+          {introduce}
         </Text>
       </Flex>
       <Flex mt="1.5rem" justify="space-between" h="13rem">
@@ -49,7 +44,7 @@ const MeetingInfo = ({
           <Flex p="1rem" h="100%" direction="column" justify="space-between">
             <Box h="60%">
               <Box fontSize="1.2rem">
-                {start} ~ {end}
+                {startDate} ~ {endDate}
               </Box>
               <Flex h="70%">
                 <Text
@@ -59,13 +54,13 @@ const MeetingInfo = ({
                   whiteSpace="nowrap"
                   fontWeight={600}
                 >
-                  책: {book}
+                  책: {book.title}
                 </Text>
               </Flex>
             </Box>
             <Box>
               <Box fontSize="1.2rem" fontWeight={500} color="red.800">
-                {isPartInUser ? '' : message}
+                {isGroupMember ? '' : message}
               </Box>
               <Flex>
                 <Flex align="center" w="4rem">
@@ -73,7 +68,7 @@ const MeetingInfo = ({
                     <Image src="/icons/peopleIcon.svg" alt="peopleIcon" />
                   </Box>
                   <Box fontSize="1rem" w="3rem" ml="0.5rem">
-                    {people}
+                    {currentMemberCount}
                   </Box>
                 </Flex>
                 <Flex align="center" w="4rem" ml="0.5rem">
@@ -81,7 +76,7 @@ const MeetingInfo = ({
                     <Image src="/icons/commentIcon.svg" alt="commentIcon" />
                   </Box>
                   <Text fontSize="1rem" w="3rem" ml="0.5rem">
-                    {comments}
+                    {commentCount}
                   </Text>
                 </Flex>
               </Flex>
@@ -90,7 +85,7 @@ const MeetingInfo = ({
         </Box>
         <Flex w="30%" justify="center" align="center">
           <Image
-            src="http://image.yes24.com/goods/101865885/XL"
+            src={book.imageUrl}
             alt="bookCover"
             w="10rem"
             objectFit="cover"
@@ -112,7 +107,7 @@ const MeetingInfo = ({
           onClick={() => {
             handleParticipateBtnClick();
           }}
-          isDisabled={isPartInUser}
+          isDisabled={isGroupMember}
           _disabled={{
             border: 'none',
             color: 'main',
@@ -120,7 +115,7 @@ const MeetingInfo = ({
             pointerEvents: 'none',
           }}
         >
-          {isPartInUser ? '참여 중' : '모임 참여하기'}
+          {isGroupMember ? '참여 중' : '모임 참여하기'}
         </Button>
       </Box>
     </>

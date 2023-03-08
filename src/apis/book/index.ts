@@ -8,6 +8,8 @@ const bookAPI = {
     ),
   getBookInfo: (bookId: APIDefaultBook['bookId']) =>
     publicApi.get<APIBookInfo>(`/api/books/${bookId}`),
+  createBook: ({ book }: { book: APIBook }) =>
+    publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
 };
 
 export default bookAPI;
