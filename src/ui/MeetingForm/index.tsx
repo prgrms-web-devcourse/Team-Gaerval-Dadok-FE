@@ -42,12 +42,7 @@ const MeetingForm = ({ onSubmit }: MeetingFormInterface) => {
   return (
     <>
       <FormProvider {...methods}>
-        <Box
-          as="form"
-          w="100%"
-          px="2rem"
-          onSubmit={methods.handleSubmit(onSubmit)}
-        >
+        <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
           <Box
             onClick={onOpen}
             fontSize="md"
