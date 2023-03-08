@@ -41,6 +41,16 @@ const MeetingAPI = {
         },
       }
     ),
+  postMeetingJoin: ({
+    bookGroupId,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+  }) =>
+    publicApi.post(`/api/book-groups/${bookGroupId}/join`, {
+      data: {
+        joinPassword: null,
+      },
+    }),
 };
 
 export default MeetingAPI;
