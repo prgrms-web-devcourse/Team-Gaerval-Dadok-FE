@@ -32,7 +32,7 @@ const InteractiveBook = ({
     >
       <Box
         as={Link}
-        href={`../book/${bookId}`}
+        href={`/book/${bookId}`}
         sx={{
           position: 'absolute',
           width: `${BOOK_WIDTH}rem`,
