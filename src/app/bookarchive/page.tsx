@@ -10,7 +10,7 @@ import BottomNavigation from '@/ui/BottomNavigation';
 
 export default function BookArchive() {
   return (
-    <VStack as="main" width="100%" p="2rem" spacing="2rem">
+    <VStack as="main" width="100%" spacing="2rem">
       <IconButton name="search" alignSelf="flex-end" margin="1rem" />
 
       <Flex direction="column" width="100%" gap="3rem">

@@ -7,7 +7,7 @@ import BottomNavigation from '@/ui/BottomNavigation';
 
 const BookPage = () => {
   return (
-    <VStack px="2rem" pt="2rem">
+    <VStack>
       <BookSearch />
       <BottomNavigation />
     </VStack>

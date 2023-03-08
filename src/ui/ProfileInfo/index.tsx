@@ -19,7 +19,7 @@ const ProfileInfo = ({
   const { jobGroupKoreanName, jobNameKoreanName } = job;
   const { bookshelfName, books } = summaryBookshelf;
   return (
-    <Flex direction="column" justify="center" gap="2rem" pt="4rem" px="2rem">
+    <Flex direction="column" justify="center" gap="2rem">
       <Flex width="100%" gap="1.5rem">
         <Avatar src={profileImage} w="8rem" h="8rem" />
         <Flex direction="column" justify="center">

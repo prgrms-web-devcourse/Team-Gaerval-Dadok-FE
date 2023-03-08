@@ -28,7 +28,7 @@ const BookDetailPage = ({
   };
 
   return (
-    <Box pt="2rem" px="2rem">
+    <Box>
       <IconButton name="back" />
       <BookInfo
         bookId={bookId}

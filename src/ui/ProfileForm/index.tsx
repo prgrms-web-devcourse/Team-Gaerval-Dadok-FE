@@ -42,12 +42,7 @@ const UserForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Box
-        as="form"
-        w="100%"
-        px="2rem"
-        onSubmit={methods.handleSubmit(onUserFormSubmit)}
-      >
+      <Box as="form" w="100%" onSubmit={methods.handleSubmit(onUserFormSubmit)}>
         <Flex direction="column" gap="1rem" align="center">
           {/* TODO: API 받으면 프로필 이미지 구현 */}
           <Avatar w="8rem" h="8rem" />
