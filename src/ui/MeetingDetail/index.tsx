@@ -81,6 +81,9 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     router.push('/meeting');
   };
 
+  const { isGroupMember } = meetingInfoQuery.data;
+  const { bookGroupComments, isEmpty } = meetingCommentsQuery.data;
+
   return (
     <Flex px="5%" direction="column" justify="center" mt="1rem">
       <MeetingInfo
@@ -91,11 +94,12 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       <CommentInputBox
         userNickname={userNickname}
         userAvatar={userAvatar}
-        isPartInUser={meetingInfoQuery.data.isGroupMember}
+        isPartInUser={isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
       <CommentsList
-        commentsListData={meetingCommentsQuery.data.bookGroupComments}
+        isEmpty={isEmpty}
+        commentsListData={bookGroupComments}
         handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
         handleModifyCommentBtnClick={handleModifyCommentBtnClick}
       />
