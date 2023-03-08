@@ -1,83 +1,58 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Image,
-  useDisclosure,
-  useTheme,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Flex, Image, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import FormInput from '@/ui/FormInput';
-import BottomSheet from '@/ui/common/BottomSheet';
-import BookSearch from '@/ui/BookSearch';
-import IconButton from '@/ui/common/IconButton';
-import { useState } from 'react';
-import { APIBook } from '@/types/book';
-import { APICreateMeetingReqeust } from '@/types/meeting';
+import { APIMeetingDetail } from '@/types/meetingDetail';
+import MeetingAPI from '@/apis/Meeting';
+import { useRouter } from 'next/navigation';
 
-interface EditMeetingFormInterface {
-  onSubmit: (meeting: APICreateMeetingReqeust) => Promise<void>;
+interface EditMeetingFormProps {
+  meeting: APIMeetingDetail;
 }
 
-const EditMeetingForm = ({ onSubmit: onClick }: EditMeetingFormInterface) => {
-  const [selectedBook, setSeletedBook] = useState<APIBook>();
+const EditMeetingForm = ({ meeting }: EditMeetingFormProps) => {
+  const theme = useTheme();
+  const router = useRouter();
   const methods = useForm({
     mode: 'all',
     defaultValues: {
-      bookId: 0,
-      title: '',
-      introduce: '',
-      maxMemberCount: 100,
-      startDate: '',
-      endDate: '',
-      hasJoinPasswd: false,
-      isPublic: true,
+      title: meeting.title,
+      introduce: meeting.introduce,
+      startDate: meeting.startDate,
+      maxMemberCount: meeting.maxMemberCount,
+      endDate: meeting.endDate,
     },
   });
-  const theme = useTheme();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const onSubmit: Parameters<typeof methods.handleSubmit>[0] = async ({
+    title,
+    introduce,
+    maxMemberCount,
+    endDate,
+  }) => {
+    try {
+      await MeetingAPI.patchMeetingDetailInfo({
+        bookGroupId: meeting.bookGroupId,
+        meeting: { title, introduce, endDate, maxMemberCount },
+      });
+
+      router.push(`/meeting/${meeting.bookGroupId}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <FormProvider {...methods}>
-        <Box as="form" w="100%" onSubmit={methods.handleSubmit(onClick)}>
-          <Box
-            onClick={onOpen}
-            fontSize="md"
-            maxH="18rem"
-            w="fit-content"
-            mx="auto"
-            border={
-              methods.getFieldState('bookId').error
-                ? `2px solid ${theme.colors.red['500']}`
-                : 'none'
-            }
-          >
-            {selectedBook && selectedBook.imageUrl ? (
-              <Image src={selectedBook.imageUrl} alt="book-cover" />
-            ) : (
-              <Center
-                borderRadius={10}
-                bgColor="white"
-                w="12rem"
-                h="17.4rem"
-                textAlign="center"
-              >
-                책을
-                <br />
-                선택해주세요.
-              </Center>
-            )}
+        <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
+          <Box fontSize="md" maxH="18rem" w="fit-content" mx="auto">
+            <Image src={meeting.book.imageUrl} alt="book-cover" />
           </Box>
           <Flex direction="column" gap="2rem" align="center">
-            <Box display="none">
-              <FormInput label="" name="bookId" />
-            </Box>
             <FormInput label="제목" name="title" />
             <FormInput label="설명" name="introduce" />
-            <FormInput label="시작일" name="startDate" type="date" />
+            <FormInput label="시작일" name="startDate" type="date" disabled />
             <FormInput label="종료일" name="endDate" type="date" />
           </Flex>
           <Box
@@ -91,33 +66,16 @@ const EditMeetingForm = ({ onSubmit: onClick }: EditMeetingFormInterface) => {
             border="1px solid"
             borderRadius="5rem"
             fontSize="md"
+            fontWeight="bold"
             _disabled={{
               color: `${theme.colors.black['500']}`,
               border: '1px solid',
             }}
           >
-            모임 생성하기
+            모임 수정하기
           </Box>
         </Box>
       </FormProvider>
-      <BottomSheet isOpen={isOpen} onClose={onClose}>
-        <VStack px="2rem" py="2rem" h="95vh" gap="1rem" overflow="scroll">
-          <IconButton
-            name="close"
-            onClick={onClose}
-            alignSelf="flex-end"
-            tabIndex={-1}
-          />
-          <BookSearch
-            onBookClick={async book => {
-              setSeletedBook(book);
-              methods.setValue('bookId', book.bookId);
-              await methods.trigger();
-              onClose();
-            }}
-          />
-        </VStack>
-      </BottomSheet>
     </>
   );
 };
