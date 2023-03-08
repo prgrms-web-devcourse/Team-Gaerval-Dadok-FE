@@ -6,10 +6,11 @@ import { DUMMY_BOOKS } from '@/pages/api/dummyBooks';
 import BookList from '@/ui/BookList';
 import IconButton from '@/ui/common/IconButton';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
+import BottomNavigation from '@/ui/BottomNavigation';
 
 export default function BookArchive() {
   return (
-    <VStack as="main" width="100%" p="2rem" spacing="2rem" mb="9rem">
+    <VStack as="main" width="100%" spacing="2rem">
       <IconButton name="search" alignSelf="flex-end" margin="1rem" />
 
       <Flex direction="column" width="100%" gap="3rem">
@@ -51,6 +52,7 @@ export default function BookArchive() {
           <InteractiveBookShelf books={DUMMY_BOOKS.books} />
         </VStack>
       </Flex>
+      <BottomNavigation />
     </VStack>
   );
 }

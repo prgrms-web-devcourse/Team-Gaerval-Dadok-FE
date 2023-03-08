@@ -1,5 +1,5 @@
 'use client';
-import { Flex } from '@chakra-ui/react';
+
 import { useState } from 'react';
 
 import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQuery';
@@ -42,7 +42,7 @@ const MeetingPageContainer = () => {
 
   return (
     data && (
-      <Flex mt="2rem" direction="column" px="5%" mb="9rem">
+      <>
         <MeetingListHeader />
         <MeetingSearch
           searchValue={searchValue}
@@ -50,7 +50,7 @@ const MeetingPageContainer = () => {
           handleSumbit={handleSumbit}
         />
         <MeetingList bookGroups={data.bookGroups} />
-      </Flex>
+      </>
     )
   );
 };

@@ -56,7 +56,6 @@ const CreateMeetingForm = () => {
         <Box
           as="form"
           w="100%"
-          px="2rem"
           onSubmit={methods.handleSubmit(handleInputSubmit)}
         >
           <Box

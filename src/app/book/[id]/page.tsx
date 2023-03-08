@@ -22,7 +22,7 @@ const BookDetailPage = ({
   });
 
   return (
-    <Box pt="2rem" px="2rem" width="100%">
+    <Box>
       <IconButton name="back" />
       <VStack
         w="100%"

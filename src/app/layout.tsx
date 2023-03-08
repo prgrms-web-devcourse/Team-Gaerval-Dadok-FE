@@ -1,11 +1,10 @@
 'use client';
 
+import { RecoilRoot } from 'recoil';
+
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvier from '@/components/ReactQueryProvider';
-import { RecoilRoot } from 'recoil';
-import { Box } from '@chakra-ui/react';
-
-import BottomNavigation from '@/ui/BottomNavigation';
+import Layout from '@/ui/common/Layout';
 import { LineSeed } from '@/styles/font';
 
 export default function RootLayout({
@@ -20,8 +19,7 @@ export default function RootLayout({
         <RecoilRoot>
           <ReactQueryProvier>
             <ChakraThemeProvider>
-              <Box mb="9rem">{children}</Box>
-              <BottomNavigation />
+              <Layout>{children}</Layout>
             </ChakraThemeProvider>
           </ReactQueryProvier>
         </RecoilRoot>

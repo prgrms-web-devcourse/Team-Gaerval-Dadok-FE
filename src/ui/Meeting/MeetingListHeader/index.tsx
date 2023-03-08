@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const MeetingListHeader = () => {
   return (
-    <Box>
+    <Box width="100%">
       <Flex mb="1rem" justify="space-between">
         <Box w="70%" fontSize="2rem" fontWeight="700">
           모임
