@@ -74,6 +74,10 @@ const FORM_RULES: {
   },
   endDate: {
     required: '모임 종료일을 선택해 주세요.',
+    validate: {
+      possible: (_, { startDate, endDate }) =>
+        startDate <= endDate || '종료일은 시작일보다 늦어야 해요.',
+    },
   },
   bookId: {
     required: true,
