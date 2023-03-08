@@ -7,6 +7,7 @@ import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import MeetingAPI from '@/apis/Meeting';
 
 interface MeetingDetailProps {
@@ -16,9 +17,14 @@ interface MeetingDetailProps {
 const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
+  const userProfile = useMyProfileQuery();
+  const userNickname = userProfile.data?.nickname;
+  const userAvatar = userProfile.data?.profileImage;
 
   const isSuccess =
-    meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
+    meetingInfoQuery.isSuccess &&
+    meetingCommentsQuery.isSuccess &&
+    userProfile.isSuccess;
   if (!isSuccess) return null;
 
   const handleParticipateBtnClick = async () => {
@@ -69,6 +75,8 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
         handleParticipateBtnClick={handleParticipateBtnClick}
       />
       <CommentInputBox
+        userNickname={userNickname}
+        userAvatar={userAvatar}
         isPartInUser={meetingInfoQuery.data.isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />

@@ -3,11 +3,15 @@ import { useState } from 'react';
 interface CommentInputBoxProps {
   isPartInUser: boolean;
   handleCreateCommentBtnClick: (comment: string) => void;
+  userNickname: string | undefined | null;
+  userAvatar: string | undefined;
 }
 
 const CommentInputBox = ({
   isPartInUser,
   handleCreateCommentBtnClick,
+  userNickname,
+  userAvatar,
 }: CommentInputBoxProps) => {
   const [commentValue, setCommentValue] = useState('');
 
@@ -23,11 +27,11 @@ const CommentInputBox = ({
       <Box p="1rem" bgColor="white" borderRadius="1rem" boxShadow="default">
         <Flex>
           <Box>
-            <Avatar src="https://bit.ly/dan-abramov" loading="lazy" />
+            <Avatar src={userAvatar} loading="lazy" />
           </Box>
           <Flex align="center" ml="1rem">
             <Box fontSize="sm" fontWeight={600}>
-              사용자 닉네임
+              {userNickname ? userNickname : '로그인 후 이용해 주세요.'}
             </Box>
           </Flex>
         </Flex>
