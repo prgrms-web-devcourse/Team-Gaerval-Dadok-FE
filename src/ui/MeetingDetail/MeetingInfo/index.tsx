@@ -5,11 +5,13 @@ import { useRouter } from 'next/navigation';
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
   handleParticipateBtnClick: () => void;
+  handleDeleteMeetingBtnClick: () => void;
 }
 
 const MeetingInfo = ({
   meetingInfoData,
   handleParticipateBtnClick,
+  handleDeleteMeetingBtnClick,
 }: MeetingInfoProps) => {
   /* TODO 모임 수정하기 버튼 클릭시 해당 모임 수정 페이지로 bookGroupId를 통해 이동할 예정 
    (현재 모임 수정 페이지 완성 전으로 모임 리스트 페이지로 router 연결해 놓은 상태입니다.) */
@@ -33,6 +35,18 @@ const MeetingInfo = ({
   } = meetingInfoData;
 
   const message = hasJoinPasswd ? '가입 승인 필요' : '참여 가능';
+
+  const handleMeetingDeleteButton = () => {
+    /*TODO 모임원이 1명 초과인 상태에서는 삭제가 불가능하다는 알림 메세지 UI 구현 필요*/
+    if (currentMemberCount > 1) {
+      alert('혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!');
+      return;
+    }
+
+    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요
+    TODO 모임 삭제 API 연동예정*/
+    handleDeleteMeetingBtnClick();
+  };
 
   return (
     <>
@@ -126,6 +140,7 @@ const MeetingInfo = ({
               color="red.900"
               border="0.1rem solid"
               backgroundColor="white.900"
+              onClick={handleMeetingDeleteButton}
             >
               모임 삭제하기
             </Button>
