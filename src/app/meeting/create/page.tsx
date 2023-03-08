@@ -6,7 +6,7 @@ import TopNavigation from '@/ui/common/TopNavigation';
 
 const CreateMeetingPage = () => {
   return (
-    <VStack justify="center" align="center" pt="2rem" px="2rem">
+    <VStack justify="center" align="center">
       <TopNavigation pageTitle="" />
       <AddMeetingForm />
     </VStack>
