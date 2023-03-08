@@ -2,8 +2,9 @@
 
 import { APIBook } from '@/types/book';
 import { Box, Flex } from '@chakra-ui/react';
-import { usePalette } from 'color-thief-react';
+import axios from 'axios';
 import Link from 'next/link';
+import { useState } from 'react';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
 import InteractiveBookTop from './InteractiveBookTop';
@@ -16,9 +17,19 @@ const InteractiveBook = ({
   imageUrl,
   bookId,
 }: Pick<APIBook, 'imageUrl' | 'bookId'>) => {
-  const { data = ['#c8c8c8'] } = usePalette(imageUrl, 2, 'hex', {
-    crossOrigin: 'anonymous',
-  });
+  const [color, setColor] = useState<string>('');
+
+  const getColor = async (imageUrl: string) => {
+    const colors = await axios.get('/api/getBookSideColor/', {
+      params: {
+        url: imageUrl,
+      },
+    });
+
+    setColor(colors.data.colors[0]);
+  };
+
+  getColor(imageUrl);
 
   return (
     <Flex
@@ -48,13 +59,9 @@ const InteractiveBook = ({
           },
         }}
       >
-        {data && (
-          <>
-            <InteractiveBookTop bookThick={BOOK_THICK} />
-            <InteractiveBookSide bookColor={data[0]} bookThick={BOOK_THICK} />
-            <InteractiveBookFront imageUrl={imageUrl} />
-          </>
-        )}
+        <InteractiveBookTop bookThick={BOOK_THICK} />
+        <InteractiveBookSide bookColor={color} bookThick={BOOK_THICK} />
+        <InteractiveBookFront imageUrl={imageUrl} />
       </Box>
     </Flex>
   );
