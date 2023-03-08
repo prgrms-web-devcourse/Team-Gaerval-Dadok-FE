@@ -3,8 +3,8 @@ import { useState } from 'react';
 interface CommentInputBoxProps {
   isPartInUser: boolean;
   handleCreateCommentBtnClick: (comment: string) => void;
-  userNickname: string | undefined | null;
-  userAvatar: string | undefined;
+  userNickname?: string | null;
+  userAvatar?: string;
 }
 
 const CommentInputBox = ({
