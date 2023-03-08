@@ -15,10 +15,13 @@ import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
 import { useState } from 'react';
 import { APIBook } from '@/types/book';
-import MeetingAPI from '@/apis/Meeting';
-import { useRouter } from 'next/navigation';
+import { APICreateMeetingReqeust } from '@/types/meeting';
 
-const CreateMeetingForm = () => {
+interface MeetingFormInterface {
+  onSubmit: (meeting: APICreateMeetingReqeust) => Promise<void>;
+}
+
+const MeetingForm = ({ onSubmit }: MeetingFormInterface) => {
   const [selectedBook, setSeletedBook] = useState<APIBook>();
   const methods = useForm({
     mode: 'all',
@@ -33,21 +36,7 @@ const CreateMeetingForm = () => {
       isPublic: true,
     },
   });
-
-  const router = useRouter();
   const theme = useTheme();
-
-  const handleInputSubmit: Parameters<
-    typeof methods.handleSubmit
-  >[0] = async meeting => {
-    try {
-      await MeetingAPI.createMeeting({ meeting });
-      router.replace('/meeting');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -56,7 +45,8 @@ const CreateMeetingForm = () => {
         <Box
           as="form"
           w="100%"
-          onSubmit={methods.handleSubmit(handleInputSubmit)}
+          px="2rem"
+          onSubmit={methods.handleSubmit(onSubmit)}
         >
           <Box
             onClick={onOpen}
@@ -137,4 +127,4 @@ const CreateMeetingForm = () => {
   );
 };
 
-export default CreateMeetingForm;
+export default MeetingForm;
