@@ -61,6 +61,17 @@ const MeetingAPI = {
     publicApi.post(`/api/book-groups/${bookGroupId}/comment`, {
       comment,
     }),
+
+  patchMeetingDetailInfo: ({
+    bookGroupId,
+    meeting,
+  }: {
+    bookGroupId: APIMeetingDetail['bookGroupId'];
+    meeting: Pick<
+      APIMeetingDetail,
+      'title' | 'introduce' | 'endDate' | 'maxMemberCount'
+    >;
+  }) => publicApi.patch(`/api/book-groups/${bookGroupId}`, meeting),
 };
 
 export default MeetingAPI;
