@@ -42,7 +42,11 @@ const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
           justifyContent="flex-start"
         >
           {books.map(book => (
-            <InteractiveBook key={book.bookId} imageUrl={book.imageUrl} />
+            <InteractiveBook
+              key={book.bookId}
+              bookId={book.bookId}
+              imageUrl={book.imageUrl}
+            />
           ))}
         </Flex>
       ))}
