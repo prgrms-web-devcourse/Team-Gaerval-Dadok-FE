@@ -47,6 +47,7 @@ const InteractiveBook = ({
       cursor="pointer"
       style={{
         transformStyle: 'preserve-3d',
+        transform: 'translate3d(0,0,0)',
         perspective: '30rem',
       }}
     >
