@@ -71,9 +71,16 @@ const FORM_RULES: {
   },
   startDate: {
     required: '모임 시작일을 선택해 주세요.',
+    validate: value =>
+      new Date(value) >= new Date() || '시작일은 오늘부터 가능해요.',
   },
   endDate: {
     required: '모임 종료일을 선택해 주세요.',
+    validate: {
+      possible: (_, { startDate, endDate }) =>
+        new Date(startDate) <= new Date(endDate) ||
+        '종료일은 시작일보다 늦어야 해요.',
+    },
   },
   bookId: {
     required: true,

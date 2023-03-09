@@ -12,15 +12,20 @@ import {
 import CloseIcon from '@public/icons/close.svg';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { MouseEvent, TouchEvent, HTMLInputTypeAttribute } from 'react';
+import type { MouseEvent, TouchEvent } from 'react';
 
-interface FormInputProps {
+interface FormInputProps
+  extends Partial<Pick<HTMLInputElement, 'type' | 'disabled'>> {
   label: string;
   name: string;
-  type?: HTMLInputTypeAttribute;
 }
 
-const FormInput = ({ label, name, type = 'text' }: FormInputProps) => {
+const FormInput = ({
+  label,
+  name,
+  disabled = false,
+  type = 'text',
+}: FormInputProps) => {
   const theme = useTheme();
   const { colors } = theme;
 
@@ -69,13 +74,25 @@ const FormInput = ({ label, name, type = 'text' }: FormInputProps) => {
         )}
       </FormLabel>
       <InputGroup>
-        <Input
-          focusBorderColor={colors.main}
-          py="2rem"
-          type={type}
-          bgColor="white"
-          {...register(name, rules)}
-        />
+        {disabled ? (
+          <Input
+            focusBorderColor={colors.main}
+            py="2rem"
+            type={type}
+            bgColor="white"
+            disabled
+            {...register(name)}
+          />
+        ) : (
+          <Input
+            focusBorderColor={colors.main}
+            py="2rem"
+            type={type}
+            bgColor="white"
+            {...register(name, rules)}
+          />
+        )}
+
         {isFocus && getValues(name).length && (
           <InputRightElement h="100%">
             <button

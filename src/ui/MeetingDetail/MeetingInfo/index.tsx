@@ -18,7 +18,7 @@ const MeetingInfo = ({
   const router = useRouter();
 
   const {
-    bookGroupId: _bookGroupId,
+    bookGroupId,
     title,
     introduce,
     startDate,
@@ -126,7 +126,7 @@ const MeetingInfo = ({
               border="0.1rem solid"
               backgroundColor="white.900"
               onClick={() => {
-                router.push(`/meeting`);
+                router.push(`/meeting/${bookGroupId}/edit`);
               }}
             >
               모임 수정하기
