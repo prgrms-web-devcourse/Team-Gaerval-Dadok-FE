@@ -47,9 +47,7 @@ const MeetingAPI = {
     bookGroupId: APIMeetingGroup['bookGroupId'];
   }) =>
     publicApi.post(`/api/book-groups/${bookGroupId}/join`, {
-      data: {
-        joinPassword: null,
-      },
+      joinPassword: null,
     }),
   createMeetingComment: ({
     bookGroupId,
@@ -70,6 +68,25 @@ const MeetingAPI = {
         sortDirection: 'DESC',
       },
     }),
+
+  patchMeetingDetailInfo: ({
+    bookGroupId,
+    meeting,
+  }: {
+    bookGroupId: APIMeetingDetail['bookGroupId'];
+    meeting: Pick<
+      APIMeetingDetail,
+      'title' | 'introduce' | 'endDate' | 'maxMemberCount'
+    >;
+  }) => publicApi.patch(`/api/book-groups/${bookGroupId}`, meeting),
+
+  deleteMeeting: ({
+    bookGroupId,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+  }) => publicApi.delete(`/api/book-groups/${bookGroupId}`),
+
+
 };
 
 export default MeetingAPI;

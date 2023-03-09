@@ -15,11 +15,19 @@ import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
 import { useState } from 'react';
 import { APIBook } from '@/types/book';
+import { APICreateMeetingReqeust } from '@/types/meeting';
 import MeetingAPI from '@/apis/Meeting';
 import { useRouter } from 'next/navigation';
 
-const CreateMeetingForm = () => {
+const AddMeetingForm = () => {
   const [selectedBook, setSeletedBook] = useState<APIBook>();
+
+  const date = new Date();
+  const today = Date.now();
+  const startDate = new Date(today - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split('T')[0];
+
   const methods = useForm({
     mode: 'all',
     defaultValues: {
@@ -27,19 +35,17 @@ const CreateMeetingForm = () => {
       title: '',
       introduce: '',
       maxMemberCount: 100,
-      startDate: '',
+      startDate,
       endDate: '',
       hasJoinPasswd: false,
       isPublic: true,
     },
   });
-
-  const router = useRouter();
   const theme = useTheme();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const router = useRouter();
 
-  const handleInputSubmit: Parameters<
-    typeof methods.handleSubmit
-  >[0] = async meeting => {
+  const onSubmit = async (meeting: APICreateMeetingReqeust) => {
     try {
       await MeetingAPI.createMeeting({ meeting });
       router.replace('/meeting');
@@ -48,16 +54,10 @@ const CreateMeetingForm = () => {
     }
   };
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
   return (
     <>
       <FormProvider {...methods}>
-        <Box
-          as="form"
-          w="100%"
-          onSubmit={methods.handleSubmit(handleInputSubmit)}
-        >
+        <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
           <Box
             onClick={onOpen}
             fontSize="md"
@@ -124,10 +124,9 @@ const CreateMeetingForm = () => {
             tabIndex={-1}
           />
           <BookSearch
-            onBookClick={async book => {
+            onBookClick={book => {
               setSeletedBook(book);
               methods.setValue('bookId', book.bookId);
-              await methods.trigger();
               onClose();
             }}
           />
@@ -137,4 +136,4 @@ const CreateMeetingForm = () => {
   );
 };
 
-export default CreateMeetingForm;
+export default AddMeetingForm;
