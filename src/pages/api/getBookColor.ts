@@ -11,7 +11,6 @@ export default async function getThumbnailColor(
   } = req;
 
   const palette = await Vibrant.from(url as string).getPalette();
-
   const colors = Object.values(palette).map(swatches => swatches?.hex || '');
 
   switch (method) {
