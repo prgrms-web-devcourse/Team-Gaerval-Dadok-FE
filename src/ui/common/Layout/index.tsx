@@ -3,12 +3,14 @@ import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import BottomNavigation from '@/ui/BottomNavigation';
+import Toast from '../Toast';
 
 const paths = ['/login/', '/profile/me/add/'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const isShowNavigation = pathname === null || paths.includes(pathname);
+
   return (
     <Box h="100vh">
       <Box
@@ -33,6 +35,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         {children}
       </Box>
       {!isShowNavigation && <BottomNavigation />}
+      <Toast />
     </Box>
   );
 };
