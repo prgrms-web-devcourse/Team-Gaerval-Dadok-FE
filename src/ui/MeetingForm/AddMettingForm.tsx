@@ -47,6 +47,22 @@ import { APICreateMeetingReqeust } from '@/types/meeting';
 //   isPublic: '',
 // };
 
+interface FormValues
+  extends Omit<
+    APICreateMeetingReqeust,
+    'maxMemberCount' | 'hasJoinPasswd' | 'isPublic'
+  > {
+  maxMemberCount: number | string | null;
+  hasJoinPasswd: 'true' | 'false' | boolean;
+  isPublic: 'true' | 'false' | boolean;
+}
+
+// interface FormValues extends APICreateMeetingReqeust {
+//   maxMemberCount: number | string | null;
+//   hasJoinPasswd: 'true' | 'false' | boolean;
+//   isPublic: 'true' | 'false' | boolean;
+// }
+
 const AddMeetingForm = () => {
   const [selectedBook, setSeletedBook] = useState<APIBook>();
 
@@ -85,9 +101,18 @@ const AddMeetingForm = () => {
   //   };
   // };
 
-  const onSubmit = async (meeting: APICreateMeetingReqeust) => {
+  const onSubmit = async (meeting: FormValues) => {
+    const request = {
+      ...meeting,
+      maxMemberCount:
+        meeting.maxMemberCount === 'null'
+          ? null
+          : Number(meeting.maxMemberCount),
+      isPublic: meeting.isPublic === 'true' ? true : false,
+      hasJoinPasswd: meeting.isPublic === 'true' ? true : false,
+    };
     try {
-      await MeetingAPI.createMeeting({ meeting });
+      await MeetingAPI.createMeeting({ meeting: request });
       router.replace('/meeting');
     } catch (error) {
       console.error(error);
