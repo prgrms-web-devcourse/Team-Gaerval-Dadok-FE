@@ -26,27 +26,6 @@ import { HAS_JOIN_PASSWORD_VALUE } from './radioValues';
 import { HAS_JOIN_PASSWORD_DEFAULT_VALUE } from './radioValues';
 import { APICreateMeetingReqeust } from '@/types/meeting';
 
-// interface DefaultValues
-//   extends Omit<
-//     APICreateMeetingReqeust,
-//     'maxMemberCount' | 'hasJoinPasswd' | 'isPubilc'
-//   > {
-//   hasJoinPasswd: string | number;
-//   maxMemberCount: string | number | null;
-//   isPublic: string | boolean;
-// }
-
-// const defaultValues: DefaultValues = {
-//   bookId: 0,
-//   title: '',
-//   introduce: '',
-//   maxMemberCount: '',
-//   startDate: '',
-//   endDate: '',
-//   hasJoinPasswd: '',
-//   isPublic: '',
-// };
-
 interface FormValues
   extends Omit<
     APICreateMeetingReqeust,
@@ -56,12 +35,6 @@ interface FormValues
   hasJoinPasswd: 'true' | 'false' | boolean;
   isPublic: 'true' | 'false' | boolean;
 }
-
-// interface FormValues extends APICreateMeetingReqeust {
-//   maxMemberCount: number | string | null;
-//   hasJoinPasswd: 'true' | 'false' | boolean;
-//   isPublic: 'true' | 'false' | boolean;
-// }
 
 const AddMeetingForm = () => {
   const [selectedBook, setSeletedBook] = useState<APIBook>();
@@ -88,18 +61,6 @@ const AddMeetingForm = () => {
   const theme = useTheme();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const router = useRouter();
-  // const handleInputSubmit: Parameters<
-  //   typeof methods.handleSubmit
-  // >[0] = async meeting => {
-  //   const request = {
-  //     ...meeting,
-  //     maxMemberCount:
-  //       meeting.maxMemberCount === 'null'
-  //         ? null
-  //         : Number(meeting.maxMemberCount),
-  //     isPublic: meeting.isPublic === 'true' ? true : false,
-  //   };
-  // };
 
   const onSubmit = async (meeting: FormValues) => {
     const request = {
