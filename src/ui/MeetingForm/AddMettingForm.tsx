@@ -124,7 +124,7 @@ const AddMeetingForm = () => {
             tabIndex={-1}
           />
           <BookSearch
-            onBookClick={async book => {
+            onBookClick={book => {
               setSeletedBook(book);
               methods.setValue('bookId', book.bookId);
               onClose();
