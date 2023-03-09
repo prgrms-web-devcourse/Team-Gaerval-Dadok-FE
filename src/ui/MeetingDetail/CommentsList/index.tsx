@@ -1,21 +1,27 @@
-import { Avatar, Box, Flex } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
 import CommentDeleteModal from '../CommentDeleteModal';
 import CommentModifyModal from '../CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 
 interface commentsListProps {
+  isEmpty: boolean;
   commentsListData: APIBookGroupComments[];
   handleDeleteCommentBtnClick: () => void;
   handleModifyCommentBtnClick: (modifiedComment: string) => void;
 }
 
 const CommentsList = ({
+  isEmpty,
   commentsListData,
   handleDeleteCommentBtnClick,
   handleModifyCommentBtnClick,
 }: commentsListProps) => {
-  return (
+  return isEmpty ? (
+    <Text w="100%" textAlign="center" mt="4rem" fontSize="md" color="black.700">
+      첫 번째 글 작성의 주인공이 되어주세요.
+    </Text>
+  ) : (
     <Box mt="1.5rem">
       <Box fontSize="lg" fontWeight={700}>
         댓글

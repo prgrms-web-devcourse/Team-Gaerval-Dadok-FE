@@ -1,6 +1,7 @@
 'use client';
 
 import { Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
 import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
@@ -18,6 +19,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const userProfile = useMyProfileQuery();
+  const router = useRouter();
 
   const isSuccess =
     meetingInfoQuery.isSuccess &&
@@ -69,13 +71,18 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       3) commentsListData update*/
   };
 
-  const handleDeleteMeetingBtnClick = () => {
-    console.log('모임이 삭제되었습니다.');
-    /*모임 삭제 버튼 클릭시,
-      1) 모임 삭제 API 호출
-      2) 모임 목록 페이지 API 호출
-      3) router로 모임 목록 페이지로 이동*/
+  const handleDeleteMeetingBtnClick = async () => {
+    try {
+      await MeetingAPI.deleteMeeting({ bookGroupId });
+    } catch (error) {
+      console.error(error);
+    }
+
+    router.push('/meeting');
   };
+
+  const { isGroupMember } = meetingInfoQuery.data;
+  const { bookGroupComments, isEmpty } = meetingCommentsQuery.data;
 
   return (
     <Flex direction="column" justify="center">
@@ -87,11 +94,12 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       <CommentInputBox
         userNickname={userNickname}
         userAvatar={userAvatar}
-        isPartInUser={meetingInfoQuery.data.isGroupMember}
+        isPartInUser={isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
       <CommentsList
-        commentsListData={meetingCommentsQuery.data.bookGroupComments}
+        isEmpty={isEmpty}
+        commentsListData={bookGroupComments}
         handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
         handleModifyCommentBtnClick={handleModifyCommentBtnClick}
       />
