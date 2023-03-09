@@ -9,6 +9,7 @@ import type {
   APIPatchBookCommentRequest,
   APIDefaultComment,
 } from '@/types/book';
+import bookshelfAPI from '../bookshelf';
 
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
@@ -53,6 +54,13 @@ const bookAPI = {
     commentId: APIDefaultComment['commentId']
   ) =>
     publicApi.delete(`/api/books/${bookId}/comment`, { data: { commentId } }),
+
+  setBookMarked: (bookId: APIDefaultBook['bookId']) =>
+    bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
+      publicApi.post(`/api/bookshelves/${bookshelfId}/books`, {
+        bookId,
+      })
+    ),
 };
 
 export default bookAPI;

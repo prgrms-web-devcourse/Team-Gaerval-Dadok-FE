@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
   Avatar,
@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 
 import IconButton from '@/ui/common/IconButton';
+import bookAPI from '@/apis/book';
+
 import type { APIBookInfo } from '@/types/book';
 
 type Props = Pick<
@@ -20,19 +22,19 @@ type Props = Pick<
   'title' | 'author' | 'contents' | 'imageUrl' | 'bookId'
 >;
 
-const BookInfo = ({
-  bookId: _id,
-  title,
-  author,
-  contents,
-  imageUrl,
-}: Props) => {
+const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
   const theme = useTheme();
   const [bookmark, setBookMarked] = useState(false);
 
   const handleBookmarkClick = () => {
     setBookMarked(!bookmark);
   };
+
+  useEffect(() => {
+    if (bookmark) {
+      bookAPI.setBookMarked(bookId).then(({ data }) => data);
+    }
+  }, [bookmark, bookId]);
 
   return (
     <>
