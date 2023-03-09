@@ -23,17 +23,13 @@ const InteractiveBook = ({
     imageUrl: string,
     setter: (hex: string) => void
   ) => {
-    try {
-      const colors = await publicApi('/api/getBookColor/', {
-        params: {
-          url: imageUrl,
-        },
-      });
+    const colors = await publicApi('/api/getBookColor/', {
+      params: {
+        url: imageUrl,
+      },
+    });
 
-      setter(colors.data.colors[0]);
-    } catch (error) {
-      console.error(error);
-    }
+    setter(colors.data.colors[0]);
   };
 
   useEffect(() => {
