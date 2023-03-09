@@ -61,6 +61,15 @@ const MeetingAPI = {
     publicApi.post(`/api/book-groups/${bookGroupId}/comment`, {
       comment,
     }),
+
+  getMyMeetingList: () =>
+    publicApi.get<APIEntireMeetingList>('/api/book-groups/me', {
+      params: {
+        pageSize: 10,
+        groupCursorId: 999,
+        sortDirection: 'DESC',
+      },
+    }),
 };
 
 export default MeetingAPI;
