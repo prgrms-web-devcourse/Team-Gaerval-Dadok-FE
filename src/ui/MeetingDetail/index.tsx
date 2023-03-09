@@ -85,7 +85,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const { bookGroupComments, isEmpty } = meetingCommentsQuery.data;
 
   return (
-    <Flex px="5%" direction="column" justify="center" mt="1rem">
+    <Flex direction="column" justify="center" mt="1rem">
       <MeetingInfo
         meetingInfoData={meetingInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
