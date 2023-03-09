@@ -1,10 +1,10 @@
 'use client';
 
 import { APIBook } from '@/types/book';
+import { getBookColor } from '@/utils/getBookColor';
 import { Box, Flex } from '@chakra-ui/react';
-import axios from 'axios';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
 import InteractiveBookTop from './InteractiveBookTop';
@@ -19,17 +19,9 @@ const InteractiveBook = ({
 }: Pick<APIBook, 'imageUrl' | 'bookId'>) => {
   const [color, setColor] = useState<string>('');
 
-  const getColor = async (imageUrl: string) => {
-    const colors = await axios.get('/api/getBookSideColor/', {
-      params: {
-        url: imageUrl,
-      },
-    });
-
-    setColor(colors.data.colors[0]);
-  };
-
-  getColor(imageUrl);
+  useEffect(() => {
+    getBookColor(imageUrl, setColor);
+  }, [imageUrl]);
 
   return (
     <Flex
