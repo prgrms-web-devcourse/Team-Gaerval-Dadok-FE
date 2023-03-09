@@ -35,7 +35,6 @@ const CreateCommentDrawer = ({ isOpen, onClose }: Props) => {
     if (isOpen) {
       textareaRef.current?.focus();
     }
-    console.log(isOpen);
   }, [isOpen]);
 
   return (
