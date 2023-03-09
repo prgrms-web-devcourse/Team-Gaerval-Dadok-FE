@@ -1,6 +1,14 @@
 import { APIDefaultBook } from '@/types/book';
 import { APIJobGroup } from '@/types/job';
-import { Flex, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Highlight,
+  HStack,
+  Image,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 
 interface RecommendedBooksTypes {
@@ -11,17 +19,17 @@ interface RecommendedBooksTypes {
 const RecommendedBooks = ({ jobGroup, books }: RecommendedBooksTypes) => {
   return (
     <Flex width="100%" direction="column" gap="1rem" padding="2rem 0">
-      <Heading>{`${jobGroup}직군에서 많이 꽂은 책들이에요`}</Heading>
-      {/* <Heading>{`개발직군에서 많이 꽂은 책들이에요`}</Heading> */}
-      <Flex gap="1rem" overflowX="scroll">
+      <Heading color="main">
+        <Highlight
+          query="에서 많이 꽂은 책들이에요"
+          styles={{ color: 'black' }}
+        >
+          {`${jobGroup}직군에서 많이 꽂은 책들이에요`}
+        </Highlight>
+      </Heading>
+      <HStack width="100%" height="18.2rem" gap="1rem" overflowX="scroll">
         {books.map(book => (
-          <VStack
-            as={Link}
-            href={`/book/${book.bookId}`}
-            direction="column"
-            key={book.bookId}
-            width="11rem"
-          >
+          <VStack key={book.bookId} as={Link} href={`/book/${book.bookId}`}>
             <Image
               src={book.imageUrl}
               alt="bookImage"
@@ -32,7 +40,7 @@ const RecommendedBooks = ({ jobGroup, books }: RecommendedBooksTypes) => {
             <Text
               fontSize="md"
               textAlign="center"
-              width="100%"
+              width="11rem"
               overflow="hidden"
               whiteSpace="nowrap"
               textOverflow="ellipsis"
@@ -41,7 +49,7 @@ const RecommendedBooks = ({ jobGroup, books }: RecommendedBooksTypes) => {
             </Text>
           </VStack>
         ))}
-      </Flex>
+      </HStack>
     </Flex>
   );
 };
