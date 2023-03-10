@@ -11,10 +11,12 @@ import {
 } from '@chakra-ui/react';
 
 interface CommentDeleteModalProps {
-  handleDeleteCommentBtnClick: () => void;
+  commentId: number;
+  handleDeleteCommentBtnClick: (commentId: number) => void;
 }
 
 const CommentDeleteModal = ({
+  commentId,
   handleDeleteCommentBtnClick,
 }: CommentDeleteModalProps) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
@@ -54,7 +56,7 @@ const CommentDeleteModal = ({
             <Button
               mr={3}
               onClick={() => {
-                handleDeleteCommentBtnClick();
+                handleDeleteCommentBtnClick(commentId);
                 onClose();
               }}
               bgColor="white"

@@ -63,12 +63,15 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       3) commentsListData update*/
   };
 
-  const handleDeleteCommentBtnClick = () => {
-    console.log('댓글이 삭제되었습니다.');
-    /*댓글 삭제하기 버튼 클릭시,
-      1) 댓글 삭제 API 호출
-      2) 댓글 리스트 API 호출
-      3) commentsListData update*/
+  const handleDeleteCommentBtnClick = async (commentId: number) => {
+    console.log('commentId >>>>>>', commentId);
+    try {
+      await MeetingAPI.deleteComment({ bookGroupId, commentId });
+    } catch (error) {
+      console.error(error);
+    }
+    meetingCommentsQuery.refetch();
+    /*댓글 삭제하기 버튼 클릭시*/
   };
 
   const handleDeleteMeetingBtnClick = async () => {
