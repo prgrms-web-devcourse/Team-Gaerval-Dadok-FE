@@ -26,3 +26,7 @@ export interface APIBookInfo extends APIDefaultBook, APISubBook {
   apiProvider: string;
   imageKey: string;
 }
+
+export interface APICreateBookCommentRequest {
+  comment: string;
+}
