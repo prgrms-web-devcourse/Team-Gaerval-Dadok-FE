@@ -10,8 +10,9 @@ const Logout = () => {
 
   useEffect(() => {
     removeAuth();
-    redirect('/login');
   });
+
+  redirect('/login');
 };
 
 export default Logout;
