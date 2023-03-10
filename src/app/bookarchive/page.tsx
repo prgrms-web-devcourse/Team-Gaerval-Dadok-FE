@@ -58,7 +58,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 1,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: 'jpa',
       author: '김영한',
       isbn: '123456789',
@@ -71,7 +71,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 2,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: '리액트',
       author: '김민준',
       isbn: '123456789',
@@ -84,7 +84,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 3,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: 'jpa',
       author: '김영한',
       isbn: '123456789',
@@ -97,7 +97,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 4,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: '리액트',
       author: '김민준',
       isbn: '123456789',
@@ -110,7 +110,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 5,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: 'jpa',
       author: '김영한',
       isbn: '123456789',
@@ -123,7 +123,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 6,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: '리액트',
       author: '김민준',
       isbn: '123456789',
@@ -136,7 +136,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 7,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: '리팩터링',
       author: '마틴 파울러',
       isbn: '123456789',
@@ -149,7 +149,7 @@ const RECOMMEND_BOOKS = {
     {
       bookId: 99,
       imageUrl:
-        'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+        'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       title: '스프링부트',
       author: '이동욱',
       isbn: '123456789',
@@ -171,25 +171,25 @@ const RECOMMEND_BOOKSHELF = [
         bookId: 1,
         title: '해리포터1',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 2,
         title: '해리포터2',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 3,
         title: '해리포터1',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 4,
         title: '해리포터2',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
     ],
   },
@@ -201,25 +201,25 @@ const RECOMMEND_BOOKSHELF = [
         bookId: 1,
         title: '해리포터1',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 2,
         title: '해리포터2',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 3,
         title: '해리포터1',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
       {
         bookId: 4,
         title: '해리포터2',
         imageUrl:
-          'https://www.producttalk.org/wp-content/uploads/2018/06/www.maxpixel.net-Ears-Zoo-Hippopotamus-Eye-Animal-World-Hippo-2878867.jpg',
+          'https://image.aladin.co.kr/product/31180/30/cover200/8954691676_1.jpg',
       },
     ],
   },
