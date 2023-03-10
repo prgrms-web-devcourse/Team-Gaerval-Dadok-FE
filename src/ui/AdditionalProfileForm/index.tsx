@@ -36,9 +36,9 @@ const AdditionalProfileForm = ({
           router.replace('/profile/me');
         },
         onError: error => {
-          if (isAxiosError(error) && error.response?.data.message) {
-            // TODO: Toast로 띄우기
-            showToast({ message: error.response?.data.message });
+          if (isAxiosError(error) && error.response) {
+            const { message } = error.response.data;
+            message && showToast({ message });
           }
         },
       }
