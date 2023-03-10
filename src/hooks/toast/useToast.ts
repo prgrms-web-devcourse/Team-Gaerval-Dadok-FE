@@ -23,7 +23,7 @@ const useToast = () => {
     [hideToast, setToasts]
   );
 
-  return showToast;
+  return { showToast };
 };
 
 export default useToast;

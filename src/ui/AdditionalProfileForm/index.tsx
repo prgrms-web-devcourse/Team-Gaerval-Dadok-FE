@@ -22,7 +22,7 @@ const AdditionalProfileForm = ({
   const myProfileMutation = useMyProfileMutation();
   const router = useRouter();
 
-  const showToast = useToast();
+  const { showToast } = useToast();
 
   const onSubmit: Parameters<typeof methods.handleSubmit>[0] = ({
     nickname,
