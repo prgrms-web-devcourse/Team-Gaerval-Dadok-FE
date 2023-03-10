@@ -3,7 +3,9 @@
 import useUserSummaryBookshlefQuery from '@/queries/bookshelf/useUserSummaryBookshelfQuery';
 import useUserProfileQuery from '@/queries/user/useUserProfileQuery';
 import { APIUser } from '@/types/user';
+import ProfileBookshelf from '@/ui/ProfileBookshelf';
 import ProfileInfo from '@/ui/ProfileInfo';
+import { Flex } from '@chakra-ui/react';
 
 interface UserProfilePageProps {
   params: { id: APIUser['userId'] };
@@ -13,14 +15,13 @@ const UserProfilePage = ({ params: { id } }: UserProfilePageProps) => {
   const userProfileQuery = useUserProfileQuery({ id });
   const bookshelfQuery = useUserSummaryBookshlefQuery({ id });
 
-  const isSuccess = userProfileQuery.isSuccess && bookshelfQuery.isSuccess;
-  if (!isSuccess) return null;
-
   return (
-    <ProfileInfo
-      user={userProfileQuery.data}
-      summaryBookshelf={bookshelfQuery.data}
-    />
+    <Flex direction="column" justify="center" gap="2rem">
+      {userProfileQuery.isSuccess && <ProfileInfo {...userProfileQuery.data} />}
+      {bookshelfQuery.isSuccess && (
+        <ProfileBookshelf {...bookshelfQuery.data} />
+      )}
+    </Flex>
   );
 };
 

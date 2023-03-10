@@ -60,6 +60,15 @@ const MeetingAPI = {
       comment,
     }),
 
+  getMyMeetingList: () =>
+    publicApi.get<APIEntireMeetingList>('/api/book-groups/me', {
+      params: {
+        pageSize: 10,
+        groupCursorId: 999,
+        sortDirection: 'DESC',
+      },
+    }),
+
   patchMeetingDetailInfo: ({
     bookGroupId,
     meeting,
@@ -76,6 +85,7 @@ const MeetingAPI = {
   }: {
     bookGroupId: APIMeetingGroup['bookGroupId'];
   }) => publicApi.delete(`/api/book-groups/${bookGroupId}`),
+
 
 };
 
