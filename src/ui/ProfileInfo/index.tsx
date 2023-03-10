@@ -1,5 +1,7 @@
-import { APIUser } from '@/types/user';
+'use client';
+
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
+import type { APIUser } from '@/types/user';
 
 const ProfileInfo = ({
   nickname,
