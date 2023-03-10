@@ -3,13 +3,17 @@ import { Flex, Text, Textarea, VStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 import IconButton from '@/ui/common/IconButton';
+import { isAxiosError } from 'axios';
+import bookAPI from '@/apis/book';
 
 interface Props {
+  bookId: number;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const CreateCommentDrawer = ({ isOpen, onClose }: Props) => {
+const CreateCommentDrawer = ({ bookId, isOpen, onClose }: Props) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const variants = {
     open: {
       opacity: 1,
@@ -24,11 +28,31 @@ const CreateCommentDrawer = ({ isOpen, onClose }: Props) => {
       },
     },
   };
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleCommentSubmit = () => {
-    /** @todo 책 코멘트 생성 api 연결 */
-    onClose();
+  /** @todo 추후 메시지 적절한 방법(ex. Toast)으로 띄워주기 */
+  const handleCommentCreate = () => {
+    const comment = textareaRef.current?.value;
+
+    if (!comment) {
+      console.log('입력된 코멘트가 없어요.');
+      return;
+    }
+
+    bookAPI
+      .creaetComment(bookId, { comment })
+      .catch(error => {
+        if (!isAxiosError(error)) {
+          console.error(error);
+          return;
+        }
+
+        const response = error.response;
+
+        if (response && response.status === 400) {
+          console.log('이미 사용자가 작성한 코멘트가 있어요.');
+        }
+      })
+      .finally(onClose);
   };
 
   useEffect(() => {
@@ -72,7 +96,7 @@ const CreateCommentDrawer = ({ isOpen, onClose }: Props) => {
               fontSize="md"
               fontWeight="bold"
               color="main"
-              onClick={handleCommentSubmit}
+              onClick={handleCommentCreate}
             >
               완료
             </Text>

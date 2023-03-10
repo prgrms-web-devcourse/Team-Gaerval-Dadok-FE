@@ -1,5 +1,10 @@
 import { publicApi } from '../core/axios';
-import type { APIBook, APIBookInfo, APIDefaultBook } from '@/types/book';
+import type {
+  APIBook,
+  APIBookInfo,
+  APIDefaultBook,
+  APICreateBookCommentRequest,
+} from '@/types/book';
 
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
@@ -10,6 +15,14 @@ const bookAPI = {
     publicApi.get<APIBookInfo>(`/api/books/${bookId}`),
   createBook: ({ book }: { book: APIBook }) =>
     publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
+  creaetComment: (
+    bookId: APIDefaultBook['bookId'],
+    comment: APICreateBookCommentRequest
+  ) =>
+    publicApi.post<APICreateBookCommentRequest>(
+      `/api/books/${bookId}/comment`,
+      comment
+    ),
 };
 
 export default bookAPI;

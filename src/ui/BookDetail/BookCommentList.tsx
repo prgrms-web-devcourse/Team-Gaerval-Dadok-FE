@@ -52,7 +52,7 @@ const BookCommentList = ({ bookId }: Props) => {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const handleCloseDrawer = () => {
+  const toggleDrawerOpen = () => {
     setOpenDrawer(isOpen => !isOpen);
   };
 
@@ -70,7 +70,7 @@ const BookCommentList = ({ bookId }: Props) => {
       ) : (
         <>
           <Button
-            onClick={handleCloseDrawer}
+            onClick={toggleDrawerOpen}
             scheme="orange-fill"
             mt="2rem"
             fullWidth
@@ -78,8 +78,9 @@ const BookCommentList = ({ bookId }: Props) => {
             코멘트 남기기
           </Button>
           <CreateCommentDrawer
+            bookId={bookId}
             isOpen={openDrawer}
-            onClose={handleCloseDrawer}
+            onClose={toggleDrawerOpen}
           />
         </>
       )}
