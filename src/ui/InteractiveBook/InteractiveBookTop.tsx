@@ -10,7 +10,8 @@ const InteractiveBookTop = ({ bookThick }: BookTopTypes) => {
       width="100%"
       height={`${bookThick}rem`}
       transform={`rotateX(-90deg)`}
-      bgColor="white.600"
+      bgColor="#f9f9f9"
+      border="1px #ddd solid"
     />
   );
 };

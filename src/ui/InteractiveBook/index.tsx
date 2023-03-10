@@ -24,13 +24,14 @@ const InteractiveBook = ({
 
   return (
     <Flex
+      flex="1 1 auto"
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
       style={{
         transformStyle: 'preserve-3d',
         transform: 'translate3d(0,0,0)',
-        perspective: '30rem',
+        // perspective: '30rem',
       }}
     >
       {data && (
@@ -41,8 +42,7 @@ const InteractiveBook = ({
             width: `${BOOK_WIDTH}rem`,
             height: `${BOOK_HEIGHT}rem`,
             transformStyle: 'preserve-3d',
-            transform: 'translateX(0.5rem) rotateY(30deg)',
-            transition: '0.8s ease',
+            transform: 'rotate3d(-12, 21, -4, 40deg) translateX(0.5rem)',
 
             '> div, img': {
               position: 'absolute',
