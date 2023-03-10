@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@chakra-ui/react';
 import CloseIcon from '@public/icons/close.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import type { MouseEvent, TouchEvent } from 'react';
 
@@ -31,6 +31,7 @@ const FormInput = ({
 
   const {
     register,
+    unregister,
     setValue,
     trigger,
     getValues,
@@ -58,6 +59,12 @@ const FormInput = ({
   const onInputBlur = () => {
     setIsFocus(false);
   };
+
+  useEffect(() => {
+    return () => {
+      unregister(name);
+    };
+  }, [unregister, name, disabled]);
 
   return (
     <FormControl

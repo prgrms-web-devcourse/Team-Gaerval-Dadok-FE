@@ -26,7 +26,7 @@ const setInterceptor = (instance: AxiosInstance) => {
     response => response,
     error => {
       if (error.code === 'ECONNABORTED' || error.response?.status === 408) {
-        alert('요청이 만료되었습니다.');
+        ('');
       }
       return Promise.reject(error);
     }

@@ -46,19 +46,22 @@ const FormRadio = ({
           p="1rem 2rem"
         >
           <Flex flexWrap="wrap" justify="space-around">
-            {radioValues.map(radioValue => (
-              <Radio
-                key={radioValue.value}
-                value={radioValue.value}
-                {...register(name)}
-                colorScheme="orange"
-                flex="0 1 auto"
-                w="9rem"
-              >
-                {' '}
-                {radioValue.text}
-              </Radio>
-            ))}
+            {radioValues.map(radioValue => {
+              const { value, text } = radioValue;
+              return (
+                <Radio
+                  key={value}
+                  value={value}
+                  colorScheme="orange"
+                  flex="0 1 auto"
+                  w="9rem"
+                  {...register(name)}
+                >
+                  {' '}
+                  {text}
+                </Radio>
+              );
+            })}
           </Flex>
         </Stack>
       </RadioGroup>

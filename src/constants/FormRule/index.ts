@@ -72,7 +72,7 @@ const FORM_RULES: {
   startDate: {
     required: '모임 시작일을 선택해 주세요.',
     validate: value =>
-      new Date(value) >= new Date() || '시작일은 오늘부터 가능해요.',
+      new Date(value) > new Date() || '시작일은 오늘부터 가능해요.',
   },
   endDate: {
     required: '모임 종료일을 선택해 주세요.',
@@ -86,6 +86,32 @@ const FORM_RULES: {
     required: true,
     validate: {
       positive: value => Number(value) > 0,
+    },
+  },
+  joinQuestion: {
+    required: '문제 설명을 입력해 주세요.',
+    minLength: {
+      value: 5,
+      message: '문제 설명을 5자 이상 입력해 주세요.',
+    },
+    maxLength: {
+      value: 30,
+      message: '문제 설명을 30자 이하로 입력해 주세요.',
+    },
+  },
+  joinPasswd: {
+    required: '정답을 입력해 주세요.',
+    minLength: {
+      value: 1,
+      message: '정답을 1자 이상 입력해 주세요.',
+    },
+    maxLength: {
+      value: 30,
+      message: '정답을 10자 이하로 입력해 주세요.',
+    },
+    pattern: {
+      value: /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{1,10}$/,
+      message: '띄어쓰기 없이 정답을 입력해 주세요.',
     },
   },
 } as const;

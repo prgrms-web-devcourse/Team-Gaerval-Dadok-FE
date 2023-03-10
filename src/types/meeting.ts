@@ -36,8 +36,8 @@ export interface APIEntireMeetingList {
 
 export interface APICreateMeetingReqeust extends APIDefaultMeeting {
   bookId: number;
-  joinQuestion?: string;
-  joinPasswd?: string;
+  joinQuestion: string;
+  joinPasswd: string;
   startDate: string;
   endDate: string;
 }

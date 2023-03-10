@@ -14,7 +14,7 @@ import FormRadio from '@/ui/FormRadio';
 import BottomSheet from '@/ui/common/BottomSheet';
 import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
 import MeetingAPI from '@/apis/Meeting';
 import { useRouter } from 'next/navigation';
@@ -37,7 +37,10 @@ interface FormValues
 }
 
 const AddMeetingForm = () => {
+  const theme = useTheme();
+  const router = useRouter();
   const [selectedBook, setSeletedBook] = useState<APIBook>();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const date = new Date();
   const today = Date.now();
@@ -45,22 +48,34 @@ const AddMeetingForm = () => {
     .toISOString()
     .split('T')[0];
 
-  const methods = useForm({
+  const methods = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
       bookId: 0,
       title: '',
       introduce: '',
-      maxMemberCount: 100,
+      maxMemberCount: '100',
       startDate,
       endDate: '',
-      hasJoinPasswd: false,
-      isPublic: true,
+      hasJoinPasswd: 'false',
+      joinQuestion: '',
+      joinPasswd: '',
+      isPublic: 'true',
     },
   });
-  const theme = useTheme();
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const router = useRouter();
+
+  const hasJoinPasswd = methods.getValues('hasJoinPasswd');
+
+  useEffect(() => {
+    console.log(hasJoinPasswd);
+
+    if (hasJoinPasswd === 'false') {
+      methods.setValue('joinPasswd', '');
+      methods.setValue('joinQuestion', '');
+      methods.clearErrors('joinPasswd');
+      methods.clearErrors('joinQuestion');
+    }
+  }, [methods, hasJoinPasswd]);
 
   const onSubmit = async (meeting: FormValues) => {
     const request = {
@@ -70,17 +85,19 @@ const AddMeetingForm = () => {
           ? null
           : Number(meeting.maxMemberCount),
       isPublic: meeting.isPublic === 'true' ? true : false,
-      hasJoinPasswd: meeting.isPublic === 'true' ? true : false,
+      hasJoinPasswd: meeting.hasJoinPasswd === 'true' ? true : false,
     };
+    console.log(request);
+
     try {
       await MeetingAPI.createMeeting({ meeting: request });
+      console.log(request);
       router.replace('/meeting');
     } catch (error) {
       console.error(error);
     }
   };
 
-  /* radio의 value의 타입은 string | undefined만 들어갈 수 있습니다. */
   return (
     <>
       <FormProvider {...methods}>
@@ -137,6 +154,22 @@ const AddMeetingForm = () => {
               radioValues={HAS_JOIN_PASSWORD_VALUE}
               defaultValue={HAS_JOIN_PASSWORD_DEFAULT_VALUE}
             />
+
+            <FormInput
+              label="문제"
+              name="joinQuestion"
+              disabled={
+                methods.watch('hasJoinPasswd') === 'true' ? false : true
+              }
+            />
+            <FormInput
+              label="정답"
+              name="joinPasswd"
+              disabled={
+                methods.watch('hasJoinPasswd') === 'true' ? false : true
+              }
+            />
+
             <FormInput label="시작일" name="startDate" type="date" />
             <FormInput label="종료일" name="endDate" type="date" />
           </Flex>
