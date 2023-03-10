@@ -43,11 +43,12 @@ const BookCommentList = ({ bookId }: Props) => {
 
   const toggleDrawerOpen = () => {
     setOpenDrawer(isOpen => !isOpen);
+    bookCommentsQueryInfo.refetch();
   };
 
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
-      {!bookCommentsQueryInfo.isLoading && !comments.me.length && (
+      {!bookCommentsQueryInfo.isLoading && comments.me.length && (
         <>
           <Button
             onClick={toggleDrawerOpen}
