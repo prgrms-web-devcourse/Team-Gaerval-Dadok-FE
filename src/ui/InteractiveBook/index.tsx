@@ -1,10 +1,9 @@
 'use client';
 
-import { publicApi } from '@/apis/core/axios';
 import { APIBook } from '@/types/book';
 import { Box, Flex } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
 import InteractiveBookTop from './InteractiveBookTop';
@@ -19,26 +18,25 @@ const InteractiveBook = ({
 }: Pick<APIBook, 'imageUrl' | 'bookId'>) => {
   const [bookColor, setBookColor] = useState<string>('');
 
-  const getBookColor = async (
-    imageUrl: string,
-    setter: (hex: string) => void
-  ) => {
-    try {
-      const colors = await publicApi('/api/getBookColor/', {
-        params: {
-          url: imageUrl,
-        },
-      });
+  const getBookColor = useCallback(
+    async (imageUrl: string, setter: (hex: string) => void) => {
+      const response = await fetch(
+        '/api/getBookColor?' +
+          new URLSearchParams({
+            url: imageUrl,
+          })
+      );
 
-      setter(colors.data.colors[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const data = await response.json();
+
+      setter(data.colors[0]);
+    },
+    []
+  );
 
   useEffect(() => {
     getBookColor(imageUrl, setBookColor);
-  }, [imageUrl]);
+  }, [getBookColor, imageUrl]);
 
   return (
     <Flex
