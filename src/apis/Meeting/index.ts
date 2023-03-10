@@ -99,6 +99,20 @@ const MeetingAPI = {
     publicApi.delete(`/api/book-groups/${bookGroupId}/comments`, {
       data: { commentId },
     }),
+
+  patchMeetingComment: ({
+    bookGroupId,
+    commentId,
+    comment,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+    commentId: number;
+    comment: string;
+  }) =>
+    publicApi.patch(`/api/book-groups/${bookGroupId}/comment`, {
+      commentId,
+      comment,
+    }),
 };
 
 export default MeetingAPI;

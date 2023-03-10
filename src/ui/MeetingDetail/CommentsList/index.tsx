@@ -8,7 +8,10 @@ interface commentsListProps {
   isEmpty: boolean;
   commentsListData: APIBookGroupComments[];
   handleDeleteCommentBtnClick: (commentId: number) => void;
-  handleModifyCommentBtnClick: (modifiedComment: string) => void;
+  handleModifyCommentBtnClick: (
+    modifiedComment: string,
+    commentId: number
+  ) => void;
 }
 
 const CommentsList = ({
@@ -65,8 +68,8 @@ const CommentsList = ({
                     {writtenByCurrentUser ? (
                       <>
                         <CommentModifyModal
-                          comment={contents}
                           commentId={commentId}
+                          comment={contents}
                           handleModifyCommentBtnClick={
                             handleModifyCommentBtnClick
                           }

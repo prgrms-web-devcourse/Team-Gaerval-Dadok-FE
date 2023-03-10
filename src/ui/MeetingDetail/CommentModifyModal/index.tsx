@@ -15,7 +15,10 @@ import {
 interface CommentModifyModalProps {
   commentId: number;
   comment: string;
-  handleModifyCommentBtnClick: (modifiedComment: string) => void;
+  handleModifyCommentBtnClick: (
+    modifiedComment: string,
+    commentId: number
+  ) => void;
 }
 
 const CommentModifyModal = ({
@@ -63,7 +66,7 @@ const CommentModifyModal = ({
             <Button
               mr={3}
               onClick={() => {
-                handleModifyCommentBtnClick(modifiedValue);
+                handleModifyCommentBtnClick(modifiedValue, commentId);
                 onClose();
               }}
               bgColor="white"
