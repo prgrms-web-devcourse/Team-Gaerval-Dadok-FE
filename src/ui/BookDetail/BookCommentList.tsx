@@ -1,9 +1,12 @@
 'use clinet';
 
+import { useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 
 import Button from '@/ui/common/Button';
 import BookComment from './BookComment';
+import CreateCommentDrawer from './CreateCommentDrawer';
+
 import type { APIBookComment } from './type';
 
 interface Props {
@@ -32,7 +35,7 @@ const getBookComments = (_id: number) => {
   ];
 };
 
-const getMyComment = () => {
+const _getMyComment = () => {
   return {
     userId: 1,
     nickName: '계란',
@@ -44,8 +47,14 @@ const getMyComment = () => {
 };
 
 const BookCommentList = ({ bookId }: Props) => {
-  const myComment: APIBookComment = getMyComment();
+  const myComment: APIBookComment | null = null;
   const userComments: APIBookComment[] = getBookComments(bookId);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const handleCloseDrawer = () => {
+    setOpenDrawer(isOpen => !isOpen);
+  };
 
   return (
     <>
@@ -59,9 +68,20 @@ const BookCommentList = ({ bookId }: Props) => {
           style={{ border: '1px solid #ffe6c6' }}
         />
       ) : (
-        <Button scheme="orange-fill" mt="2rem" fullWidth>
-          코멘트 남기기
-        </Button>
+        <>
+          <Button
+            onClick={handleCloseDrawer}
+            scheme="orange-fill"
+            mt="2rem"
+            fullWidth
+          >
+            코멘트 남기기
+          </Button>
+          <CreateCommentDrawer
+            isOpen={openDrawer}
+            onClose={handleCloseDrawer}
+          />
+        </>
       )}
       <VStack align="stretch" spacing="2rem" width="100%" pt="2rem">
         {userComments.map(({ userId, ...props }) => (
