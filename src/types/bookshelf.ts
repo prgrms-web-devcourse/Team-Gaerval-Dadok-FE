@@ -26,3 +26,7 @@ export interface APIBookshelfInfo extends APIDefaultBookshelf {
   userProfileImage: string;
   job: APIProfileJob;
 }
+
+export interface APIBookshelfResponses {
+  bookshelfResponses: APIProfileBookshelf[];
+}
