@@ -1,12 +1,9 @@
-// import FORM_RULES from '@/constants/FormRule';
 import {
   FormControl,
   FormLabel,
-  // useTheme,
   RadioGroup,
   Radio,
   Stack,
-  // HStack,
   Flex,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
