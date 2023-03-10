@@ -1,6 +1,16 @@
 'use client';
+import {
+  Box,
+  Flex,
+  Text,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  VStack,
+} from '@chakra-ui/react';
 
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import useMyprofileQuery from '@/queries/user/useMyProfileQuery';
@@ -10,6 +20,8 @@ import { useEffect } from 'react';
 import ProfileBookshelf from '@/ui/ProfileBookshelf';
 import useMyMeetingListQuery from '@/queries/meeting/useMyMeetingListQuery';
 import MeetingListItem from '@/ui/Meeting/MeetingList/MeetingListItem';
+import MoreIcon from '@public/icons/more.svg';
+import Button from '@/ui/common/Button';
 
 const MyProfilePage = () => {
   const userProfileQuery = useMyprofileQuery();
@@ -30,7 +42,30 @@ const MyProfilePage = () => {
 
   return (
     <Flex direction="column" justify="center" gap="2rem">
-      {userProfileQuery.isSuccess && <ProfileInfo {...userProfileQuery.data} />}
+      {userProfileQuery.isSuccess && (
+        <>
+          <Box alignSelf="flex-end">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<MoreIcon />}
+                background="inherit"
+                border="none"
+              />
+              <MenuList fontSize="md">
+                <MenuItem as={Link} href={'/logout'}>
+                  로그아웃
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
+          <ProfileInfo {...userProfileQuery.data} />
+          <Button as={Link} href={`${pathname}/edit`} scheme="orange" fullWidth>
+            프로필 수정
+          </Button>
+        </>
+      )}
       {bookshelfQuery.isSuccess && (
         <ProfileBookshelf {...bookshelfQuery.data} />
       )}
@@ -55,19 +90,6 @@ const MyProfilePage = () => {
           </Box>
         </VStack>
       )}
-      <Box
-        as={Link}
-        href={`${pathname}/edit`}
-        px="2rem"
-        py="1rem"
-        color="main"
-        border="1px solid"
-        borderRadius="5rem"
-        textAlign="center"
-        fontSize="md"
-      >
-        프로필 수정
-      </Box>
     </Flex>
   );
 };
