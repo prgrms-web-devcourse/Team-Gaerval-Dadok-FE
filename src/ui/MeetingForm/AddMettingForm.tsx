@@ -67,7 +67,6 @@ const AddMeetingForm = () => {
   const hasJoinPasswd = methods.getValues('hasJoinPasswd');
 
   useEffect(() => {
-    console.log(hasJoinPasswd);
 
     if (hasJoinPasswd === 'false') {
       methods.setValue('joinPasswd', '');
