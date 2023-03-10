@@ -1,8 +1,9 @@
+import { useToast } from '@/hooks/toast';
 import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 import { APIJobGroup } from '@/types/job';
 import { APIUser } from '@/types/user';
 import { Box, useTheme, VStack } from '@chakra-ui/react';
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
@@ -21,6 +22,8 @@ const AdditionalProfileForm = ({
   const myProfileMutation = useMyProfileMutation();
   const router = useRouter();
 
+  const { showToast } = useToast();
+
   const onSubmit: Parameters<typeof methods.handleSubmit>[0] = ({
     nickname,
     jobGroup,
@@ -33,9 +36,9 @@ const AdditionalProfileForm = ({
           router.replace('/profile/me');
         },
         onError: error => {
-          if (error instanceof AxiosError && error.response?.data.message) {
-            // TODO: Toast로 띄우기
-            alert(error.response?.data.message);
+          if (isAxiosError(error) && error.response) {
+            const { message } = error.response.data;
+            message && showToast({ message });
           }
         },
       }
