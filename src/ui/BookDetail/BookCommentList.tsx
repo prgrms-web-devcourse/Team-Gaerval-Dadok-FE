@@ -6,9 +6,9 @@ import { VStack } from '@chakra-ui/react';
 import Button from '@/ui/common/Button';
 import BookComment from './BookComment';
 import CreateCommentDrawer from './CreateCommentDrawer';
+import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
 import type { APIBookComment } from '@/types/book';
-import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
 interface Props {
   bookId: number;
@@ -64,17 +64,30 @@ const BookCommentList = ({ bookId }: Props) => {
           />
         </>
       )}
-      {comments.me.map(({ commentId, ...props }) => (
-        <BookComment
-          key={commentId}
-          editable
-          style={{ border: '1px solid #ffe6c6' }}
-          {...props}
-        />
-      ))}
-      {comments.user.map(({ commentId, ...props }) => (
-        <BookComment key={commentId} {...props} />
-      ))}
+      {comments.me.map(
+        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
+          <BookComment
+            key={commentId}
+            contents={contents}
+            userProfileImage={userProfileImage}
+            createdAt={createdAt}
+            nickname={nickname}
+            editable
+            style={{ border: '1px solid #ffe6c6' }}
+          />
+        )
+      )}
+      {comments.user.map(
+        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
+          <BookComment
+            key={commentId}
+            contents={contents}
+            userProfileImage={userProfileImage}
+            createdAt={createdAt}
+            nickname={nickname}
+          />
+        )
+      )}
     </VStack>
   );
 };
