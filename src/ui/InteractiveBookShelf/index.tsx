@@ -41,12 +41,8 @@ const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
           gap="24%"
           justifyContent="flex-start"
         >
-          {books.map(book => (
-            <InteractiveBook
-              key={book.bookId}
-              bookId={book.bookId}
-              imageUrl={book.imageUrl}
-            />
+          {books.map(({ bookId, imageUrl }) => (
+            <InteractiveBook key={bookId} bookId={bookId} imageUrl={imageUrl} />
           ))}
         </Flex>
       ))}
