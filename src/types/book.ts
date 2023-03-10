@@ -30,3 +30,24 @@ export interface APIBookInfo extends APIDefaultBook, APISubBook {
 export interface APICreateBookCommentRequest {
   comment: string;
 }
+
+export interface APIBookComment {
+  commentId: number;
+  contents: string;
+  bookId: number;
+  userId: number;
+  userProfileImage: string;
+  createdAt: string;
+  modifiedAt: string;
+  nickname: string;
+  writtenByCurrentUser: boolean;
+}
+
+export interface APIBookCommentList {
+  isFirst: boolean;
+  isLast: boolean;
+  hasNext: boolean;
+  count: number;
+  isEmpty: boolean;
+  bookGroupComments: APIBookComment[];
+}

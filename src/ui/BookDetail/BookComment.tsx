@@ -11,17 +11,22 @@ import {
 } from '@chakra-ui/react';
 
 import MoreIcon from '@public/icons/more.svg';
-import type { CSSProperties } from 'react';
-import type { APIBookComment } from './type';
 
-interface Props extends Omit<APIBookComment, 'userId'> {
+import type { CSSProperties } from 'react';
+import type { APIBookComment } from '@/types/book';
+
+interface Props
+  extends Pick<
+    APIBookComment,
+    'nickname' | 'userProfileImage' | 'createdAt' | 'contents'
+  > {
   style?: CSSProperties;
   editable?: boolean;
 }
 
 const BookComment = ({
-  nickName,
-  profileImageUrl,
+  nickname,
+  userProfileImage,
   createdAt,
   contents,
   editable = false,
@@ -37,10 +42,10 @@ const BookComment = ({
       {...props}
     >
       <Flex gap="1rem" align="center" width="100%">
-        <Avatar src={profileImageUrl} />
+        <Avatar src={userProfileImage} />
         <VStack flexGrow="1" align="flex-start">
           <Text fontSize="sm" fontWeight="bold">
-            {nickName}
+            {nickname}
           </Text>
           <Text fontSize="xs" style={{ margin: 0 }} color="black.500">
             {createdAt}
