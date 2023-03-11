@@ -6,6 +6,10 @@ const MeetingListItem = ({
   bookGroupId,
   title,
   introduce,
+  hasJoinPasswd,
+  startDate,
+  endDate,
+  maxMemberCount,
   owner,
   memberCount,
   commentCount,
@@ -17,21 +21,34 @@ const MeetingListItem = ({
         <Flex
           m="0.8rem 0"
           w="100%"
-          h="24rem"
+          h="30rem"
           direction="column"
           justify="space-between"
           backgroundColor="white"
           borderRadius="1rem"
-          p="1.5rem"
+          py="1rem"
+          px="1.5rem"
           _hover={{ bgColor: 'white.800' }}
           boxShadow="default"
         >
+          <Flex justify="space-between">
+            <Text fontSize="xs" mb="1rem" color="black.600">
+              {startDate} ~ {endDate}
+            </Text>
+            <Box>
+              {hasJoinPasswd ? (
+                <Image src="/icons/lock.svg" alt="잠김" w="1.7rem" />
+              ) : (
+                <Image src="/icons/unlock.svg" alt="풀림" w="1.7rem" />
+              )}
+            </Box>
+          </Flex>
           <Flex
             justify="center"
             align="center"
             w="100%"
-            h="20%"
-            fontSize="lg"
+            h="2rem"
+            fontSize="xl"
             overflow="hidden"
             fontWeight={600}
             whiteSpace="nowrap"
@@ -47,10 +64,10 @@ const MeetingListItem = ({
                 w="100%"
                 mt="1rem"
                 fontSize="md"
-                lineHeight="1.6"
+                lineHeight="1.7"
                 overflow="hidden"
                 _hover={{ textDecor: 'underLine' }}
-                color="black.700"
+                color="black.900"
               >
                 {introduce}
               </Text>
@@ -64,26 +81,27 @@ const MeetingListItem = ({
                       <Flex w="100%" ml="1rem" align="center" fontSize="sm">
                         {owner.nickname}
                       </Flex>
-                      <Flex ml="1rem">
-                        <Flex w="6rem" align="center">
+                      <Flex ml="1rem" w="100%">
+                        <Flex w="8rem" align="center">
                           <Box>
                             <Image
                               src="/icons/peopleIcon.svg"
                               alt="peopleIcon"
                             />
                           </Box>
-                          <Box w="4rem" ml="0.5rem" fontSize="1.2rem">
+                          <Box w="6rem" ml="0.5rem" fontSize="1.2rem">
                             {memberCount}
+                            {maxMemberCount ? ` / ${maxMemberCount}` : ''}
                           </Box>
                         </Flex>
-                        <Flex w="6rem" align="center" ml="0.5rem">
+                        <Flex w="10rem" align="center" ml="0.5rem">
                           <Box>
                             <Image
                               src="/icons/commentIcon.svg"
                               alt="bookCover"
                             />
                           </Box>
-                          <Box w="4rem" ml="0.5rem" fontSize="1.2rem">
+                          <Box w="10rem" ml="0.5rem" fontSize="1.2rem">
                             {commentCount}
                           </Box>
                         </Flex>
