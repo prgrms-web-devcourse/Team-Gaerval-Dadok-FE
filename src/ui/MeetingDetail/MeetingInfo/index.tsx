@@ -30,7 +30,6 @@ const MeetingInfo = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   /* 추후 API 필드에 정답이 같이 넘어오면 삭제 예정 */
-  const DUMMY_ANSWER = '누구였더라';
   const {
     bookGroupId,
     title,
@@ -196,12 +195,8 @@ const MeetingInfo = ({
                   bgColor="white.900"
                   onClick={() => {
                     console.log('입력한 비밀번호>>>>>', password);
-                    if (password === DUMMY_ANSWER) {
-                      handleParticipateBtnClick(password);
-                      onClose();
-                    } else {
-                      console.log('정답이 틀렸습니다. 다시 입력해 주세요');
-                    }
+                    handleParticipateBtnClick(password);
+                    onClose();
                   }}
                 >
                   확인
