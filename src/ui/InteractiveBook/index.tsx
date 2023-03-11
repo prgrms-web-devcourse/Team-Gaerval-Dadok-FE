@@ -2,8 +2,8 @@
 
 import { APIBook } from '@/types/book';
 import { Box, Flex } from '@chakra-ui/react';
+import { usePalette } from 'color-thief-react';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
 import InteractiveBookFront from './InteractiveBookFront';
 import InteractiveBookSide from './InteractiveBookSide';
 import InteractiveBookTop from './InteractiveBookTop';
@@ -16,61 +16,46 @@ const InteractiveBook = ({
   imageUrl,
   bookId,
 }: Pick<APIBook, 'imageUrl' | 'bookId'>) => {
-  const [bookColor, setBookColor] = useState<string>('');
-
-  const getBookColor = useCallback(
-    async (imageUrl: string, setter: (hex: string) => void) => {
-      const response = await fetch(
-        '/api/getBookColor?' +
-          new URLSearchParams({
-            url: imageUrl,
-          })
-      );
-
-      const data = await response.json();
-
-      setter(data.colors[0]);
-    },
-    []
+  const { data } = usePalette(
+    '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
+    2,
+    'hex'
   );
-
-  useEffect(() => {
-    getBookColor(imageUrl, setBookColor);
-  }, [getBookColor, imageUrl]);
 
   return (
     <Flex
+      flex="1 1 auto"
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
       style={{
         transformStyle: 'preserve-3d',
         transform: 'translate3d(0,0,0)',
-        perspective: '30rem',
+        // perspective: '30rem',
       }}
     >
-      <Box
-        as={Link}
-        href={`/book/${bookId}`}
-        sx={{
-          position: 'absolute',
-          width: `${BOOK_WIDTH}rem`,
-          height: `${BOOK_HEIGHT}rem`,
-          transformStyle: 'preserve-3d',
-          transform: 'translateX(4.5rem) rotateY(30deg)',
-          transition: '0.8s ease',
+      {data && (
+        <Box
+          as={Link}
+          href={`/book/${bookId}`}
+          sx={{
+            width: `${BOOK_WIDTH}rem`,
+            height: `${BOOK_HEIGHT}rem`,
+            transformStyle: 'preserve-3d',
+            transform: 'rotate3d(-12, 21, -4, 40deg) translateX(0.5rem)',
 
-          '> div, img': {
-            position: 'absolute',
-            boxSizing: 'border-box',
-            transformOrigin: 'top left',
-          },
-        }}
-      >
-        <InteractiveBookTop bookThick={BOOK_THICK} />
-        <InteractiveBookSide bookColor={bookColor} bookThick={BOOK_THICK} />
-        <InteractiveBookFront imageUrl={imageUrl} />
-      </Box>
+            '> div, img': {
+              position: 'absolute',
+              boxSizing: 'border-box',
+              transformOrigin: 'top left',
+            },
+          }}
+        >
+          <InteractiveBookTop bookThick={BOOK_THICK} />
+          <InteractiveBookSide bookColor={data[0]} bookThick={BOOK_THICK} />
+          <InteractiveBookFront imageUrl={imageUrl} />
+        </Box>
+      )}
     </Flex>
   );
 };

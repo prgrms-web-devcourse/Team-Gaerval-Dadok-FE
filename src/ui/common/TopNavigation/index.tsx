@@ -12,12 +12,7 @@ const TopNavigation = ({ pageTitle }: PageTitleType) => {
   const router = useRouter();
 
   return (
-    <Flex
-      width="100%"
-      height="4.8rem"
-      marginBottom="1.4rem"
-      alignItems="center"
-    >
+    <Flex width="100%" height="4.8rem" alignItems="center">
       <Image
         onClick={() => router.back()}
         src="/icons/back.svg"
