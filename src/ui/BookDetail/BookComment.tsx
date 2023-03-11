@@ -1,3 +1,4 @@
+import { CSSProperties, MutableRefObject, useRef } from 'react';
 import {
   Avatar,
   Flex,
@@ -19,8 +20,6 @@ import {
 } from '@chakra-ui/react';
 
 import MoreIcon from '@public/icons/more.svg';
-import { CSSProperties, MutableRefObject, useRef } from 'react';
-
 import type { APIBookComment } from '@/types/book';
 
 interface Props
