@@ -1,73 +1,54 @@
 'use clinet';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 
 import Button from '@/ui/common/Button';
 import BookComment from './BookComment';
 import CreateCommentDrawer from './CreateCommentDrawer';
+import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
-import type { APIBookComment } from './type';
+import type { APIBookComment } from '@/types/book';
 
 interface Props {
   bookId: number;
 }
 
-/** @todo react query로 대체하기 */
-const getBookComments = (_id: number) => {
-  return [
-    {
-      userId: 1,
-      nickName: '계란',
-      profileImageUrl:
-        'http://k.kakaocdn.net/dn/bjK45U/btrWRWU4xna/eK9gq12S5wMiROieJDvIuK/img_640x640.jpg',
-      createdAt: '방금 전',
-      contents: '요즘 핫한 챗GPT에 대한 내용을 잘 담은 책입니다.',
-    },
-    {
-      userId: 2,
-      nickName: '후라이',
-      profileImageUrl:
-        'http://k.kakaocdn.net/dn/bjK45U/btrWRWU4xna/eK9gq12S5wMiROieJDvIuK/img_640x640.jpg',
-      createdAt: '2022.02.27',
-      contents: '굿굿!',
-    },
-  ];
-};
-
-const _getMyComment = () => {
-  return {
-    userId: 1,
-    nickName: '계란',
-    profileImageUrl:
-      'http://k.kakaocdn.net/dn/bjK45U/btrWRWU4xna/eK9gq12S5wMiROieJDvIuK/img_640x640.jpg',
-    createdAt: '방금 전',
-    contents: '요즘 핫한 챗GPT에 대한 내용을 잘 담은 책입니다.',
-  };
-};
+type CommentType = 'me' | 'user';
+type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
 const BookCommentList = ({ bookId }: Props) => {
-  const myComment: APIBookComment | null = null;
-  const userComments: APIBookComment[] = getBookComments(bookId);
+  const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
+
+  const comments = useMemo<CommentRecordType>(() => {
+    const defaultComments = { me: [], user: [] };
+
+    if (!bookCommentsQueryInfo.isSuccess) {
+      return defaultComments;
+    }
+
+    return bookCommentsQueryInfo.data.bookGroupComments.reduce<CommentRecordType>(
+      (acc, comment) => ({
+        ...acc,
+        [comment.writtenByCurrentUser ? 'me' : 'user']: [
+          ...acc[comment.writtenByCurrentUser ? 'me' : 'user'],
+          comment,
+        ],
+      }),
+      defaultComments
+    );
+  }, [bookCommentsQueryInfo]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const toggleDrawerOpen = () => {
     setOpenDrawer(isOpen => !isOpen);
+    bookCommentsQueryInfo.refetch();
   };
 
   return (
-    <>
-      {myComment ? (
-        <BookComment
-          nickName="잇츠미"
-          profileImageUrl=""
-          createdAt="3일 전"
-          contents="정말 어려운 내용이에요."
-          editable
-          style={{ border: '1px solid #ffe6c6' }}
-        />
-      ) : (
+    <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
+      {!bookCommentsQueryInfo.isLoading && comments.me.length && (
         <>
           <Button
             onClick={toggleDrawerOpen}
@@ -84,12 +65,31 @@ const BookCommentList = ({ bookId }: Props) => {
           />
         </>
       )}
-      <VStack align="stretch" spacing="2rem" width="100%" pt="2rem">
-        {userComments.map(({ userId, ...props }) => (
-          <BookComment key={userId} {...props} />
-        ))}
-      </VStack>
-    </>
+      {comments.me.map(
+        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
+          <BookComment
+            key={commentId}
+            contents={contents}
+            userProfileImage={userProfileImage}
+            createdAt={createdAt}
+            nickname={nickname}
+            editable
+            style={{ border: '1px solid #ffe6c6' }}
+          />
+        )
+      )}
+      {comments.user.map(
+        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
+          <BookComment
+            key={commentId}
+            contents={contents}
+            userProfileImage={userProfileImage}
+            createdAt={createdAt}
+            nickname={nickname}
+          />
+        )
+      )}
+    </VStack>
   );
 };
 
