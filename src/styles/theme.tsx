@@ -1,7 +1,7 @@
 'use client';
 
 import { extendTheme, ThemeOverride } from '@chakra-ui/react';
-
+import { ChakraStyledOptions } from '@chakra-ui/react';
 const fontSizes = {
   xs: '1.2rem',
   sm: '1.4rem',
@@ -9,7 +9,18 @@ const fontSizes = {
   lg: '1.8rem',
   xl: '2rem',
   '2xl': '2.2rem',
-};
+} as const;
+
+const buttonSizes = {
+  md: {
+    padding: '1.3rem 1rem',
+    height: '3.5rem',
+  },
+  lg: {
+    padding: '2.5rem 1.8rem',
+    height: '4.5rem',
+  },
+} as const;
 
 const colors = {
   main: '#F6AD55', // Main Theme
@@ -37,16 +48,12 @@ const colors = {
     brown: '#191600',
     yellow: '#fee102',
   },
-};
+} as const;
 
 interface SchemeTypings {
   component: 'button';
-  colorScheme: 'orange' | 'kakao' | 'orange-fill';
-  cssProps: {
-    color: string;
-    backgroundColor: string;
-    border: string;
-  };
+  colorScheme: 'orange' | 'kakao' | 'orange-fill' | 'grey';
+  cssProps: ChakraStyledOptions;
 }
 
 const scheme: Record<
@@ -61,6 +68,18 @@ const scheme: Record<
     'orange-fill': {
       color: colors.white[900],
       backgroundColor: colors.main,
+      _hover: {
+        opacity: 0.8,
+      },
+    },
+    grey: {
+      color: colors.black[900],
+      border: `${colors.white[400]} 0.1rem solid`,
+      backgroundColor: colors.white[900],
+      _hover: {
+        color: colors.black['800'],
+        backgroundColor: colors.white[400],
+      },
     },
     kakao: {
       color: colors.kakao.brown,
@@ -75,6 +94,7 @@ const shadows = {
 
 const theme: ThemeOverride = extendTheme({
   fontSizes,
+  buttonSizes,
   colors,
   scheme,
   fonts: {
@@ -110,4 +130,4 @@ const theme: ThemeOverride = extendTheme({
 
 export default theme;
 
-export type Scheme = typeof scheme;
+export type ChakraTheme = typeof theme;

@@ -27,17 +27,19 @@ const BookCommentList = ({ bookId }: Props) => {
       return defaultComments;
     }
 
-    return bookCommentsQueryInfo.data.bookGroupComments.reduce<CommentRecordType>(
-      (acc, comment) => ({
-        ...acc,
-        [comment.writtenByCurrentUser ? 'me' : 'user']: [
-          ...acc[comment.writtenByCurrentUser ? 'me' : 'user'],
-          comment,
-        ],
-      }),
-      defaultComments
-    );
-  }, [bookCommentsQueryInfo]);
+    return bookCommentsQueryInfo.data.bookGroupComments
+      .filter(comment => comment.bookId == bookId)
+      .reduce<CommentRecordType>(
+        (acc, comment) => ({
+          ...acc,
+          [comment.writtenByCurrentUser ? 'me' : 'user']: [
+            ...acc[comment.writtenByCurrentUser ? 'me' : 'user'],
+            comment,
+          ],
+        }),
+        defaultComments
+      );
+  }, [bookCommentsQueryInfo, bookId]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -48,14 +50,9 @@ const BookCommentList = ({ bookId }: Props) => {
 
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
-      {!bookCommentsQueryInfo.isLoading && comments.me.length && (
+      {!bookCommentsQueryInfo.isLoading && !comments.me.length && (
         <>
-          <Button
-            onClick={toggleDrawerOpen}
-            scheme="orange-fill"
-            mt="2rem"
-            fullWidth
-          >
+          <Button onClick={toggleDrawerOpen} scheme="orange-fill" fullWidth>
             코멘트 남기기
           </Button>
           <CreateCommentDrawer
