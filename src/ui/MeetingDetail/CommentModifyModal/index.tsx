@@ -13,11 +13,13 @@ import {
 } from '@chakra-ui/react';
 
 interface CommentModifyModalProps {
+  commentId: number;
   comment: string;
   handleModifyCommentBtnClick: (modifiedComment: string) => void;
 }
 
 const CommentModifyModal = ({
+  commentId,
   comment,
   handleModifyCommentBtnClick,
 }: CommentModifyModalProps) => {
@@ -28,6 +30,8 @@ const CommentModifyModal = ({
     setModeifiedValue(event.target.value);
   };
 
+  /* 추후 commentId 사용 예정(husky) */
+  console.log(commentId);
   return (
     <>
       <Button

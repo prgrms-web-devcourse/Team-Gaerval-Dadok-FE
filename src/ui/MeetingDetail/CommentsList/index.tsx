@@ -7,7 +7,7 @@ import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 interface commentsListProps {
   isEmpty: boolean;
   commentsListData: APIBookGroupComments[];
-  handleDeleteCommentBtnClick: () => void;
+  handleDeleteCommentBtnClick: (commentId: number) => void;
   handleModifyCommentBtnClick: (modifiedComment: string) => void;
 }
 
@@ -66,11 +66,13 @@ const CommentsList = ({
                       <>
                         <CommentModifyModal
                           comment={contents}
+                          commentId={commentId}
                           handleModifyCommentBtnClick={
                             handleModifyCommentBtnClick
                           }
                         />
                         <CommentDeleteModal
+                          commentId={commentId}
                           handleDeleteCommentBtnClick={
                             handleDeleteCommentBtnClick
                           }

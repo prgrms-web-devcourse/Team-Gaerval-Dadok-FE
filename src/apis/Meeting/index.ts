@@ -6,6 +6,7 @@ import {
 import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 import { publicApi } from '../core/axios';
+import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
@@ -86,7 +87,16 @@ const MeetingAPI = {
     bookGroupId: APIMeetingGroup['bookGroupId'];
   }) => publicApi.delete(`/api/book-groups/${bookGroupId}`),
 
-
+  deleteComment: ({
+    bookGroupId,
+    commentId,
+  }: {
+    bookGroupId: APIMeetingGroup['bookGroupId'];
+    commentId: APIBookGroupComments['commentId'];
+  }) =>
+    publicApi.delete(`/api/book-groups/${bookGroupId}/comment`, {
+      data: { commentId },
+    }),
 };
 
 export default MeetingAPI;
