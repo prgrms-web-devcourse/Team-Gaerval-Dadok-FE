@@ -36,12 +36,8 @@ const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
           borderRadius={10}
           boxShadow="0 4px 2px -2px #8080806e"
         >
-          {books.map(book => (
-            <InteractiveBook
-              key={book.bookId}
-              bookId={book.bookId}
-              imageUrl={book.imageUrl}
-            />
+          {books.map(({ bookId, imageUrl }) => (
+            <InteractiveBook key={bookId} bookId={bookId} imageUrl={imageUrl} />
           ))}
         </Flex>
       ))}
