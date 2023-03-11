@@ -1,5 +1,5 @@
 import { APIBook, APIDefaultBook } from './book';
-import { APIProfileJob } from './job';
+import { APIJobGroup, APIProfileJob } from './job';
 
 export interface APIDefaultBookshelf {
   bookshelfId: number;
@@ -28,5 +28,6 @@ export interface APIBookshelfInfo extends APIDefaultBookshelf {
 }
 
 export interface APIBookshelfResponses {
+  jobGroupName: APIJobGroup['name'];
   bookshelfResponses: APIProfileBookshelf[];
 }
