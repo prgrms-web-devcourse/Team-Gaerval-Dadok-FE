@@ -1,6 +1,6 @@
 'use client';
 
-import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Text, VStack } from '@chakra-ui/react';
 import type { APIUser } from '@/types/user';
 
 const ProfileInfo = ({
@@ -11,7 +11,7 @@ const ProfileInfo = ({
   job: { jobGroupKoreanName, jobNameKoreanName },
 }: APIUser) => {
   return (
-    <>
+    <VStack align="flex-start" gap="0.5rem">
       <Flex width="100%" gap="1.5rem">
         <Avatar src={profileImage} w="8rem" h="8rem" />
         <Flex direction="column" justify="center">
@@ -27,7 +27,7 @@ const ProfileInfo = ({
             : '직업이 등록되지 않았습니다.'}
         </Text>
       </Box>
-    </>
+    </VStack>
   );
 };
 
