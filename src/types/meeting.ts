@@ -12,6 +12,8 @@ export interface APIMeetingBook {
 interface APIDefaultMeeting {
   title: string;
   introduce: string;
+  startDate: string;
+  endDate: string;
   maxMemberCount: number | null;
   hasJoinPasswd: boolean;
   isPublic: boolean;
