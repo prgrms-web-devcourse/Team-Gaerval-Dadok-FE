@@ -33,8 +33,6 @@ const CommentModifyModal = ({
     setModeifiedValue(event.target.value);
   };
 
-  /* 추후 commentId 사용 예정(husky) */
-  console.log(commentId);
   return (
     <>
       <Button
