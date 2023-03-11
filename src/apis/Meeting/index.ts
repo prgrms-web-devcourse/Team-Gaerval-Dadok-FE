@@ -109,8 +109,7 @@ const MeetingAPI = {
     commentId: number;
     comment: string;
   }) =>
-    publicApi.patch(`/api/book-groups/${bookGroupId}/comment`, {
-      commentId,
+    publicApi.patch(`/api/book-groups/${bookGroupId}/comments/${commentId}`, {
       comment,
     }),
 };
