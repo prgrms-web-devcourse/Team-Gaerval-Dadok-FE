@@ -23,13 +23,10 @@ const MeetingInfo = ({
   handleParticipateBtnClick,
   handleDeleteMeetingBtnClick,
 }: MeetingInfoProps) => {
-  /* TODO 모임 수정하기 버튼 클릭시 해당 모임 수정 페이지로 bookGroupId를 통해 이동할 예정 
-   (현재 모임 수정 페이지 완성 전으로 모임 리스트 페이지로 router 연결해 놓은 상태입니다.) */
   const router = useRouter();
   const [password, setPassword] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  /* 추후 API 필드에 정답이 같이 넘어오면 삭제 예정 */
   const {
     bookGroupId,
     title,
@@ -58,8 +55,7 @@ const MeetingInfo = ({
       alert('혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!');
       return;
     }
-    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요
-    TODO 모임 삭제 API 연동예정*/
+    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요*/
     handleDeleteMeetingBtnClick();
   };
 
@@ -194,9 +190,9 @@ const MeetingInfo = ({
                   alignSelf="flex-end"
                   bgColor="white.900"
                   onClick={() => {
-                    console.log('입력한 비밀번호>>>>>', password);
                     handleParticipateBtnClick(password);
                     onClose();
+                    setPassword('');
                   }}
                 >
                   확인
@@ -217,7 +213,7 @@ const MeetingInfo = ({
                     focusBorderColor="main"
                     value={password}
                     h="4rem"
-                    placeholder="-띄어쓰기 없이 정답을 입력해 주세요."
+                    placeholder="- 띄어쓰기 없이 정답을 입력해 주세요."
                     onChange={onChangePassword}
                   />
                 </Flex>

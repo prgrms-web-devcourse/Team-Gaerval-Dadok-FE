@@ -44,13 +44,13 @@ const MeetingAPI = {
     ),
   postMeetingJoin: ({
     bookGroupId,
-    password,
+    password = null,
   }: {
     bookGroupId: APIMeetingGroup['bookGroupId'];
-    password?: string;
+    password?: string | null;
   }) =>
     publicApi.post(`/api/book-groups/${bookGroupId}/join`, {
-      joinPassword: password ? password : null,
+      joinPasswd: password ? password : null,
     }),
   createMeetingComment: ({
     bookGroupId,
