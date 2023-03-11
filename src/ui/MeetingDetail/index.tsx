@@ -65,7 +65,6 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   };
 
   const handleDeleteMeetingBtnClick = async () => {
-    console.log(bookGroupId);
     try {
       await MeetingAPI.deleteMeeting({ bookGroupId });
     } catch (error) {
