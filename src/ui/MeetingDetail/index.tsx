@@ -70,7 +70,6 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       console.error(error);
     }
     meetingCommentsQuery.refetch();
-    /*댓글 삭제하기 버튼 클릭시*/
   };
 
   const handleDeleteMeetingBtnClick = async () => {
