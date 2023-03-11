@@ -30,9 +30,9 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const userNickname = userProfile.data.nickname;
   const userAvatar = userProfile.data.profileImage;
 
-  const handleParticipateBtnClick = async () => {
+  const handleParticipateBtnClick = async (password?: string) => {
     try {
-      await MeetingAPI.postMeetingJoin({ bookGroupId });
+      await MeetingAPI.postMeetingJoin({ bookGroupId, password });
     } catch (error) {
       console.error(error);
     }

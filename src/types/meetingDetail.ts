@@ -15,6 +15,7 @@ export interface APIMeetingDetail {
   startDate: string;
   endDate: string;
   hasJoinPasswd: boolean;
+  joinQuestion: string;
   isPublic: boolean;
   maxMemberCount: number;
   currentMemberCount: number;

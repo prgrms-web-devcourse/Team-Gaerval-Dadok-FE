@@ -18,7 +18,7 @@ const CommentsList = ({
   handleModifyCommentBtnClick,
 }: commentsListProps) => {
   return isEmpty ? (
-    <Text w="100%" textAlign="center" mt="4rem" fontSize="md" color="black.700">
+    <Text w="100%" textAlign="center" mt="4rem" fontSize="lg" color="black.700">
       첫 번째 글 작성의 주인공이 되어주세요.
     </Text>
   ) : (
