@@ -15,6 +15,7 @@ const MeetingListItem = ({
   commentCount,
   book,
 }: APIMeetingGroup) => {
+  console.log('캐시삭제');
   return (
     <Box>
       <Link href={`/meeting/${bookGroupId}`}>
