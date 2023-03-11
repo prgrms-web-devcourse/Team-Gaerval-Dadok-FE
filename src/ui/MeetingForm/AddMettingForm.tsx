@@ -8,7 +8,6 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
-
 import FormInput from '@/ui/FormInput';
 import FormRadio from '@/ui/FormRadio';
 import BottomSheet from '@/ui/common/BottomSheet';
@@ -18,13 +17,15 @@ import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
 import MeetingAPI from '@/apis/Meeting';
 import { useRouter } from 'next/navigation';
-import { MAX_MEMBER_COUNT_VAlUE } from './radioValues';
-import { MAX_MEMBER_DEFAULT_VALUE } from './radioValues';
-import { IS_PUBLICK_VALUE } from './radioValues';
-import { IS_PUBLICK_DEFAULT_VALUE } from './radioValues';
-import { HAS_JOIN_PASSWORD_VALUE } from './radioValues';
-import { HAS_JOIN_PASSWORD_DEFAULT_VALUE } from './radioValues';
 import { APICreateMeetingReqeust } from '@/types/meeting';
+import {
+  MAX_MEMBER_COUNT_VAlUE,
+  MAX_MEMBER_DEFAULT_VALUE,
+  IS_PUBLICK_DEFAULT_VALUE,
+  IS_PUBLICK_VALUE,
+  HAS_JOIN_PASSWORD_VALUE,
+  HAS_JOIN_PASSWORD_DEFAULT_VALUE,
+} from './radioValues';
 
 interface FormValues
   extends Omit<
@@ -67,7 +68,6 @@ const AddMeetingForm = () => {
   const hasJoinPasswd = methods.getValues('hasJoinPasswd');
 
   useEffect(() => {
-
     if (hasJoinPasswd === 'false') {
       methods.setValue('joinPasswd', '');
       methods.setValue('joinQuestion', '');
