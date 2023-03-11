@@ -12,7 +12,7 @@ export interface APIMeetingBook {
 interface APIDefaultMeeting {
   title: string;
   introduce: string;
-  maxMemberCount: number;
+  maxMemberCount: number | null;
   hasJoinPasswd: boolean;
   isPublic: boolean;
 }
@@ -36,6 +36,8 @@ export interface APIEntireMeetingList {
 
 export interface APICreateMeetingReqeust extends APIDefaultMeeting {
   bookId: number;
-  joinQuestion?: string;
-  joinPasswd?: string;
+  joinQuestion: string;
+  joinPasswd: string;
+  startDate: string;
+  endDate: string;
 }
