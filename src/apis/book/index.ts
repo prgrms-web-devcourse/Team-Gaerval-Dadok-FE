@@ -8,6 +8,7 @@ import type {
   APIBookComment,
   APIPatchBookCommentRequest,
   APIDefaultComment,
+  APIBookUserInfo,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 
@@ -19,6 +20,9 @@ const bookAPI = {
 
   getBookInfo: (bookId: APIDefaultBook['bookId']) =>
     publicApi.get<APIBookInfo>(`/api/books/${bookId}`),
+
+  getBookUserInfo: (bookId: APIDefaultBook['bookId']) =>
+    publicApi.get<APIBookUserInfo>(`/api/books/${bookId}/users`),
 
   createBook: ({ book }: { book: APIBook }) =>
     publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
@@ -61,6 +65,13 @@ const bookAPI = {
         bookId,
       })
     ),
+
+  unsetBookMarked: (bookId: APIDefaultBook['bookId']) =>
+    bookshelfAPI
+      .getMySummaryBookshelf()
+      .then(({ data: { bookshelfId } }) =>
+        publicApi.delete(`/api/bookshelves/${bookshelfId}/books/${bookId}`)
+      ),
 };
 
 export default bookAPI;
