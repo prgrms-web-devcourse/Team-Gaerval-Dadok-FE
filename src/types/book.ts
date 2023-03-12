@@ -27,6 +27,12 @@ export interface APIBookInfo extends APIDefaultBook, APISubBook {
   imageKey: string;
 }
 
+export interface APIBookUserInfo extends Pick<APIDefaultBook, 'bookId'> {
+  totalCount: number;
+  isInMyBookshelf: boolean;
+  users: { userId: number; profileImage: string }[];
+}
+
 export interface APIDefaultComment {
   commentId: number;
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import {
   Avatar,
@@ -13,6 +12,9 @@ import {
 } from '@chakra-ui/react';
 
 import IconButton from '@/ui/common/IconButton';
+import bookAPI from '@/apis/book';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
+
 import type { APIBookInfo } from '@/types/book';
 
 type Props = Pick<
@@ -20,18 +22,24 @@ type Props = Pick<
   'title' | 'author' | 'contents' | 'imageUrl' | 'bookId'
 >;
 
-const BookInfo = ({
-  bookId: _id,
-  title,
-  author,
-  contents,
-  imageUrl,
-}: Props) => {
+const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
   const theme = useTheme();
-  const [bookmark, setBookMarked] = useState(false);
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId);
 
   const handleBookmarkClick = () => {
-    setBookMarked(!bookmark);
+    if (!bookUserQueryInfo.isSuccess) {
+      return;
+    }
+
+    if (bookUserQueryInfo.data.isInMyBookshelf) {
+      bookAPI.unsetBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    } else {
+      bookAPI.setBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    }
   };
 
   return (
@@ -41,15 +49,17 @@ const BookInfo = ({
           <Image src={imageUrl} alt="book" width={180} height={240} />
         </Box>
         <VStack align="flex-start">
-          <IconButton
-            name="bookmark"
-            color={theme.colors.main}
-            strokeWidth="0.15rem"
-            onClick={handleBookmarkClick}
-            fill={bookmark}
-            mb="0.5rem"
-            ml="-0.1rem"
-          />
+          {bookUserQueryInfo.isSuccess && (
+            <IconButton
+              name="bookmark"
+              color={theme.colors.main}
+              strokeWidth="0.15rem"
+              onClick={handleBookmarkClick}
+              fill={bookUserQueryInfo.data.isInMyBookshelf}
+              mb="0.5rem"
+              ml="-0.1rem"
+            />
+          )}
           <Text fontSize="lg" fontWeight="bold">
             {title}
           </Text>
