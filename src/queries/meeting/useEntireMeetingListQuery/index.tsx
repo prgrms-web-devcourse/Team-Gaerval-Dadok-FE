@@ -1,9 +1,18 @@
 import MeetingAPI from '@/apis/Meeting';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-const useEntireMeetingListQuery = () =>
-  useQuery(['entireMeetingList'], () =>
-    MeetingAPI.getEntireMeetingList().then(response => response.data)
+type Options = Pick<
+  UseQueryOptions<
+    Awaited<ReturnType<typeof MeetingAPI.getEntireMeetingList>>['data']
+  >,
+  'suspense'
+>;
+
+const useEntireMeetingListQuery = (options?: Options) =>
+  useQuery(
+    ['entireMeetingList'],
+    () => MeetingAPI.getEntireMeetingList().then(response => response.data),
+    options
   );
 
 export default useEntireMeetingListQuery;

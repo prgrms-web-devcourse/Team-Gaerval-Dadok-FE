@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, ReactNode, Suspense } from 'react';
 
 import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQuery';
 import MeetingListHeader from './MeetingListHeader';
 import MeetingSearch from './MeetingSearch';
 import MeetingList from './MeetingList';
-import { Box } from '@chakra-ui/react';
+import { Box, Skeleton, VStack } from '@chakra-ui/react';
 
 interface SearchValue {
   [key: string]: string;
@@ -15,12 +15,42 @@ interface SearchValue {
 }
 
 const MeetingPageContainer = () => {
+  return (
+    <MeetingPage>
+      <Page />
+    </MeetingPage>
+  );
+};
+
+export default MeetingPageContainer;
+
+const MeetingPage = ({ children }: { children: ReactNode }) => {
+  return (
+    <Box>
+      <MeetingListHeader />
+      <Suspense
+        fallback={
+          <VStack gap="1rem" align="stretch">
+            <Skeleton w="40rem" h="30rem" />
+            <Skeleton w="40rem" h="30rem" />
+            <Skeleton w="40rem" h="30rem" />
+            <Skeleton w="40rem" h="30rem" />
+          </VStack>
+        }
+      >
+        {children}
+      </Suspense>
+    </Box>
+  );
+};
+
+const Page = () => {
+  const { data } = useEntireMeetingListQuery({ suspense: true });
+
   const [searchValue, setSearchValue] = useState<SearchValue>({
     input: '',
     select: '모임',
   });
-
-  const { isSuccess, data } = useEntireMeetingListQuery();
 
   const handleSumbit = () => {
     console.log(searchValue);
@@ -41,15 +71,12 @@ const MeetingPageContainer = () => {
 
   return (
     <Box>
-      <MeetingListHeader />
       <MeetingSearch
         searchValue={searchValue}
         handleChange={handleChange}
         handleSumbit={handleSumbit}
       />
-      {isSuccess && <MeetingList bookGroups={data.bookGroups} />}
+      {data && <MeetingList bookGroups={data.bookGroups} />}
     </Box>
   );
 };
-
-export default MeetingPageContainer;

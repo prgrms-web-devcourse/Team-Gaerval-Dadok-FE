@@ -19,6 +19,7 @@ const MeetingListItem = ({
     <Box>
       <Link href={`/meeting/${bookGroupId}`}>
         <Flex
+          filter="blur"
           m="0.8rem 0"
           w="100%"
           h="30rem"
