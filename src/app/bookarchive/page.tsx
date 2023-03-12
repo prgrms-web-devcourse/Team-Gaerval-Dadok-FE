@@ -2,8 +2,7 @@
 
 import { useAuth } from '@/hooks/auth';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { BookArchiveForUnAuth } from '@/ui/BookArchive';
-import BookArchiveForAuth from '@/ui/BookArchive/BookArchiveForAuth';
+import { BookArchiveForAuth, BookArchiveForUnAuth } from '@/ui/BookArchive';
 import { VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 

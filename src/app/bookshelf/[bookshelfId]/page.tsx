@@ -24,12 +24,15 @@ export default function UserBookShelfPage({
 
   if (!(infoIsSuccess && booksIsSuccess)) return null;
 
-  // 로그인 한 사용자는 책장의 모든 책장 열람 가능
-  // 로그인 하지 않은 사용자는 책장의 일부만 열람 가능
+  /**
+   * @TODO
+   * 로그인 한 사용자는 책장의 모든 책장 열람 가능
+   * 로그인 하지 않은 사용자는 책장의 일부만 열람 가능
+   */
 
   return (
     <VStack width="100%" height="100%">
-      <TopNavigation pageTitle={`${infoData.userNickname}님의 책장`} />
+      <TopNavigation pageTitle={infoData.bookshelfName} />
       <HStack width="100%" height="3rem" gap="0.08rem" px="1rem">
         <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
         {infoData.job.jobNameKoreanName && (
