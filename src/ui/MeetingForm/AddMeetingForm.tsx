@@ -86,11 +86,9 @@ const AddMeetingForm = () => {
       isPublic: meeting.isPublic === 'true' ? true : false,
       hasJoinPasswd: meeting.hasJoinPasswd === 'true' ? true : false,
     };
-    console.log(request);
 
     try {
       await MeetingAPI.createMeeting({ meeting: request });
-      console.log(request);
       router.replace('/meeting');
     } catch (error) {
       console.error(error);

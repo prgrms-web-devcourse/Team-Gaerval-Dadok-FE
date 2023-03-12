@@ -1,2 +1,2 @@
-export { default as AddMeetingForm } from './AddMettingForm';
-export { default as EditMeetingForm } from './EditMettingForm';
+export { default as AddMeetingForm } from './AddMeetingForm';
+export { default as EditMeetingForm } from './EditMeetingForm';

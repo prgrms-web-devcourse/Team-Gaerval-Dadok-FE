@@ -1,10 +1,20 @@
-import { Box, Flex, Image, Text, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  Button,
+  useDisclosure,
+  Input,
+} from '@chakra-ui/react';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 import { useRouter } from 'next/navigation';
+import BottomSheet from '@/ui/common/BottomSheet';
+import { useState } from 'react';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
-  handleParticipateBtnClick: () => void;
+  handleParticipateBtnClick: (password?: string) => void;
   handleDeleteMeetingBtnClick: () => void;
 }
 
@@ -13,9 +23,9 @@ const MeetingInfo = ({
   handleParticipateBtnClick,
   handleDeleteMeetingBtnClick,
 }: MeetingInfoProps) => {
-  /* TODO 모임 수정하기 버튼 클릭시 해당 모임 수정 페이지로 bookGroupId를 통해 이동할 예정 
-   (현재 모임 수정 페이지 완성 전으로 모임 리스트 페이지로 router 연결해 놓은 상태입니다.) */
   const router = useRouter();
+  const [password, setPassword] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const {
     bookGroupId,
@@ -24,6 +34,7 @@ const MeetingInfo = ({
     startDate,
     endDate,
     hasJoinPasswd,
+    joinQuestion,
     isPublic: _isPublic,
     maxMemberCount: _maxMemberCount,
     currentMemberCount,
@@ -34,7 +45,9 @@ const MeetingInfo = ({
     isGroupMember,
   } = meetingInfoData;
 
-  const message = hasJoinPasswd ? '가입 승인 필요' : '참여 가능';
+  const message = hasJoinPasswd
+    ? '가입시 비밀번호 입력 필요'
+    : '바로 참여 가능';
 
   const handleMeetingDeleteButton = () => {
     /*TODO 모임원이 1명 초과인 상태에서는 삭제가 불가능하다는 알림 메세지 UI 구현 필요*/
@@ -42,10 +55,12 @@ const MeetingInfo = ({
       alert('혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!');
       return;
     }
-
-    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요
-    TODO 모임 삭제 API 연동예정*/
+    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요*/
     handleDeleteMeetingBtnClick();
+  };
+
+  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   return (
@@ -146,28 +161,65 @@ const MeetingInfo = ({
             </Button>
           </Flex>
         ) : (
-          <Button
-            w="100%"
-            h="3.5rem"
-            fontSize="sm"
-            fontWeight="500"
-            borderRadius="2rem"
-            color="white.900"
-            border="0.1rem solid"
-            backgroundColor="main"
-            onClick={() => {
-              handleParticipateBtnClick();
-            }}
-            isDisabled={isGroupMember}
-            _disabled={{
-              border: 'none',
-              color: 'main',
-              background: 'white',
-              pointerEvents: 'none',
-            }}
-          >
-            {isGroupMember ? '참여 중' : '모임 참여하기'}
-          </Button>
+          <>
+            <Button
+              w="100%"
+              h="3.5rem"
+              fontSize="sm"
+              fontWeight="500"
+              borderRadius="2rem"
+              color="white.900"
+              border="0.1rem solid"
+              backgroundColor="main"
+              onClick={() => {
+                hasJoinPasswd ? onOpen() : handleParticipateBtnClick();
+              }}
+              isDisabled={isGroupMember}
+              _disabled={{
+                border: 'none',
+                color: 'main',
+                background: 'white',
+                pointerEvents: 'none',
+              }}
+            >
+              {isGroupMember ? '참여 중' : '모임 참여하기'}
+            </Button>
+            <BottomSheet isOpen={isOpen} onClose={onClose}>
+              <Flex p="3rem" h="90vh" gap="3rem" direction="column">
+                <Button
+                  alignSelf="flex-end"
+                  bgColor="white.900"
+                  onClick={() => {
+                    handleParticipateBtnClick(password);
+                    onClose();
+                    setPassword('');
+                  }}
+                >
+                  확인
+                </Button>
+                <Flex direction="column" gap="1rem">
+                  <Text fontSize="xl" color="main">
+                    질문
+                  </Text>
+                  <Text fontSize="lg" fontWeight={700}>
+                    {joinQuestion}
+                  </Text>
+                </Flex>
+                <Flex direction="column" gap="1rem">
+                  <Text fontSize="xl" color="main">
+                    정답
+                  </Text>
+                  <Input
+                    focusBorderColor="main"
+                    value={password}
+                    h="4rem"
+                    placeholder="- 띄어쓰기 없이 정답을 입력해 주세요."
+                    onChange={onChangePassword}
+                  />
+                </Flex>
+              </Flex>
+            </BottomSheet>
+          </>
         )}
       </Box>
     </>

@@ -30,17 +30,13 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const userNickname = userProfile.data.nickname;
   const userAvatar = userProfile.data.profileImage;
 
-  const handleParticipateBtnClick = async () => {
+  const handleParticipateBtnClick = async (password?: string) => {
     try {
-      await MeetingAPI.postMeetingJoin({ bookGroupId });
+      await MeetingAPI.postMeetingJoin({ bookGroupId, password });
     } catch (error) {
       console.error(error);
     }
     meetingInfoQuery.refetch();
-    /*모임 참여 버튼 클릭시, 
-      TODO
-      2) 유저의 책장에 책 꽂기 API 호출 예정 
-      */
   };
 
   const handleCreateCommentBtnClick = async (comment: string) => {
@@ -57,10 +53,6 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const handleModifyCommentBtnClick = (modifiedComment: string) => {
     console.log('댓글이 수정되었습니다.');
     console.log(modifiedComment);
-    /*댓글 수정하기 버튼 클릭시,
-      1) 댓글 수정 API 호출
-      2) 댓글 리스트 API 호출
-      3) commentsListData update*/
   };
 
   const handleDeleteCommentBtnClick = async (commentId: number) => {
@@ -73,7 +65,6 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   };
 
   const handleDeleteMeetingBtnClick = async () => {
-    console.log(bookGroupId);
     try {
       await MeetingAPI.deleteMeeting({ bookGroupId });
     } catch (error) {

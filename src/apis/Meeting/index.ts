@@ -44,11 +44,13 @@ const MeetingAPI = {
     ),
   postMeetingJoin: ({
     bookGroupId,
+    password = null,
   }: {
     bookGroupId: APIMeetingGroup['bookGroupId'];
+    password?: string | null;
   }) =>
     publicApi.post(`/api/book-groups/${bookGroupId}/join`, {
-      joinPassword: null,
+      joinPasswd: password ? password : null,
     }),
   createMeetingComment: ({
     bookGroupId,
@@ -94,7 +96,7 @@ const MeetingAPI = {
     bookGroupId: APIMeetingGroup['bookGroupId'];
     commentId: APIBookGroupComments['commentId'];
   }) =>
-    publicApi.delete(`/api/book-groups/${bookGroupId}/comment`, {
+    publicApi.delete(`/api/book-groups/${bookGroupId}/comments`, {
       data: { commentId },
     }),
 };
