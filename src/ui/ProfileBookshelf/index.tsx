@@ -1,5 +1,5 @@
 import { APIProfileBookshelf } from '@/types/bookshelf';
-import { Box, Text } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import InteractiveBookShelf from '../InteractiveBookShelf';
 
@@ -9,7 +9,7 @@ const ProfileBookshelf = ({
   books,
 }: APIProfileBookshelf) => {
   return (
-    <Box>
+    <VStack align="flex-start" gap="1rem">
       <Text as={Link} href={`/bookshelf/${bookshelfId}`} fontSize="sm">
         {bookshelfName}
       </Text>
@@ -18,7 +18,7 @@ const ProfileBookshelf = ({
       ) : (
         <InteractiveBookShelf books={books} />
       )}
-    </Box>
+    </VStack>
   );
 };
 
