@@ -3,10 +3,10 @@
 import { Box, Heading, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
-import IconButton from '@/ui/common/IconButton';
-import { BookInfo, BookCommentList } from '@/ui/BookDetail';
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
 import type { APIDefaultBook } from '@/types/book';
+import { BookCommentList, BookInfo } from '@/ui/BookDetail';
+import TopNavigation from '@/ui/common/TopNavigation';
 
 const BookDetailPage = ({
   params: { id: bookId },
@@ -23,7 +23,7 @@ const BookDetailPage = ({
 
   return (
     <Box>
-      <IconButton name="back" />
+      <TopNavigation pageTitle="책 상세 페이지" />
       <VStack
         w="100%"
         bgColor="white"
