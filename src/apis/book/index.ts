@@ -5,6 +5,8 @@ import type {
   APIDefaultBook,
   APICreateBookCommentRequest,
   APIBookCommentList,
+  APIBookComment,
+  APIPatchBookCommentRequest,
 } from '@/types/book';
 
 const bookAPI = {
@@ -36,6 +38,14 @@ const bookAPI = {
         sortDirection: 'DESC',
       },
     }),
+
+  patchComment: ({
+    bookId,
+    data,
+  }: {
+    bookId: APIDefaultBook['bookId'];
+    data: APIPatchBookCommentRequest;
+  }) => publicApi.patch<APIBookComment>(`/api/books/${bookId}/comment`, data),
 };
 
 export default bookAPI;

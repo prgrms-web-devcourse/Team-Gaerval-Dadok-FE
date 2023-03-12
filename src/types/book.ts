@@ -27,12 +27,19 @@ export interface APIBookInfo extends APIDefaultBook, APISubBook {
   imageKey: string;
 }
 
+export interface APIDefaultComment {
+  commentId: number;
+}
+
 export interface APICreateBookCommentRequest {
   comment: string;
 }
 
-export interface APIBookComment {
-  commentId: number;
+export interface APIPatchBookCommentRequest extends APIDefaultComment {
+  comment: string;
+}
+
+export interface APIBookComment extends APIDefaultComment {
   contents: string;
   bookId: number;
   userId: number;
@@ -49,5 +56,5 @@ export interface APIBookCommentList {
   hasNext: boolean;
   count: number;
   isEmpty: boolean;
-  bookGroupComments: APIBookComment[];
+  bookComments: APIBookComment[];
 }

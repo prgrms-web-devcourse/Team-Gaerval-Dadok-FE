@@ -20,35 +20,62 @@ import {
 } from '@chakra-ui/react';
 
 import MoreIcon from '@public/icons/more.svg';
+import CommentDrawer from './CommentDrawer';
+
 import type { APIBookComment } from '@/types/book';
 
 interface Props
   extends Pick<
     APIBookComment,
-    'nickname' | 'userProfileImage' | 'createdAt' | 'contents'
+    'commentId' | 'nickname' | 'userProfileImage' | 'createdAt' | 'contents'
   > {
   style?: CSSProperties;
   editable?: boolean;
-  onEdit?: () => void;
+  onEdit?: (commentId: number, comment: string) => void;
   onDelete?: () => void;
 }
 
 const BookComment = ({
+  commentId,
   nickname,
   userProfileImage,
   createdAt,
   contents,
   editable = false,
+  onEdit,
   onDelete,
   ...props
 }: Props) => {
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: onDeleteModalClose,
+    onOpen: onDeleteModalOpen,
+  } = useDisclosure();
+  const {
+    isOpen: isEditDrawerOpen,
+    onClose: onEditDrawerClose,
+    onOpen: onEditDrawerOpen,
+  } = useDisclosure();
+
   const cancelRef = useRef(null);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleCommentEdit = () => {
+    const comment = textareaRef.current?.value;
+
+    if (!comment) {
+      console.log('입력된 코멘트가 없어요.');
+      return;
+    }
+
+    onEdit && onEdit(commentId, comment);
+    onEditDrawerClose();
+  };
 
   const handleCommentDelete = () => {
     /** @todo 삭제 api 연결 */
     onDelete && onDelete();
-    onClose();
+    onDeleteModalClose();
   };
 
   return (
@@ -80,13 +107,24 @@ const BookComment = ({
               border="none"
             />
             <MenuList fontSize="md">
-              <MenuItem>수정</MenuItem>
-              <MenuItem color="red.300" onClick={onOpen}>
+              <MenuItem onClick={onEditDrawerOpen}>
+                수정
+                <CommentDrawer
+                  title="책 코멘트 수정하기"
+                  placeholder="더 멋진 코멘트를 작성해주세요!"
+                  defaultComment={contents}
+                  isOpen={isEditDrawerOpen}
+                  onClose={onEditDrawerClose}
+                  onComplete={handleCommentEdit}
+                  textareaRef={textareaRef}
+                />
+              </MenuItem>
+              <MenuItem color="red.300" onClick={onDeleteModalOpen}>
                 삭제
                 <DeleteComfirmDialog
                   cancelRef={cancelRef}
-                  isOpen={isOpen}
-                  onClose={onClose}
+                  isOpen={isDeleteModalOpen}
+                  onClose={onDeleteModalClose}
                   onDelete={handleCommentDelete}
                 />
               </MenuItem>
