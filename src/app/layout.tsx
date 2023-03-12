@@ -6,6 +6,8 @@ import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvier from '@/components/ReactQueryProvider';
 import Layout from '@/ui/common/Layout';
 import { LineSeed } from '@/styles/font';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './_error';
 
 export default function RootLayout({
   children,
@@ -19,7 +21,9 @@ export default function RootLayout({
         <RecoilRoot>
           <ReactQueryProvier>
             <ChakraThemeProvider>
-              <Layout>{children}</Layout>
+              <ErrorBoundary fallbackRender={ErrorPage}>
+                <Layout>{children}</Layout>
+              </ErrorBoundary>
             </ChakraThemeProvider>
           </ReactQueryProvier>
         </RecoilRoot>
