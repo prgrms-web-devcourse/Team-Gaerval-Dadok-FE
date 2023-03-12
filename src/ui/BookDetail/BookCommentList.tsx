@@ -82,6 +82,12 @@ const BookCommentList = ({ bookId }: Props) => {
     });
   };
 
+  const handleCommentDelete = (commentId: number) => {
+    bookAPI
+      .deletComment(bookId, commentId)
+      .then(() => bookCommentsQueryInfo.refetch());
+  };
+
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
       {!bookCommentsQueryInfo.isLoading && !comments.me.length && (
@@ -110,6 +116,7 @@ const BookCommentList = ({ bookId }: Props) => {
             nickname={nickname}
             editable
             onEdit={handleCommentEdit}
+            onDelete={handleCommentDelete}
             style={{ border: '1px solid #ffe6c6' }}
           />
         )

@@ -32,7 +32,7 @@ interface Props
   style?: CSSProperties;
   editable?: boolean;
   onEdit?: (commentId: number, comment: string) => void;
-  onDelete?: () => void;
+  onDelete?: (commentId: number) => void;
 }
 
 const BookComment = ({
@@ -74,7 +74,7 @@ const BookComment = ({
 
   const handleCommentDelete = () => {
     /** @todo 삭제 api 연결 */
-    onDelete && onDelete();
+    onDelete && onDelete(commentId);
     onDeleteModalClose();
   };
 
