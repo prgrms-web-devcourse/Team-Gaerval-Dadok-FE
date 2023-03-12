@@ -73,7 +73,6 @@ const BookComment = ({
   };
 
   const handleCommentDelete = () => {
-    /** @todo 삭제 api 연결 */
     onDelete && onDelete(commentId);
     onDeleteModalClose();
   };
