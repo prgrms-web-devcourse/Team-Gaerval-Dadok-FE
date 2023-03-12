@@ -6,8 +6,18 @@ const RecommendAPI = {
     publicApi.get<APIBookshelfResponses>(
       `/api/suggestions/bookshelves/default`
     ),
-  // TODO: getAuthRecommendedBookshelf: () => publicApi.get(),
-  // TODO: getAuthRecommendedBooks: () => publicApi.get(),
+
+  getAuthRecommendedBookshelf: (
+    jobGroup: APIBookshelfResponses['jobGroupName']
+  ) =>
+    publicApi.get<APIBookshelfResponses>(
+      `/api/suggestions/bookshelves?job_group=${jobGroup}`
+    ),
+
+  getAuthRecommendedBooks: (jobGroup: APIBookshelfResponses['jobGroupName']) =>
+    publicApi.get(
+      `/api/books/suggestions?jobGroup=${jobGroup}&pageSize=10&bookCursorId=10&sortDirection=DESC`
+    ),
 };
 
 export default RecommendAPI;
