@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 export default function BookArchive() {
   const { isAuthed } = useAuth();
-  const { data: userData } = useMyProfileQuery();
+  const { data: userData } = useMyProfileQuery(isAuthed);
 
   const [userJobGroup, setUserJobGroup] = useState<string>('');
 
