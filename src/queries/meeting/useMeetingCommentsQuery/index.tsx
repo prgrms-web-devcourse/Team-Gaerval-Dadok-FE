@@ -1,4 +1,4 @@
-import MeetingAPI from '@/apis/meetingg';
+import MeetingAPI from '@/apis/meeting';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 import { useQuery } from '@tanstack/react-query';
 

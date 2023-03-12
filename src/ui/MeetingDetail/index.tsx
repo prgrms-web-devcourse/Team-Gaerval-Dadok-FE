@@ -7,7 +7,7 @@ import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import MeetingAPI from '@/apis/meetingg';
+import MeetingAPI from '@/apis/meeting';
 
 interface MeetingDetailProps {
   bookGroupId: number;

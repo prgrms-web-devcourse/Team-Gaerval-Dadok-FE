@@ -1,4 +1,4 @@
-import MeetingAPI from '@/apis/meetingg';
+import MeetingAPI from '@/apis/meeting';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 type Options = Pick<

@@ -15,7 +15,7 @@ import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
 import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
-import MeetingAPI from '@/apis/meetingg';
+import MeetingAPI from '@/apis/meeting';
 import { useRouter } from 'next/router';
 import { APICreateMeetingReqeust } from '@/types/meeting';
 import {
