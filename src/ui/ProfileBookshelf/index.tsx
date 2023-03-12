@@ -3,10 +3,14 @@ import { Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import InteractiveBookShelf from '../InteractiveBookShelf';
 
-const ProfileBookshelf = ({ bookshelfName, books }: APIProfileBookshelf) => {
+const ProfileBookshelf = ({
+  bookshelfId,
+  bookshelfName,
+  books,
+}: APIProfileBookshelf) => {
   return (
     <VStack align="flex-start" gap="1rem">
-      <Text as={Link} href="/usersbookshelf" fontSize="sm">
+      <Text as={Link} href={`/bookshelf/${bookshelfId}`} fontSize="sm">
         {bookshelfName}
       </Text>
       {books.length === 0 ? (
