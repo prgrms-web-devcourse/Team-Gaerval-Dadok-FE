@@ -1,4 +1,4 @@
-import MeetingAPI from '@/apis/meeting';
+import MeetingAPI from '@/apis/meetingg';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 import TopNavigation from '@/ui/common/TopNavigation';
 import { EditMeetingForm } from '@/ui/MeetingForm';
