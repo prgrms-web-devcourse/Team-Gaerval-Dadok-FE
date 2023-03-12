@@ -1,17 +1,27 @@
 'use client';
 
 import { useAuth } from '@/hooks/auth';
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import { BookArchiveForUnAuth } from '@/ui/BookArchive';
+import BookArchiveForAuth from '@/ui/BookArchive/BookArchiveForAuth';
 import { VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 export default function BookArchive() {
   const { isAuthed } = useAuth();
+  const { data: userData } = useMyProfileQuery(isAuthed);
+
+  const [userJobGroup, setUserJobGroup] = useState<string>('');
+
+  useEffect(() => {
+    if (!userData) return;
+    setUserJobGroup(userData.job.jobGroupName);
+  }, [userData]);
 
   return (
     <VStack as="main" width="100%" spacing="2rem">
-      {isAuthed ? (
-        // 'TODO: 로그인한 유저 책장 추천 api 연결하기.'
-        'TODO: 로그인한 유저 책장 추천 api 연결하기.'
+      {isAuthed && userJobGroup ? (
+        <BookArchiveForAuth userJobGroup={userJobGroup} />
       ) : (
         <BookArchiveForUnAuth />
       )}

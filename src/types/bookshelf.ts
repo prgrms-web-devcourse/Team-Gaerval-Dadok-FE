@@ -1,21 +1,25 @@
 import { APIBook, APIDefaultBook } from './book';
-import { APIProfileJob } from './job';
+import { APIJobGroup, APIProfileJob } from './job';
 
 export interface APIDefaultBookshelf {
   bookshelfId: number;
   bookshelfName: string;
 }
 
+export interface APIBookshelfCursorId {
+  isFirst: boolean;
+  isLast: boolean;
+  hasNext: boolean;
+  count: number;
+  isEmpty: boolean;
+}
+
 export interface APIProfileBookshelf extends APIDefaultBookshelf {
   books: APIDefaultBook[];
 }
 
-export interface APIBookshelfBookList {
-  count: number;
+export interface APIBookshelfBookList extends APIBookshelfCursorId {
   books: APIBook[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
 }
 
 export interface APIBookshelfInfo extends APIDefaultBookshelf {
@@ -27,6 +31,7 @@ export interface APIBookshelfInfo extends APIDefaultBookshelf {
   job: APIProfileJob;
 }
 
-export interface APIBookshelfResponses {
+export interface APIBookshelfResponses extends APIBookshelfCursorId {
+  jobGroupName: APIJobGroup['name'];
   bookshelfResponses: APIProfileBookshelf[];
 }
