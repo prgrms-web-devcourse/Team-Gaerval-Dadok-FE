@@ -1,5 +1,3 @@
-'use client';
-
 import { APIProfileBookshelf } from '@/types/bookshelf';
 import { Heading, Highlight, VStack } from '@chakra-ui/react';
 import Link from 'next/link';

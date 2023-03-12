@@ -8,7 +8,7 @@ interface NavigationItemPorps {
   label: string;
   href: string;
   isActive: boolean;
-  onClick?: (event: MouseEvent) => void;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const NavigationItem = ({

@@ -1,4 +1,4 @@
-import MeetingAPI from '@/apis/Meeting';
+import MeetingAPI from '@/apis/meeting';
 import { useQuery } from '@tanstack/react-query';
 
 const useEntireMeetingListQuery = () =>

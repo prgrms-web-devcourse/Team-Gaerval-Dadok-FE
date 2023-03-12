@@ -1,5 +1,3 @@
-'use client';
-
 import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks';
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';

@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 
-const paths = ['/login/', '/profile/me/add/'];
+const paths = ['/bookarchive', '/book/search', '/meeting', '/profile/me'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const pathname = usePathname();
-  const isShowNavigation = pathname === null || paths.includes(pathname);
+  const { pathname } = useRouter();
+  const isShowNavigation = pathname === null || !paths.includes(pathname);
 
   return (
     <Box h="100vh">

@@ -1,5 +1,3 @@
-'use client';
-
 import { APIDefaultBook } from '@/types/book';
 import InteractiveBook from '@/ui//InteractiveBook';
 import { Flex } from '@chakra-ui/react';

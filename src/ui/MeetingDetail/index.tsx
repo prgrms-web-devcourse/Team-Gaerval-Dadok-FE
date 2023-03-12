@@ -1,7 +1,5 @@
-'use client';
-
 import { Flex } from '@chakra-ui/react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
 import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
@@ -9,7 +7,7 @@ import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import MeetingAPI from '@/apis/Meeting';
+import MeetingAPI from '@/apis/meeting';
 
 interface MeetingDetailProps {
   bookGroupId: number;

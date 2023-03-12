@@ -1,5 +1,3 @@
-'use client';
-
 import { APIBook } from '@/types/book';
 import { Box, Flex } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
@@ -24,14 +22,13 @@ const InteractiveBook = ({
 
   return (
     <Flex
-      flex="1 1 auto"
+      flexShrink={0}
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
       style={{
         transformStyle: 'preserve-3d',
         transform: 'translate3d(0,0,0)',
-        // perspective: '30rem',
       }}
     >
       {data && (

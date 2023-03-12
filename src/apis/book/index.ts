@@ -15,31 +15,31 @@ import bookshelfAPI from '../bookshelf';
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
     publicApi.get<{ searchBookResponseList: APIBook[] }>(
-      `/api/books?query=${query}`
+      `/service-api/books?query=${query}`
     ),
 
   getBookInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookInfo>(`/api/books/${bookId}`),
+    publicApi.get<APIBookInfo>(`/service-api/books/${bookId}`),
 
   getBookUserInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookUserInfo>(`/api/books/${bookId}/users`),
+    publicApi.get<APIBookUserInfo>(`/service-api/books/${bookId}/users`),
 
   createBook: ({ book }: { book: APIBook }) =>
-    publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
+    publicApi.post<Pick<APIBook, 'bookId'>>('/service-api/books', book),
 
   creaetComment: (
     bookId: APIDefaultBook['bookId'],
     comment: APICreateBookCommentRequest
   ) =>
     publicApi.post<APICreateBookCommentRequest>(
-      `/api/books/${bookId}/comment`,
+      `/service-api/books/${bookId}/comment`,
       comment
     ),
 
   getComments: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookCommentList>(`/api/books/${bookId}/comments`, {
+    publicApi.get<APIBookCommentList>(`/service-api/books/${bookId}/comments`, {
       params: {
-        bookCommentCursorId: 99,
+        bookCommentCursorId: 999,
         pageSize: 10,
         sortDirection: 'DESC',
       },
@@ -51,17 +51,20 @@ const bookAPI = {
   }: {
     bookId: APIDefaultBook['bookId'];
     data: APIPatchBookCommentRequest;
-  }) => publicApi.patch<APIBookComment>(`/api/books/${bookId}/comment`, data),
+  }) =>
+    publicApi.patch<APIBookComment>(
+      `/service-api/books/${bookId}/comment`,
+      data
+    ),
 
   deletComment: (
     bookId: APIDefaultBook['bookId'],
     commentId: APIDefaultComment['commentId']
-  ) =>
-    publicApi.delete(`/api/books/${bookId}/comment`, { data: { commentId } }),
+  ) => publicApi.delete(`/service-api/books/${bookId}/comment/${commentId}`),
 
   setBookMarked: (bookId: APIDefaultBook['bookId']) =>
     bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
-      publicApi.post(`/api/bookshelves/${bookshelfId}/books`, {
+      publicApi.post(`/service-api/bookshelves/${bookshelfId}/books`, {
         bookId,
       })
     ),
@@ -70,7 +73,9 @@ const bookAPI = {
     bookshelfAPI
       .getMySummaryBookshelf()
       .then(({ data: { bookshelfId } }) =>
-        publicApi.delete(`/api/bookshelves/${bookshelfId}/books/${bookId}`)
+        publicApi.delete(
+          `/service-api/bookshelves/${bookshelfId}/books/${bookId}`
+        )
       ),
 };
 

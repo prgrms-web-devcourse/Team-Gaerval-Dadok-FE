@@ -2,9 +2,6 @@ const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   webpack: config => {
     config.module.rules.push({
       test: /\.svg$/,
@@ -12,7 +9,6 @@ const nextConfig = {
     });
     return config;
   },
-  trailingSlash: true,
   async redirects() {
     return [
       {
@@ -25,7 +21,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/api/:url*',
+        source: '/service-api/:url*',
         destination: `${baseURL}/api/:url*`,
       },
     ];

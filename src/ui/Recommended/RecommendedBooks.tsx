@@ -1,5 +1,3 @@
-'use client';
-
 import { APIDefaultBook } from '@/types/book';
 import { APIJobGroup } from '@/types/job';
 import {
@@ -29,7 +27,7 @@ const RecommendedBooks = ({ jobGroup, books }: RecommendedBooksTypes) => {
           {`${jobGroup}직군에서 많이 꽂은 책들이에요`}
         </Highlight>
       </Heading>
-      <HStack width="100%" height="18.2rem" gap="1rem" overflowX="scroll">
+      <HStack width="100%" gap="1rem" overflowX="scroll">
         {books.map(({ bookId, imageUrl, title }) => (
           <VStack key={bookId} as={Link} href={`/book/${bookId}`}>
             <Image

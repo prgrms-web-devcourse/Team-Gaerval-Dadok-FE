@@ -1,5 +1,3 @@
-'use client';
-
 import dynamic from 'next/dynamic';
 import { ComponentPropsWithoutRef, SVGProps } from 'react';
 import { Center } from '@chakra-ui/react';
