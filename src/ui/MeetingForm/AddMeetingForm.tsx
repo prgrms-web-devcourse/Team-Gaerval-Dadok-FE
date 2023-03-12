@@ -15,8 +15,8 @@ import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
 import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
-import MeetingAPI from '@/apis/Meeting';
-import { useRouter } from 'next/navigation';
+import MeetingAPI from '@/apis/meeting';
+import { useRouter } from 'next/router';
 import { APICreateMeetingReqeust } from '@/types/meeting';
 import {
   MAX_MEMBER_COUNT_VAlUE,

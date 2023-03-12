@@ -8,18 +8,20 @@ import { APIUser } from '@/types/user';
 import { publicApi } from '../core/axios';
 
 const bookshelfAPI = {
-  getUserSummaryBookshelf: ({ id }: { id: APIUser['userId'] }) =>
-    publicApi.get<APIProfileBookshelf>(`/api/users/${id}/bookshelves`),
+  getUserSummaryBookshelf: ({ userId }: { userId: APIUser['userId'] }) =>
+    publicApi.get<APIProfileBookshelf>(
+      `/service-api/users/${userId}/bookshelves`
+    ),
 
   getMySummaryBookshelf: () =>
-    publicApi.get<APIProfileBookshelf>('/api/bookshelves/me'),
+    publicApi.get<APIProfileBookshelf>('/service-api/bookshelves/me'),
 
   getBookshelfInfo: (bookshelfId: APIBookshelfInfo['bookshelfId']) =>
-    publicApi.get<APIBookshelfInfo>(`/api/bookshelves/${bookshelfId}`),
+    publicApi.get<APIBookshelfInfo>(`/service-api/bookshelves/${bookshelfId}`),
 
   getBookshelfBooks: (bookshelfId: APIDefaultBookshelf['bookshelfId']) =>
     publicApi.get<APIBookshelfBookList>(
-      `/api/bookshelves/${bookshelfId}/books?type=READ&pageSize=100&bookCursorId=10&sortDirection=DESC`
+      `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=100&bookCursorId=999&sortDirection=DESC`
     ),
 };
 

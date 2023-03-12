@@ -1,5 +1,3 @@
-'use client';
-
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
 import { Flex } from '@chakra-ui/react';
 import { RecommendedBookshelf } from '../Recommended';

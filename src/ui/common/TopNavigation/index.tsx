@@ -1,8 +1,6 @@
-'use client';
-
 import { Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 type PageTitleType = {
   pageTitle: string;

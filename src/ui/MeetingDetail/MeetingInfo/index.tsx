@@ -8,7 +8,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { APIMeetingDetail } from '@/types/meetingDetail';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import BottomSheet from '@/ui/common/BottomSheet';
 import { useState } from 'react';
 

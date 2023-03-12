@@ -1,5 +1,3 @@
-'use client';
-
 import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 
 import { useTheme, Flex } from '@chakra-ui/react';

@@ -1,9 +1,7 @@
-'use client';
-
 import { ReactNode, useEffect, useState } from 'react';
 
 import { useAuth } from '@/hooks/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const AuthRequired = ({ children }: { children: ReactNode }) => {
   const router = useRouter();

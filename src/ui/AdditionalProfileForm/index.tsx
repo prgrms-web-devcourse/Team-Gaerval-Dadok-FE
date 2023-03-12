@@ -4,7 +4,7 @@ import { APIJobGroup } from '@/types/job';
 import { APIUser } from '@/types/user';
 import { Box, useTheme, VStack } from '@chakra-ui/react';
 import { isAxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';

@@ -1,5 +1,3 @@
-'use client';
-
 import { extendTheme, ThemeOverride } from '@chakra-ui/react';
 import { ChakraStyledOptions } from '@chakra-ui/react';
 const fontSizes = {

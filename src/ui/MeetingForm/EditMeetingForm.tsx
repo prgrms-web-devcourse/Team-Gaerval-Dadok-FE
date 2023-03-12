@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import FormInput from '@/ui/FormInput';
 import { APIMeetingDetail } from '@/types/meetingDetail';
-import MeetingAPI from '@/apis/Meeting';
-import { useRouter } from 'next/navigation';
+import MeetingAPI from '@/apis/meeting';
+import { useRouter } from 'next/router';
 
 interface EditMeetingFormProps {
   meeting: APIMeetingDetail;

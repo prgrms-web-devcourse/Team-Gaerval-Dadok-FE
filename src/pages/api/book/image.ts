@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Stream } from 'stream';
+// import fetch from 'node-fetch';
 
 export default async function getBookImage(
   req: NextApiRequest,
@@ -12,13 +13,18 @@ export default async function getBookImage(
   )) as NodeJS.ReadableStream;
 
   if (!readalbeStream) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res
+      .status(500)
+      .end(JSON.stringify({ message: 'Internal server error' }));
   }
 
   const passThrough = new Stream.PassThrough();
 
   Stream.pipeline(readalbeStream, passThrough, err => {
-    if (err) return res.status(500).json({ message: 'Internal server error' });
+    if (err)
+      return res
+        .status(500)
+        .end(JSON.stringify({ message: 'Internal server error' }));
   });
 
   passThrough.pipe(res);

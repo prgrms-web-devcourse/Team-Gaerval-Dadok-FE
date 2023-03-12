@@ -1,5 +1,3 @@
-'use client';
-
 import { Avatar, Box, Flex, Text, VStack } from '@chakra-ui/react';
 import type { APIUser } from '@/types/user';
 
