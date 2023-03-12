@@ -50,9 +50,20 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     meetingCommentsQuery.refetch();
   };
 
-  const handleModifyCommentBtnClick = (modifiedComment: string) => {
-    console.log('댓글이 수정되었습니다.');
-    console.log(modifiedComment);
+  const handleModifyCommentBtnClick = async (
+    modifiedComment: string,
+    commentId: number
+  ) => {
+    try {
+      await MeetingAPI.patchMeetingComment({
+        bookGroupId,
+        commentId,
+        comment: modifiedComment,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    meetingCommentsQuery.refetch();
   };
 
   const handleDeleteCommentBtnClick = async (commentId: number) => {
