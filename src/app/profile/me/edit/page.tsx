@@ -15,7 +15,7 @@ const EditMyPage = () => {
 
   return (
     <VStack justify="center" align="center">
-      <TopNavigation pageTitle="" />
+      <TopNavigation pageTitle="내 프로필 수정" />
       <AdditionalProfileForm
         profile={userProfileQuery.data}
         jobGroups={allJobQuery.data.jobGroups}

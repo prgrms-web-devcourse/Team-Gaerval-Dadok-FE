@@ -27,7 +27,7 @@ const MeetingEditPage = ({ params: { id } }: { params: { id: number } }) => {
 
   return (
     <VStack justify="center" align="center">
-      <TopNavigation pageTitle="" />
+      <TopNavigation pageTitle="모임 수정" />
       {meeting && <EditMeetingForm meeting={meeting} />}
     </VStack>
   );
