@@ -1,11 +1,13 @@
 'use clinet';
 
-import { useMemo, useState } from 'react';
-import { VStack } from '@chakra-ui/react';
+import { useMemo, useRef } from 'react';
+import { useDisclosure, VStack } from '@chakra-ui/react';
+import { isAxiosError } from 'axios';
 
 import Button from '@/ui/common/Button';
+import CommentDrawer from './CommentDrawer';
 import BookComment from './BookComment';
-import CreateCommentDrawer from './CreateCommentDrawer';
+import bookAPI from '@/apis/book';
 import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
 import type { APIBookComment } from '@/types/book';
@@ -18,7 +20,14 @@ type CommentType = 'me' | 'user';
 type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
 const BookCommentList = ({ bookId }: Props) => {
+  const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
+
+  const {
+    isOpen: isCreateDrawerOpen,
+    onOpen: onCreateDrawerOpen,
+    onClose: onCreateDrawerClose,
+  } = useDisclosure();
 
   const comments = useMemo<CommentRecordType>(() => {
     const defaultComments = { me: [], user: [] };
@@ -27,7 +36,7 @@ const BookCommentList = ({ bookId }: Props) => {
       return defaultComments;
     }
 
-    return bookCommentsQueryInfo.data.bookGroupComments
+    return bookCommentsQueryInfo.data.bookComments
       .filter(comment => comment.bookId == bookId)
       .reduce<CommentRecordType>(
         (acc, comment) => ({
@@ -41,24 +50,52 @@ const BookCommentList = ({ bookId }: Props) => {
       );
   }, [bookCommentsQueryInfo, bookId]);
 
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const handleCommentCreate = () => {
+    const comment = commentTextAreaRef.current?.value;
 
-  const toggleDrawerOpen = () => {
-    setOpenDrawer(isOpen => !isOpen);
-    bookCommentsQueryInfo.refetch();
+    if (!comment) {
+      console.log('입력된 코멘트가 없어요.');
+      return;
+    }
+
+    bookAPI
+      .creaetComment(bookId, { comment })
+      .catch(error => {
+        if (!isAxiosError(error)) {
+          console.error(error);
+          return;
+        }
+
+        const response = error.response;
+
+        if (response && response.status === 400) {
+          console.log('이미 사용자가 작성한 코멘트가 있어요.');
+        }
+      })
+      .then(() => bookCommentsQueryInfo.refetch())
+      .finally(onCreateDrawerClose);
+  };
+
+  const handleCommentEdit = (commentId: number, comment: string) => {
+    bookAPI.patchComment({ bookId, data: { commentId, comment } }).then(() => {
+      bookCommentsQueryInfo.refetch();
+    });
   };
 
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
       {!bookCommentsQueryInfo.isLoading && !comments.me.length && (
         <>
-          <Button onClick={toggleDrawerOpen} scheme="orange-fill" fullWidth>
+          <Button onClick={onCreateDrawerOpen} scheme="orange-fill" fullWidth>
             코멘트 남기기
           </Button>
-          <CreateCommentDrawer
-            bookId={bookId}
-            isOpen={openDrawer}
-            onClose={toggleDrawerOpen}
+          <CommentDrawer
+            title="책 코멘트 남기기"
+            placeholder="작성해주신 코멘트가 다른 사람들에게 많은 도움이 될 거예요!"
+            isOpen={isCreateDrawerOpen}
+            onClose={onCreateDrawerClose}
+            onComplete={handleCommentCreate}
+            textareaRef={commentTextAreaRef}
           />
         </>
       )}
@@ -66,11 +103,13 @@ const BookCommentList = ({ bookId }: Props) => {
         ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
           <BookComment
             key={commentId}
+            commentId={commentId}
             contents={contents}
             userProfileImage={userProfileImage}
             createdAt={createdAt}
             nickname={nickname}
             editable
+            onEdit={handleCommentEdit}
             style={{ border: '1px solid #ffe6c6' }}
           />
         )
@@ -79,6 +118,7 @@ const BookCommentList = ({ bookId }: Props) => {
         ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
           <BookComment
             key={commentId}
+            commentId={commentId}
             contents={contents}
             userProfileImage={userProfileImage}
             createdAt={createdAt}
