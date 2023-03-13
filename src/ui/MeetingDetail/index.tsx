@@ -63,6 +63,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     } catch (error) {
       console.error(error);
     }
+    meetingInfoQuery.refetch();
     meetingCommentsQuery.refetch();
   };
 

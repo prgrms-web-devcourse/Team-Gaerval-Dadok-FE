@@ -1,16 +1,7 @@
-import { Textarea } from '@chakra-ui/react';
-import { useState } from 'react';
-import {
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  ModalFooter,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { useRef } from 'react';
+import { Button, useDisclosure, Box } from '@chakra-ui/react';
+
+import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
 
 interface CommentModifyModalProps {
   commentId: number;
@@ -26,17 +17,25 @@ const CommentModifyModal = ({
   comment,
   handleModifyCommentBtnClick,
 }: CommentModifyModalProps) => {
-  const [modifiedValue, setModeifiedValue] = useState(comment);
-  const { onOpen, onClose, isOpen } = useDisclosure();
+  const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
+  const {
+    onOpen: onModifyModalOpen,
+    onClose: onModifyModalClose,
+    isOpen: isModifyModalOpen,
+  } = useDisclosure();
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setModeifiedValue(event.target.value);
+  const onCompleteClick = () => {
+    const comment = commentTextAreaRef.current?.value;
+    if (comment) {
+      handleModifyCommentBtnClick(comment, commentId);
+    }
+    onModifyModalClose();
   };
 
   return (
-    <>
+    <Box>
       <Button
-        onClick={onOpen}
+        onClick={onModifyModalOpen}
         bgColor="white"
         fontSize="sm"
         fontWeight={500}
@@ -44,41 +43,16 @@ const CommentModifyModal = ({
       >
         수정
       </Button>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        blockScrollOnMount={false}
-        closeOnOverlayClick={false}
-        isCentered={true}
-        size="lg"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>수정하기</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Textarea value={modifiedValue} h="30rem" onChange={handleChange} />
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              mr={3}
-              onClick={() => {
-                handleModifyCommentBtnClick(modifiedValue, commentId);
-                onClose();
-              }}
-              bgColor="white"
-              color="main"
-            >
-              수정하기
-            </Button>
-            <Button variant="ghost" onClick={onClose}>
-              취소
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+      <CommentDrawer
+        title="글 수정하기"
+        placeholder="글을 입력해 주세요!"
+        isOpen={isModifyModalOpen}
+        onClose={onModifyModalClose}
+        defaultComment={comment}
+        textareaRef={commentTextAreaRef}
+        onComplete={onCompleteClick}
+      />
+    </Box>
   );
 };
 
