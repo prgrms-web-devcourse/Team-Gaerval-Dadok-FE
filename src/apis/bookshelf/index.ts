@@ -19,9 +19,13 @@ const bookshelfAPI = {
   getBookshelfInfo: (bookshelfId: APIBookshelfInfo['bookshelfId']) =>
     publicApi.get<APIBookshelfInfo>(`/service-api/bookshelves/${bookshelfId}`),
 
-  getBookshelfBooks: (bookshelfId: APIDefaultBookshelf['bookshelfId']) =>
+  getBookshelfBooks: (
+    bookshelfId: APIDefaultBookshelf['bookshelfId'],
+    pageParam: string
+  ) =>
     publicApi.get<APIBookshelfBookList>(
-      `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=100&bookCursorId=999&sortDirection=DESC`
+      `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookCursorId=` +
+        pageParam
     ),
 };
 
