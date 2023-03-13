@@ -9,15 +9,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
 
-interface AdditionalProfileFormProps {
+interface ProfileFormProps {
   profile: Pick<APIUser, 'nickname' | 'job'>;
   jobGroups: APIJobGroup[];
 }
 
-const AdditionalProfileForm = ({
-  jobGroups,
-  profile,
-}: AdditionalProfileFormProps) => {
+const ProfileForm = ({ jobGroups, profile }: ProfileFormProps) => {
   const theme = useTheme();
   const myProfileMutation = useMyProfileMutation();
   const router = useRouter();
@@ -99,4 +96,4 @@ const AdditionalProfileForm = ({
   );
 };
 
-export default AdditionalProfileForm;
+export default ProfileForm;

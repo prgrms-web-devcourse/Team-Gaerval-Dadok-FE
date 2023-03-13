@@ -21,7 +21,6 @@ const MeetingPageContainer = () => {
   const { isSuccess, data } = useEntireMeetingListQuery();
 
   const handleSumbit = () => {
-    console.log(searchValue);
     const { input } = searchValue;
     if (input.trim().length === 0) {
       /*공백만 입력한 경우 전체 데이터 렌더링 */
@@ -38,7 +37,7 @@ const MeetingPageContainer = () => {
   };
 
   return (
-    <Box>
+    <Box w="100%">
       <MeetingListHeader />
       <MeetingSearch
         searchValue={searchValue}

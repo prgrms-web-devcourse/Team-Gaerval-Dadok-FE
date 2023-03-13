@@ -1,18 +1,9 @@
 import bookshelfAPI from '@/apis/bookshelf';
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-type Options = Pick<
-  UseQueryOptions<
-    Awaited<ReturnType<typeof bookshelfAPI.getMySummaryBookshelf>>['data']
-  >,
-  'suspense'
->;
-
-const useMySummaryBookshlefQuery = (options?: Options) =>
-  useQuery(
-    ['summaryBookshlef', 'me'],
-    () => bookshelfAPI.getMySummaryBookshelf().then(({ data }) => data),
-    options
+const useMySummaryBookshlefQuery = () =>
+  useQuery(['summaryBookshlef', 'me'], () =>
+    bookshelfAPI.getMySummaryBookshelf().then(({ data }) => data)
   );
 
 export default useMySummaryBookshlefQuery;

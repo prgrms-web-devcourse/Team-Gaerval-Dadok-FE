@@ -4,19 +4,19 @@ import { publicApi } from '../core/axios';
 const RecommendAPI = {
   getUnAuthRecommendedBookshelf: () =>
     publicApi.get<APIBookshelfResponses>(
-      `/service-api/suggestions/bookshelves/default`
+      `/api/suggestions/bookshelves/default`
     ),
 
   getAuthRecommendedBookshelf: (
     jobGroup: APIBookshelfResponses['jobGroupName']
   ) =>
     publicApi.get<APIBookshelfResponses>(
-      `/service-api/suggestions/bookshelves?job_group=${jobGroup}`
+      `/api/suggestions/bookshelves?job_group=${jobGroup}`
     ),
 
   getAuthRecommendedBooks: (jobGroup: APIBookshelfResponses['jobGroupName']) =>
     publicApi.get(
-      `/service-api/books/suggestions?jobGroup=${jobGroup}&pageSize=1&sortDirection=DESC`
+      `/api/books/suggestions?jobGroup=${jobGroup}&pageSize=10&sortDirection=DESC`
     ),
 };
 

@@ -1,5 +1,7 @@
-import { Box, Flex, Textarea, Button, Avatar } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Flex } from '@chakra-ui/react';
+import { useRef } from 'react';
+import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
+import { useDisclosure } from '@chakra-ui/react';
 interface CommentInputBoxProps {
   isPartInUser: boolean;
   handleCreateCommentBtnClick: (comment: string) => void;
@@ -10,13 +12,20 @@ interface CommentInputBoxProps {
 const CommentInputBox = ({
   isPartInUser,
   handleCreateCommentBtnClick,
-  userNickname,
-  userAvatar,
 }: CommentInputBoxProps) => {
-  const [commentValue, setCommentValue] = useState('');
+  const {
+    isOpen: isCommentDrawer,
+    onOpen: onCommentDrawerOpen,
+    onClose: onCommentDrawerClose,
+  } = useDisclosure();
+  const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setCommentValue(event.target.value);
+  const onCompleteClick = () => {
+    const comment = commentTextAreaRef.current?.value;
+    if (comment) {
+      handleCreateCommentBtnClick(comment);
+    }
+    onCommentDrawerClose();
   };
 
   return (
@@ -25,51 +34,38 @@ const CommentInputBox = ({
         댓글 작성
       </Box>
       <Box p="1rem" bgColor="white" borderRadius="1rem" boxShadow="default">
-        <Flex>
-          <Box>
-            <Avatar src={userAvatar} loading="lazy" />
-          </Box>
-          <Flex align="center" ml="1rem">
-            <Box fontSize="sm" fontWeight={600}>
-              {userNickname ? userNickname : '로그인 후 이용해 주세요.'}
-            </Box>
-          </Flex>
-        </Flex>
         <Box m="1rem 0">
-          <Textarea
-            bgColor="white.800"
+          <Flex
+            pl="1rem"
+            align="center"
             w="100%"
-            h="12rem"
+            h="4rem"
             fontSize="md"
-            placeholder={
-              isPartInUser
-                ? '댓글을 작성해 주세요.'
-                : '모임에 참여해야 글을 작성할 수 있습니다.'
-            }
-            isDisabled={!isPartInUser}
-            value={commentValue}
-            onChange={handleOnChange}
-          />
-        </Box>
-        <Flex justify="flex-end">
-          <Button
-            fontSize="sm"
-            fontWeight="500"
-            w="30%"
-            borderRadius="2rem"
-            color="main"
-            backgroundColor="white.900"
-            border="0.1rem solid"
-            isDisabled={!isPartInUser}
+            color="black.600"
+            border="solid 1px"
+            borderColor={!isPartInUser ? 'white.900' : 'main'}
+            backgroundColor={!isPartInUser ? 'white.700' : 'white.900'}
+            borderRadius="1rem"
             onClick={() => {
-              handleCreateCommentBtnClick(commentValue);
-              setCommentValue('');
+              if (isPartInUser) {
+                onCommentDrawerOpen();
+              }
             }}
           >
-            작성하기
-          </Button>
-        </Flex>
+            {isPartInUser
+              ? '댓글을 입력해 주세요'
+              : '모임에 참여해야 글을 작성할 수 있습니다'}
+          </Flex>
+        </Box>
       </Box>
+      <CommentDrawer
+        title="글 작성하기"
+        placeholder="여러분의 자유로운 이야기를 들려주세요"
+        isOpen={isCommentDrawer}
+        onClose={onCommentDrawerClose}
+        textareaRef={commentTextAreaRef}
+        onComplete={onCompleteClick}
+      />
     </Box>
   );
 };

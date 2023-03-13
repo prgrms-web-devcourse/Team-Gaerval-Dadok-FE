@@ -14,6 +14,7 @@ import bookAPI from '@/apis/book';
 import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 import type { APIBookInfo } from '@/types/book';
+import Link from 'next/link';
 
 type Props = Pick<
   APIBookInfo,
@@ -65,18 +66,41 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
         </VStack>
       </Flex>
       <Text fontSize="md">{contents}</Text>
-      <Flex align="center" gap="0.8rem">
-        <AvatarGroup max={2}>
-          <Avatar></Avatar>
-          <Avatar></Avatar>
-          <Avatar></Avatar>
-          <Avatar></Avatar>
-          <Avatar></Avatar>
-        </AvatarGroup>
-        <Text fontSize="sm">외 3명이 이 책을 책장에 꽂았습니다.</Text>
-      </Flex>
+
+      {bookUserQueryInfo.isSuccess && (
+        <Flex align="center" minH="2rem">
+          <AvatarGroup>
+            {bookUserQueryInfo.data.users.map(({ userId, profileImage }) => (
+              <Avatar
+                as={Link}
+                href={`/profile/${userId}`}
+                key={userId}
+                src={profileImage}
+              />
+            ))}
+          </AvatarGroup>
+          <Text fontSize="sm" pl="0.8rem">
+            {getUserInfoText(
+              bookUserQueryInfo.data.totalCount,
+              bookUserQueryInfo.data.users.length
+            )}
+          </Text>
+        </Flex>
+      )}
     </>
   );
+};
+
+const getUserInfoText = (totalCount: number, avatarCount: number) => {
+  const otherCount = totalCount - avatarCount;
+
+  if (otherCount === 0 && totalCount === 0) {
+    return '아직 이 책을 책장에 꽂은 사람이 없어요.';
+  } else if (otherCount === 0) {
+    return '님이 이 책을 책장에 꽂았어요.';
+  }
+
+  return `외 ${otherCount}명이 이 책을 책장에 꽂았어요.`;
 };
 
 export default BookInfo;

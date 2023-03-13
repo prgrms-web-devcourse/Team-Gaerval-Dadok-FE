@@ -5,8 +5,9 @@ import Link from 'next/link';
 const MeetingListItem = ({
   bookGroupId,
   title,
+  isPublic,
   introduce,
-  hasJoinPasswd,
+  hasJoinPasswd: _hasJoinPasswd,
   startDate,
   endDate,
   maxMemberCount,
@@ -36,7 +37,7 @@ const MeetingListItem = ({
               {startDate} ~ {endDate}
             </Text>
             <Box>
-              {hasJoinPasswd ? (
+              {!isPublic ? (
                 <Image src="/icons/lock.svg" alt="잠김" w="1.7rem" />
               ) : (
                 <Image src="/icons/unlock.svg" alt="풀림" w="1.7rem" />
@@ -75,7 +76,12 @@ const MeetingListItem = ({
                 <Flex direction="column" mt="2rem">
                   <Flex w="100%">
                     <Flex align="center">
-                      <Avatar src={owner.profileUrl} loading="lazy" />
+                      <Avatar
+                        as={Link}
+                        href={`/profile/${owner.id}`}
+                        src={owner.profileUrl}
+                        loading="lazy"
+                      />
                     </Flex>
                     <Box>
                       <Flex w="100%" ml="1rem" align="center" fontSize="sm">
@@ -112,14 +118,16 @@ const MeetingListItem = ({
               </Box>
             </Flex>
             <Flex w="30%" justify="center" align="start" pl="1rem" pt="1.5rem">
-              <Image
-                src={book.imageUrl}
-                alt="bookCover"
-                w="10rem"
-                objectFit="cover"
-                boxShadow="default"
-                borderRadius="0.5rem"
-              />
+              <Link href={`/book/${book.id}`}>
+                <Image
+                  src={book.imageUrl}
+                  alt="bookCover"
+                  w="10rem"
+                  objectFit="cover"
+                  boxShadow="default"
+                  borderRadius="0.5rem"
+                />
+              </Link>
             </Flex>
           </Flex>
         </Flex>
