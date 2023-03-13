@@ -7,6 +7,7 @@ import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
+import { useToast } from '@/hooks/toast';
 
 interface MeetingDetailProps {
   bookGroupId: number;
@@ -15,17 +16,24 @@ interface MeetingDetailProps {
 const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
+  const { showToast } = useToast();
   const router = useRouter();
 
   const isSuccess =
     meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
   if (!isSuccess) return null;
 
-  const handleParticipateBtnClick = async (password?: string) => {
+  const handleParticipateBtnClick = async (
+    password?: string,
+    onSuccess?: () => void
+  ) => {
     try {
       await MeetingAPI.postMeetingJoin({ bookGroupId, password });
+      onSuccess && onSuccess();
+      showToast({ message: '모임에 가입되었어요' });
     } catch (error) {
-      console.error(error);
+      error &&
+        showToast({ message: '정답이 아니에요 다시 한 번 도전해 주세요' });
     }
     meetingInfoQuery.refetch();
   };

@@ -14,10 +14,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
+import { useToast } from '@/hooks/toast';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
-  handleParticipateBtnClick: (password?: string) => void;
+  handleParticipateBtnClick: (
+    password?: string,
+    onSuccess?: () => void,
+    onFailed?: () => void
+  ) => void;
   handleDeleteMeetingBtnClick: () => void;
 }
 
@@ -39,6 +44,8 @@ const MeetingInfo = ({
     onOpen: onPasswordModalOpen,
     onClose: onPasswordModalClose,
   } = useDisclosure();
+
+  const { showToast } = useToast();
 
   const {
     bookGroupId,
@@ -63,7 +70,9 @@ const MeetingInfo = ({
   const handleMeetingDeleteButton = () => {
     /*TODO 모임원이 1명 초과인 상태에서는 삭제가 불가능하다는 알림 메세지 UI 구현 필요*/
     if (currentMemberCount > 1) {
-      alert('혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!');
+      showToast({
+        message: '혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!',
+      });
       return;
     }
     /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요*/
@@ -212,9 +221,10 @@ const MeetingInfo = ({
                   alignSelf="flex-end"
                   bgColor="white.900"
                   onClick={() => {
-                    handleParticipateBtnClick(password);
-                    onPasswordModalClose();
-                    setPassword('');
+                    handleParticipateBtnClick(password, () => {
+                      onPasswordModalClose();
+                      setPassword('');
+                    });
                   }}
                 >
                   확인
