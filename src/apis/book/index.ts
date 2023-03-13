@@ -39,7 +39,6 @@ const bookAPI = {
   getComments: (bookId: APIDefaultBook['bookId']) =>
     publicApi.get<APIBookCommentList>(`/service-api/books/${bookId}/comments`, {
       params: {
-        bookCommentCursorId: 999,
         pageSize: 10,
         sortDirection: 'DESC',
       },

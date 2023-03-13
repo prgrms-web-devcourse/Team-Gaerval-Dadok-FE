@@ -13,7 +13,6 @@ const MeetingAPI = {
     publicApi.get<APIEntireMeetingList>(`/service-api/book-groups`, {
       params: {
         pageSize: 10,
-        groupCursorId: 999,
         sortDirection: 'DESC',
       },
     }),
@@ -37,7 +36,6 @@ const MeetingAPI = {
       `/service-api/book-groups/${bookGroupId}/comments`,
       {
         params: {
-          groupCommentCursorId: 999,
           pageSize: 10,
           sortDirection: 'DESC',
         },
@@ -68,7 +66,6 @@ const MeetingAPI = {
     publicApi.get<APIEntireMeetingList>('/service-api/book-groups/me', {
       params: {
         pageSize: 10,
-        groupCursorId: 999,
         sortDirection: 'DESC',
       },
     }),
@@ -98,7 +95,7 @@ const MeetingAPI = {
     commentId: APIBookGroupComments['commentId'];
   }) =>
     publicApi.delete(
-      `/service-api/book-groups/${bookGroupId}/comments${commentId}`
+      `/service-api/book-groups/${bookGroupId}/comments/${commentId}`
     ),
 
   patchMeetingComment: ({

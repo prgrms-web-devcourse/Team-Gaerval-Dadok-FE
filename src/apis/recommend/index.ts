@@ -16,7 +16,7 @@ const RecommendAPI = {
 
   getAuthRecommendedBooks: (jobGroup: APIBookshelfResponses['jobGroupName']) =>
     publicApi.get(
-      `/service-api/books/suggestions?jobGroup=${jobGroup}&pageSize=10&bookCursorId=10&sortDirection=DESC`
+      `/service-api/books/suggestions?jobGroup=${jobGroup}&pageSize=1&sortDirection=DESC`
     ),
 };
 
