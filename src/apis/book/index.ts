@@ -15,29 +15,29 @@ import bookshelfAPI from '../bookshelf';
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
     publicApi.get<{ searchBookResponseList: APIBook[] }>(
-      `/service-api/books?query=${query}`
+      `/api/books?query=${query}`
     ),
 
   getBookInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookInfo>(`/service-api/books/${bookId}`),
+    publicApi.get<APIBookInfo>(`/api/books/${bookId}`),
 
   getBookUserInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookUserInfo>(`/service-api/books/${bookId}/users`),
+    publicApi.get<APIBookUserInfo>(`/api/books/${bookId}/users`),
 
   createBook: ({ book }: { book: APIBook }) =>
-    publicApi.post<Pick<APIBook, 'bookId'>>('/service-api/books', book),
+    publicApi.post<Pick<APIBook, 'bookId'>>('/api/books', book),
 
   creaetComment: (
     bookId: APIDefaultBook['bookId'],
     comment: APICreateBookCommentRequest
   ) =>
     publicApi.post<APICreateBookCommentRequest>(
-      `/service-api/books/${bookId}/comments`,
+      `/api/books/${bookId}/comments`,
       comment
     ),
 
   getComments: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookCommentList>(`/service-api/books/${bookId}/comments`, {
+    publicApi.get<APIBookCommentList>(`/api/books/${bookId}/comments`, {
       params: {
         pageSize: 10,
         sortDirection: 'DESC',
@@ -50,20 +50,16 @@ const bookAPI = {
   }: {
     bookId: APIDefaultBook['bookId'];
     data: APIPatchBookCommentRequest;
-  }) =>
-    publicApi.patch<APIBookComment>(
-      `/service-api/books/${bookId}/comments`,
-      data
-    ),
+  }) => publicApi.patch<APIBookComment>(`/api/books/${bookId}/comments`, data),
 
   deletComment: (
     bookId: APIDefaultBook['bookId'],
     commentId: APIDefaultComment['commentId']
-  ) => publicApi.delete(`/service-api/books/${bookId}/comments/${commentId}`),
+  ) => publicApi.delete(`/api/books/${bookId}/comments/${commentId}`),
 
   setBookMarked: (bookId: APIDefaultBook['bookId']) =>
     bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
-      publicApi.post(`/service-api/bookshelves/${bookshelfId}/books`, {
+      publicApi.post(`/api/bookshelves/${bookshelfId}/books`, {
         bookId,
       })
     ),
@@ -72,9 +68,7 @@ const bookAPI = {
     bookshelfAPI
       .getMySummaryBookshelf()
       .then(({ data: { bookshelfId } }) =>
-        publicApi.delete(
-          `/service-api/bookshelves/${bookshelfId}/books/${bookId}`
-        )
+        publicApi.delete(`/api/bookshelves/${bookshelfId}/books/${bookId}`)
       ),
 };
 
