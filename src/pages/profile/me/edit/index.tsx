@@ -1,5 +1,5 @@
 import { VStack } from '@chakra-ui/react';
-import AdditionalProfileForm from '@/ui/AdditionalProfileForm';
+import ProfileForm from '@/ui/Profile/ProfileForm';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import TopNavigation from '@/ui/common/TopNavigation';
@@ -14,7 +14,7 @@ const EditMyPage = () => {
   return (
     <VStack justify="center" align="center">
       <TopNavigation pageTitle="내 프로필 수정" />
-      <AdditionalProfileForm
+      <ProfileForm
         profile={userProfileQuery.data}
         jobGroups={allJobQuery.data.jobGroups}
       />

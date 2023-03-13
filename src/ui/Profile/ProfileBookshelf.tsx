@@ -9,7 +9,7 @@ const ProfileBookshelf = ({
   books,
 }: APIProfileBookshelf) => {
   return (
-    <VStack align="flex-start" gap="1rem">
+    <VStack align="flex-start" gap="1rem" w="100%">
       <Text as={Link} href={`/bookshelf/${bookshelfId}`} fontSize="sm">
         {bookshelfName}
       </Text>

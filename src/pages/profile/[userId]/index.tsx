@@ -2,8 +2,8 @@ import useUserSummaryBookshlefQuery from '@/queries/bookshelf/useUserSummaryBook
 import useUserProfileQuery from '@/queries/user/useUserProfileQuery';
 import { APIUser } from '@/types/user';
 import TopNavigation from '@/ui/common/TopNavigation';
-import ProfileBookshelf from '@/ui/ProfileBookshelf';
-import ProfileInfo from '@/ui/ProfileInfo';
+import ProfileBookshelf from '@/ui/Profile/ProfileBookshelf';
+import ProfileInfo from '@/ui/Profile/ProfileInfo';
 import { Flex } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 
