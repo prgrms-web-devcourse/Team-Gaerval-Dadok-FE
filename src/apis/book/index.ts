@@ -32,7 +32,7 @@ const bookAPI = {
     comment: APICreateBookCommentRequest
   ) =>
     publicApi.post<APICreateBookCommentRequest>(
-      `/service-api/books/${bookId}/comment`,
+      `/service-api/books/${bookId}/comments`,
       comment
     ),
 
@@ -53,14 +53,14 @@ const bookAPI = {
     data: APIPatchBookCommentRequest;
   }) =>
     publicApi.patch<APIBookComment>(
-      `/service-api/books/${bookId}/comment`,
+      `/service-api/books/${bookId}/comments`,
       data
     ),
 
   deletComment: (
     bookId: APIDefaultBook['bookId'],
     commentId: APIDefaultComment['commentId']
-  ) => publicApi.delete(`/service-api/books/${bookId}/comment/${commentId}`),
+  ) => publicApi.delete(`/service-api/books/${bookId}/comments/${commentId}`),
 
   setBookMarked: (bookId: APIDefaultBook['bookId']) =>
     bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
