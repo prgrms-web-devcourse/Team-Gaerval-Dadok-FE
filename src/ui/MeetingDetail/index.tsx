@@ -6,7 +6,6 @@ import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
 import CommentsList from '@/ui/MeetingDetail/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import MeetingAPI from '@/apis/meeting';
 
 interface MeetingDetailProps {
@@ -16,17 +15,11 @@ interface MeetingDetailProps {
 const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
-  const userProfile = useMyProfileQuery();
   const router = useRouter();
 
   const isSuccess =
-    meetingInfoQuery.isSuccess &&
-    meetingCommentsQuery.isSuccess &&
-    userProfile.isSuccess;
+    meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
   if (!isSuccess) return null;
-
-  const userNickname = userProfile.data.nickname;
-  const userAvatar = userProfile.data.profileImage;
 
   const handleParticipateBtnClick = async (password?: string) => {
     try {
@@ -83,7 +76,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
     router.push('/meeting');
   };
 
-  const { isGroupMember } = meetingInfoQuery.data;
+  const { isGroupMember, isPublic } = meetingInfoQuery.data;
   const { bookGroupComments, isEmpty } = meetingCommentsQuery.data;
 
   return (
@@ -94,12 +87,12 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
         handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
       />
       <CommentInputBox
-        userNickname={userNickname}
-        userAvatar={userAvatar}
         isPartInUser={isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
       <CommentsList
+        isGroupMember={isGroupMember}
+        isPublic={isPublic}
         isEmpty={isEmpty}
         commentsListData={bookGroupComments}
         handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
