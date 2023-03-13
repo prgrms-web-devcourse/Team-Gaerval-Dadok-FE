@@ -23,11 +23,17 @@ import MoreIcon from '@public/icons/more.svg';
 import CommentDrawer from './CommentDrawer';
 
 import type { APIBookComment } from '@/types/book';
+import Link from 'next/link';
 
 interface Props
   extends Pick<
     APIBookComment,
-    'commentId' | 'nickname' | 'userProfileImage' | 'createdAt' | 'contents'
+    | 'commentId'
+    | 'userId'
+    | 'nickname'
+    | 'userProfileImage'
+    | 'createdAt'
+    | 'contents'
   > {
   style?: CSSProperties;
   editable?: boolean;
@@ -37,6 +43,7 @@ interface Props
 
 const BookComment = ({
   commentId,
+  userId,
   nickname,
   userProfileImage,
   createdAt,
@@ -44,7 +51,7 @@ const BookComment = ({
   editable = false,
   onEdit,
   onDelete,
-  ...props
+  style,
 }: Props) => {
   const {
     isOpen: isDeleteModalOpen,
@@ -84,10 +91,10 @@ const BookComment = ({
       backgroundColor="white.900"
       borderRadius="1rem"
       p="2rem"
-      {...props}
+      style={style}
     >
       <Flex gap="1rem" align="center" width="100%">
-        <Avatar src={userProfileImage} />
+        <Avatar as={Link} href={`/profile/${userId}`} src={userProfileImage} />
         <VStack flexGrow="1" align="flex-start">
           <Text fontSize="sm" fontWeight="bold">
             {nickname}

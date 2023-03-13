@@ -105,34 +105,19 @@ const BookCommentList = ({ bookId }: Props) => {
           />
         </>
       )}
-      {comments.me.map(
-        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
-          <BookComment
-            key={commentId}
-            commentId={commentId}
-            contents={contents}
-            userProfileImage={userProfileImage}
-            createdAt={createdAt}
-            nickname={nickname}
-            editable
-            onEdit={handleCommentEdit}
-            onDelete={handleCommentDelete}
-            style={{ border: '1px solid #ffe6c6' }}
-          />
-        )
-      )}
-      {comments.user.map(
-        ({ commentId, contents, userProfileImage, createdAt, nickname }) => (
-          <BookComment
-            key={commentId}
-            commentId={commentId}
-            contents={contents}
-            userProfileImage={userProfileImage}
-            createdAt={createdAt}
-            nickname={nickname}
-          />
-        )
-      )}
+      {comments.me.map(comment => (
+        <BookComment
+          key={comment.commentId}
+          {...comment}
+          editable
+          onEdit={handleCommentEdit}
+          onDelete={handleCommentDelete}
+          style={{ border: '1px solid #ffe6c6' }}
+        />
+      ))}
+      {comments.user.map(comment => (
+        <BookComment key={comment.commentId} {...comment} />
+      ))}
     </VStack>
   );
 };

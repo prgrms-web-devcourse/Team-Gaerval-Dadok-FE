@@ -3,6 +3,7 @@ import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 import CommentDeleteModal from '../CommentDeleteModal';
 import CommentModifyModal from '../CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
+import Link from 'next/link';
 
 interface commentsListProps {
   isEmpty: boolean;
@@ -36,7 +37,7 @@ const CommentsList = ({
             contents,
             bookGroupId: _bookGroupId,
             parentCommentId: _parentCommentId,
-            userId: _userId,
+            userId,
             userProfileImage,
             createdAt: _createdAt,
             modifiedAt: _modifiedAt,
@@ -53,7 +54,7 @@ const CommentsList = ({
                 boxShadow="default"
               >
                 <Flex mb="0.5rem" justify="space-between">
-                  <Flex>
+                  <Flex as={Link} href={`/profile/${userId}`}>
                     <Avatar src={userProfileImage} loading="lazy" />
                     <Flex
                       align="center"
