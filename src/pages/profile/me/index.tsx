@@ -6,18 +6,15 @@ import {
   MenuItem,
   MenuList,
   VStack,
-  SkeletonCircle,
-  Skeleton,
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
-import { Suspense } from 'react';
 import MoreIcon from '@public/icons/more.svg';
 import MyProfile from '@/ui/Profile/MyProfile';
 
 const MyProfilePage = () => {
   return (
-    <VStack justify="center" align="flex-start" gap="2rem">
+    <VStack justify="center" align="flex-start">
       <Box alignSelf="flex-end">
         <Menu>
           <MenuButton
@@ -34,19 +31,7 @@ const MyProfilePage = () => {
           </MenuList>
         </Menu>
       </Box>
-      <Suspense
-        fallback={
-          <VStack gap="2rem" align="stretch">
-            <SkeletonCircle size="8rem" />
-            <Skeleton height="3rem" />
-            <Skeleton height="4rem" />
-            <Skeleton height="18rem" />
-            <Skeleton height="25rem" />
-          </VStack>
-        }
-      >
-        <MyProfile />
-      </Suspense>
+      <MyProfile />
     </VStack>
   );
 };

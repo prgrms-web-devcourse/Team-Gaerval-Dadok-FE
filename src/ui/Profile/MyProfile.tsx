@@ -1,7 +1,7 @@
 import useMySummaryBookshlefQuery from '@/queries/bookshelf/useMySummaryBookshelfQuery';
 import useMyMeetingListQuery from '@/queries/meeting/useMyMeetingListQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { VStack } from '@chakra-ui/react';
+import { Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -25,15 +25,33 @@ const MyProfile = () => {
     const isSavedAdditionalInfo = !!(nickname && jobGroupName && jobName);
     if (!isSavedAdditionalInfo) replace(`${pathname}/add`);
   }, [userProfileQuery, pathname, replace]);
+
+  if (
+    userProfileQuery.isLoading ||
+    bookshelfQuery.isLoading ||
+    meetingListQuery.isLoading
+  )
+    return (
+      <VStack gap="2rem" align="stretch" w="100%">
+        <SkeletonCircle size="8rem" />
+        <Skeleton height="3rem" />
+        <Skeleton height="4rem" />
+        <Skeleton height="18rem" />
+        <Skeleton height="25rem" />
+      </VStack>
+    );
+
   return (
-    <VStack w="100%" align="flex-start">
+    <VStack w="100%" align="flex-start" gap="2rem">
       {userProfileQuery.isSuccess && (
-        <ProfileInfo {...userProfileQuery.data}>
+        <>
+          <ProfileInfo {...userProfileQuery.data} />
           <Button as={Link} href={`${pathname}/edit`} scheme="orange" fullWidth>
             프로필 수정
           </Button>
-        </ProfileInfo>
+        </>
       )}
+
       {bookshelfQuery.isSuccess && (
         <ProfileBookshelf {...bookshelfQuery.data} />
       )}
