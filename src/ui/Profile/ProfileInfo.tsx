@@ -1,15 +1,24 @@
 import { Avatar, Box, Flex, Text, VStack } from '@chakra-ui/react';
 import type { APIUser } from '@/types/user';
 
+interface ProfileInfoProps
+  extends Pick<
+    APIUser,
+    'nickname' | 'oauthNickname' | 'profileImage' | 'email' | 'job'
+  > {
+  children?: React.ReactNode;
+}
+
 const ProfileInfo = ({
   nickname,
   oauthNickname,
   profileImage,
   email,
   job: { jobGroupKoreanName, jobNameKoreanName },
-}: APIUser) => {
+  children,
+}: ProfileInfoProps) => {
   return (
-    <VStack align="flex-start" gap="0.5rem">
+    <VStack align="flex-start" gap="0.5rem" w="100%">
       <Flex width="100%" gap="1.5rem">
         <Avatar src={profileImage} w="8rem" h="8rem" />
         <Flex direction="column" justify="center">
@@ -25,6 +34,7 @@ const ProfileInfo = ({
             : '직업이 등록되지 않았습니다.'}
         </Text>
       </Box>
+      {children}
     </VStack>
   );
 };

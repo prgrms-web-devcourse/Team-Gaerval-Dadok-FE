@@ -1,6 +1,6 @@
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import AdditionalProfileForm from '@/ui/AdditionalProfileForm';
+import ProfileForm from '@/ui/Profile/ProfileForm';
 import { Heading, Text, VStack } from '@chakra-ui/react';
 
 const AdditionalProfile = () => {
@@ -21,7 +21,7 @@ const AdditionalProfile = () => {
         </Text>
         이 추천하는 책장을 볼 수 있어요!
       </Text>
-      <AdditionalProfileForm
+      <ProfileForm
         profile={userProfileQuery.data}
         jobGroups={allJobQuery.data.jobGroups}
       />
