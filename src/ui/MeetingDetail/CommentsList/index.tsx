@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/auth';
 import CommentDeleteModal from '../CommentDeleteModal';
 import CommentModifyModal from '../CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
+import Link from 'next/link';
 import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import GuideMessage from './GuideMessage';
 
@@ -64,6 +65,7 @@ const CommentsList = ({
           filteredComments.map(
             ({
               commentId,
+              userId,
               contents,
               userProfileImage,
               nickname,
@@ -86,7 +88,7 @@ const CommentsList = ({
                   boxShadow="default"
                 >
                   <Flex mb="0.5rem" justify="space-between">
-                    <Flex>
+                    <Flex as={Link} href={`/profile/${userId}`}>
                       <Avatar src={userProfileImage} loading="lazy" />
                       <Flex
                         align="center"

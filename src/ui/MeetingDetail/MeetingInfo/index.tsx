@@ -11,6 +11,7 @@ import { APIMeetingDetail } from '@/types/meetingDetail';
 import { useRouter } from 'next/router';
 import BottomSheet from '@/ui/common/BottomSheet';
 import { useState } from 'react';
+import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
 
@@ -136,14 +137,16 @@ const MeetingInfo = ({
           </Flex>
         </Box>
         <Flex w="30%" justify="center" align="center">
-          <Image
-            src={book.imageUrl}
-            alt="bookCover"
-            w="10rem"
-            objectFit="cover"
-            borderRadius="1rem"
-            boxShadow="default"
-          />
+          <Link href={`/book/${book.id}`}>
+            <Image
+              src={book.imageUrl}
+              alt="bookCover"
+              w="10rem"
+              objectFit="cover"
+              borderRadius="1rem"
+              boxShadow="default"
+            />
+          </Link>
         </Flex>
       </Flex>
       <Box mt="1.5rem">

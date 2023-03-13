@@ -14,6 +14,7 @@ import bookAPI from '@/apis/book';
 import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 import type { APIBookInfo } from '@/types/book';
+import Link from 'next/link';
 
 type Props = Pick<
   APIBookInfo,
@@ -70,7 +71,12 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
         <Flex align="center" minH="2rem">
           <AvatarGroup>
             {bookUserQueryInfo.data.users.map(({ userId, profileImage }) => (
-              <Avatar key={userId} src={profileImage} />
+              <Avatar
+                as={Link}
+                href={`/profile/${userId}`}
+                key={userId}
+                src={profileImage}
+              />
             ))}
           </AvatarGroup>
           <Text fontSize="sm" pl="0.8rem">
