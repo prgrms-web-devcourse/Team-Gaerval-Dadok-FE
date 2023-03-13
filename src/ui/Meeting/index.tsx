@@ -37,7 +37,7 @@ const MeetingPageContainer = () => {
   };
 
   return (
-    <Box>
+    <Box w="100%">
       <MeetingListHeader />
       <MeetingSearch
         searchValue={searchValue}
