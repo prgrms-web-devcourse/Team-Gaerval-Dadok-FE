@@ -82,7 +82,7 @@ const MeetingInfo = ({
           {introduce}
         </Text>
       </Flex>
-      <Flex mt="1.5rem" justify="space-between" h="13rem">
+      <Flex mt="1.5rem" justify="space-between" h="14rem">
         <Box w="68%" bgColor="white" borderRadius="1rem" boxShadow="default">
           <Flex p="1rem" h="100%" direction="column" justify="space-between">
             <Box h="60%">

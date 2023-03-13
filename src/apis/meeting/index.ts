@@ -12,7 +12,7 @@ const MeetingAPI = {
   getEntireMeetingList: () =>
     publicApi.get<APIEntireMeetingList>(`/service-api/book-groups`, {
       params: {
-        pageSize: 10,
+        pageSize: 100,
         sortDirection: 'DESC',
       },
     }),
@@ -36,7 +36,7 @@ const MeetingAPI = {
       `/service-api/book-groups/${bookGroupId}/comments`,
       {
         params: {
-          pageSize: 10,
+          pageSize: 100,
           sortDirection: 'DESC',
         },
       }

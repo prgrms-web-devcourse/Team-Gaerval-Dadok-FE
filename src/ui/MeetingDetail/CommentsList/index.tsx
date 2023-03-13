@@ -1,20 +1,11 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  Highlight,
-  Text,
-  VStack,
-  Link,
-  Image,
-} from '@chakra-ui/react';
+import { Avatar, Box, Flex, Highlight, Text } from '@chakra-ui/react';
 
-import Button from '@/ui/common/Button';
 import { useAuth } from '@/hooks/auth';
 import CommentDeleteModal from '../CommentDeleteModal';
 import CommentModifyModal from '../CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 import { COMMENTS_DUMMY_DATA } from './commentsDummy';
+import GuideMessage from './GuideMessage';
 
 interface commentsListProps {
   isGroupMember: boolean;
@@ -39,65 +30,26 @@ const CommentsList = ({
   const { isAuthed } = useAuth();
 
   const getFilteredComments = () => {
-    if (!isAuthed && !isPublic) {
+    console.log(isPublic);
+    console.log(commentsListData);
+    const commentsLength = commentsListData.length;
+
+    if (!isAuthed && !isPublic && commentsLength < 5) {
+      console.log('slice');
+      return COMMENTS_DUMMY_DATA.slice(0, commentsLength);
+    } else if (!isAuthed && !isPublic) {
       return COMMENTS_DUMMY_DATA;
+    }
+
+    if (isAuthed && !isPublic && !isGroupMember && commentsLength < 5) {
+      return COMMENTS_DUMMY_DATA.slice(0, commentsLength);
     } else if (isAuthed && !isPublic && !isGroupMember) {
       return COMMENTS_DUMMY_DATA;
     }
     return commentsListData;
   };
 
-  const getGuide = () => {
-    if (!isAuthed && !isPublic) {
-      const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
-      return (
-        <VStack h="20rem" direction="column" gap="1rem">
-          <Text
-            w="100%"
-            textAlign="center"
-            mt="4rem"
-            fontSize="lg"
-            color="black.700"
-          >
-            <Highlight query="로그인" styles={{ color: 'main' }}>
-              로그인 후 이용해 주세요
-            </Highlight>
-          </Text>
-          <Link href={kakaoUrl} style={{ width: '100%' }}>
-            <Button scheme="kakao" fullWidth>
-              <Image
-                src="/images/kakao.svg"
-                alt="카카오 로고"
-                width={21}
-                height={19}
-              />
-              카카오 로그인
-            </Button>
-          </Link>
-        </VStack>
-      );
-    } else if (isAuthed && !isPublic && !isGroupMember) {
-      return (
-        <Text
-          h="10rem"
-          w="100%"
-          textAlign="center"
-          mt="4rem"
-          fontSize="lg"
-          color="black.700"
-        >
-          <Highlight query="모임에 참여한 사람" styles={{ color: 'main' }}>
-            이 모임은 모임에 참여한 사람만
-          </Highlight>
-          <br />
-          글을 볼 수 있어요
-        </Text>
-      );
-    }
-  };
-
   const filteredComments = getFilteredComments();
-  const guide = getGuide();
 
   return isEmpty ? (
     <Text w="100%" textAlign="center" mt="4rem" fontSize="lg" color="black.700">
@@ -178,7 +130,11 @@ const CommentsList = ({
             }
           )}
       </Box>
-      {guide}
+      <GuideMessage
+        isAuthed={isAuthed}
+        isPublic={isPublic}
+        isGroupMember={isGroupMember}
+      />
     </Box>
   );
 };
