@@ -4,29 +4,38 @@ import { APIUser } from '@/types/user';
 import TopNavigation from '@/ui/common/TopNavigation';
 import ProfileBookshelf from '@/ui/Profile/ProfileBookshelf';
 import ProfileInfo from '@/ui/Profile/ProfileInfo';
-import { Flex } from '@chakra-ui/react';
+import { Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 
 const UserProfilePage = ({ userId }: { userId: APIUser['userId'] }) => {
   const userProfileQuery = useUserProfileQuery({ userId });
   const bookshelfQuery = useUserSummaryBookshlefQuery({ userId });
 
+  if (userProfileQuery.isLoading || bookshelfQuery.isLoading)
+    return (
+      <VStack gap="2rem" align="stretch" w="100%" mt="4.8rem">
+        <SkeletonCircle size="8rem" />
+        <Skeleton height="3rem" />
+        <Skeleton height="18rem" />
+      </VStack>
+    );
+
   return (
-    <>
+    <VStack justify="center" align="flex-start">
       {userProfileQuery.isSuccess && (
         <TopNavigation
           pageTitle={`${userProfileQuery.data.nickname}님의 프로필`}
         />
       )}
-      <Flex direction="column" justify="center" gap="2rem">
+      <VStack justify="flex-start" gap="2rem">
         {userProfileQuery.isSuccess && (
           <ProfileInfo {...userProfileQuery.data} />
         )}
         {bookshelfQuery.isSuccess && (
           <ProfileBookshelf {...bookshelfQuery.data} />
         )}
-      </Flex>
-    </>
+      </VStack>
+    </VStack>
   );
 };
 
