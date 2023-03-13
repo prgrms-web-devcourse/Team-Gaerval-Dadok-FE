@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/auth';
 import CommentDeleteModal from '../CommentDeleteModal';
 import CommentModifyModal from '../CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
-import { COMMENTS_DUMMY_DATA } from './commentsDummy';
+import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import GuideMessage from './GuideMessage';
 
 interface commentsListProps {
@@ -36,15 +36,15 @@ const CommentsList = ({
 
     if (!isAuthed && !isPublic && commentsLength < 5) {
       console.log('slice');
-      return COMMENTS_DUMMY_DATA.slice(0, commentsLength);
+      return initialBookGroupComments.slice(0, commentsLength);
     } else if (!isAuthed && !isPublic) {
-      return COMMENTS_DUMMY_DATA;
+      return initialBookGroupComments;
     }
 
     if (isAuthed && !isPublic && !isGroupMember && commentsLength < 5) {
-      return COMMENTS_DUMMY_DATA.slice(0, commentsLength);
+      return initialBookGroupComments.slice(0, commentsLength);
     } else if (isAuthed && !isPublic && !isGroupMember) {
-      return COMMENTS_DUMMY_DATA;
+      return initialBookGroupComments;
     }
     return commentsListData;
   };

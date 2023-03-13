@@ -1,4 +1,4 @@
-export const COMMENTS_DUMMY_DATA = [
+export const initialBookGroupComments = [
   {
     commentId: 11414,
     contents:

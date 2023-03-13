@@ -28,7 +28,16 @@ const MeetingInfo = ({
   const router = useRouter();
   const [password, setPassword] = useState('');
   const { isAuthed } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isLoginModalOpen,
+    onOpen: onLoginModalOpen,
+    onClose: onLoginModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isPasswordModalOpen,
+    onOpen: onPasswordModalOpen,
+    onClose: onPasswordModalClose,
+  } = useDisclosure();
 
   const {
     bookGroupId,
@@ -66,10 +75,10 @@ const MeetingInfo = ({
 
   const onPartInButtonClick = () => {
     if (!isAuthed) {
-      onOpen();
+      onLoginModalOpen();
       return;
     }
-    hasJoinPasswd ? onOpen() : handleParticipateBtnClick();
+    hasJoinPasswd ? onPasswordModalOpen() : handleParticipateBtnClick();
   };
 
   return (
@@ -191,14 +200,17 @@ const MeetingInfo = ({
             >
               {isGroupMember ? '참여 중' : '모임 참여하기'}
             </Button>
-            <BottomSheet isOpen={isAuthed ? isOpen : false} onClose={onClose}>
+            <BottomSheet
+              isOpen={isPasswordModalOpen}
+              onClose={onPasswordModalClose}
+            >
               <Flex p="3rem" h="90vh" gap="3rem" direction="column">
                 <Button
                   alignSelf="flex-end"
                   bgColor="white.900"
                   onClick={() => {
                     handleParticipateBtnClick(password);
-                    onClose();
+                    onPasswordModalClose();
                     setPassword('');
                   }}
                 >
@@ -229,7 +241,7 @@ const MeetingInfo = ({
           </>
         )}
       </Box>
-      <LoginBottomSheet isOpen={!isAuthed ? isOpen : false} onClose={onClose} />
+      <LoginBottomSheet isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
     </>
   );
 };
