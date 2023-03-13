@@ -3,7 +3,7 @@ import userAPI from '@/apis/users';
 
 type Options = Pick<
   UseQueryOptions<Awaited<ReturnType<typeof userAPI.getMyProfile>>['data']>,
-  'suspense' | 'enabled'
+  'enabled'
 >;
 
 const useMyProfileQuery = (options?: Options) =>
