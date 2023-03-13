@@ -1,5 +1,6 @@
 import MeetingAPI from '@/apis/meeting';
 import { APIMeetingDetail } from '@/types/meetingDetail';
+import AuthRequired from '@/ui/AuthRequired';
 import TopNavigation from '@/ui/common/TopNavigation';
 import { EditMeetingForm } from '@/ui/MeetingForm';
 import { VStack } from '@chakra-ui/react';
@@ -25,10 +26,12 @@ const MeetingEditPage = ({ meetingId }: { meetingId: number }) => {
   }, [getMeeting]);
 
   return (
-    <VStack justify="center" align="center">
-      <TopNavigation pageTitle="모임 수정" />
-      {meeting && <EditMeetingForm meeting={meeting} />}
-    </VStack>
+    <AuthRequired>
+      <VStack justify="center" align="center">
+        <TopNavigation pageTitle="모임 수정" />
+        {meeting && <EditMeetingForm meeting={meeting} />}
+      </VStack>
+    </AuthRequired>
   );
 };
 

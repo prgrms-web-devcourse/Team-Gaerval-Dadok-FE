@@ -1,9 +1,16 @@
 import jobAPI from '@/apis/job';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-const useAllJobQuery = () =>
-  useQuery(['allJob'], () =>
-    jobAPI.getAllJobs().then(response => response.data)
+type Options = Pick<
+  UseQueryOptions<Awaited<ReturnType<typeof jobAPI.getAllJobs>>['data']>,
+  'enabled'
+>;
+
+const useAllJobQuery = (options?: Options) =>
+  useQuery(
+    ['allJob'],
+    () => jobAPI.getAllJobs().then(response => response.data),
+    options
   );
 
 export default useAllJobQuery;
