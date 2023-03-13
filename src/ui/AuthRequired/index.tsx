@@ -9,14 +9,15 @@ const AuthRequired = ({ children }: { children: ReactNode }) => {
   const { isAuthed } = useAuth();
 
   useEffect(() => {
-    setMounted(true);
-
     if (!isAuthed) {
-      router.replace('/login');
+      router.push('/');
     }
+    setMounted(true);
   }, [isAuthed, router]);
 
-  return <>{mounted && isAuthed && children}</>;
+  if (!isAuthed) return null;
+
+  return <>{mounted && children}</>;
 };
 
 export default AuthRequired;
