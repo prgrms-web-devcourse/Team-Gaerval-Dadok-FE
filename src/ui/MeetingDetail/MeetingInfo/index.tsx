@@ -12,16 +12,22 @@ import {
   Button,
   useTheme,
   useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
 } from '@chakra-ui/react';
+import MoreIcon from '@public/icons/more.svg';
 
 import { APIMeetingDetail } from '@/types/meetingDetail';
-import { useRouter } from 'next/router';
 import BottomSheet from '@/ui/common/BottomSheet';
 import { useState, useRef, MutableRefObject } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { useToast } from '@/hooks/toast';
+import TopNavigation from '@/ui/common/TopNavigation';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
@@ -38,7 +44,6 @@ const MeetingInfo = ({
   handleParticipateBtnClick,
   handleDeleteMeetingBtnClick,
 }: MeetingInfoProps) => {
-  const router = useRouter();
   const [password, setPassword] = useState('');
   const { isAuthed } = useAuth();
   const cancelRef = useRef(null);
@@ -106,6 +111,35 @@ const MeetingInfo = ({
 
   return (
     <>
+      <Flex align="center">
+        <TopNavigation pageTitle="모임 상세 페이지" />
+        {isOwner && (
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<MoreIcon />}
+              background="inherit"
+              border="none"
+            />
+            <MenuList fontSize="md">
+              <MenuItem>
+                <Link href={`/meeting/${bookGroupId}/edit`}>수정</Link>
+              </MenuItem>
+              <MenuItem color="red.300" onClick={onDeleteModalOpen}>
+                삭제
+                <DeleteComfirmDialog
+                  cancelRef={cancelRef}
+                  isOpen={isDeleteModalOpen}
+                  onClose={onDeleteModalClose}
+                  onDelete={onDeleteGroupClick}
+                />
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+      </Flex>
+
       <Flex direction="column" align="center">
         <Text fontSize="xl" fontWeight={700}>
           {title}
@@ -172,44 +206,7 @@ const MeetingInfo = ({
         </Flex>
       </Flex>
       <Box mt="1.5rem">
-        {isOwner ? (
-          <Flex justify="space-around">
-            <Button
-              w="48%"
-              h="4.5rem"
-              fontSize="md"
-              fontWeight="600"
-              borderRadius="1.2rem"
-              color="main"
-              border="0.1rem solid"
-              backgroundColor="white.900"
-              onClick={() => {
-                router.push(`/meeting/${bookGroupId}/edit`);
-              }}
-            >
-              수정하기
-            </Button>
-            <Button
-              w="48%"
-              h="4.5rem"
-              fontSize="md"
-              fontWeight="600"
-              borderRadius="1.2rem"
-              color="red.900"
-              // border="0.1rem solid"
-              backgroundColor="white.900"
-              onClick={onDeleteModalOpen}
-            >
-              삭제하기
-            </Button>
-            <DeleteComfirmDialog
-              cancelRef={cancelRef}
-              isOpen={isDeleteModalOpen}
-              onClose={onDeleteModalClose}
-              onDelete={onDeleteGroupClick}
-            />
-          </Flex>
-        ) : (
+        {!isOwner && (
           <>
             <Button
               w="100%"
@@ -269,6 +266,12 @@ const MeetingInfo = ({
                   />
                 </Flex>
               </Flex>
+              <DeleteComfirmDialog
+                cancelRef={cancelRef}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                onDelete={onDeleteGroupClick}
+              />
             </BottomSheet>
           </>
         )}

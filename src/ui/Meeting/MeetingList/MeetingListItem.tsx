@@ -50,10 +50,10 @@ const MeetingListItem = ({
             w="100%"
             h="2rem"
             fontSize="xl"
-            overflow="hidden"
             fontWeight={600}
-            whiteSpace="nowrap"
+            overflow="hidden"
             textOverflow="ellipsis"
+            whiteSpace="nowrap"
             _hover={{ textDecor: 'underLine' }}
           >
             {title}
