@@ -1,23 +1,41 @@
 import {
   Box,
-  Flex,
   Image,
   Text,
-  Button,
-  useDisclosure,
   Input,
+  Flex,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogBody,
+  AlertDialogFooter,
+  Button,
+  useTheme,
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
 } from '@chakra-ui/react';
+import MoreIcon from '@public/icons/more.svg';
+
 import { APIMeetingDetail } from '@/types/meetingDetail';
-import { useRouter } from 'next/router';
 import BottomSheet from '@/ui/common/BottomSheet';
-import { useState } from 'react';
+import { useState, useRef, MutableRefObject } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
+import { useToast } from '@/hooks/toast';
+import TopNavigation from '@/ui/common/TopNavigation';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
-  handleParticipateBtnClick: (password?: string) => void;
+  handleParticipateBtnClick: (
+    password?: string,
+    onSuccess?: () => void,
+    onFailed?: () => void
+  ) => void;
   handleDeleteMeetingBtnClick: () => void;
 }
 
@@ -26,9 +44,9 @@ const MeetingInfo = ({
   handleParticipateBtnClick,
   handleDeleteMeetingBtnClick,
 }: MeetingInfoProps) => {
-  const router = useRouter();
   const [password, setPassword] = useState('');
   const { isAuthed } = useAuth();
+  const cancelRef = useRef(null);
   const {
     isOpen: isLoginModalOpen,
     onOpen: onLoginModalOpen,
@@ -39,6 +57,13 @@ const MeetingInfo = ({
     onOpen: onPasswordModalOpen,
     onClose: onPasswordModalClose,
   } = useDisclosure();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: onDeleteModalClose,
+    onOpen: onDeleteModalOpen,
+  } = useDisclosure();
+
+  const { showToast } = useToast();
 
   const {
     bookGroupId,
@@ -60,14 +85,16 @@ const MeetingInfo = ({
 
   const message = hasJoinPasswd ? '가입 비밀번호 입력 필요' : '바로 참여 가능';
 
-  const handleMeetingDeleteButton = () => {
-    /*TODO 모임원이 1명 초과인 상태에서는 삭제가 불가능하다는 알림 메세지 UI 구현 필요*/
+  const onDeleteGroupClick = () => {
     if (currentMemberCount > 1) {
-      alert('혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!');
+      showToast({
+        message: '혼자가 아니면 다른 모임원들이 있어 모임 삭제가 불가능해요!',
+      });
+      onDeleteModalClose();
       return;
     }
-    /*TODO 모임원이 모임장 1명인 상태에서 삭제할 때 한 번 더 확인하는 모달or바텀시트 필요*/
     handleDeleteMeetingBtnClick();
+    onDeleteModalClose();
   };
 
   const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +111,35 @@ const MeetingInfo = ({
 
   return (
     <>
+      <Flex align="center">
+        <TopNavigation pageTitle="모임 상세 페이지" />
+        {isOwner && (
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<MoreIcon />}
+              background="inherit"
+              border="none"
+            />
+            <MenuList fontSize="md">
+              <MenuItem>
+                <Link href={`/meeting/${bookGroupId}/edit`}>수정</Link>
+              </MenuItem>
+              <MenuItem color="red.300" onClick={onDeleteModalOpen}>
+                삭제
+                <DeleteComfirmDialog
+                  cancelRef={cancelRef}
+                  isOpen={isDeleteModalOpen}
+                  onClose={onDeleteModalClose}
+                  onDelete={onDeleteGroupClick}
+                />
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
+      </Flex>
+
       <Flex direction="column" align="center">
         <Text fontSize="xl" fontWeight={700}>
           {title}
@@ -107,7 +163,7 @@ const MeetingInfo = ({
                   whiteSpace="nowrap"
                   fontWeight={600}
                 >
-                  책: {book.title}
+                  {book.title}
                 </Text>
               </Flex>
             </Box>
@@ -150,38 +206,7 @@ const MeetingInfo = ({
         </Flex>
       </Flex>
       <Box mt="1.5rem">
-        {isOwner ? (
-          <Flex justify="space-around">
-            <Button
-              w="48%"
-              h="4.5rem"
-              fontSize="md"
-              fontWeight="600"
-              borderRadius="1.2rem"
-              color="main"
-              border="0.1rem solid"
-              backgroundColor="white.900"
-              onClick={() => {
-                router.push(`/meeting/${bookGroupId}/edit`);
-              }}
-            >
-              모임 수정하기
-            </Button>
-            <Button
-              w="48%"
-              h="4.5rem"
-              fontSize="md"
-              fontWeight="600"
-              borderRadius="1.2rem"
-              color="red.900"
-              border="0.1rem solid"
-              backgroundColor="white.900"
-              onClick={handleMeetingDeleteButton}
-            >
-              모임 삭제하기
-            </Button>
-          </Flex>
-        ) : (
+        {!isOwner && (
           <>
             <Button
               w="100%"
@@ -212,9 +237,10 @@ const MeetingInfo = ({
                   alignSelf="flex-end"
                   bgColor="white.900"
                   onClick={() => {
-                    handleParticipateBtnClick(password);
-                    onPasswordModalClose();
-                    setPassword('');
+                    handleParticipateBtnClick(password, () => {
+                      onPasswordModalClose();
+                      setPassword('');
+                    });
                   }}
                 >
                   확인
@@ -240,6 +266,12 @@ const MeetingInfo = ({
                   />
                 </Flex>
               </Flex>
+              <DeleteComfirmDialog
+                cancelRef={cancelRef}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                onDelete={onDeleteGroupClick}
+              />
             </BottomSheet>
           </>
         )}
@@ -250,3 +282,53 @@ const MeetingInfo = ({
 };
 
 export default MeetingInfo;
+
+const DeleteComfirmDialog = ({
+  cancelRef,
+  isOpen,
+  onClose,
+  onDelete,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+  cancelRef: MutableRefObject<null>;
+}) => {
+  const theme = useTheme();
+
+  return (
+    <AlertDialog
+      leastDestructiveRef={cancelRef}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent alignSelf="center" p="1.5rem">
+          <AlertDialogBody fontSize="md" py="1.5rem">
+            모임을 정말 삭제할까요?
+          </AlertDialogBody>
+          <AlertDialogFooter as={Flex} justify="center" gap="1rem">
+            <Button
+              ref={cancelRef}
+              onClick={onClose}
+              flexGrow="1"
+              {...theme.buttonSizes['md']}
+              {...theme.scheme.button['grey']}
+            >
+              취소
+            </Button>
+            <Button
+              ref={cancelRef}
+              onClick={onDelete}
+              flexGrow="1"
+              {...theme.buttonSizes['md']}
+              {...theme.scheme.button['orange-fill']}
+            >
+              삭제
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
+  );
+};
