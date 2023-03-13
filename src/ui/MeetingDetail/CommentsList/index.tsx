@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import GuideMessage from './GuideMessage';
 
-
 interface commentsListProps {
   isGroupMember: boolean;
   isPublic: boolean;
@@ -66,6 +65,7 @@ const CommentsList = ({
           filteredComments.map(
             ({
               commentId,
+              userId,
               contents,
               userProfileImage,
               nickname,
