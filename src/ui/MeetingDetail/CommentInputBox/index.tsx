@@ -1,4 +1,4 @@
-import { Box, Flex, Textarea, Button, Avatar } from '@chakra-ui/react';
+import { Box, Flex, Textarea, Button } from '@chakra-ui/react';
 import { useState } from 'react';
 interface CommentInputBoxProps {
   isPartInUser: boolean;
@@ -10,8 +10,6 @@ interface CommentInputBoxProps {
 const CommentInputBox = ({
   isPartInUser,
   handleCreateCommentBtnClick,
-  userNickname,
-  userAvatar,
 }: CommentInputBoxProps) => {
   const [commentValue, setCommentValue] = useState('');
 
@@ -25,16 +23,6 @@ const CommentInputBox = ({
         댓글 작성
       </Box>
       <Box p="1rem" bgColor="white" borderRadius="1rem" boxShadow="default">
-        <Flex>
-          <Box>
-            <Avatar src={userAvatar} loading="lazy" />
-          </Box>
-          <Flex align="center" ml="1rem">
-            <Box fontSize="sm" fontWeight={600}>
-              {userNickname ? userNickname : '로그인 후 이용해 주세요.'}
-            </Box>
-          </Flex>
-        </Flex>
         <Box m="1rem 0">
           <Textarea
             bgColor="white.800"
