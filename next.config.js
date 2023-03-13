@@ -1,5 +1,3 @@
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: config => {
@@ -15,14 +13,6 @@ const nextConfig = {
         source: '/',
         destination: '/bookarchive/',
         permanent: false,
-      },
-    ];
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/service-api/:url*',
-        destination: `${baseURL}/api/:url*`,
       },
     ];
   },
