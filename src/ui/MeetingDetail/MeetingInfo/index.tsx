@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import BottomSheet from '@/ui/common/BottomSheet';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/auth';
+import LoginBottomSheet from '@/ui/LoginBottomSheet';
 
 interface MeetingInfoProps {
   meetingInfoData: APIMeetingDetail;
@@ -26,7 +28,17 @@ const MeetingInfo = ({
 }: MeetingInfoProps) => {
   const router = useRouter();
   const [password, setPassword] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isAuthed } = useAuth();
+  const {
+    isOpen: isLoginModalOpen,
+    onOpen: onLoginModalOpen,
+    onClose: onLoginModalClose,
+  } = useDisclosure();
+  const {
+    isOpen: isPasswordModalOpen,
+    onOpen: onPasswordModalOpen,
+    onClose: onPasswordModalClose,
+  } = useDisclosure();
 
   const {
     bookGroupId,
@@ -46,9 +58,7 @@ const MeetingInfo = ({
     isGroupMember,
   } = meetingInfoData;
 
-  const message = hasJoinPasswd
-    ? '가입시 비밀번호 입력 필요'
-    : '바로 참여 가능';
+  const message = hasJoinPasswd ? '가입 비밀번호 입력 필요' : '바로 참여 가능';
 
   const handleMeetingDeleteButton = () => {
     /*TODO 모임원이 1명 초과인 상태에서는 삭제가 불가능하다는 알림 메세지 UI 구현 필요*/
@@ -64,6 +74,14 @@ const MeetingInfo = ({
     setPassword(event.target.value);
   };
 
+  const onPartInButtonClick = () => {
+    if (!isAuthed) {
+      onLoginModalOpen();
+      return;
+    }
+    hasJoinPasswd ? onPasswordModalOpen() : handleParticipateBtnClick();
+  };
+
   return (
     <>
       <Flex direction="column" align="center">
@@ -74,7 +92,7 @@ const MeetingInfo = ({
           {introduce}
         </Text>
       </Flex>
-      <Flex mt="1.5rem" justify="space-between" h="13rem">
+      <Flex mt="1.5rem" justify="space-between" h="14rem">
         <Box w="68%" bgColor="white" borderRadius="1rem" boxShadow="default">
           <Flex p="1rem" h="100%" direction="column" justify="space-between">
             <Box h="60%">
@@ -136,10 +154,10 @@ const MeetingInfo = ({
           <Flex justify="space-around">
             <Button
               w="48%"
-              h="3.5rem"
-              fontSize="sm"
-              fontWeight="500"
-              borderRadius="2rem"
+              h="4.5rem"
+              fontSize="md"
+              fontWeight="600"
+              borderRadius="1.2rem"
               color="main"
               border="0.1rem solid"
               backgroundColor="white.900"
@@ -151,10 +169,10 @@ const MeetingInfo = ({
             </Button>
             <Button
               w="48%"
-              h="3.5rem"
-              fontSize="sm"
-              fontWeight="500"
-              borderRadius="2rem"
+              h="4.5rem"
+              fontSize="md"
+              fontWeight="600"
+              borderRadius="1.2rem"
               color="red.900"
               border="0.1rem solid"
               backgroundColor="white.900"
@@ -167,16 +185,14 @@ const MeetingInfo = ({
           <>
             <Button
               w="100%"
-              h="3.5rem"
-              fontSize="sm"
-              fontWeight="500"
-              borderRadius="2rem"
+              h="4.5rem"
+              fontSize="md"
+              fontWeight="600"
+              borderRadius="1.2rem"
               color="white.900"
               border="0.1rem solid"
               backgroundColor="main"
-              onClick={() => {
-                hasJoinPasswd ? onOpen() : handleParticipateBtnClick();
-              }}
+              onClick={onPartInButtonClick}
               isDisabled={isGroupMember}
               _disabled={{
                 border: 'none',
@@ -187,14 +203,17 @@ const MeetingInfo = ({
             >
               {isGroupMember ? '참여 중' : '모임 참여하기'}
             </Button>
-            <BottomSheet isOpen={isOpen} onClose={onClose}>
+            <BottomSheet
+              isOpen={isPasswordModalOpen}
+              onClose={onPasswordModalClose}
+            >
               <Flex p="3rem" h="90vh" gap="3rem" direction="column">
                 <Button
                   alignSelf="flex-end"
                   bgColor="white.900"
                   onClick={() => {
                     handleParticipateBtnClick(password);
-                    onClose();
+                    onPasswordModalClose();
                     setPassword('');
                   }}
                 >
@@ -225,6 +244,7 @@ const MeetingInfo = ({
           </>
         )}
       </Box>
+      <LoginBottomSheet isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
     </>
   );
 };

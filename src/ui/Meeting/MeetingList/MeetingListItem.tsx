@@ -5,8 +5,9 @@ import Link from 'next/link';
 const MeetingListItem = ({
   bookGroupId,
   title,
+  isPublic,
   introduce,
-  hasJoinPasswd,
+  hasJoinPasswd: _hasJoinPasswd,
   startDate,
   endDate,
   maxMemberCount,
@@ -36,7 +37,7 @@ const MeetingListItem = ({
               {startDate} ~ {endDate}
             </Text>
             <Box>
-              {hasJoinPasswd ? (
+              {!isPublic ? (
                 <Image src="/icons/lock.svg" alt="잠김" w="1.7rem" />
               ) : (
                 <Image src="/icons/unlock.svg" alt="풀림" w="1.7rem" />
