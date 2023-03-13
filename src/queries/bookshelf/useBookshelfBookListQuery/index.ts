@@ -1,14 +1,23 @@
 import bookshelfAPI from '@/apis/bookshelf';
 import { APIDefaultBookshelf } from '@/types/bookshelf';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const useBookshelfBooksQuery = ({
   bookshelfId,
 }: {
   bookshelfId: APIDefaultBookshelf['bookshelfId'];
 }) =>
-  useQuery(['bookshelfBooks', bookshelfId], () =>
-    bookshelfAPI.getBookshelfBooks(bookshelfId).then(response => response.data)
+  useInfiniteQuery(
+    ['bookshelfBooks'],
+    ({ pageParam = '' }) =>
+      bookshelfAPI
+        .getBookshelfBooks(bookshelfId, pageParam)
+        .then(response => response.data),
+    {
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.books[15].bookId : undefined,
+      staleTime: 3000,
+    }
   );
 
 export default useBookshelfBooksQuery;
