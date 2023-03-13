@@ -30,12 +30,9 @@ const CommentsList = ({
   const { isAuthed } = useAuth();
 
   const getFilteredComments = () => {
-    console.log(isPublic);
-    console.log(commentsListData);
     const commentsLength = commentsListData.length;
 
     if (!isAuthed && !isPublic && commentsLength < 5) {
-      console.log('slice');
       return initialBookGroupComments.slice(0, commentsLength);
     } else if (!isAuthed && !isPublic) {
       return initialBookGroupComments;
