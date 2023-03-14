@@ -51,6 +51,7 @@ const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
             alignItems="center"
             borderRadius={10}
             boxShadow="inset 0px 0px 20px 2px #9595956e"
+            px="1rem"
           >
             {books.map(({ bookId, imageUrl }) => (
               <Box key={bookId}>

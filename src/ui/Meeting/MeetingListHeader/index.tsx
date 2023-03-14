@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Button, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useDisclosure } from '@chakra-ui/react';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
@@ -17,13 +17,21 @@ const MeetingListHeader = () => {
 
   return (
     <Box width="100%">
-      <Flex mb="1rem" justify="space-between">
-        <Flex align="center">
+      <Flex mb="2rem" justify="space-between">
+        <Text
+          alignSelf="flex-start"
+          fontSize="2rem"
+          fontWeight="800"
+          color="main"
+        >
+          Group
+        </Text>
+        {/* <Flex align="center">
           <Image width="2.7rem" src="icons/hashtag.svg" alt="hastagIcon" />
           <Text fontSize="lg" fontWeight="700" pl="0.5rem">
             모임
           </Text>
-        </Flex>
+        </Flex> */}
         <Flex align="center">
           <Link href="/meeting/create" onClick={onClick}>
             <Button
