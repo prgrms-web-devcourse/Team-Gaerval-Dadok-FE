@@ -36,10 +36,10 @@ const CommentModifyModal = ({
     <Box>
       <Button
         onClick={onModifyModalOpen}
-        bgColor="white"
+        bgColor="white.900"
         fontSize="sm"
         fontWeight={500}
-        color="main"
+        color="black.900"
       >
         수정
       </Button>
