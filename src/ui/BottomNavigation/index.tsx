@@ -17,12 +17,12 @@ const BottomNavigation = () => {
       href: '/bookarchive',
     },
     {
-      iconName: 'hashtag',
+      iconName: 'book',
       label: '도서 검색',
       href: '/book/search',
     },
     {
-      iconName: 'book',
+      iconName: 'hashtag',
       label: '독서 모임',
       href: '/meeting',
     },
