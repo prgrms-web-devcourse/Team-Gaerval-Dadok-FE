@@ -23,7 +23,7 @@ const MeetingPageContainer = () => {
   if (isLoading)
     return (
       <VStack gap="0.5rem" align="stretch" w="100%">
-        <Skeleton height="8rem" />
+        <Skeleton height="9rem" />
         <Skeleton height="28rem" />
         <Skeleton height="28rem" />
         <Skeleton height="28rem" />

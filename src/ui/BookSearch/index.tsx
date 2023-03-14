@@ -8,7 +8,6 @@ import {
   Text,
   SimpleGrid,
   Center,
-  Flex,
 } from '@chakra-ui/react';
 
 import bookAPI from '@/apis/book';
@@ -56,13 +55,15 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
 
   return (
     <VStack w="100%">
-      <InputGroup display="flex" flexDirection="column" gap="1rem" size="lg">
-        <Flex align="center">
-          <Image width="2.7rem" src="/icons/book.svg" alt="sreachIcon" />
-          <Text fontSize="lg" fontWeight="700" pl="0.5rem">
-            도서 검색
-          </Text>
-        </Flex>
+      <InputGroup display="flex" flexDirection="column" gap="2rem" size="lg">
+        <Text
+          alignSelf="flex-start"
+          fontSize="2rem"
+          fontWeight="800"
+          color="main"
+        >
+          Discover
+        </Text>
         <Input
           focusBorderColor="main"
           borderColor="black.600"
