@@ -44,14 +44,14 @@ const BottomNavigation = () => {
         justify="space-between"
         bg="white.900"
         px="3.2rem"
-        py="1.4rem"
+        py="1.6rem"
         pos="fixed"
         bottom={0}
         w="100%"
         maxW="43rem"
         borderTopRadius={20}
         boxShadow="rgba(0, 0, 0, 0.05) 0px 0px 10px 1px"
-        maxH="7rem"
+        maxH="9rem"
       >
         {navigationItems.map(({ iconName, label, href, onClick }) => (
           <NavigationItem

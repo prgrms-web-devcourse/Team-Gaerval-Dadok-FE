@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const isShowNavigation = pathname === null || !paths.includes(pathname);
 
   return (
-    <Box h={!isShowNavigation ? '100%' : '100vh'}>
+    <Box h="100vh">
       <Box
         as={motion.div}
         key={pathname}
