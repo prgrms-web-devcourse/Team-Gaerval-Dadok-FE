@@ -31,13 +31,13 @@ const NavigationItem = ({
         direction="column"
         justify="center"
         align="center"
-        gap="0.2rem"
+        gap="0.6rem"
         cursor="pointer"
       >
         <Box w="2.6rem" h="2.6rem" position="relative">
           <Icon width="100%" height="100%" strokeWidth={0} fill={color} />
         </Box>
-        <Text fontSize="xs" fontWeight="bold" color={color}>
+        <Text fontSize="sm" fontWeight="bold" color={color}>
           {label}
         </Text>
       </Flex>
