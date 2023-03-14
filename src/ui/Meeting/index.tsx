@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { VStack, Skeleton, Box } from '@chakra-ui/react';
 
 import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQuery';
 import MeetingListHeader from './MeetingListHeader';
 import MeetingSearch from './MeetingSearch';
 import MeetingList from './MeetingList';
-import { Box } from '@chakra-ui/react';
 
 interface SearchValue {
   [key: string]: string;
@@ -18,7 +18,17 @@ const MeetingPageContainer = () => {
     select: '모임',
   });
 
-  const { isSuccess, data } = useEntireMeetingListQuery();
+  const { isSuccess, data, isLoading } = useEntireMeetingListQuery();
+
+  if (isLoading)
+    return (
+      <VStack gap="0.5rem" align="stretch" w="100%">
+        <Skeleton height="8rem" />
+        <Skeleton height="28rem" />
+        <Skeleton height="28rem" />
+        <Skeleton height="28rem" />
+      </VStack>
+    );
 
   const handleSumbit = () => {
     const { input } = searchValue;

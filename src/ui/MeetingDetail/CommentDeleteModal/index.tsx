@@ -1,14 +1,16 @@
-import { Text, Highlight, Button } from '@chakra-ui/react';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  ModalFooter,
+  Flex,
+  Button,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogContent,
+  AlertDialogOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
+
+import { useTheme } from '@chakra-ui/react';
+import { MutableRefObject, useRef } from 'react';
 
 interface CommentDeleteModalProps {
   commentId: number;
@@ -19,59 +21,88 @@ const CommentDeleteModal = ({
   commentId,
   handleDeleteCommentBtnClick,
 }: CommentDeleteModalProps) => {
-  const { onOpen, onClose, isOpen } = useDisclosure();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: onDeleteModalClose,
+    onOpen: onDeleteModalOpen,
+  } = useDisclosure();
+
+  const cancelRef = useRef(null);
+
+  const onDeleteCommentClick = () => {
+    handleDeleteCommentBtnClick(commentId);
+    onDeleteModalClose();
+  };
 
   return (
     <>
       <Button
-        onClick={onOpen}
-        bgColor="white"
+        onClick={onDeleteModalOpen}
+        bgColor="white.900"
         fontSize="sm"
         fontWeight={500}
-        color="red.900"
+        color="main"
       >
         삭제
       </Button>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        blockScrollOnMount={false}
-        closeOnOverlayClick={false}
-        isCentered={true}
-        size="lg"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>글 삭제하기</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text fontSize="md">
-              <Highlight query="삭제" styles={{ color: 'red' }}>
-                해당 글을 삭제하시겠습니까?
-              </Highlight>
-            </Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              mr={3}
-              onClick={() => {
-                handleDeleteCommentBtnClick(commentId);
-                onClose();
-              }}
-              bgColor="white"
-              color="red.900"
-            >
-              삭제하기
-            </Button>
-            <Button variant="ghost" onClick={onClose}>
-              취소
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <DeleteComfirmDialog
+        cancelRef={cancelRef}
+        isOpen={isDeleteModalOpen}
+        onClose={onDeleteModalClose}
+        onDelete={onDeleteCommentClick}
+      />
     </>
   );
 };
 
 export default CommentDeleteModal;
+
+const DeleteComfirmDialog = ({
+  cancelRef,
+  isOpen,
+  onClose,
+  onDelete,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onDelete: () => void;
+  cancelRef: MutableRefObject<null>;
+}) => {
+  const theme = useTheme();
+
+  return (
+    <AlertDialog
+      leastDestructiveRef={cancelRef}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent alignSelf="center" p="1.5rem">
+          <AlertDialogBody fontSize="md" py="1.5rem">
+            모임을 정말 삭제할까요?
+          </AlertDialogBody>
+          <AlertDialogFooter as={Flex} justify="center" gap="1rem">
+            <Button
+              ref={cancelRef}
+              onClick={onClose}
+              flexGrow="1"
+              {...theme.buttonSizes['md']}
+              {...theme.scheme.button['grey']}
+            >
+              취소
+            </Button>
+            <Button
+              ref={cancelRef}
+              onClick={onDelete}
+              flexGrow="1"
+              {...theme.buttonSizes['md']}
+              {...theme.scheme.button['orange-fill']}
+            >
+              삭제
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
+  );
+};

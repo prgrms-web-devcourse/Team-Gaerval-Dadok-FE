@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, VStack, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
@@ -18,6 +18,16 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
   const router = useRouter();
+
+  if (meetingInfoQuery.isLoading || meetingCommentsQuery.isLoading)
+    return (
+      <VStack gap="2rem" align="stretch" w="100%" mt="2rem">
+        <Skeleton height="3rem" />
+        <Skeleton height="10rem" />
+        <Skeleton height="18rem" />
+        <Skeleton height="35rem" />
+      </VStack>
+    );
 
   const isSuccess =
     meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
