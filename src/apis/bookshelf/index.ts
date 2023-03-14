@@ -24,7 +24,7 @@ const bookshelfAPI = {
     pageParam: string
   ) =>
     publicApi.get<APIBookshelfBookList>(
-      `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookCursorId=` +
+      `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookshelfItemCursorId=` +
         pageParam
     ),
 };

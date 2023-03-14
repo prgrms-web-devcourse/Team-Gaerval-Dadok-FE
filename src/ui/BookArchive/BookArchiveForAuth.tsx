@@ -1,20 +1,37 @@
 import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks';
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';
-import { Flex } from '@chakra-ui/react';
 import { RecommendedBooks, RecommendedBookshelf } from '@/ui/Recommended';
+import { Flex, Skeleton, VStack } from '@chakra-ui/react';
 
 const BookArchiveForAuth = ({
   userJobGroup,
 }: {
   userJobGroup: APIJobGroup['name'];
 }) => {
-  const { data: bookshelfData, isSuccess: bookshelfIsSuccess } =
-    useAuthRecommendedBookshelf(userJobGroup);
-  const { data: booksData, isSuccess: booksIsSuccess } =
-    useAuthRecommendedBooks(userJobGroup);
+  const {
+    data: bookshelfData,
+    isSuccess: bookshelfIsSuccess,
+    isLoading: bookshelfIsLoading,
+  } = useAuthRecommendedBookshelf(userJobGroup);
+  const {
+    data: booksData,
+    isSuccess: booksIsSuccess,
+    isLoading: booksIsLoading,
+  } = useAuthRecommendedBooks(userJobGroup);
 
   const isSuccess = bookshelfIsSuccess && booksIsSuccess;
+  const isLoading = bookshelfIsLoading && booksIsLoading;
+
+  if (isLoading) {
+    return (
+      <VStack gap="3rem">
+        <Skeleton width="39rem" height="19.6rem" />
+        <Skeleton width="39rem" height="19.6rem" />
+        <Skeleton width="39rem" height="19.6rem" />
+      </VStack>
+    );
+  }
 
   if (!isSuccess) return null;
   if (!bookshelfData || !booksData) return null;
@@ -25,26 +42,16 @@ const BookArchiveForAuth = ({
         jobGroup={booksData.jobGroupKoreanName}
         books={booksData.books}
       />
-      {bookshelfData.bookshelfResponses
-        .slice(0, 1)
-        .map(({ bookshelfId, bookshelfName, books }) => (
+      {bookshelfData.bookshelfResponses.map(
+        ({ bookshelfId, bookshelfName, books }) => (
           <RecommendedBookshelf
             key={bookshelfId}
             bookshelfId={bookshelfId}
             bookshelfName={bookshelfName}
             books={books}
           />
-        ))}
-      {bookshelfData.bookshelfResponses
-        .slice(1)
-        .map(({ bookshelfId, bookshelfName, books }) => (
-          <RecommendedBookshelf
-            key={bookshelfId}
-            bookshelfId={bookshelfId}
-            bookshelfName={bookshelfName}
-            books={books}
-          />
-        ))}
+        )
+      )}
     </Flex>
   );
 };

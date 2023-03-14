@@ -21,7 +21,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/bookarchive/',
+        destination: '/bookarchive',
         permanent: false,
       },
     ];

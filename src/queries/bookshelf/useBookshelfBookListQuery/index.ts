@@ -15,7 +15,7 @@ const useBookshelfBooksQuery = ({
         .then(response => response.data),
     {
       getNextPageParam: lastPage =>
-        !lastPage.isLast ? lastPage.books[15].bookId : undefined,
+        !lastPage.isLast ? lastPage.books[15].bookshelfItemId : undefined,
       staleTime: 3000,
     }
   );

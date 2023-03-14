@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/auth';
 import { APIDefaultBook } from '@/types/book';
 import InteractiveBook from '@/ui//InteractiveBook';
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
@@ -6,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 const BOOKSHELF_BOOK_LIMIT = 4;
 
 const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
+  const { isAuthed } = useAuth();
   const [slicedBooks, setSlicedBooks] = useState<APIDefaultBook[][]>([[]]);
 
   const sliceBooks = useCallback(() => {
@@ -26,6 +28,8 @@ const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
     <>
       {slicedBooks.map((books, idx) => (
         <Flex
+          filter="auto"
+          blur={!isAuthed && idx === 1 ? '0.3rem' : ''}
           key={idx}
           w="100%"
           direction="column"
