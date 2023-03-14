@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, VStack, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
@@ -18,6 +18,15 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
   const router = useRouter();
+
+  if (meetingInfoQuery.isLoading || meetingCommentsQuery.isLoading)
+    return (
+      <VStack gap="2rem" align="stretch" w="100%">
+        <Skeleton height="10rem" mt="4rem" />
+        <Skeleton height="18rem" />
+        <Skeleton height="35rem" />
+      </VStack>
+    );
 
   const isSuccess =
     meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
@@ -90,23 +99,27 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
 
   return (
     <Flex direction="column" justify="center">
-      <MeetingInfo
-        meetingInfoData={meetingInfoQuery.data}
-        handleParticipateBtnClick={handleParticipateBtnClick}
-        handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
-      />
+      {meetingInfoQuery.isSuccess && (
+        <MeetingInfo
+          meetingInfoData={meetingInfoQuery.data}
+          handleParticipateBtnClick={handleParticipateBtnClick}
+          handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
+        />
+      )}
       <CommentInputBox
         isPartInUser={isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
-      <CommentsList
-        isGroupMember={isGroupMember}
-        isPublic={isPublic}
-        isEmpty={isEmpty}
-        commentsListData={bookGroupComments}
-        handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
-        handleModifyCommentBtnClick={handleModifyCommentBtnClick}
-      />
+      {meetingCommentsQuery.isSuccess && (
+        <CommentsList
+          isGroupMember={isGroupMember}
+          isPublic={isPublic}
+          isEmpty={isEmpty}
+          commentsListData={bookGroupComments}
+          handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
+          handleModifyCommentBtnClick={handleModifyCommentBtnClick}
+        />
+      )}
     </Flex>
   );
 };
