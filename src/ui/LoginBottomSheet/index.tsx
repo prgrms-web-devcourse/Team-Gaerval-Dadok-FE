@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Flex, Text, Highlight, Heading } from '@chakra-ui/react';
+import { Flex, Text, Highlight } from '@chakra-ui/react';
 
 import BottomSheet from '@/ui/common/BottomSheet';
 import IconButton from '@/ui/common/IconButton';
@@ -20,7 +20,9 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
       <Flex direction="column" align="center" gap="3rem" p="3rem 3rem 4rem">
         <IconButton name="close" onClick={onClose} alignSelf="flex-end" />
         <Logo />
-        <Heading fontSize="lg">로그인이 필요한 서비스예요!</Heading>
+        <Text fontSize="lg" fontWeight="bold">
+          로그인이 필요한 서비스예요!
+        </Text>
         <Text
           color="black.500"
           fontSize="sm"

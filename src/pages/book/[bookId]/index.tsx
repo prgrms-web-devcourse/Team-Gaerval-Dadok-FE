@@ -1,11 +1,11 @@
-import { Box, Heading, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
+import { Box, Skeleton, SkeletonText, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
+import { APIDefaultBook } from '@/types/book';
 import { BookCommentList, BookInfo } from '@/ui/BookDetail';
 import TopNavigation from '@/ui/common/TopNavigation';
 import { GetServerSideProps } from 'next';
-import { APIDefaultBook } from '@/types/book';
 
 const BookDetailPage = ({ bookId }: { bookId: APIDefaultBook['bookId'] }) => {
   const router = useRouter();
@@ -52,9 +52,9 @@ const BookDetailPage = ({ bookId }: { bookId: APIDefaultBook['bookId'] }) => {
       </VStack>
 
       <VStack align="stretch">
-        <Heading pt="3rem" pb="1rem" fontSize="lg">
+        <Text pt="3rem" pb="1rem" fontSize="lg" fontWeight="bold">
           책 코멘트
-        </Heading>
+        </Text>
         <BookCommentList bookId={bookId} />
       </VStack>
     </Box>

@@ -3,7 +3,7 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import AuthRequired from '@/ui/AuthRequired';
 import ProfileForm from '@/ui/Profile/ProfileForm';
-import { Heading, Text, VStack } from '@chakra-ui/react';
+import { Text, VStack } from '@chakra-ui/react';
 
 const AdditionalProfile = () => {
   const { isAuthed } = useAuth();
@@ -16,7 +16,9 @@ const AdditionalProfile = () => {
   return (
     <AuthRequired>
       <VStack position="relative" zIndex={10} pt="6rem" gap="1rem">
-        <Heading fontSize="lg">추가 정보를 입력해 주세요!</Heading>
+        <Text fontSize="lg" fontWeight="bold">
+          추가 정보를 입력해 주세요!
+        </Text>
         <Text fontSize="md" textAlign="center">
           추가 정보를 입력하면
           <br />

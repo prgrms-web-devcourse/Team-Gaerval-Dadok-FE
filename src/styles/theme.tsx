@@ -1,5 +1,9 @@
-import { extendTheme, ThemeOverride } from '@chakra-ui/react';
-import { ChakraStyledOptions } from '@chakra-ui/react';
+import {
+  ChakraStyledOptions,
+  extendTheme,
+  ThemeOverride,
+} from '@chakra-ui/react';
+
 const fontSizes = {
   xs: '1.2rem',
   sm: '1.4rem',
@@ -95,10 +99,6 @@ const theme: ThemeOverride = extendTheme({
   buttonSizes,
   colors,
   scheme,
-  fonts: {
-    heading: `'LineSeed', sans-serif`,
-    body: `'LineSeed', sans-serif`,
-  },
   styles: {
     global: {
       'html, body': {

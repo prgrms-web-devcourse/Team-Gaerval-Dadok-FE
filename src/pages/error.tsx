@@ -1,5 +1,5 @@
 import Button from '@/ui/common/Button';
-import { Heading, Highlight, Image, VStack } from '@chakra-ui/react';
+import { Text, Highlight, Image, VStack } from '@chakra-ui/react';
 
 export const ErrorPage = () => {
   return (
@@ -19,14 +19,14 @@ export const ErrorPage = () => {
         alt="loading"
       />
       <VStack gap="1rem">
-        <Heading fontSize="2xl" fontWeight="medium">
+        <Text fontSize="2xl" fontWeight="medium">
           <Highlight
             query="다독이"
             styles={{ color: 'main', fontWeight: 'bold' }}
           >
             다독이도 몰라요~ 왜 이래요~
           </Highlight>
-        </Heading>
+        </Text>
         <Button
           onClick={() => {
             window.location.replace('/');
