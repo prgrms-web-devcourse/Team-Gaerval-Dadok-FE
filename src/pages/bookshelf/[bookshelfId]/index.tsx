@@ -1,28 +1,44 @@
+import { useAuth } from '@/hooks/auth';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelfInfo } from '@/types/bookshelf';
+import Button from '@/ui/common/Button';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
+import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
 import UserJobInfoTag from '@/ui/UserJobInfoTag';
-import { Box, HStack, Spinner, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Highlight,
+  HStack,
+  Image,
+  Link,
+  Skeleton,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+
+const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 export default function UserBookShelfPage({
   bookshelfId,
 }: {
   bookshelfId: APIBookshelfInfo['bookshelfId'];
 }) {
+  const { isAuthed } = useAuth();
   const { ref, inView } = useInView();
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
   const {
-    data: testData,
+    data: booksData,
     fetchNextPage,
     hasNextPage,
     isSuccess: booksIsSuccess,
+    isLoading,
     isFetching,
     isFetchingNextPage,
   } = useBookshelfBooksQuery({ bookshelfId });
@@ -33,13 +49,28 @@ export default function UserBookShelfPage({
     }
   }, [fetchNextPage, inView, hasNextPage]);
 
+  if (isLoading) {
+    return (
+      <VStack gap="2rem" mt="7.8rem">
+        <Skeleton width="100%" height="15.2rem" />
+        <Skeleton width="100%" height="15.2rem" />
+        <Skeleton width="100%" height="15.2rem" />
+        <Skeleton width="100%" height="15.2rem" />
+      </VStack>
+    );
+  }
+
   if (!(infoIsSuccess && booksIsSuccess)) return null;
 
-  /**
-   * @TODO
-   * 로그인 한 사용자는 책장의 모든 책장 열람 가능
-   * 로그인 하지 않은 사용자는 책장의 일부만 열람 가능
-   */
+  const filtered = () => {
+    const data = booksData.pages[0].books;
+
+    if (isAuthed) return data;
+
+    return data.slice(0, 4);
+  };
+
+  const filteredData = filtered();
 
   return (
     <VStack width="100%" height="100%">
@@ -51,14 +82,38 @@ export default function UserBookShelfPage({
         )}
       </HStack>
       <VStack width="100%" spacing="2rem">
-        {testData.pages.map((page, idx) => (
-          <InteractiveBookShelf key={idx} books={page.books} />
-        ))}
-        {isFetching && !isFetchingNextPage ? (
-          <Spinner size="8rem" color="main" />
+        {isAuthed ? (
+          booksData.pages.map((page, idx) => (
+            <InteractiveBookShelf key={idx} books={page.books} />
+          ))
         ) : (
-          <Box ref={ref} />
+          <>
+            <InteractiveBookShelf books={filteredData} />
+            <InitialBookShelfData />
+            <Text textAlign="center" fontSize="lg" pt="5rem">
+              로그인 후에
+              <br />
+              <Highlight
+                query={infoData.bookshelfName}
+                styles={{ color: 'main', fontWeight: 'bold' }}
+              >
+                {`${infoData.bookshelfName}을 확인해 주세요!`}
+              </Highlight>
+            </Text>
+            <Link href={kakaoUrl} style={{ width: '100%' }}>
+              <Button scheme="kakao" fullWidth>
+                <Image
+                  src="/images/kakao.svg"
+                  alt="카카오 로고"
+                  width={21}
+                  height={19}
+                />
+                카카오 로그인
+              </Button>
+            </Link>
+          </>
         )}
+        {isFetching && !isFetchingNextPage ? null : <Box ref={ref} />}
       </VStack>
     </VStack>
   );
