@@ -177,10 +177,12 @@ const AddMeetingForm = () => {
             px="2rem"
             py="1rem"
             disabled={methods.formState.isSubmitting}
-            color={theme.colors.main}
+            color="white.900"
+            bgColor="main"
             border="1px solid"
-            borderRadius="5rem"
-            fontSize="md"
+            borderRadius="1.2rem"
+            fontSize="lg"
+            fontWeight="bold"
             _disabled={{
               color: `${theme.colors.black['500']}`,
               border: '1px solid',

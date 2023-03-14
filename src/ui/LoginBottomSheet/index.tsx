@@ -18,7 +18,12 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <Flex direction="column" align="center" gap="3rem" p="3rem 3rem 4rem">
-        <IconButton name="close" onClick={onClose} alignSelf="flex-end" />
+        <IconButton
+          name="close"
+          onClick={onClose}
+          tabIndex={-1}
+          alignSelf="flex-end"
+        />
         <Logo />
         <Text fontSize="lg" fontWeight="bold">
           로그인이 필요한 서비스예요!

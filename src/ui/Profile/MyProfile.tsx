@@ -46,7 +46,14 @@ const MyProfile = () => {
       {userProfileQuery.isSuccess && (
         <>
           <ProfileInfo {...userProfileQuery.data} />
-          <Button as={Link} href={`${pathname}/edit`} scheme="orange" fullWidth>
+          <Button
+            as={Link}
+            href={`${pathname}/edit`}
+            scheme="orange"
+            fullWidth
+            bgColor="main"
+            color="white.900"
+          >
             프로필 수정
           </Button>
         </>
