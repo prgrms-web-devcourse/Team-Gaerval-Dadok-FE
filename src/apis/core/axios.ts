@@ -38,35 +38,44 @@ const setInterceptor = (instance: AxiosInstance) => {
     response => response,
     async error => {
       if (isAxiosError(error)) {
-        if (error.response && error.response.data.body) {
-          console.log(error);
+        if (error.response && error.response.data) {
           const {
             status,
             code,
             message: _message,
-          } = error.response.data.body as APIErrorResponse;
+          } = error.response.data as APIErrorResponse;
+          console.log(code, error.response.data);
+
           const toastMessage = ERROR_MESSAGE[status]?.[code];
           console.warn(status, code, toastMessage);
-
-          if (code === 'A1' || code === 'A2' || code === 'A5') {
+          if (
+            code === 'A1' ||
+            code === 'A2' ||
+            code === 'A3' ||
+            code === 'A5' ||
+            code === 'A7'
+          ) {
             // 다시 로그인
+            window.location.href = '/login';
             storage.remove();
-            window.location.replace('/login');
-            return;
+            return Promise.reject(error);
           }
 
-          if (code === 'A3' || code === 'A4') {
-            // refresh 요청
-            const response = await publicApi.post('/service-api/auth/token');
-            const token = response.headers['Authorization'].split(' ')[1];
-
-            if (typeof window !== 'undefined' && token && error.config) {
-              error.config.headers['Authorization'] = `Bearers ${token}`;
-              return await publicApi.request(error.config);
+          if (code === 'A4') {
+            try {
+              const response = await axios.post('/service-api/auth/token');
+              const token = response.data.accessToken;
+              if (token && error.config) {
+                error.config.headers['Authorization'] = `Bearers ${token}`;
+                storage.set(token);
+                return publicApi(error.config);
+              }
+            } catch (error) {
+              window.location.replace('/login');
+              return Promise.reject(error);
             }
           }
-
-          return;
+          return Promise.reject(error);
           // return { isError: true, message: toastMessage ?? message, error };
         }
       }
@@ -86,9 +95,8 @@ const options: CreateAxiosDefaults = {
   timeout: 3000,
 };
 
-export const publicApi = setInterceptor(
-  axios.create({
-    ...options,
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
-  })
-);
+export const publicApi = axios.create({
+  ...options,
+});
+
+setInterceptor(publicApi);
