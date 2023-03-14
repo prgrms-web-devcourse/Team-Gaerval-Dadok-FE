@@ -11,6 +11,8 @@ import bookAPI from '@/apis/book';
 import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
 import type { APIBookComment } from '@/types/book';
+import { useAuth } from '@/hooks/auth';
+import LoginBottomSheet from '../LoginBottomSheet';
 
 interface Props {
   bookId: number;
@@ -20,6 +22,7 @@ type CommentType = 'me' | 'user';
 type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
 const BookCommentList = ({ bookId }: Props) => {
+  const { isAuthed } = useAuth();
   const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
 
@@ -27,6 +30,11 @@ const BookCommentList = ({ bookId }: Props) => {
     isOpen: isCreateDrawerOpen,
     onOpen: onCreateDrawerOpen,
     onClose: onCreateDrawerClose,
+  } = useDisclosure();
+  const {
+    isOpen: isLoginBottomSheetOpen,
+    onOpen: onLoginBottomSheetOpen,
+    onClose: onLoginBottomSheetsClose,
   } = useDisclosure();
 
   const comments = useMemo<CommentRecordType>(() => {
@@ -88,11 +96,30 @@ const BookCommentList = ({ bookId }: Props) => {
       .then(() => bookCommentsQueryInfo.refetch());
   };
 
+  const handleCreateCommentDrawerOpen = () => {
+    if (!isAuthed) {
+      onLoginBottomSheetOpen();
+      return;
+    }
+
+    onCreateDrawerOpen();
+  };
+
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
+      {!isAuthed && (
+        <LoginBottomSheet
+          isOpen={isLoginBottomSheetOpen}
+          onClose={onLoginBottomSheetsClose}
+        />
+      )}
       {!bookCommentsQueryInfo.isLoading && !comments.me.length && (
         <>
-          <Button onClick={onCreateDrawerOpen} scheme="orange-fill" fullWidth>
+          <Button
+            onClick={handleCreateCommentDrawerOpen}
+            scheme="orange-fill"
+            fullWidth
+          >
             코멘트 남기기
           </Button>
           <CommentDrawer

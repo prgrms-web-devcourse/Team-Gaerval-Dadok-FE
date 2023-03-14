@@ -50,6 +50,7 @@ type IconNameType =
   | 'bookmark'
   | 'more'
   | 'more-circle'
-  | 'job-card';
+  | 'job-card'
+  | 'plus-circle';
 
 export default IconButton;
