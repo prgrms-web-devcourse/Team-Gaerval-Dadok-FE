@@ -21,7 +21,7 @@ const UserProfilePage = ({ userId }: { userId: APIUser['userId'] }) => {
     );
 
   return (
-    <VStack justify="center" align="flex-start">
+    <VStack justify="center" align="flex-start" w="100%">
       {userProfileQuery.isSuccess && (
         <TopNavigation
           pageTitle={`${userProfileQuery.data.nickname}님의 프로필`}
