@@ -22,6 +22,7 @@ const ToastItem = ({
   return (
     <Box
       position="absolute"
+      maxW="43rem"
       px="2rem"
       opacity={visible ? '0.95' : '0'}
       transition="all 0.5s ease-in-out"

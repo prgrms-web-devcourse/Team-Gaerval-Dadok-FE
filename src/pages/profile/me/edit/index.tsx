@@ -3,22 +3,29 @@ import ProfileForm from '@/ui/Profile/ProfileForm';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import TopNavigation from '@/ui/common/TopNavigation';
+import AuthRequired from '@/ui/AuthRequired';
+import { useAuth } from '@/hooks/auth';
 
 const EditMyPage = () => {
-  const allJobQuery = useAllJobQuery();
-  const userProfileQuery = useMyProfileQuery();
+  const { isAuthed } = useAuth();
+
+  const allJobQuery = useAllJobQuery({ enabled: isAuthed });
+  const userProfileQuery = useMyProfileQuery({ enabled: isAuthed });
 
   const isSuccess = allJobQuery.isSuccess && userProfileQuery.isSuccess;
-  if (!isSuccess) return null;
 
   return (
-    <VStack justify="center" align="center">
-      <TopNavigation pageTitle="내 프로필 수정" />
-      <ProfileForm
-        profile={userProfileQuery.data}
-        jobGroups={allJobQuery.data.jobGroups}
-      />
-    </VStack>
+    <AuthRequired>
+      <VStack justify="center" align="center">
+        <TopNavigation pageTitle="내 프로필 수정" />
+        {isSuccess && (
+          <ProfileForm
+            profile={userProfileQuery.data}
+            jobGroups={allJobQuery.data.jobGroups}
+          />
+        )}
+      </VStack>
+    </AuthRequired>
   );
 };
 
