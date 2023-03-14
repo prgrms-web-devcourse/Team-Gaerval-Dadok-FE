@@ -79,7 +79,6 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
             key={book.isbn}
             w="100%"
             minH="18rem"
-            h="100%"
             justify="center"
             fontSize="sm"
             bgColor="white"
@@ -92,7 +91,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
             {book.imageUrl ? (
               <Image src={book.imageUrl} alt="book-cover" />
             ) : (
-              <Center bgColor="white" w="100%" h="100%">
+              <Center bgColor="white" w="100%">
                 <LogoSmallIcon />
               </Center>
             )}
