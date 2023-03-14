@@ -5,6 +5,7 @@ import {
   Box,
   Flex,
   Text,
+  useDisclosure,
   useTheme,
   VStack,
 } from '@chakra-ui/react';
@@ -15,6 +16,8 @@ import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 import type { APIBookInfo } from '@/types/book';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/auth';
+import LoginBottomSheet from '../LoginBottomSheet';
 
 type Props = Pick<
   APIBookInfo,
@@ -23,10 +26,17 @@ type Props = Pick<
 
 const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
   const theme = useTheme();
-  const bookUserQueryInfo = useBookUserInfoQuery(bookId);
+  const { isAuthed } = useAuth();
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId, { enabled: isAuthed });
+  const {
+    isOpen: isLoginBottomSheetOpen,
+    onOpen: onLoginBottomSheetOpen,
+    onClose: onLoginBottomSheetsClose,
+  } = useDisclosure();
 
   const handleBookmarkClick = () => {
-    if (!bookUserQueryInfo.isSuccess) {
+    if (!bookUserQueryInfo.isSuccess || !isAuthed) {
+      onLoginBottomSheetOpen();
       return;
     }
 
@@ -48,17 +58,18 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
           <Image src={imageUrl} alt="book" width={180} height={240} />
         </Box>
         <VStack align="flex-start">
-          {bookUserQueryInfo.isSuccess && (
-            <IconButton
-              name="bookmark"
-              color={theme.colors.main}
-              strokeWidth="0.15rem"
-              onClick={handleBookmarkClick}
-              fill={bookUserQueryInfo.data.isInMyBookshelf}
-              mb="0.5rem"
-              ml="-0.1rem"
-            />
-          )}
+          <IconButton
+            name="bookmark"
+            color={theme.colors.main}
+            strokeWidth="0.15rem"
+            onClick={handleBookmarkClick}
+            fill={
+              bookUserQueryInfo.isSuccess &&
+              bookUserQueryInfo.data.isInMyBookshelf
+            }
+            mb="0.5rem"
+            ml="-0.1rem"
+          />
           <Text fontSize="lg" fontWeight="bold">
             {title}
           </Text>
@@ -67,6 +78,12 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
       </Flex>
       <Text fontSize="md">{contents}</Text>
 
+      {!isAuthed && (
+        <LoginBottomSheet
+          isOpen={isLoginBottomSheetOpen}
+          onClose={onLoginBottomSheetsClose}
+        />
+      )}
       {bookUserQueryInfo.isSuccess && (
         <Flex align="center" minH="2rem">
           <AvatarGroup>
