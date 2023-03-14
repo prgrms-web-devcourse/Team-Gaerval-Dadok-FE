@@ -1,6 +1,7 @@
 import { APIProfileBookshelf } from '@/types/bookshelf';
-import { Heading, Highlight, VStack } from '@chakra-ui/react';
+import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
+import IconButton from '../common/IconButton';
 import InteractiveBookShelf from '../InteractiveBookShelf';
 
 const RecommendedBookshelf = ({
@@ -9,12 +10,19 @@ const RecommendedBookshelf = ({
   books,
 }: APIProfileBookshelf) => {
   return (
-    <VStack align="flex-start" spacing="1rem">
-      <Heading as={Link} href={`/bookshelf/${bookshelfId}`} color="main">
-        <Highlight query="님의 책장" styles={{ color: 'black' }}>
-          {`${bookshelfName} >`}
-        </Highlight>
-      </Heading>
+    <VStack align="flex-start" spacing="2rem">
+      <Flex
+        as={Link}
+        href={`/bookshelf/${bookshelfId}`}
+        align="center"
+        w="100%"
+        justify="space-between"
+      >
+        <Text fontSize="md" fontWeight="bold">
+          {`${bookshelfName}`}
+        </Text>
+        <IconButton name="more-circle" size="1.6rem" fill />
+      </Flex>
       <InteractiveBookShelf books={books} />
     </VStack>
   );

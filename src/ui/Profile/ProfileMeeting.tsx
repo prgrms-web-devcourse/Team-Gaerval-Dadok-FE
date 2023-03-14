@@ -9,7 +9,7 @@ interface ProfileMeetingProps {
 const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {
   return (
     <VStack w="100%">
-      <Text alignSelf="flex-start" fontSize="sm">
+      <Text alignSelf="flex-start" fontSize="md" fontWeight="bold">
         내가 참여한 모임
       </Text>
       <Box w="100%" overflow="auto">

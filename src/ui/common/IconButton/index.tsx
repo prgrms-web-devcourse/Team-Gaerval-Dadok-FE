@@ -42,6 +42,14 @@ const IconButton = ({
   );
 };
 
-type IconNameType = 'close' | 'back' | 'book' | 'search' | 'bookmark' | 'more';
+type IconNameType =
+  | 'close'
+  | 'back'
+  | 'book'
+  | 'search'
+  | 'bookmark'
+  | 'more'
+  | 'more-circle'
+  | 'job-card';
 
 export default IconButton;

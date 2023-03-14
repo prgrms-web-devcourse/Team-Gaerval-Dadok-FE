@@ -21,8 +21,12 @@ const BookArchiveForAuth = ({
 
   return (
     <Flex direction="column" width="100%" gap="3rem">
+      <RecommendedBooks
+        jobGroup={booksData.jobGroupKoreanName}
+        books={booksData.books}
+      />
       {bookshelfData.bookshelfResponses
-        .slice(0, 2)
+        .slice(0, 1)
         .map(({ bookshelfId, bookshelfName, books }) => (
           <RecommendedBookshelf
             key={bookshelfId}
@@ -31,12 +35,8 @@ const BookArchiveForAuth = ({
             books={books}
           />
         ))}
-      <RecommendedBooks
-        jobGroup={booksData.jobGroupKoreanName}
-        books={booksData.books}
-      />
       {bookshelfData.bookshelfResponses
-        .slice(2)
+        .slice(1)
         .map(({ bookshelfId, bookshelfName, books }) => (
           <RecommendedBookshelf
             key={bookshelfId}
