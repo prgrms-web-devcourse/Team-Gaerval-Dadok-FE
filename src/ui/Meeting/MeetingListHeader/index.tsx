@@ -26,24 +26,26 @@ const MeetingListHeader = () => {
         >
           Group
         </Text>
-        {/* <Flex align="center">
-          <Image width="2.7rem" src="icons/hashtag.svg" alt="hastagIcon" />
-          <Text fontSize="lg" fontWeight="700" pl="0.5rem">
-            모임
-          </Text>
-        </Flex> */}
         <Flex align="center">
           <Link href="/meeting/create" onClick={onClick}>
             <Button
               fontSize="sm"
-              fontWeight="bold"
-              w="100%"
-              borderRadius="0.7rem"
+              borderRadius="0.6rem"
               color="white.900"
               backgroundColor="main"
               border="0.1rem solid"
+              p="1.4rem 1.5rem"
+              display="flex"
             >
-              모임 만들기
+              <Text
+                alignSelf="center"
+                fontSize="2rem"
+                fontWeight="medium"
+                mr="0.4rem"
+              >
+                +
+              </Text>
+              모임
             </Button>
           </Link>
         </Flex>

@@ -1,6 +1,6 @@
-import { Flex, Text } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import IconButton from '../IconButton';
 
 type PageTitleType = {
   pageTitle: string;
@@ -10,18 +10,17 @@ const TopNavigation = ({ pageTitle }: PageTitleType) => {
   const router = useRouter();
 
   return (
-    <Flex width="100%" height="4.8rem" alignItems="center">
-      <Image
-        onClick={() => router.back()}
-        src="/icons/back.svg"
-        width={32}
-        height={32}
-        alt="goToRecentPage"
-        priority
-      />
+    <Flex
+      width="100%"
+      alignItems="center"
+      justifyContent="space-between"
+      mb="1rem"
+    >
+      <IconButton name="back" size="2rem" onClick={() => router.back()} />
       <Text fontSize="lg" fontWeight="700">
         {pageTitle}
       </Text>
+      <Box w="2rem"></Box>
     </Flex>
   );
 };
