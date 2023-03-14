@@ -5,20 +5,20 @@ import { useRouter } from 'next/router';
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 
-const paths = ['/bookarchive', '/book', '/meeting', '/profile'];
+const paths = ['/bookarchive', '/book/search', '/meeting', '/profile/me'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter();
-  const isShowNavigation = pathname === null || !paths.includes(pathname);
+  const isShowNavigation = pathname && paths.includes(pathname);
 
   return (
-    <Box h={!isShowNavigation ? '100%' : '100vh'}>
+    <Box h={isShowNavigation ? '100%' : '100vh'}>
       <Box
         as={motion.div}
         key={pathname}
         px="2rem"
         pt="2rem"
-        pb={!isShowNavigation ? '9rem' : '2rem'}
+        pb={isShowNavigation ? '9rem' : '2rem'}
         h="100%"
         overflow="auto"
         initial="initial"
@@ -34,7 +34,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       >
         {children}
       </Box>
-      {!isShowNavigation && <BottomNavigation />}
+      {isShowNavigation && <BottomNavigation />}
       <Toast />
     </Box>
   );
