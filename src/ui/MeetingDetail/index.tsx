@@ -21,8 +21,9 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
 
   if (meetingInfoQuery.isLoading || meetingCommentsQuery.isLoading)
     return (
-      <VStack gap="2rem" align="stretch" w="100%">
-        <Skeleton height="10rem" mt="4rem" />
+      <VStack gap="2rem" align="stretch" w="100%" mt="2rem">
+        <Skeleton height="3rem" />
+        <Skeleton height="10rem" />
         <Skeleton height="18rem" />
         <Skeleton height="35rem" />
       </VStack>
@@ -99,27 +100,23 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
 
   return (
     <Flex direction="column" justify="center">
-      {meetingInfoQuery.isSuccess && (
-        <MeetingInfo
-          meetingInfoData={meetingInfoQuery.data}
-          handleParticipateBtnClick={handleParticipateBtnClick}
-          handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
-        />
-      )}
+      <MeetingInfo
+        meetingInfoData={meetingInfoQuery.data}
+        handleParticipateBtnClick={handleParticipateBtnClick}
+        handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
+      />
       <CommentInputBox
         isPartInUser={isGroupMember}
         handleCreateCommentBtnClick={handleCreateCommentBtnClick}
       />
-      {meetingCommentsQuery.isSuccess && (
-        <CommentsList
-          isGroupMember={isGroupMember}
-          isPublic={isPublic}
-          isEmpty={isEmpty}
-          commentsListData={bookGroupComments}
-          handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
-          handleModifyCommentBtnClick={handleModifyCommentBtnClick}
-        />
-      )}
+      <CommentsList
+        isGroupMember={isGroupMember}
+        isPublic={isPublic}
+        isEmpty={isEmpty}
+        commentsListData={bookGroupComments}
+        handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
+        handleModifyCommentBtnClick={handleModifyCommentBtnClick}
+      />
     </Flex>
   );
 };
