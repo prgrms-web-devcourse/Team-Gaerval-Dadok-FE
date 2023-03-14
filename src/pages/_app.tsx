@@ -1,15 +1,15 @@
 import { RecoilRoot } from 'recoil';
 
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
+import { LineSeed } from '@/styles/font';
 import Layout from '@/ui/common/Layout';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorPage from './error';
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
+import { Global } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Global } from '@emotion/react';
-import { LineSeed } from '@/styles/font';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './error';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const queryClient = new QueryClient({

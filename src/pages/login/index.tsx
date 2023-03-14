@@ -1,9 +1,9 @@
+import { Highlight, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heading, Highlight, VStack } from '@chakra-ui/react';
 
-import Logo from '@/ui/common/Logo';
 import Button from '@/ui/common/Button';
+import Logo from '@/ui/common/Logo';
 
 const LoginPage = () => {
   const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
@@ -20,7 +20,7 @@ const LoginPage = () => {
     >
       <VStack w="100%" align="flex-start" spacing="3rem" px="2rem">
         <Logo width={65} />
-        <Heading fontSize="2xl" fontWeight="medium">
+        <Text fontSize="2xl" fontWeight="normal">
           책에 대한 모든 이야기
           <br />
           <Highlight
@@ -29,7 +29,7 @@ const LoginPage = () => {
           >
             다독다독에서 함께 해요
           </Highlight>
-        </Heading>
+        </Text>
       </VStack>
       <Link href={kakaoUrl} style={{ width: '100%' }}>
         <Button scheme="kakao" fullWidth>
