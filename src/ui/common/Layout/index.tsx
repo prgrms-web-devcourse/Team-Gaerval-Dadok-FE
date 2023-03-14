@@ -5,14 +5,14 @@ import { useRouter } from 'next/router';
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 
-const paths = ['/bookarchive', '/book/search', '/meeting', '/profile/me'];
+const paths = ['/bookarchive', '/book', '/meeting', '/profile'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter();
   const isShowNavigation = pathname === null || !paths.includes(pathname);
 
   return (
-    <Box h="100vh">
+    <Box h={!isShowNavigation ? '100%' : '100vh'}>
       <Box
         as={motion.div}
         key={pathname}
