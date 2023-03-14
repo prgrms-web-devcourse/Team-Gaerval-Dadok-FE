@@ -19,6 +19,7 @@ export interface APIRecommendedBook extends APIDefaultBook, APISubBook {
 
 export interface APIBook extends APIDefaultBook, APISubBook {
   contents: string;
+  bookshelfItemId: string;
 }
 
 export interface APIBookInfo extends APIDefaultBook, APISubBook {
