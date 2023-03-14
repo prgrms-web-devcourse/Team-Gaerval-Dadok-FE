@@ -1,3 +1,5 @@
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: config => {
@@ -6,6 +8,14 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     });
     return config;
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/service-api/:url*',
+        destination: `${baseURL}/api/:url*`,
+      },
+    ];
   },
   async redirects() {
     return [

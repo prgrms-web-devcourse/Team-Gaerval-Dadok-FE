@@ -4,9 +4,9 @@ import { publicApi } from '../core/axios';
 
 const userAPI = {
   getUserProfile: ({ userId }: { userId: APIUser['userId'] }) =>
-    publicApi.get<APIUser>(`/api/users/${userId}/profile`),
+    publicApi.get<APIUser>(`/service-api/users/${userId}/profile`),
 
-  getMyProfile: () => publicApi.get<APIUser>('/api/users/me'),
+  getMyProfile: () => publicApi.get<APIUser>('/service-api/users/me'),
 
   updateMyProfile: ({
     nickname,
@@ -14,7 +14,7 @@ const userAPI = {
   }: {
     nickname: APIUser['nickname'];
     job: { jobGroup: APIJobGroup['name']; jobName: APIJob['name'] };
-  }) => publicApi.put<APIUser>('/api/users/profile', { nickname, job }),
+  }) => publicApi.put<APIUser>('/service-api/users/profile', { nickname, job }),
 };
 
 export default userAPI;
