@@ -1,6 +1,6 @@
 import { APIMeetingGroup } from '@/types/meeting';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import MeetingListItem from '../Meeting/MeetingList/MeetingListItem';
+import GroupListItem from '../Group/GroupList/GroupListItem';
 
 interface ProfileMeetingProps {
   bookGroups: APIMeetingGroup[];
@@ -16,7 +16,7 @@ const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {
         <Flex>
           {bookGroups.map(meeting => (
             <Box key={meeting.bookGroupId} w="95%" flex="1 0 auto" px="0.3rem">
-              <MeetingListItem {...meeting} />
+              <GroupListItem {...meeting} />
             </Box>
           ))}
         </Flex>

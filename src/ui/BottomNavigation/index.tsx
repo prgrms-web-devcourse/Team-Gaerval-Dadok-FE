@@ -24,7 +24,7 @@ const BottomNavigation = () => {
     {
       iconName: 'hashtag',
       label: '독서 모임',
-      href: '/meeting',
+      href: '/group',
     },
     {
       iconName: 'user',

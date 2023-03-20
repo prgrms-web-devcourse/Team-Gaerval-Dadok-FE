@@ -1,17 +1,17 @@
-import { AddMeetingForm } from '@/ui/MeetingForm';
+import AddGroupForm from '@/ui/Group/AddGroupForm';
 import { VStack } from '@chakra-ui/react';
 import TopNavigation from '@/ui/common/TopNavigation';
 import AuthRequired from '@/ui/AuthRequired';
 
-const CreateMeetingPage = () => {
+const GroupCreatePage = () => {
   return (
     <AuthRequired>
       <VStack justify="center" align="center">
         <TopNavigation pageTitle="모임 생성" />
-        <AddMeetingForm />
+        <AddGroupForm />
       </VStack>
     </AuthRequired>
   );
 };
 
-export default CreateMeetingPage;
+export default GroupCreatePage;

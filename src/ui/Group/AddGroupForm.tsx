@@ -19,13 +19,13 @@ import MeetingAPI from '@/apis/meeting';
 import { useRouter } from 'next/router';
 import { APICreateMeetingReqeust } from '@/types/meeting';
 import {
-  MAX_MEMBER_COUNT_VAlUE,
+  MAX_MEMBER_COUNT_VALUE,
   MAX_MEMBER_DEFAULT_VALUE,
   IS_PUBLICK_DEFAULT_VALUE,
   IS_PUBLICK_VALUE,
   HAS_JOIN_PASSWORD_VALUE,
   HAS_JOIN_PASSWORD_DEFAULT_VALUE,
-} from './radioValues';
+} from '../../constants/groupRadioValues';
 
 interface FormValues
   extends Omit<
@@ -37,7 +37,7 @@ interface FormValues
   isPublic: 'true' | 'false' | boolean;
 }
 
-const AddMeetingForm = () => {
+const AddGroupForm = () => {
   const theme = useTheme();
   const router = useRouter();
   const [selectedBook, setSeletedBook] = useState<APIBook>();
@@ -89,7 +89,7 @@ const AddMeetingForm = () => {
 
     try {
       await MeetingAPI.createMeeting({ meeting: request });
-      router.replace('/meeting');
+      router.replace('/group');
     } catch (error) {
       console.error(error);
     }
@@ -136,7 +136,7 @@ const AddMeetingForm = () => {
             <FormRadio
               label="참여 인원"
               name="maxMemberCount"
-              radioValues={MAX_MEMBER_COUNT_VAlUE}
+              radioValues={MAX_MEMBER_COUNT_VALUE}
               defaultValue={MAX_MEMBER_DEFAULT_VALUE}
             />
             <FormRadio
@@ -213,4 +213,4 @@ const AddMeetingForm = () => {
   );
 };
 
-export default AddMeetingForm;
+export default AddGroupForm;

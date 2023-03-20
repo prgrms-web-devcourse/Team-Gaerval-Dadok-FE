@@ -2,24 +2,24 @@ import MeetingAPI from '@/apis/meeting';
 import { APIMeetingDetail } from '@/types/meetingDetail';
 import AuthRequired from '@/ui/AuthRequired';
 import TopNavigation from '@/ui/common/TopNavigation';
-import { EditMeetingForm } from '@/ui/MeetingForm';
+import EditGroupForm from '@/ui/Group/EditGroupForm';
 import { VStack } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 
-const MeetingEditPage = ({ meetingId }: { meetingId: number }) => {
+const GroupEditPage = ({ groupId }: { groupId: number }) => {
   const [meeting, setMeeting] = useState<APIMeetingDetail>();
 
   const getMeeting = useCallback(async () => {
     try {
       const { data } = await MeetingAPI.getMeetingDetailInfo({
-        bookGroupId: meetingId,
+        bookGroupId: groupId,
       });
       setMeeting(data);
     } catch (error) {
       console.error(error);
     }
-  }, [meetingId]);
+  }, [groupId]);
 
   useEffect(() => {
     getMeeting();
@@ -29,20 +29,20 @@ const MeetingEditPage = ({ meetingId }: { meetingId: number }) => {
     <AuthRequired>
       <VStack justify="center" align="center">
         <TopNavigation pageTitle="모임 수정" />
-        {meeting && <EditMeetingForm meeting={meeting} />}
+        {meeting && <EditGroupForm meeting={meeting} />}
       </VStack>
     </AuthRequired>
   );
 };
 
-export default MeetingEditPage;
+export default GroupEditPage;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { meetingId } = context.query;
+  const { groupId } = context.query;
 
   return {
     props: {
-      meetingId: Number(meetingId),
+      groupId: Number(groupId),
     },
   };
 };

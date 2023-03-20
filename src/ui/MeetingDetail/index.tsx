@@ -92,7 +92,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
       console.error(error);
     }
 
-    router.push('/meeting');
+    router.push('/group');
   };
 
   const { isGroupMember, isPublic } = meetingInfoQuery.data;

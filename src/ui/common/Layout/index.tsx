@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 
-const paths = ['/bookarchive', '/book/search', '/meeting', '/profile/me'];
+const paths = ['/bookarchive', '/book/search', '/group', '/profile/me'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter();

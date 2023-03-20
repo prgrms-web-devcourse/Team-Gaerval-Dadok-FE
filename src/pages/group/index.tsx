@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { VStack, Skeleton, Box } from '@chakra-ui/react';
-
 import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQuery';
-import MeetingListHeader from './MeetingListHeader';
-import MeetingSearch from './MeetingSearch';
-import MeetingList from './MeetingList';
+import GroupHeader from '@/ui/Group/GroupHeader';
+import GroupList from '@/ui/Group/GroupList';
+import GroupSearch from '@/ui/Group/GroupSearch';
+
+import { Box, Skeleton, VStack } from '@chakra-ui/react';
+import { useState } from 'react';
 
 interface SearchValue {
   [key: string]: string;
@@ -12,23 +12,13 @@ interface SearchValue {
   select: string;
 }
 
-const MeetingPageContainer = () => {
+const GroupPage = () => {
   const [searchValue, setSearchValue] = useState<SearchValue>({
     input: '',
     select: '모임',
   });
 
   const { isSuccess, data, isLoading } = useEntireMeetingListQuery();
-
-  if (isLoading)
-    return (
-      <VStack gap="0.5rem" align="stretch" w="100%">
-        <Skeleton height="9rem" />
-        <Skeleton height="28rem" />
-        <Skeleton height="28rem" />
-        <Skeleton height="28rem" />
-      </VStack>
-    );
 
   const handleSumbit = () => {
     const { input } = searchValue;
@@ -46,17 +36,29 @@ const MeetingPageContainer = () => {
     setSearchValue(tempSearchValue);
   };
 
+  if (isLoading)
+    return (
+      <VStack gap="0.5rem" align="stretch" w="100%">
+        <Skeleton height="9rem" />
+        <Skeleton height="28rem" />
+        <Skeleton height="28rem" />
+        <Skeleton height="28rem" />
+      </VStack>
+    );
+
   return (
-    <Box w="100%">
-      <MeetingListHeader />
-      <MeetingSearch
-        searchValue={searchValue}
-        handleChange={handleChange}
-        handleSumbit={handleSumbit}
-      />
-      {isSuccess && <MeetingList bookGroups={data.bookGroups} />}
-    </Box>
+    <VStack align="center">
+      <Box w="100%">
+        <GroupHeader />
+        <GroupSearch
+          searchValue={searchValue}
+          handleChange={handleChange}
+          handleSumbit={handleSumbit}
+        />
+        {isSuccess && <GroupList bookGroups={data.bookGroups} />}
+      </Box>
+    </VStack>
   );
 };
 
-export default MeetingPageContainer;
+export default GroupPage;

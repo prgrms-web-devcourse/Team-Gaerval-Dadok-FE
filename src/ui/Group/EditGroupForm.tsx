@@ -6,11 +6,11 @@ import { APIMeetingDetail } from '@/types/meetingDetail';
 import MeetingAPI from '@/apis/meeting';
 import { useRouter } from 'next/router';
 
-interface EditMeetingFormProps {
+interface EditGroupFormProps {
   meeting: APIMeetingDetail;
 }
 
-const EditMeetingForm = ({ meeting }: EditMeetingFormProps) => {
+const EditGroupForm = ({ meeting }: EditGroupFormProps) => {
   const theme = useTheme();
   const router = useRouter();
   const methods = useForm({
@@ -36,7 +36,7 @@ const EditMeetingForm = ({ meeting }: EditMeetingFormProps) => {
         meeting: { title, introduce, endDate, maxMemberCount },
       });
 
-      router.push(`/meeting/${meeting.bookGroupId}`);
+      router.push(`/group/${meeting.bookGroupId}`);
     } catch (error) {
       console.error(error);
     }
@@ -80,4 +80,4 @@ const EditMeetingForm = ({ meeting }: EditMeetingFormProps) => {
   );
 };
 
-export default EditMeetingForm;
+export default EditGroupForm;

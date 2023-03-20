@@ -124,7 +124,7 @@ const MeetingInfo = ({
             />
             <MenuList fontSize="md">
               <MenuItem>
-                <Link href={`/meeting/${bookGroupId}/edit`}>수정</Link>
+                <Link href={`/group/${bookGroupId}/edit`}>수정</Link>
               </MenuItem>
               <MenuItem color="red.300" onClick={onDeleteModalOpen}>
                 삭제
