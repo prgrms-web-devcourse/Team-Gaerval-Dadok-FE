@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
 
-import MeetingDetail from '@/ui/Group/GroupDetail';
+import GroupDetail from '@/ui/Group/GroupDetail';
 import { GetServerSideProps } from 'next';
 
 const GroupDetailPage = ({ groupId }: { groupId: number }) => {
   return (
     <Flex direction="column" justify="center">
-      <MeetingDetail bookGroupId={Number(groupId)} />
+      <GroupDetail bookGroupId={Number(groupId)} />
     </Flex>
   );
 };

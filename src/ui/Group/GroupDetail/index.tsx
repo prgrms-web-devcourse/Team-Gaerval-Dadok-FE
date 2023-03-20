@@ -9,11 +9,11 @@ import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
 import { useToast } from '@/hooks/toast';
 
-interface MeetingDetailProps {
+interface GroupDetailProps {
   bookGroupId: number;
 }
 
-const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
+const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
@@ -121,4 +121,4 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   );
 };
 
-export default MeetingDetail;
+export default GroupDetail;
