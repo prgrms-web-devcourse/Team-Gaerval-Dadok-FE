@@ -3,22 +3,22 @@ import { Flex } from '@chakra-ui/react';
 import MeetingDetail from '@/ui/MeetingDetail';
 import { GetServerSideProps } from 'next';
 
-const MeetingDetailPage = ({ meetingId }: { meetingId: number }) => {
+const GroupDetailPage = ({ groupId }: { groupId: number }) => {
   return (
     <Flex direction="column" justify="center">
-      <MeetingDetail bookGroupId={Number(meetingId)} />
+      <MeetingDetail bookGroupId={Number(groupId)} />
     </Flex>
   );
 };
 
-export default MeetingDetailPage;
+export default GroupDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { meetingId } = context.query;
+  const { groupId } = context.query;
 
   return {
     props: {
-      meetingId: Number(meetingId),
+      groupId: Number(groupId),
     },
   };
 };

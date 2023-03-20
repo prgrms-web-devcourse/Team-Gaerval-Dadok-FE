@@ -18,7 +18,7 @@ interface MeetingSearchProps {
   handleSumbit: () => void;
 }
 
-const MeetingSearch = ({
+const GroupSearch = ({
   searchValue,
   handleChange,
   handleSumbit,
@@ -80,4 +80,4 @@ const MeetingSearch = ({
   );
 };
 
-export default MeetingSearch;
+export default GroupSearch;

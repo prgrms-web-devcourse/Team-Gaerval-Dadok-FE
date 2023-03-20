@@ -2,7 +2,7 @@ import { APIMeetingGroup } from '@/types/meeting';
 import { Avatar, Box, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
-const MeetingListItem = ({
+const GroupListItem = ({
   bookGroupId,
   title,
   isPublic,
@@ -18,7 +18,7 @@ const MeetingListItem = ({
 }: APIMeetingGroup) => {
   return (
     <Box>
-      <Link href={`/meeting/${bookGroupId}`}>
+      <Link href={`/group/${bookGroupId}`}>
         <Flex
           m="0.8rem 0"
           w="100%"
@@ -136,4 +136,4 @@ const MeetingListItem = ({
   );
 };
 
-export default MeetingListItem;
+export default GroupListItem;

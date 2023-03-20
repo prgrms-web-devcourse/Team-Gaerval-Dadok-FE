@@ -5,7 +5,7 @@ import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { useAuth } from '@/hooks/auth';
 import { MouseEvent } from 'react';
 
-const MeetingListHeader = () => {
+const GroupHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isAuthed } = useAuth();
 
@@ -27,7 +27,7 @@ const MeetingListHeader = () => {
           Group
         </Text>
         <Flex align="center">
-          <Link href="/meeting/create" onClick={onClick}>
+          <Link href="/group/create" onClick={onClick}>
             <Button
               fontSize="sm"
               borderRadius="0.6rem"
@@ -55,4 +55,4 @@ const MeetingListHeader = () => {
   );
 };
 
-export default MeetingListHeader;
+export default GroupHeader;

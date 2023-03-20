@@ -1,4 +1,4 @@
-export const MAX_MEMBER_COUNT_VAlUE = [
+export const MAX_MEMBER_COUNT_VALUE = [
   {
     value: 'null',
     text: '제한없음',
