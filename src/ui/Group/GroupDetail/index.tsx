@@ -1,9 +1,9 @@
 import { Flex, VStack, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
-import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
-import CommentsList from '@/ui/MeetingDetail/CommentsList';
+import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
+import CommentInputBox from './Comment/CommentInputBox';
+import CommentsList from './Comment/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
@@ -100,7 +100,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
 
   return (
     <Flex direction="column" justify="center">
-      <MeetingInfo
+      <GroupInfo
         meetingInfoData={meetingInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
         handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}

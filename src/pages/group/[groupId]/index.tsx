@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 
-import MeetingDetail from '@/ui/MeetingDetail';
+import MeetingDetail from '@/ui/Group/GroupDetail';
 import { GetServerSideProps } from 'next';
 
 const GroupDetailPage = ({ groupId }: { groupId: number }) => {
