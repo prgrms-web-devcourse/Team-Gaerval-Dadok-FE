@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
 import CommentInputBox from '../GroupComment/CommentInputBox';
-import CommentsList from '../GroupComment/CommentsList';
+import CommentsList from '../GroupComment';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
