@@ -1,8 +1,8 @@
 import { Avatar, Box, Flex, Highlight, Text } from '@chakra-ui/react';
 
 import { useAuth } from '@/hooks/auth';
-import CommentDeleteModal from '../CommentDeleteModal';
-import CommentModifyModal from '../CommentModifyModal';
+import CommentDeleteModal from './CommentDeleteModal';
+import CommentModifyModal from './CommentModifyModal';
 import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 import Link from 'next/link';
 import { initialBookGroupComments } from '@/constants/initialBookGroupComments';

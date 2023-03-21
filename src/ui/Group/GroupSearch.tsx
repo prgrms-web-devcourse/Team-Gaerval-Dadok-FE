@@ -12,7 +12,7 @@ interface SearchValue {
   input: string;
   select: string;
 }
-interface MeetingSearchProps {
+interface GroupSearchProps {
   searchValue: SearchValue;
   handleChange: (name: string, value: string) => void;
   handleSumbit: () => void;
@@ -22,7 +22,7 @@ const GroupSearch = ({
   searchValue,
   handleChange,
   handleSumbit,
-}: MeetingSearchProps) => {
+}: GroupSearchProps) => {
   const { input, select } = searchValue;
 
   const handleSubmit = (event: React.FormEvent<HTMLDivElement>) => {

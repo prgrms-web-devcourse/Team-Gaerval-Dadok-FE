@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import Button from '../common/Button';
 import ProfileBookshelf from './ProfileBookshelf';
 import ProfileInfo from './ProfileInfo';
-import ProfileMeeting from './ProfileMeeting';
+import ProfileGroup from './ProfileGroup';
 
 const MyProfile = () => {
   const userProfileQuery = useMyProfileQuery();
@@ -63,7 +63,7 @@ const MyProfile = () => {
         <ProfileBookshelf {...bookshelfQuery.data} />
       )}
       {meetingListQuery.isSuccess && (
-        <ProfileMeeting {...meetingListQuery.data} />
+        <ProfileGroup {...meetingListQuery.data} />
       )}
     </VStack>
   );

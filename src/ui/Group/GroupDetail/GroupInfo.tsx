@@ -29,7 +29,7 @@ import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
 
-interface MeetingInfoProps {
+interface GroupInfoProps {
   meetingInfoData: APIMeetingDetail;
   handleParticipateBtnClick: (
     password?: string,
@@ -39,11 +39,11 @@ interface MeetingInfoProps {
   handleDeleteMeetingBtnClick: () => void;
 }
 
-const MeetingInfo = ({
+const GroupInfo = ({
   meetingInfoData,
   handleParticipateBtnClick,
   handleDeleteMeetingBtnClick,
-}: MeetingInfoProps) => {
+}: GroupInfoProps) => {
   const [password, setPassword] = useState('');
   const { isAuthed } = useAuth();
   const cancelRef = useRef(null);
@@ -281,7 +281,7 @@ const MeetingInfo = ({
   );
 };
 
-export default MeetingInfo;
+export default GroupInfo;
 
 const DeleteComfirmDialog = ({
   cancelRef,

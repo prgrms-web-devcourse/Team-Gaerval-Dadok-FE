@@ -1,19 +1,19 @@
 import { Flex, VStack, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import MeetingInfo from '@/ui/MeetingDetail/MeetingInfo';
-import CommentInputBox from '@/ui/MeetingDetail/CommentInputBox';
-import CommentsList from '@/ui/MeetingDetail/CommentsList';
+import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
+import CommentInputBox from '../GroupComment/CommentInputBox';
+import CommentsList from '../GroupComment';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
 import { useToast } from '@/hooks/toast';
 
-interface MeetingDetailProps {
+interface GroupDetailProps {
   bookGroupId: number;
 }
 
-const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
+const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
   const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
@@ -100,7 +100,7 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
 
   return (
     <Flex direction="column" justify="center">
-      <MeetingInfo
+      <GroupInfo
         meetingInfoData={meetingInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
         handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
@@ -121,4 +121,4 @@ const MeetingDetail = ({ bookGroupId }: MeetingDetailProps) => {
   );
 };
 
-export default MeetingDetail;
+export default GroupDetail;
