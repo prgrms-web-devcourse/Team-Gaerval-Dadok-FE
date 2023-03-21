@@ -2,8 +2,8 @@ import { Flex, VStack, Skeleton } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
-import CommentInputBox from './Comment/CommentInputBox';
-import CommentsList from './Comment/CommentsList';
+import CommentInputBox from '../GroupComment/CommentInputBox';
+import CommentsList from '../GroupComment/CommentsList';
 import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
 import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
 import MeetingAPI from '@/apis/meeting';
