@@ -16,7 +16,12 @@ const TopNavigation = ({ pageTitle }: PageTitleType) => {
       justifyContent="space-between"
       mb="1rem"
     >
-      <IconButton name="back" size="2rem" onClick={() => router.back()} />
+      <IconButton
+        name="back"
+        size="2rem"
+        onClick={() => router.back()}
+        cursor="pointer"
+      />
       <Text fontSize="lg" fontWeight="700">
         {pageTitle}
       </Text>
