@@ -1,11 +1,11 @@
-import { APIDefaultBook } from '@/types/book';
+import { APIBook } from '@/types/book';
 import { APIJobGroup } from '@/types/job';
 import { Flex, Highlight, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 
 interface RecommendedBooksTypes {
   jobGroup: APIJobGroup['koreanName'];
-  books: APIDefaultBook[];
+  books: APIBook[];
 }
 
 const RecommendedBooks = ({ jobGroup, books }: RecommendedBooksTypes) => {

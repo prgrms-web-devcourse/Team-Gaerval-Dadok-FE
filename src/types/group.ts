@@ -1,4 +1,4 @@
-import { APIDefaultBook } from './book';
+import { APIBook } from './book';
 import { APIUser } from './user';
 import { Pagination } from './common';
 
@@ -9,9 +9,9 @@ type APIGroupOwner = {
 };
 
 type APIGroupBook = {
-  id: APIDefaultBook['bookId'];
-  title: APIDefaultBook['title'];
-  imageUrl: APIDefaultBook['imageUrl'];
+  id: APIBook['bookId'];
+  title: APIBook['title'];
+  imageUrl: APIBook['imageUrl'];
 };
 
 export interface APIGroup {
@@ -41,7 +41,7 @@ export interface APIGroupPagination extends Pagination {
 }
 
 export interface APICreateGroup
-  extends Pick<APIDefaultBook, 'bookId'>,
+  extends Pick<APIBook, 'bookId'>,
     Pick<
       APIGroupDetail,
       | 'title'

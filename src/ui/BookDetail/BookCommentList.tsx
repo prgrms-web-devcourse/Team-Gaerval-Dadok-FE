@@ -10,7 +10,7 @@ import BookComment from './BookComment';
 import bookAPI from '@/apis/book';
 import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
 
-import type { APIBookComment } from '@/types/book';
+import type { APIBookCommentInfo } from '@/types/book';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '../LoginBottomSheet';
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 type CommentType = 'me' | 'user';
-type CommentRecordType = Record<CommentType, APIBookComment[]>;
+type CommentRecordType = Record<CommentType, APIBookCommentInfo[]>;
 
 const BookCommentList = ({ bookId }: Props) => {
   const { isAuthed } = useAuth();

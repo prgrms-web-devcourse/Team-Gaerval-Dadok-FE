@@ -1,14 +1,14 @@
 import { useAuth } from '@/hooks/auth';
-import { APIDefaultBook } from '@/types/book';
+import { APIBook } from '@/types/book';
 import InteractiveBook from '@/ui//InteractiveBook';
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 
 const BOOKSHELF_BOOK_LIMIT = 4;
 
-const InteractiveBookShelf = ({ books }: { books: APIDefaultBook[] }) => {
+const InteractiveBookShelf = ({ books }: { books: APIBook[] }) => {
   const { isAuthed } = useAuth();
-  const [slicedBooks, setSlicedBooks] = useState<APIDefaultBook[][]>([[]]);
+  const [slicedBooks, setSlicedBooks] = useState<APIBook[][]>([[]]);
 
   const sliceBooks = useCallback(() => {
     const response = [];

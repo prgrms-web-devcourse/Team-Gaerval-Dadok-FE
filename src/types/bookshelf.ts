@@ -1,5 +1,9 @@
-import { APIBook, APIDefaultBook } from './book';
+import { APIBook } from './book';
 import { APIJobGroup, APIProfileJob } from './job';
+
+interface APIBookshelfBook extends APIBook {
+  bookshelfItemId: number;
+}
 
 export interface APIDefaultBookshelf {
   bookshelfId: number;
@@ -15,11 +19,11 @@ export interface APIBookshelfCursorId {
 }
 
 export interface APIProfileBookshelf extends APIDefaultBookshelf {
-  books: APIDefaultBook[];
+  books: APIBook[];
 }
 
 export interface APIBookshelfBookList extends APIBookshelfCursorId {
-  books: APIBook[];
+  books: APIBookshelfBook[];
 }
 
 export interface APIBookshelfInfo extends APIDefaultBookshelf {

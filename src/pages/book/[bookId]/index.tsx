@@ -2,12 +2,12 @@ import { Box, Skeleton, SkeletonText, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
-import { APIDefaultBook } from '@/types/book';
+import { APIBook } from '@/types/book';
 import { BookCommentList, BookInfo } from '@/ui/BookDetail';
 import TopNavigation from '@/ui/common/TopNavigation';
 import { GetServerSideProps } from 'next';
 
-const BookDetailPage = ({ bookId }: { bookId: APIDefaultBook['bookId'] }) => {
+const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const router = useRouter();
 
   const bookQueryInfo = useBookInfoQuery(bookId, {

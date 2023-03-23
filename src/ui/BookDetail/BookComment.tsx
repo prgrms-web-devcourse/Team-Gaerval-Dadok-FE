@@ -22,12 +22,12 @@ import {
 import MoreIcon from '@public/icons/more.svg';
 import CommentDrawer from './CommentDrawer';
 
-import type { APIBookComment } from '@/types/book';
+import type { APIBookCommentInfo } from '@/types/book';
 import Link from 'next/link';
 
 interface Props
   extends Pick<
-    APIBookComment,
+    APIBookCommentInfo,
     | 'commentId'
     | 'userId'
     | 'nickname'

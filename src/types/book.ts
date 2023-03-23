@@ -1,67 +1,66 @@
-export interface APIDefaultBook {
+import { Pagination } from './common';
+import { APIJobGroup } from './job';
+import { APIUser } from './user';
+
+export interface APIBook {
   bookId: number;
   title: string;
-  imageUrl: string;
-}
-
-export interface APISubBook {
   author: string;
   isbn: string;
+  contents: string;
   url: string;
+  imageUrl: string;
   publisher: string;
 }
 
-export interface APIRecommendedBook extends APIDefaultBook, APISubBook {
-  jobGroup: string;
-  jobName: string;
-  count: number;
+export interface APIBookSearched
+  extends Pick<
+    APIBook,
+    'title' | 'author' | 'isbn' | 'contents' | 'url' | 'imageUrl' | 'publisher'
+  > {
+  apiProvider: string;
 }
 
-export interface APIBook extends APIDefaultBook, APISubBook {
-  contents: string;
-  bookshelfItemId: string;
-}
-
-export interface APIBookInfo extends APIDefaultBook, APISubBook {
-  contents: string;
+export interface APIBookDetail extends APIBook {
   apiProvider: string;
   imageKey: string;
 }
 
-export interface APIBookUserInfo extends Pick<APIDefaultBook, 'bookId'> {
+type APIBookDetailUser = {
+  userId: APIUser['userId'];
+  profileImage: APIUser['profileImage'];
+};
+
+export interface APIBookDetailUserList {
+  bookId: APIBook['bookId'];
   totalCount: number;
   isInMyBookshelf: boolean;
-  users: { userId: number; profileImage: string }[];
+  users: APIBookDetailUser[];
 }
 
-export interface APIDefaultComment {
+export interface APIBookRecommended
+  extends Pick<APIBook, 'bookId' | 'title' | 'author' | 'isbn' | 'url'> {
+  jobGroup: APIJobGroup['koreanName'];
+  count: number;
+}
+
+export type APIBookComment = {
   commentId: number;
-}
-
-export interface APICreateBookCommentRequest {
   comment: string;
-}
+};
 
-export interface APIPatchBookCommentRequest extends APIDefaultComment {
-  comment: string;
-}
-
-export interface APIBookComment extends APIDefaultComment {
-  contents: string;
-  bookId: number;
-  userId: number;
-  userProfileImage: string;
+export type APIBookCommentInfo = {
+  commentId: APIBookComment['commentId'];
+  contents: APIBookComment['comment'];
+  bookId: APIBook['bookId'];
+  userId: APIUser['userId'];
+  userProfileImage: APIUser['profileImage'];
   createdAt: string;
   modifiedAt: string;
-  nickname: string;
+  nickname: APIUser['nickname'];
   writtenByCurrentUser: boolean;
-}
+};
 
-export interface APIBookCommentList {
-  isFirst: boolean;
-  isLast: boolean;
-  hasNext: boolean;
-  count: number;
-  isEmpty: boolean;
-  bookComments: APIBookComment[];
+export interface APIBookCommentList extends Pagination {
+  bookComments: APIBookCommentInfo[];
 }
