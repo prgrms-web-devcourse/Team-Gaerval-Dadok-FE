@@ -1,6 +1,6 @@
 import { APIDefaultBook } from './book';
 import { APIUser } from './user';
-import { DefaultPagination } from './common';
+import { Pagination } from './common';
 
 type APIGroupOwner = {
   id: APIUser['userId'];
@@ -36,7 +36,7 @@ export interface APIGroupDetail extends APIGroup {
   isGroupMember: boolean;
 }
 
-export interface APIGroupPagination extends DefaultPagination {
+export interface APIGroupPagination extends Pagination {
   bookGroups: APIGroup[];
 }
 
@@ -69,6 +69,6 @@ export interface APIGroupComment {
   writtenByCurrentUser: boolean;
 }
 
-export interface APIGroupCommentPagination extends DefaultPagination {
+export interface APIGroupCommentPagination extends Pagination {
   bookGroupComments: APIGroupComment[];
 }

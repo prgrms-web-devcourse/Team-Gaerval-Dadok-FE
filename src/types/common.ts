@@ -1,4 +1,4 @@
-export interface DefaultPagination {
+export interface Pagination {
   isFirst: boolean;
   isLast: boolean;
   hasNext: boolean;
