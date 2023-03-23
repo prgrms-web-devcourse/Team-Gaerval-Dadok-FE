@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
 import MeetingAPI from '@/apis/meeting';
 import { useRouter } from 'next/router';
-import { APICreateMeetingReqeust } from '@/types/meeting';
+import { APICreateGroup } from '@/types/group';
 import {
   MAX_MEMBER_COUNT_VALUE,
   MAX_MEMBER_DEFAULT_VALUE,
@@ -29,7 +29,7 @@ import {
 
 interface FormValues
   extends Omit<
-    APICreateMeetingReqeust,
+    APICreateGroup,
     'maxMemberCount' | 'hasJoinPasswd' | 'isPublic'
   > {
   maxMemberCount: number | string | null;

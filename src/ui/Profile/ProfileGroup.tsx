@@ -1,9 +1,9 @@
-import { APIMeetingGroup } from '@/types/meeting';
+import { APIGroup } from '@/types/group';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import GroupListItem from '../Group/GroupList/GroupListItem';
 
 interface ProfileMeetingProps {
-  bookGroups: APIMeetingGroup[];
+  bookGroups: APIGroup[];
 }
 
 const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {

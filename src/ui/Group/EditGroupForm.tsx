@@ -2,12 +2,12 @@ import { Box, Flex, Image, useTheme } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import FormInput from '@/ui/FormInput';
-import { APIMeetingDetail } from '@/types/meetingDetail';
+import { APIGroupDetail } from '@/types/group';
 import MeetingAPI from '@/apis/meeting';
 import { useRouter } from 'next/router';
 
 interface EditGroupFormProps {
-  meeting: APIMeetingDetail;
+  meeting: APIGroupDetail;
 }
 
 const EditGroupForm = ({ meeting }: EditGroupFormProps) => {

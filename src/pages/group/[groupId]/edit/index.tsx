@@ -1,5 +1,5 @@
 import MeetingAPI from '@/apis/meeting';
-import { APIMeetingDetail } from '@/types/meetingDetail';
+import { APIGroupDetail } from '@/types/group';
 import AuthRequired from '@/ui/AuthRequired';
 import TopNavigation from '@/ui/common/TopNavigation';
 import EditGroupForm from '@/ui/Group/EditGroupForm';
@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 
 const GroupEditPage = ({ groupId }: { groupId: number }) => {
-  const [meeting, setMeeting] = useState<APIMeetingDetail>();
+  const [meeting, setMeeting] = useState<APIGroupDetail>();
 
   const getMeeting = useCallback(async () => {
     try {
