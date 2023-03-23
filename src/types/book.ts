@@ -61,6 +61,6 @@ export type APIBookCommentInfo = {
   writtenByCurrentUser: boolean;
 };
 
-export interface APIBookCommentList extends Pagination {
+export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookCommentInfo[];
 }
