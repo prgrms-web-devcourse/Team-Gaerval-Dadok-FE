@@ -2,7 +2,7 @@ import type {
   APIBook,
   APIBookComment,
   APIBookCommentInfo,
-  APIBookCommentList,
+  APIBookCommentPagination,
   APIBookDetail,
   APIBookDetailUserList,
 } from '@/types/book';
@@ -34,12 +34,15 @@ const bookAPI = {
     ),
 
   getComments: (bookId: APIBook['bookId']) =>
-    publicApi.get<APIBookCommentList>(`/service-api/books/${bookId}/comments`, {
-      params: {
-        pageSize: 10,
-        sortDirection: 'DESC',
-      },
-    }),
+    publicApi.get<APIBookCommentPagination>(
+      `/service-api/books/${bookId}/comments`,
+      {
+        params: {
+          pageSize: 10,
+          sortDirection: 'DESC',
+        },
+      }
+    ),
 
   patchComment: ({
     bookId,
