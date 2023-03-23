@@ -14,7 +14,7 @@ type APIGroupBook = {
   imageUrl: APIDefaultBook['imageUrl'];
 };
 
-interface APIDefaultGroup {
+export interface APIGroup {
   title: string;
   introduce: string;
   startDate: string;
@@ -22,9 +22,6 @@ interface APIDefaultGroup {
   maxMemberCount: number | null;
   hasJoinPasswd: boolean;
   isPublic: boolean;
-}
-
-export interface APIGroup extends APIDefaultGroup {
   bookGroupId: number;
   memberCount: number;
   commentCount: number;
@@ -57,4 +54,21 @@ export interface APICreateGroup
       | 'isPublic'
     > {
   joinPasswd: string;
+}
+
+export interface APIGroupComment {
+  commentId: number;
+  contents: string;
+  bookGroupId: APIGroup['bookGroupId'];
+  parentCommentId: number;
+  userId: APIUser['userId'];
+  userProfileImage: APIUser['profileImage'];
+  createdAt: string;
+  modifiedAt: string;
+  nickname: APIUser['nickname'];
+  writtenByCurrentUser: boolean;
+}
+
+export interface APIGroupCommentPagination extends DefaultPagination {
+  bookGroupComments: APIGroupComment[];
 }

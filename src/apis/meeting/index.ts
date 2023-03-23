@@ -3,10 +3,10 @@ import {
   APIGroupPagination,
   APIGroup,
   APIGroupDetail,
+  APIGroupComment,
+  APIGroupCommentPagination,
 } from '@/types/group';
-import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
 import { publicApi } from '../core/axios';
-import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
@@ -32,7 +32,7 @@ const MeetingAPI = {
   }: {
     bookGroupId: APIGroup['bookGroupId'];
   }) =>
-    publicApi.get<APIMeetingDetailCommentsList>(
+    publicApi.get<APIGroupCommentPagination>(
       `/service-api/book-groups/${bookGroupId}/comments`,
       {
         params: {
@@ -89,7 +89,7 @@ const MeetingAPI = {
     commentId,
   }: {
     bookGroupId: APIGroup['bookGroupId'];
-    commentId: APIBookGroupComments['commentId'];
+    commentId: APIGroupComment['commentId'];
   }) =>
     publicApi.delete(
       `/service-api/book-groups/${bookGroupId}/comments/${commentId}`
