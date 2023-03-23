@@ -1,38 +1,38 @@
 import {
-  APICreateMeetingReqeust,
-  APIEntireMeetingList,
-  APIMeetingGroup,
-} from '@/types/meeting';
-import { APIMeetingDetailCommentsList } from '@/types/meetingDetailCommentsList';
-import { APIMeetingDetail } from '@/types/meetingDetail';
+  APICreateGroup,
+  APIGroupPagination,
+  APIGroup,
+  APIGroupDetail,
+  APIGroupComment,
+  APIGroupCommentPagination,
+} from '@/types/group';
 import { publicApi } from '../core/axios';
-import { APIBookGroupComments } from '@/types/meetingDetailCommentsList';
 
 const MeetingAPI = {
   getEntireMeetingList: () =>
-    publicApi.get<APIEntireMeetingList>(`/service-api/book-groups`, {
+    publicApi.get<APIGroupPagination>(`/service-api/book-groups`, {
       params: {
         pageSize: 100,
         sortDirection: 'DESC',
       },
     }),
 
-  createMeeting: ({ meeting }: { meeting: APICreateMeetingReqeust }) =>
+  createMeeting: ({ meeting }: { meeting: APICreateGroup }) =>
     publicApi.post('/service-api/book-groups', meeting),
 
   getMeetingDetailInfo: ({
     bookGroupId,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIGroup['bookGroupId'];
   }) =>
-    publicApi.get<APIMeetingDetail>(`/service-api/book-groups/${bookGroupId}`),
+    publicApi.get<APIGroupDetail>(`/service-api/book-groups/${bookGroupId}`),
 
   getMeetingDetailCommentsList: ({
     bookGroupId,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIGroup['bookGroupId'];
   }) =>
-    publicApi.get<APIMeetingDetailCommentsList>(
+    publicApi.get<APIGroupCommentPagination>(
       `/service-api/book-groups/${bookGroupId}/comments`,
       {
         params: {
@@ -45,7 +45,7 @@ const MeetingAPI = {
     bookGroupId,
     password = null,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIGroup['bookGroupId'];
     password?: string | null;
   }) =>
     publicApi.post(`/service-api/book-groups/${bookGroupId}/join`, {
@@ -55,7 +55,7 @@ const MeetingAPI = {
     bookGroupId,
     comment,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIGroup['bookGroupId'];
     comment: string;
   }) =>
     publicApi.post(`/service-api/book-groups/${bookGroupId}/comments`, {
@@ -63,7 +63,7 @@ const MeetingAPI = {
     }),
 
   getMyMeetingList: () =>
-    publicApi.get<APIEntireMeetingList>('/service-api/book-groups/me', {
+    publicApi.get<APIGroupPagination>('/service-api/book-groups/me', {
       params: {
         pageSize: 10,
         sortDirection: 'DESC',
@@ -74,25 +74,22 @@ const MeetingAPI = {
     bookGroupId,
     meeting,
   }: {
-    bookGroupId: APIMeetingDetail['bookGroupId'];
+    bookGroupId: APIGroupDetail['bookGroupId'];
     meeting: Pick<
-      APIMeetingDetail,
+      APIGroupDetail,
       'title' | 'introduce' | 'endDate' | 'maxMemberCount'
     >;
   }) => publicApi.patch(`/service-api/book-groups/${bookGroupId}`, meeting),
 
-  deleteMeeting: ({
-    bookGroupId,
-  }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
-  }) => publicApi.delete(`/service-api/book-groups/${bookGroupId}`),
+  deleteMeeting: ({ bookGroupId }: { bookGroupId: APIGroup['bookGroupId'] }) =>
+    publicApi.delete(`/service-api/book-groups/${bookGroupId}`),
 
   deleteComment: ({
     bookGroupId,
     commentId,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
-    commentId: APIBookGroupComments['commentId'];
+    bookGroupId: APIGroup['bookGroupId'];
+    commentId: APIGroupComment['commentId'];
   }) =>
     publicApi.delete(
       `/service-api/book-groups/${bookGroupId}/comments/${commentId}`
@@ -103,7 +100,7 @@ const MeetingAPI = {
     commentId,
     comment,
   }: {
-    bookGroupId: APIMeetingGroup['bookGroupId'];
+    bookGroupId: APIGroup['bookGroupId'];
     commentId: number;
     comment: string;
   }) =>

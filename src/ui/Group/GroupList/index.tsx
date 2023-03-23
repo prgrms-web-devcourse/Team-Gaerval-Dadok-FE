@@ -1,9 +1,9 @@
 import { Box, List } from '@chakra-ui/react';
 
-import { APIMeetingGroup } from '@/types/meeting';
+import { APIGroup } from '@/types/group';
 import GroupListItem from './GroupListItem';
 
-const GroupList = ({ bookGroups }: { bookGroups: APIMeetingGroup[] }) => {
+const GroupList = ({ bookGroups }: { bookGroups: APIGroup[] }) => {
   return (
     <List>
       <Box>

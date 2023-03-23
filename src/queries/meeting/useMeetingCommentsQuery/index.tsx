@@ -1,11 +1,11 @@
 import MeetingAPI from '@/apis/meeting';
-import { APIMeetingDetail } from '@/types/meetingDetail';
+import { APIGroupDetail } from '@/types/group';
 import { useQuery } from '@tanstack/react-query';
 
 const useMeetingCommentsQuery = ({
   bookGroupId,
 }: {
-  bookGroupId: APIMeetingDetail['bookGroupId'];
+  bookGroupId: APIGroupDetail['bookGroupId'];
 }) =>
   useQuery(['entireMeetingList', bookGroupId], () =>
     MeetingAPI.getMeetingDetailCommentsList({ bookGroupId }).then(

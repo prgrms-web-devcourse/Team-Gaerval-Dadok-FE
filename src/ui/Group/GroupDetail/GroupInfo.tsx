@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react';
 import MoreIcon from '@public/icons/more.svg';
 
-import { APIMeetingDetail } from '@/types/meetingDetail';
+import { APIGroupDetail } from '@/types/group';
 import BottomSheet from '@/ui/common/BottomSheet';
 import { useState, useRef, MutableRefObject } from 'react';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
 
 interface GroupInfoProps {
-  meetingInfoData: APIMeetingDetail;
+  meetingInfoData: APIGroupDetail;
   handleParticipateBtnClick: (
     password?: string,
     onSuccess?: () => void,

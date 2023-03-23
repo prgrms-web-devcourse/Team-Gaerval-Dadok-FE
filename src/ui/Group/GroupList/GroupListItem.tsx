@@ -1,4 +1,4 @@
-import { APIMeetingGroup } from '@/types/meeting';
+import { APIGroup } from '@/types/group';
 import { Avatar, Box, Flex, Image, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ const GroupListItem = ({
   memberCount,
   commentCount,
   book,
-}: APIMeetingGroup) => {
+}: APIGroup) => {
   return (
     <Box>
       <Link href={`/group/${bookGroupId}`}>
