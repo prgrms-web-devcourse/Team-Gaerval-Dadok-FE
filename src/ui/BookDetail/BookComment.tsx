@@ -138,7 +138,12 @@ const BookComment = ({
           </Menu>
         )}
       </Flex>
-      <Text fontSize="md" py="0.5rem">
+      <Text
+        fontSize="md"
+        py="0.5rem"
+        textOverflow="ellipsis"
+        wordBreak="break-all"
+      >
         {contents}
       </Text>
     </VStack>
