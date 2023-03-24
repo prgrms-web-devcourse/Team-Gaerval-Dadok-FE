@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, useDisclosure, Box } from '@chakra-ui/react';
+import { useDisclosure, Box } from '@chakra-ui/react';
 
 import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
 
@@ -34,15 +34,14 @@ const CommentModifyModal = ({
 
   return (
     <Box>
-      <Button
+      <Box
         onClick={onModifyModalOpen}
-        bgColor="white.900"
-        fontSize="sm"
-        fontWeight={500}
-        color="black.900"
+        w="10rem"
+        fontSize="md"
+        color="black.800"
       >
         수정
-      </Button>
+      </Box>
       <CommentDrawer
         title="글 수정하기"
         placeholder="글을 입력해 주세요!"

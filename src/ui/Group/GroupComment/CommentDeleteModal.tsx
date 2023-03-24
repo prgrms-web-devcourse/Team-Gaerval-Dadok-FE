@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Button,
   AlertDialog,
@@ -36,15 +37,14 @@ const CommentDeleteModal = ({
 
   return (
     <>
-      <Button
+      <Box
         onClick={onDeleteModalOpen}
-        bgColor="white.900"
-        fontSize="sm"
-        fontWeight={500}
-        color="main"
+        width="100%"
+        fontSize="md"
+        color="red.300"
       >
         삭제
-      </Button>
+      </Box>
       <DeleteComfirmDialog
         cancelRef={cancelRef}
         isOpen={isDeleteModalOpen}
@@ -79,7 +79,7 @@ const DeleteComfirmDialog = ({
       <AlertDialogOverlay>
         <AlertDialogContent alignSelf="center" p="1.5rem">
           <AlertDialogBody fontSize="md" py="1.5rem">
-            모임을 정말 삭제할까요?
+            댓글을 정말 삭제할까요?
           </AlertDialogBody>
           <AlertDialogFooter as={Flex} justify="center" gap="1rem">
             <Button
