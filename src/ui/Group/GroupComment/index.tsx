@@ -90,7 +90,7 @@ const CommentsList = ({
                     (!isAuthed && !isPublic) ||
                     (isAuthed && !isPublic && !isGroupMember)
                       ? '3px'
-                      : ''
+                      : 'undefined'
                   }
                   key={commentId}
                   mt="1rem"
