@@ -13,7 +13,7 @@ export interface APIBook {
   publisher: string;
 }
 
-export interface APIBookSearched
+export interface APISearchedBook
   extends Pick<
     APIBook,
     'title' | 'author' | 'isbn' | 'contents' | 'url' | 'imageUrl' | 'publisher'
@@ -26,32 +26,27 @@ export interface APIBookDetail extends APIBook {
   imageKey: string;
 }
 
-type APIBookDetailUser = {
+type APIBookmarkedUser = {
   userId: APIUser['userId'];
   profileImage: APIUser['profileImage'];
 };
 
-export interface APIBookDetailUserList {
+export interface APIBookmarkedUserList {
   bookId: APIBook['bookId'];
   totalCount: number;
   isInMyBookshelf: boolean;
-  users: APIBookDetailUser[];
+  users: APIBookmarkedUser[];
 }
 
-export interface APIBookRecommended
+export interface APIRecommendedBook
   extends Pick<APIBook, 'bookId' | 'title' | 'author' | 'isbn' | 'url'> {
   jobGroup: APIJobGroup['koreanName'];
   count: number;
 }
 
-export type APIBookComment = {
+export interface APIBookComment {
   commentId: number;
-  comment: string;
-};
-
-export type APIBookCommentInfo = {
-  commentId: APIBookComment['commentId'];
-  contents: APIBookComment['comment'];
+  contents: string;
   bookId: APIBook['bookId'];
   userId: APIUser['userId'];
   userProfileImage: APIUser['profileImage'];
@@ -59,8 +54,13 @@ export type APIBookCommentInfo = {
   modifiedAt: string;
   nickname: APIUser['nickname'];
   writtenByCurrentUser: boolean;
-};
+}
+
+export interface APIPatchBookCommentRequest
+  extends Pick<APIBookComment, 'commentId'> {
+  comment: string;
+}
 
 export interface APIBookCommentPagination extends Pagination {
-  bookComments: APIBookCommentInfo[];
+  bookComments: APIBookComment[];
 }

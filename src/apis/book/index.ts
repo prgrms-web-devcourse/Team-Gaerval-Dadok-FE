@@ -1,17 +1,18 @@
 import type {
   APIBook,
   APIBookComment,
-  APIBookCommentInfo,
   APIBookCommentPagination,
   APIBookDetail,
-  APIBookDetailUserList,
+  APIBookmarkedUserList,
+  APIPatchBookCommentRequest,
+  APISearchedBook,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
 
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
-    publicApi.get<{ searchBookResponseList: APIBook[] }>(
+    publicApi.get<{ searchBookResponseList: APISearchedBook[] }>(
       `/service-api/books?query=${query}`
     ),
 
@@ -19,16 +20,16 @@ const bookAPI = {
     publicApi.get<APIBookDetail>(`/service-api/books/${bookId}`),
 
   getBookUserInfo: (bookId: APIBook['bookId']) =>
-    publicApi.get<APIBookDetailUserList>(`/service-api/books/${bookId}/users`),
+    publicApi.get<APIBookmarkedUserList>(`/service-api/books/${bookId}/users`),
 
-  createBook: ({ book }: { book: APIBook }) =>
+  createBook: ({ book }: { book: APISearchedBook }) =>
     publicApi.post<Pick<APIBook, 'bookId'>>('/service-api/books', book),
 
   creaetComment: (
     bookId: APIBook['bookId'],
-    { comment }: { comment: APIBookComment['comment'] }
+    { comment }: { comment: APIPatchBookCommentRequest['comment'] }
   ) =>
-    publicApi.post<APIBookComment['comment']>(
+    publicApi.post<APIPatchBookCommentRequest['comment']>(
       `/service-api/books/${bookId}/comments`,
       { comment }
     ),
@@ -49,9 +50,9 @@ const bookAPI = {
     data,
   }: {
     bookId: APIBook['bookId'];
-    data: APIBookComment;
+    data: APIPatchBookCommentRequest;
   }) =>
-    publicApi.patch<APIBookCommentInfo>(
+    publicApi.patch<APIBookComment>(
       `/service-api/books/${bookId}/comments`,
       data
     ),
