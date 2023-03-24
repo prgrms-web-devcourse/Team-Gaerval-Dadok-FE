@@ -26,16 +26,11 @@ export interface APIBookDetail extends APIBook {
   imageKey: string;
 }
 
-type APIBookmarkedUser = {
-  userId: APIUser['userId'];
-  profileImage: APIUser['profileImage'];
-};
-
 export interface APIBookmarkedUserList {
   bookId: APIBook['bookId'];
   totalCount: number;
   isInMyBookshelf: boolean;
-  users: APIBookmarkedUser[];
+  users: Pick<APIUser, 'userId' | 'profileImage'>[];
 }
 
 export interface APIRecommendedBook
