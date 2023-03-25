@@ -1,27 +1,27 @@
-import { MouseEvent, useState } from 'react';
-import { useRouter } from 'next/router';
 import {
-  Input,
-  VStack,
-  InputGroup,
-  Image,
-  Text,
-  SimpleGrid,
   Center,
+  Image,
+  Input,
+  InputGroup,
+  SimpleGrid,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { MouseEvent, useState } from 'react';
 
 import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
 import LogoSmallIcon from '@public/icons/logo_sm.svg';
 
-import type { APIBook } from '@/types/book';
+import type { APIBook, APISearchedBook } from '@/types/book';
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
-  const [books, setBooks] = useState<APIBook[]>([]);
+  const [books, setBooks] = useState<APISearchedBook[]>([]);
 
   const router = useRouter();
 
@@ -37,7 +37,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     1000
   );
 
-  const onClick = (book: APIBook) => async (event: MouseEvent) => {
+  const onClick = (book: APISearchedBook) => async (event: MouseEvent) => {
     try {
       const {
         data: { bookId },

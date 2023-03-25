@@ -1,10 +1,10 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 
 import bookAPI from '@/apis/book';
-import type { APIDefaultBook } from '@/types/book';
+import type { APIBook } from '@/types/book';
 
 const useBookInfoQuery = (
-  bookId: APIDefaultBook['bookId'],
+  bookId: APIBook['bookId'],
   options?: Pick<
     UseQueryOptions<Awaited<ReturnType<typeof bookAPI.getBookInfo>>['data']>,
     'onSuccess' | 'onError'

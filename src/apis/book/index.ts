@@ -1,54 +1,55 @@
-import { publicApi } from '../core/axios';
 import type {
   APIBook,
-  APIBookInfo,
-  APIDefaultBook,
-  APICreateBookCommentRequest,
-  APIBookCommentList,
   APIBookComment,
+  APIBookCommentPagination,
+  APIBookDetail,
+  APIBookmarkedUserList,
   APIPatchBookCommentRequest,
-  APIDefaultComment,
-  APIBookUserInfo,
+  APISearchedBook,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
+import { publicApi } from '../core/axios';
 
 const bookAPI = {
   getBooks: ({ query }: { query: string }) =>
-    publicApi.get<{ searchBookResponseList: APIBook[] }>(
+    publicApi.get<{ searchBookResponseList: APISearchedBook[] }>(
       `/service-api/books?query=${query}`
     ),
 
-  getBookInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookInfo>(`/service-api/books/${bookId}`),
+  getBookInfo: (bookId: APIBook['bookId']) =>
+    publicApi.get<APIBookDetail>(`/service-api/books/${bookId}`),
 
-  getBookUserInfo: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookUserInfo>(`/service-api/books/${bookId}/users`),
+  getBookUserInfo: (bookId: APIBook['bookId']) =>
+    publicApi.get<APIBookmarkedUserList>(`/service-api/books/${bookId}/users`),
 
-  createBook: ({ book }: { book: APIBook }) =>
+  createBook: ({ book }: { book: APISearchedBook }) =>
     publicApi.post<Pick<APIBook, 'bookId'>>('/service-api/books', book),
 
   creaetComment: (
-    bookId: APIDefaultBook['bookId'],
-    comment: APICreateBookCommentRequest
+    bookId: APIBook['bookId'],
+    { comment }: { comment: APIPatchBookCommentRequest['comment'] }
   ) =>
-    publicApi.post<APICreateBookCommentRequest>(
+    publicApi.post<APIPatchBookCommentRequest['comment']>(
       `/service-api/books/${bookId}/comments`,
-      comment
+      { comment }
     ),
 
-  getComments: (bookId: APIDefaultBook['bookId']) =>
-    publicApi.get<APIBookCommentList>(`/service-api/books/${bookId}/comments`, {
-      params: {
-        pageSize: 10,
-        sortDirection: 'DESC',
-      },
-    }),
+  getComments: (bookId: APIBook['bookId']) =>
+    publicApi.get<APIBookCommentPagination>(
+      `/service-api/books/${bookId}/comments`,
+      {
+        params: {
+          pageSize: 10,
+          sortDirection: 'DESC',
+        },
+      }
+    ),
 
   patchComment: ({
     bookId,
     data,
   }: {
-    bookId: APIDefaultBook['bookId'];
+    bookId: APIBook['bookId'];
     data: APIPatchBookCommentRequest;
   }) =>
     publicApi.patch<APIBookComment>(
@@ -57,18 +58,18 @@ const bookAPI = {
     ),
 
   deletComment: (
-    bookId: APIDefaultBook['bookId'],
-    commentId: APIDefaultComment['commentId']
+    bookId: APIBook['bookId'],
+    commentId: APIBookComment['commentId']
   ) => publicApi.delete(`/service-api/books/${bookId}/comments/${commentId}`),
 
-  setBookMarked: (bookId: APIDefaultBook['bookId']) =>
+  setBookMarked: (bookId: APIBook['bookId']) =>
     bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
       publicApi.post(`/service-api/bookshelves/${bookshelfId}/books`, {
         bookId,
       })
     ),
 
-  unsetBookMarked: (bookId: APIDefaultBook['bookId']) =>
+  unsetBookMarked: (bookId: APIBook['bookId']) =>
     bookshelfAPI
       .getMySummaryBookshelf()
       .then(({ data: { bookshelfId } }) =>

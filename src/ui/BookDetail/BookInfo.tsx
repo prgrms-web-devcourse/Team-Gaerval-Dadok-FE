@@ -14,13 +14,13 @@ import IconButton from '@/ui/common/IconButton';
 import bookAPI from '@/apis/book';
 import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
-import type { APIBookInfo } from '@/types/book';
+import type { APIBookDetail } from '@/types/book';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/auth';
 import LoginBottomSheet from '../LoginBottomSheet';
 
 type Props = Pick<
-  APIBookInfo,
+  APIBookDetail,
   'title' | 'author' | 'contents' | 'imageUrl' | 'bookId'
 >;
 
