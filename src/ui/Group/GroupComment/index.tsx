@@ -1,5 +1,17 @@
-import { Avatar, Box, Flex, Highlight, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Flex,
+  Highlight,
+  Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from '@chakra-ui/react';
 
+import MoreIcon from '@public/icons/more.svg';
 import { useAuth } from '@/hooks/auth';
 import CommentDeleteModal from './CommentDeleteModal';
 import CommentModifyModal from './CommentModifyModal';
@@ -78,7 +90,7 @@ const CommentsList = ({
                     (!isAuthed && !isPublic) ||
                     (isAuthed && !isPublic && !isGroupMember)
                       ? '3px'
-                      : ''
+                      : 'undefined'
                   }
                   key={commentId}
                   mt="1rem"
@@ -99,27 +111,38 @@ const CommentsList = ({
                         {nickname}
                       </Flex>
                     </Flex>
-                    <Flex align="center" pt="0.4rem">
-                      {writtenByCurrentUser ? (
-                        <>
-                          <CommentModifyModal
-                            commentId={commentId}
-                            comment={contents}
-                            handleModifyCommentBtnClick={
-                              handleModifyCommentBtnClick
-                            }
-                          />
-                          <CommentDeleteModal
-                            commentId={commentId}
-                            handleDeleteCommentBtnClick={
-                              handleDeleteCommentBtnClick
-                            }
-                          />
-                        </>
-                      ) : (
-                        ''
-                      )}
-                    </Flex>
+                    {writtenByCurrentUser ? (
+                      <Menu>
+                        <MenuButton
+                          as={IconButton}
+                          aria-label="Options"
+                          icon={<MoreIcon />}
+                          background="inherit"
+                          border="none"
+                        />
+                        <MenuList fontSize="md">
+                          <MenuItem>
+                            <CommentModifyModal
+                              commentId={commentId}
+                              comment={contents}
+                              handleModifyCommentBtnClick={
+                                handleModifyCommentBtnClick
+                              }
+                            />
+                          </MenuItem>
+                          <MenuItem color="red.300">
+                            <CommentDeleteModal
+                              commentId={commentId}
+                              handleDeleteCommentBtnClick={
+                                handleDeleteCommentBtnClick
+                              }
+                            />
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
+                    ) : (
+                      ''
+                    )}
                   </Flex>
                   <Box lineHeight="2.2rem" fontSize="md">
                     {contents}
