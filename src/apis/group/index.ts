@@ -8,8 +8,8 @@ import {
 } from '@/types/group';
 import { publicApi } from '../core/axios';
 
-const MeetingAPI = {
-  getEntireMeetingList: () =>
+const GroupAPI = {
+  getEntireGroups: () =>
     publicApi.get<APIGroupPagination>(`/service-api/book-groups`, {
       params: {
         pageSize: 100,
@@ -17,17 +17,17 @@ const MeetingAPI = {
       },
     }),
 
-  createMeeting: ({ meeting }: { meeting: APICreateGroup }) =>
-    publicApi.post('/service-api/book-groups', meeting),
+  createGroup: ({ group }: { group: APICreateGroup }) =>
+    publicApi.post('/service-api/book-groups', group),
 
-  getMeetingDetailInfo: ({
+  getGroupDetailInfo: ({
     bookGroupId,
   }: {
     bookGroupId: APIGroup['bookGroupId'];
   }) =>
     publicApi.get<APIGroupDetail>(`/service-api/book-groups/${bookGroupId}`),
 
-  getMeetingDetailCommentsList: ({
+  getGroupComments: ({
     bookGroupId,
   }: {
     bookGroupId: APIGroup['bookGroupId'];
@@ -41,7 +41,7 @@ const MeetingAPI = {
         },
       }
     ),
-  postMeetingJoin: ({
+  joinGroup: ({
     bookGroupId,
     password = null,
   }: {
@@ -51,7 +51,7 @@ const MeetingAPI = {
     publicApi.post(`/service-api/book-groups/${bookGroupId}/join`, {
       joinPasswd: password ? password : null,
     }),
-  createMeetingComment: ({
+  createGroupComment: ({
     bookGroupId,
     comment,
   }: {
@@ -62,7 +62,7 @@ const MeetingAPI = {
       comment,
     }),
 
-  getMyMeetingList: () =>
+  getMyGroups: () =>
     publicApi.get<APIGroupPagination>('/service-api/book-groups/me', {
       params: {
         pageSize: 10,
@@ -70,21 +70,21 @@ const MeetingAPI = {
       },
     }),
 
-  patchMeetingDetailInfo: ({
+  updateGroupInfo: ({
     bookGroupId,
-    meeting,
+    group,
   }: {
     bookGroupId: APIGroupDetail['bookGroupId'];
-    meeting: Pick<
+    group: Pick<
       APIGroupDetail,
       'title' | 'introduce' | 'endDate' | 'maxMemberCount'
     >;
-  }) => publicApi.patch(`/service-api/book-groups/${bookGroupId}`, meeting),
+  }) => publicApi.patch(`/service-api/book-groups/${bookGroupId}`, group),
 
-  deleteMeeting: ({ bookGroupId }: { bookGroupId: APIGroup['bookGroupId'] }) =>
+  deleteGroup: ({ bookGroupId }: { bookGroupId: APIGroup['bookGroupId'] }) =>
     publicApi.delete(`/service-api/book-groups/${bookGroupId}`),
 
-  deleteComment: ({
+  deleteGroupComment: ({
     bookGroupId,
     commentId,
   }: {
@@ -95,7 +95,7 @@ const MeetingAPI = {
       `/service-api/book-groups/${bookGroupId}/comments/${commentId}`
     ),
 
-  patchMeetingComment: ({
+  updateGroupComment: ({
     bookGroupId,
     commentId,
     comment,
@@ -112,4 +112,4 @@ const MeetingAPI = {
     ),
 };
 
-export default MeetingAPI;
+export default GroupAPI;
