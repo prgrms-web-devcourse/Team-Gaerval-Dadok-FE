@@ -15,7 +15,7 @@ import BookSearch from '@/ui/BookSearch';
 import IconButton from '@/ui/common/IconButton';
 import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
-import MeetingAPI from '@/apis/meeting';
+import GroupAPI from '@/apis/group';
 import { useRouter } from 'next/router';
 import { APICreateGroup } from '@/types/group';
 import {
@@ -76,19 +76,17 @@ const AddGroupForm = () => {
     }
   }, [methods, hasJoinPasswd]);
 
-  const onSubmit = async (meeting: FormValues) => {
+  const onSubmit = async (group: FormValues) => {
     const request = {
-      ...meeting,
+      ...group,
       maxMemberCount:
-        meeting.maxMemberCount === 'null'
-          ? null
-          : Number(meeting.maxMemberCount),
-      isPublic: meeting.isPublic === 'true' ? true : false,
-      hasJoinPasswd: meeting.hasJoinPasswd === 'true' ? true : false,
+        group.maxMemberCount === 'null' ? null : Number(group.maxMemberCount),
+      isPublic: group.isPublic === 'true' ? true : false,
+      hasJoinPasswd: group.hasJoinPasswd === 'true' ? true : false,
     };
 
     try {
-      await MeetingAPI.createMeeting({ meeting: request });
+      await GroupAPI.createGroup({ group: request });
       router.replace('/group');
     } catch (error) {
       console.error(error);

@@ -1,5 +1,5 @@
 import useMySummaryBookshlefQuery from '@/queries/bookshelf/useMySummaryBookshelfQuery';
-import useMyMeetingListQuery from '@/queries/meeting/useMyMeetingListQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import { Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import ProfileGroup from './ProfileGroup';
 const MyProfile = () => {
   const userProfileQuery = useMyProfileQuery();
   const bookshelfQuery = useMySummaryBookshlefQuery();
-  const meetingListQuery = useMyMeetingListQuery();
+  const groupListQuery = useMyGroupsQuery();
   const { pathname, replace } = useRouter();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const MyProfile = () => {
   if (
     userProfileQuery.isLoading ||
     bookshelfQuery.isLoading ||
-    meetingListQuery.isLoading
+    groupListQuery.isLoading
   )
     return (
       <VStack gap="2rem" align="stretch" w="100%">
@@ -62,9 +62,7 @@ const MyProfile = () => {
       {bookshelfQuery.isSuccess && (
         <ProfileBookshelf {...bookshelfQuery.data} />
       )}
-      {meetingListQuery.isSuccess && (
-        <ProfileGroup {...meetingListQuery.data} />
-      )}
+      {groupListQuery.isSuccess && <ProfileGroup {...groupListQuery.data} />}
     </VStack>
   );
 };

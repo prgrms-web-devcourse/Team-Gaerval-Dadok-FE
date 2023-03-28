@@ -30,19 +30,19 @@ import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
 
 interface GroupInfoProps {
-  meetingInfoData: APIGroupDetail;
+  groupInfoData: APIGroupDetail;
   handleParticipateBtnClick: (
     password?: string,
     onSuccess?: () => void,
     onFailed?: () => void
   ) => void;
-  handleDeleteMeetingBtnClick: () => void;
+  handleDeleteGroupBtnClick: () => void;
 }
 
 const GroupInfo = ({
-  meetingInfoData,
+  groupInfoData,
   handleParticipateBtnClick,
-  handleDeleteMeetingBtnClick,
+  handleDeleteGroupBtnClick,
 }: GroupInfoProps) => {
   const [password, setPassword] = useState('');
   const { isAuthed } = useAuth();
@@ -81,7 +81,7 @@ const GroupInfo = ({
     book,
     isOwner,
     isGroupMember,
-  } = meetingInfoData;
+  } = groupInfoData;
 
   const message = hasJoinPasswd ? '가입 비밀번호 입력 필요' : '바로 참여 가능';
 
@@ -93,7 +93,7 @@ const GroupInfo = ({
       onDeleteModalClose();
       return;
     }
-    handleDeleteMeetingBtnClick();
+    handleDeleteGroupBtnClick();
     onDeleteModalClose();
   };
 

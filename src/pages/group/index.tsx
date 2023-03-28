@@ -1,8 +1,7 @@
-import useEntireMeetingListQuery from '@/queries/meeting/useEntireMeetingListQuery';
+import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import GroupHeader from '@/ui/Group/GroupHeader';
 import GroupList from '@/ui/Group/GroupList';
 import GroupSearch from '@/ui/Group/GroupSearch';
-
 import { Box, Skeleton, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -18,7 +17,7 @@ const GroupPage = () => {
     select: '모임',
   });
 
-  const { isSuccess, data, isLoading } = useEntireMeetingListQuery();
+  const { isSuccess, data, isLoading } = useEntireGroupsQuery();
 
   const handleSumbit = () => {
     const { input } = searchValue;

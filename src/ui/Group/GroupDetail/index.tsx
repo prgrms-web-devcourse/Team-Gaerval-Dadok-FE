@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
 import CommentInputBox from '../GroupComment/CommentInputBox';
 import CommentsList from '../GroupComment';
-import useMeetingInfoQuery from '@/queries/meeting/useMeetingInfoQuery';
-import useMeetingCommentsQuery from '@/queries/meeting/useMeetingCommentsQuery';
-import MeetingAPI from '@/apis/meeting';
+import useGroupInfoQuery from '@/queries/group/useGroupInfoQuery';
+import useGroupCommentsQuery from '@/queries/group/useGroupCommentsQuery';
+import GroupAPI from '@/apis/group';
 import { useToast } from '@/hooks/toast';
 
 interface GroupDetailProps {
@@ -14,12 +14,12 @@ interface GroupDetailProps {
 }
 
 const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
-  const meetingInfoQuery = useMeetingInfoQuery({ bookGroupId });
-  const meetingCommentsQuery = useMeetingCommentsQuery({ bookGroupId });
+  const groupInfoQuery = useGroupInfoQuery({ bookGroupId });
+  const groupCommentsQuery = useGroupCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
   const router = useRouter();
 
-  if (meetingInfoQuery.isLoading || meetingCommentsQuery.isLoading)
+  if (groupInfoQuery.isLoading || groupCommentsQuery.isLoading)
     return (
       <VStack gap="2rem" align="stretch" w="100%" mt="2rem">
         <Skeleton height="3rem" />
@@ -29,8 +29,7 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
       </VStack>
     );
 
-  const isSuccess =
-    meetingInfoQuery.isSuccess && meetingCommentsQuery.isSuccess;
+  const isSuccess = groupInfoQuery.isSuccess && groupCommentsQuery.isSuccess;
   if (!isSuccess) return null;
 
   const handleParticipateBtnClick = async (
@@ -38,25 +37,25 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     onSuccess?: () => void
   ) => {
     try {
-      await MeetingAPI.postMeetingJoin({ bookGroupId, password });
+      await GroupAPI.joinGroup({ bookGroupId, password });
       onSuccess && onSuccess();
       showToast({ message: '모임에 가입되었어요' });
     } catch (error) {
       error &&
         showToast({ message: '정답이 아니에요 다시 한 번 도전해 주세요' });
     }
-    meetingInfoQuery.refetch();
+    groupInfoQuery.refetch();
   };
 
   const handleCreateCommentBtnClick = async (comment: string) => {
     if (comment.trim() === '') return;
     try {
-      await MeetingAPI.createMeetingComment({ bookGroupId, comment });
+      await GroupAPI.createGroupComment({ bookGroupId, comment });
     } catch (error) {
       console.error(error);
     }
-    meetingInfoQuery.refetch();
-    meetingCommentsQuery.refetch();
+    groupInfoQuery.refetch();
+    groupCommentsQuery.refetch();
   };
 
   const handleModifyCommentBtnClick = async (
@@ -64,7 +63,7 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     commentId: number
   ) => {
     try {
-      await MeetingAPI.patchMeetingComment({
+      await GroupAPI.updateGroupComment({
         bookGroupId,
         commentId,
         comment: modifiedComment,
@@ -72,22 +71,22 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     } catch (error) {
       console.error(error);
     }
-    meetingCommentsQuery.refetch();
+    groupCommentsQuery.refetch();
   };
 
   const handleDeleteCommentBtnClick = async (commentId: number) => {
     try {
-      await MeetingAPI.deleteComment({ bookGroupId, commentId });
+      await GroupAPI.deleteGroupComment({ bookGroupId, commentId });
     } catch (error) {
       console.error(error);
     }
-    meetingInfoQuery.refetch();
-    meetingCommentsQuery.refetch();
+    groupInfoQuery.refetch();
+    groupCommentsQuery.refetch();
   };
 
-  const handleDeleteMeetingBtnClick = async () => {
+  const handleDeleteGroupBtnClick = async () => {
     try {
-      await MeetingAPI.deleteMeeting({ bookGroupId });
+      await GroupAPI.deleteGroup({ bookGroupId });
     } catch (error) {
       console.error(error);
     }
@@ -95,15 +94,15 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     router.push('/group');
   };
 
-  const { isGroupMember, isPublic } = meetingInfoQuery.data;
-  const { bookGroupComments, isEmpty } = meetingCommentsQuery.data;
+  const { isGroupMember, isPublic } = groupInfoQuery.data;
+  const { bookGroupComments, isEmpty } = groupCommentsQuery.data;
 
   return (
     <Flex direction="column" justify="center">
       <GroupInfo
-        meetingInfoData={meetingInfoQuery.data}
+        groupInfoData={groupInfoQuery.data}
         handleParticipateBtnClick={handleParticipateBtnClick}
-        handleDeleteMeetingBtnClick={handleDeleteMeetingBtnClick}
+        handleDeleteGroupBtnClick={handleDeleteGroupBtnClick}
       />
       <CommentInputBox
         isPartInUser={isGroupMember}

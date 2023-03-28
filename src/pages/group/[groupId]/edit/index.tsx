@@ -1,4 +1,4 @@
-import MeetingAPI from '@/apis/meeting';
+import GroupAPI from '@/apis/group';
 import { APIGroupDetail } from '@/types/group';
 import AuthRequired from '@/ui/AuthRequired';
 import TopNavigation from '@/ui/common/TopNavigation';
@@ -8,28 +8,28 @@ import { GetServerSideProps } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 
 const GroupEditPage = ({ groupId }: { groupId: number }) => {
-  const [meeting, setMeeting] = useState<APIGroupDetail>();
+  const [group, setGroup] = useState<APIGroupDetail>();
 
-  const getMeeting = useCallback(async () => {
+  const getGroup = useCallback(async () => {
     try {
-      const { data } = await MeetingAPI.getMeetingDetailInfo({
+      const { data } = await GroupAPI.getGroupDetailInfo({
         bookGroupId: groupId,
       });
-      setMeeting(data);
+      setGroup(data);
     } catch (error) {
       console.error(error);
     }
   }, [groupId]);
 
   useEffect(() => {
-    getMeeting();
-  }, [getMeeting]);
+    getGroup();
+  }, [getGroup]);
 
   return (
     <AuthRequired>
       <VStack justify="center" align="center">
         <TopNavigation pageTitle="모임 수정" />
-        {meeting && <EditGroupForm meeting={meeting} />}
+        {group && <EditGroupForm group={group} />}
       </VStack>
     </AuthRequired>
   );

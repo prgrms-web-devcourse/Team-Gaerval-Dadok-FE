@@ -3,24 +3,24 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import FormInput from '@/ui/FormInput';
 import { APIGroupDetail } from '@/types/group';
-import MeetingAPI from '@/apis/meeting';
+import GroupAPI from '@/apis/group';
 import { useRouter } from 'next/router';
 
 interface EditGroupFormProps {
-  meeting: APIGroupDetail;
+  group: APIGroupDetail;
 }
 
-const EditGroupForm = ({ meeting }: EditGroupFormProps) => {
+const EditGroupForm = ({ group }: EditGroupFormProps) => {
   const theme = useTheme();
   const router = useRouter();
   const methods = useForm({
     mode: 'all',
     defaultValues: {
-      title: meeting.title,
-      introduce: meeting.introduce,
-      startDate: meeting.startDate,
-      maxMemberCount: meeting.maxMemberCount,
-      endDate: meeting.endDate,
+      title: group.title,
+      introduce: group.introduce,
+      startDate: group.startDate,
+      maxMemberCount: group.maxMemberCount,
+      endDate: group.endDate,
     },
   });
 
@@ -31,12 +31,12 @@ const EditGroupForm = ({ meeting }: EditGroupFormProps) => {
     endDate,
   }) => {
     try {
-      await MeetingAPI.patchMeetingDetailInfo({
-        bookGroupId: meeting.bookGroupId,
-        meeting: { title, introduce, endDate, maxMemberCount },
+      await GroupAPI.updateGroupInfo({
+        bookGroupId: group.bookGroupId,
+        group: { title, introduce, endDate, maxMemberCount },
       });
 
-      router.push(`/group/${meeting.bookGroupId}`);
+      router.push(`/group/${group.bookGroupId}`);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +47,7 @@ const EditGroupForm = ({ meeting }: EditGroupFormProps) => {
       <FormProvider {...methods}>
         <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
           <Box fontSize="md" maxH="18rem" w="fit-content" mx="auto">
-            <Image src={meeting.book.imageUrl} alt="book-cover" />
+            <Image src={group.book.imageUrl} alt="book-cover" />
           </Box>
           <Flex direction="column" gap="2rem" align="center">
             <FormInput label="제목" name="title" />

@@ -2,11 +2,11 @@ import { APIGroup } from '@/types/group';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import GroupListItem from '../Group/GroupList/GroupListItem';
 
-interface ProfileMeetingProps {
+interface ProfileGroupProps {
   bookGroups: APIGroup[];
 }
 
-const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {
+const ProfileGroup = ({ bookGroups }: ProfileGroupProps) => {
   return (
     <VStack w="100%">
       <Text alignSelf="flex-start" fontSize="md" fontWeight="bold">
@@ -14,9 +14,9 @@ const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {
       </Text>
       <Box w="100%" overflow="auto">
         <Flex>
-          {bookGroups.map(meeting => (
-            <Box key={meeting.bookGroupId} w="95%" flex="1 0 auto" px="0.3rem">
-              <GroupListItem {...meeting} />
+          {bookGroups.map(group => (
+            <Box key={group.bookGroupId} w="95%" flex="1 0 auto" px="0.3rem">
+              <GroupListItem {...group} />
             </Box>
           ))}
         </Flex>
@@ -25,4 +25,4 @@ const ProfileMeeting = ({ bookGroups }: ProfileMeetingProps) => {
   );
 };
 
-export default ProfileMeeting;
+export default ProfileGroup;
