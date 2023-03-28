@@ -1,11 +1,11 @@
 import bookshelfAPI from '@/apis/bookshelf';
-import { APIDefaultBookshelf } from '@/types/bookshelf';
+import { APIBookshelf } from '@/types/bookshelf';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const useBookshelfBooksQuery = ({
   bookshelfId,
 }: {
-  bookshelfId: APIDefaultBookshelf['bookshelfId'];
+  bookshelfId: APIBookshelf['bookshelfId'];
 }) =>
   useInfiniteQuery(
     ['bookshelfBooks'],

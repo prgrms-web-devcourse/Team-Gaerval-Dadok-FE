@@ -1,29 +1,26 @@
 import {
-  APIBookshelfBookList,
+  APIBookshelf,
   APIBookshelfInfo,
-  APIDefaultBookshelf,
-  APIProfileBookshelf,
+  APIBookshelfPagination,
 } from '@/types/bookshelf';
 import { APIUser } from '@/types/user';
 import { publicApi } from '../core/axios';
 
 const bookshelfAPI = {
   getUserSummaryBookshelf: ({ userId }: { userId: APIUser['userId'] }) =>
-    publicApi.get<APIProfileBookshelf>(
-      `/service-api/users/${userId}/bookshelves`
-    ),
+    publicApi.get<APIBookshelf>(`/service-api/users/${userId}/bookshelves`),
 
   getMySummaryBookshelf: () =>
-    publicApi.get<APIProfileBookshelf>('/service-api/bookshelves/me'),
+    publicApi.get<APIBookshelf>('/service-api/bookshelves/me'),
 
-  getBookshelfInfo: (bookshelfId: APIBookshelfInfo['bookshelfId']) =>
+  getBookshelfInfo: (bookshelfId: APIBookshelf['bookshelfId']) =>
     publicApi.get<APIBookshelfInfo>(`/service-api/bookshelves/${bookshelfId}`),
 
   getBookshelfBooks: (
-    bookshelfId: APIDefaultBookshelf['bookshelfId'],
+    bookshelfId: APIBookshelf['bookshelfId'],
     pageParam: string
   ) =>
-    publicApi.get<APIBookshelfBookList>(
+    publicApi.get<APIBookshelfPagination>(
       `/service-api/bookshelves/${bookshelfId}/books?type=READ&pageSize=16&bookshelfItemCursorId=` +
         pageParam
     ),

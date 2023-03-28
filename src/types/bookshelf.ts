@@ -1,41 +1,49 @@
 import { APIBook } from './book';
+import { Pagination } from './common';
 import { APIJobGroup, APIProfileJob } from './job';
+import { APIUser } from './user';
 
-interface APIBookshelfBook extends APIBook {
+interface APISeachedBook extends APIBook {
   bookshelfItemId: number;
 }
 
-export interface APIDefaultBookshelf {
+interface APIRecommendedBook extends APIBook {
+  jobGroup: APIJobGroup['name'];
+  count: number;
+}
+
+type APIRecommendedJobGroup = {
+  jobGroup: APIJobGroup['name'];
+  jobGroupKoreanName: APIJobGroup['koreanName'];
+};
+
+export type APIBookshelf = {
   bookshelfId: number;
   bookshelfName: string;
-}
+  books: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>[];
+};
 
-export interface APIBookshelfCursorId {
-  isFirst: boolean;
-  isLast: boolean;
-  hasNext: boolean;
-  count: number;
-  isEmpty: boolean;
-}
-
-export interface APIProfileBookshelf extends APIDefaultBookshelf {
-  books: APIBook[];
-}
-
-export interface APIBookshelfBookList extends APIBookshelfCursorId {
-  books: APIBookshelfBook[];
-}
-
-export interface APIBookshelfInfo extends APIDefaultBookshelf {
+export interface APIBookshelfInfo
+  extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName'>,
+    Pick<APIUser, 'userId' | 'name' | 'nickname' | 'profileImage'> {
   isPublic: boolean;
-  userId: number;
-  username: string;
-  userNickname: string;
-  userProfileImage: string;
   job: APIProfileJob;
 }
 
-export interface APIBookshelfResponses extends APIBookshelfCursorId {
-  jobGroupName: APIJobGroup['name'];
-  bookshelfResponses: APIProfileBookshelf[];
+export interface APIBookshelfPagination extends Pagination {
+  books: APISeachedBook[];
+}
+
+export interface APIRecommendedBooksPagination
+  extends Pagination,
+    APIRecommendedJobGroup {
+  books: APIRecommendedBook[];
+}
+
+export interface APIRecommendedBookshelf {
+  bookshelfResponses: APIBookshelf[];
+}
+
+export interface APIAuthRecommendedBookshelf extends APIRecommendedJobGroup {
+  bookshelfResponses: APIBookshelf[];
 }

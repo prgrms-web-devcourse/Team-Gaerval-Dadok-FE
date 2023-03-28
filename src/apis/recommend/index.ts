@@ -1,21 +1,24 @@
-import { APIBookshelfResponses } from '@/types/bookshelf';
+import {
+  APIAuthRecommendedBookshelf,
+  APIRecommendedBookshelf,
+  APIRecommendedBooksPagination,
+} from '@/types/bookshelf';
+import { APIJobGroup } from '@/types/job';
 import { publicApi } from '../core/axios';
 
 const RecommendAPI = {
   getUnAuthRecommendedBookshelf: () =>
-    publicApi.get<APIBookshelfResponses>(
+    publicApi.get<APIRecommendedBookshelf>(
       `/service-api/suggestions/bookshelves/default`
     ),
 
-  getAuthRecommendedBookshelf: (
-    jobGroup: APIBookshelfResponses['jobGroupName']
-  ) =>
-    publicApi.get<APIBookshelfResponses>(
+  getAuthRecommendedBookshelf: (jobGroup: APIJobGroup['name']) =>
+    publicApi.get<APIAuthRecommendedBookshelf>(
       `/service-api/suggestions/bookshelves?job_group=${jobGroup}`
     ),
 
-  getAuthRecommendedBooks: (jobGroup: APIBookshelfResponses['jobGroupName']) =>
-    publicApi.get(
+  getAuthRecommendedBooks: (jobGroup: APIJobGroup['name']) =>
+    publicApi.get<APIRecommendedBooksPagination>(
       `/service-api/books/suggestions?jobGroup=${jobGroup}&pageSize=10&sortDirection=DESC`
     ),
 };
