@@ -1,4 +1,4 @@
-import { APIProfileBookshelf } from '@/types/bookshelf';
+import { APIBookshelf } from '@/types/bookshelf';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import IconButton from '../common/IconButton';
@@ -8,7 +8,7 @@ const ProfileBookshelf = ({
   bookshelfId,
   bookshelfName,
   books,
-}: APIProfileBookshelf) => {
+}: APIBookshelf) => {
   return (
     <VStack align="flex-start" gap="1rem" w="100%">
       <Flex

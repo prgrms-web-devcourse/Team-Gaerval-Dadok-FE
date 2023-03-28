@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/auth';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
-import { APIBookshelfInfo } from '@/types/bookshelf';
+import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
@@ -26,7 +26,7 @@ const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redi
 export default function UserBookShelfPage({
   bookshelfId,
 }: {
-  bookshelfId: APIBookshelfInfo['bookshelfId'];
+  bookshelfId: APIBookshelf['bookshelfId'];
 }) {
   const { isAuthed } = useAuth();
   const { ref, inView } = useInView();

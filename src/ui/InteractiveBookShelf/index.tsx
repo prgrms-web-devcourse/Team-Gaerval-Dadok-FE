@@ -6,9 +6,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 const BOOKSHELF_BOOK_LIMIT = 4;
 
-const InteractiveBookShelf = ({ books }: { books: APIBook[] }) => {
+const InteractiveBookShelf = ({
+  books,
+}: {
+  books: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>[];
+}) => {
   const { isAuthed } = useAuth();
-  const [slicedBooks, setSlicedBooks] = useState<APIBook[][]>([[]]);
+  const [slicedBooks, setSlicedBooks] = useState<
+    Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>[][]
+  >([[]]);
 
   const sliceBooks = useCallback(() => {
     const response = [];
