@@ -64,13 +64,11 @@ const InteractiveBookShelf = ({
             px="1rem"
           >
             {books.map(({ bookId, imageUrl }) => (
-              <Box key={bookId}>
-                <InteractiveBook
-                  key={bookId}
-                  bookId={bookId}
-                  imageUrl={imageUrl}
-                />
-              </Box>
+              <InteractiveBook
+                key={bookId}
+                bookId={bookId}
+                imageUrl={imageUrl}
+              />
             ))}
           </SimpleGrid>
         </Flex>
