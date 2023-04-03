@@ -35,7 +35,7 @@ const InteractiveBook = ({
             bottom={0}
             transform={`translateZ(-3rem)`}
             boxShadow="1px -4px 20px 3px"
-          ></Box>
+          />
           <Image
             src={imageUrl}
             pos="absolute"
@@ -48,7 +48,7 @@ const InteractiveBook = ({
             h="100%"
             bgColor={colors[0]}
             transform="rotateY(-90deg) translateX(-1.49rem) translateZ(1.5rem)"
-          ></Box>
+          />
         </Box>
       )}
     </Flex>
