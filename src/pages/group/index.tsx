@@ -75,7 +75,7 @@ const GroupPage = () => {
             return <GroupList key={idx} bookGroups={groups.bookGroups} />;
           })}
       </Box>
-      {isFetching && !isFetchingNextPage ? null : <Box ref={ref} />}
+      <Box ref={ref} />
       {isFetching && isFetchingNextPage ? <Box>Loading...</Box> : null}
     </VStack>
   );
