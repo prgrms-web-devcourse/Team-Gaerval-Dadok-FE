@@ -25,7 +25,6 @@ const GroupPage = () => {
     isLoading,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
   } = useEntireGroupsQuery();
 
@@ -76,7 +75,7 @@ const GroupPage = () => {
           })}
       </Box>
       <Box ref={ref} />
-      {isFetching && isFetchingNextPage ? <Box>Loading...</Box> : null}
+      {isFetchingNextPage ? <Box>Loading...</Box> : null}
     </VStack>
   );
 };
