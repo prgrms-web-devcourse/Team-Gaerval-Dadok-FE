@@ -3,7 +3,8 @@ import GroupHeader from '@/ui/Group/GroupHeader';
 import GroupList from '@/ui/Group/GroupList';
 import GroupSearch from '@/ui/Group/GroupSearch';
 import { Box, Skeleton, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 interface SearchValue {
   [key: string]: string;
@@ -16,8 +17,23 @@ const GroupPage = () => {
     input: '',
     select: '모임',
   });
+  const { ref, inView } = useInView();
 
-  const { isSuccess, data, isLoading } = useEntireGroupsQuery();
+  const {
+    isSuccess,
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useEntireGroupsQuery();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView, hasNextPage]);
 
   const handleSumbit = () => {
     const { input } = searchValue;
@@ -45,6 +61,9 @@ const GroupPage = () => {
       </VStack>
     );
 
+  console.log('isFetching', isFetching);
+  console.log('isFetchingNextPage', isFetchingNextPage);
+
   return (
     <VStack align="center">
       <Box w="100%">
@@ -54,8 +73,13 @@ const GroupPage = () => {
           handleChange={handleChange}
           handleSumbit={handleSumbit}
         />
-        {isSuccess && <GroupList bookGroups={data.bookGroups} />}
+        {isSuccess &&
+          data.pages.map((groups, idx) => {
+            return <GroupList key={idx} bookGroups={groups.bookGroups} />;
+          })}
       </Box>
+      {isFetching && !isFetchingNextPage ? null : <Box ref={ref} />}
+      {isFetching && isFetchingNextPage ? <Box>Loading...</Box> : null}
     </VStack>
   );
 };

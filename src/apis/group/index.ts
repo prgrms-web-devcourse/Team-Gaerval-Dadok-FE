@@ -9,13 +9,10 @@ import {
 import { publicApi } from '../core/axios';
 
 const GroupAPI = {
-  getEntireGroups: () =>
-    publicApi.get<APIGroupPagination>(`/service-api/book-groups`, {
-      params: {
-        pageSize: 100,
-        sortDirection: 'DESC',
-      },
-    }),
+  getEntireGroups: (pageParam: string) =>
+    publicApi.get<APIGroupPagination>(
+      `/service-api/book-groups?pageSize=10&groupCursorId=` + pageParam
+    ),
 
   createGroup: ({ group }: { group: APICreateGroup }) =>
     publicApi.post('/service-api/book-groups', group),

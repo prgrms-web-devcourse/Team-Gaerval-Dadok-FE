@@ -1,9 +1,16 @@
 import GroupAPI from '@/apis/group';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const useEntireGroupsQuery = () =>
-  useQuery(['entireGroups'], () =>
-    GroupAPI.getEntireGroups().then(({ data }) => data)
+  useInfiniteQuery(
+    ['entireGroups'],
+    ({ pageParam = '' }) =>
+      GroupAPI.getEntireGroups(pageParam).then(({ data }) => data),
+    {
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.bookGroups[9].bookGroupId : undefined,
+      staleTime: 3000,
+    }
   );
 
 export default useEntireGroupsQuery;
