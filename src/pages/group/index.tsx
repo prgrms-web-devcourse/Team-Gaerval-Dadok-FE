@@ -61,9 +61,6 @@ const GroupPage = () => {
       </VStack>
     );
 
-  console.log('isFetching', isFetching);
-  console.log('isFetchingNextPage', isFetchingNextPage);
-
   return (
     <VStack align="center">
       <Box w="100%">
