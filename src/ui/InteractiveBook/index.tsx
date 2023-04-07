@@ -1,21 +1,34 @@
 import { APIBook } from '@/types/book';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
-import Link from 'next/link';
 import type { FilterProps } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+
+type InteractiveBookProps = Pick<APIBook, 'imageUrl' | 'bookId'> & FilterProps;
+type InteractivePreviewBookProps = Omit<
+  Pick<APIBook, 'imageUrl' | 'bookId'>,
+  'bookId'
+> & {
+  bookId: null;
+} & FilterProps;
 
 const InteractiveBook = ({
   imageUrl,
   bookId,
   filter,
   blur,
-}: Pick<APIBook, 'imageUrl' | 'bookId'> &
-  Pick<FilterProps, 'filter' | 'blur'>) => {
+}: InteractiveBookProps | InteractivePreviewBookProps) => {
+  const { push } = useRouter();
   const { data: colors } = usePalette(
     '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
     2,
     'hex'
   );
+
+  const handleClickBook = () => {
+    if (bookId === null) return;
+    push(`/book/${bookId}`);
+  };
 
   return (
     <Flex
@@ -24,11 +37,10 @@ const InteractiveBook = ({
       flexGrow={1}
       filter={filter}
       blur={blur}
+      cursor={bookId ? 'pointer' : 'auto'}
     >
       {colors && (
         <Box
-          as={Link}
-          href={`/book/${bookId}`}
           w="8.5rem"
           h="11rem"
           transform="rotateY(30deg) translateX(1rem)"
@@ -37,6 +49,7 @@ const InteractiveBook = ({
             perspectiveOrigin: 'center center',
             transformStyle: 'preserve-3d',
           }}
+          onClick={handleClickBook}
         >
           <Box
             w="100%"

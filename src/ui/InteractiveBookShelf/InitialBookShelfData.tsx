@@ -39,7 +39,7 @@ const InitialBookShelfData = () => {
         {initialBookImageUrl.map((url, idx) => (
           <InteractiveBook
             key={idx}
-            bookId={idx}
+            bookId={null}
             imageUrl={url}
             filter="auto"
             blur="0.2rem"
