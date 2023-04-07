@@ -2,11 +2,15 @@ import { APIBook } from '@/types/book';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
 import Link from 'next/link';
+import type { FilterProps } from '@chakra-ui/react';
 
 const InteractiveBook = ({
   imageUrl,
   bookId,
-}: Pick<APIBook, 'imageUrl' | 'bookId'>) => {
+  filter,
+  blur,
+}: Pick<APIBook, 'imageUrl' | 'bookId'> &
+  Pick<FilterProps, 'filter' | 'blur'>) => {
   const { data: colors } = usePalette(
     '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
     2,
@@ -14,7 +18,13 @@ const InteractiveBook = ({
   );
 
   return (
-    <Flex style={{ perspective: '200px' }} justify="center" flexGrow={1}>
+    <Flex
+      style={{ perspective: '200px' }}
+      justify="center"
+      flexGrow={1}
+      filter={filter}
+      blur={blur}
+    >
       {colors && (
         <Box
           as={Link}
