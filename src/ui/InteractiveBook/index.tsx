@@ -4,20 +4,17 @@ import { usePalette } from 'color-thief-react';
 import type { FilterProps } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-type InteractiveBookProps = Pick<APIBook, 'imageUrl' | 'bookId'> & FilterProps;
-type InteractivePreviewBookProps = Omit<
-  Pick<APIBook, 'imageUrl' | 'bookId'>,
-  'bookId'
-> & {
-  bookId: null;
-} & FilterProps;
+interface InteractiveBookProps extends FilterProps {
+  imageUrl: APIBook['imageUrl'];
+  bookId: APIBook['bookId'] | null;
+}
 
 const InteractiveBook = ({
   imageUrl,
   bookId,
   filter,
   blur,
-}: InteractiveBookProps | InteractivePreviewBookProps) => {
+}: InteractiveBookProps) => {
   const { push } = useRouter();
   const { data: colors } = usePalette(
     '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
