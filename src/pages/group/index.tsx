@@ -75,7 +75,7 @@ const GroupPage = () => {
           })}
       </Box>
       <Box ref={ref} />
-      {isFetchingNextPage ? <Box>Loading...</Box> : null}
+      {isFetchingNextPage && <Skeleton w="100%" height="28rem" />}
     </VStack>
   );
 };
