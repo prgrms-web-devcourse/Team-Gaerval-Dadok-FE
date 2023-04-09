@@ -27,17 +27,17 @@ export type ServiceErrorCode =
   | 'BG6'
   | 'BG7'
   | 'BG8'
-  | 'BG9';
-// | '-1'
-// | '-2'
-// | '-5'
-// | '-7'
-// | '-8'
-// | '-9'
-// | '-10'
-// | '401'
-// | '603'
-// | '9798';
+  | 'BG9'
+  | '-1'
+  | '-2'
+  | '-5'
+  | '-7'
+  | '-8'
+  | '-9'
+  | '-10'
+  | '401'
+  | '603'
+  | '9798';
 
 export type APIErrorResponseData = {
   code: ServiceErrorCode;
