@@ -10,13 +10,7 @@ interface InteractiveBookProps {
 
 const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
   const { push } = useRouter();
-  const { data: colors } = usePalette(
-    bookId === null
-      ? imageUrl
-      : '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
-    2,
-    'hex'
-  );
+  const { data: colors } = usePalette(imageUrl, 2, 'hex');
 
   const handleClickBook = () => {
     if (bookId === null) return;

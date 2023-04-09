@@ -36,8 +36,8 @@ const InitialBookShelfData = () => {
         boxShadow="inset 0px 0px 20px 2px #9595956e"
         px="1rem"
       >
-        {initialBookImageUrl.map((url, idx) => (
-          <InteractiveBook key={idx} bookId={null} imageUrl={url} />
+        {initialBookImageUrl.map((imageUrl, idx) => (
+          <InteractiveBook key={idx} bookId={null} imageUrl={imageUrl} />
         ))}
       </SimpleGrid>
     </Flex>
