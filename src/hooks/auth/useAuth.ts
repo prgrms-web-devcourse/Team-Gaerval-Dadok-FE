@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAccessToken, useResetAccessToken } from './atoms';
 
-import tokenStorage from '@/utils/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants/index';
+import tokenStorage from '@/utils/storage';
 
 const useAuth = () => {
   const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
@@ -25,6 +25,7 @@ const useAuth = () => {
   }, [accessToken]);
 
   return {
+    accessToken,
     isAuthed,
     setAuth,
     removeAuth,

@@ -1,13 +1,17 @@
-import { ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
+
+import { publicApi } from '@/apis/core/axios';
+import useAxiosInterceptor from '@/hooks/useAxiosInterceptor';
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 
 const paths = ['/bookarchive', '/book/search', '/group', '/profile/me'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  useAxiosInterceptor(publicApi);
   const { pathname } = useRouter();
   const isShowNavigation = pathname && paths.includes(pathname);
 
