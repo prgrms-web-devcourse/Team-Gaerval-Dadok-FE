@@ -1,28 +1,17 @@
 import { atom, useRecoilState, useResetRecoilState } from 'recoil';
 
-import tokenStorage from '@/utils/storage';
 import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants/index';
+import tokenStorage from '@/utils/storage';
 
 const accessTokenAtom = atom<string | null>({
   key: 'accessToken',
   default: null,
   effects: [
     ({ setSelf }) => {
-      const storage =
-        typeof window !== 'undefined'
-          ? tokenStorage(ACCESS_TOKEN_STORAGE_KEY)
-          : undefined;
-
-      if (!storage) {
-        return;
-      }
-
+      const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
       const defaultToken = storage.get();
-      const isAuthorized = () => !!defaultToken;
 
-      if (isAuthorized()) {
-        setSelf(defaultToken);
-      }
+      defaultToken && setSelf(defaultToken);
     },
   ],
 });
