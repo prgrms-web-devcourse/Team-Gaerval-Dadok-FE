@@ -13,7 +13,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
   const { data: colors } = usePalette(imageUrl, 2, 'hex');
 
   const handleClickBook = () => {
-    if (bookId === null) return;
+    if (!bookId) return;
     push(`/book/${bookId}`);
   };
 
@@ -22,9 +22,9 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
       style={{ perspective: '200px' }}
       justify="center"
       flexGrow={1}
-      filter={bookId === null ? 'auto' : 'none'}
-      blur={bookId === null ? '0.2rem' : 'none'}
-      cursor={bookId === null ? 'pointer' : 'auto'}
+      filter={bookId ? 'none' : 'auto'}
+      blur={bookId ? 'none' : '0.2rem'}
+      cursor={bookId ? 'pointer' : 'auto'}
     >
       {colors && (
         <Box
