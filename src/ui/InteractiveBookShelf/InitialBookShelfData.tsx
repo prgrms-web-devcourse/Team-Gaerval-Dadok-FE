@@ -2,10 +2,10 @@ import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import InteractiveBook from '../InteractiveBook';
 
 const initialBookImageUrl = [
-  'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5056576%3Ftimestamp%3D20221108010740',
-  'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5477653%3Ftimestamp%3D20221107233622',
-  'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5736428%3Ftimestamp%3D20221107223347',
-  'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5326912%3Ftimestamp%3D20221231221935',
+  '/images/book-cover/book1.jpeg',
+  '/images/book-cover/book2.jpeg',
+  '/images/book-cover/book3.jpeg',
+  '/images/book-cover/book4.jpeg',
 ] as const;
 
 const InitialBookShelfData = () => {
@@ -37,13 +37,7 @@ const InitialBookShelfData = () => {
         px="1rem"
       >
         {initialBookImageUrl.map((url, idx) => (
-          <InteractiveBook
-            key={idx}
-            bookId={null}
-            imageUrl={url}
-            filter="auto"
-            blur="0.2rem"
-          />
+          <InteractiveBook key={idx} bookId={null} imageUrl={url} />
         ))}
       </SimpleGrid>
     </Flex>
