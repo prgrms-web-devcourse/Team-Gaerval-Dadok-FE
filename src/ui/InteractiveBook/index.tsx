@@ -1,23 +1,19 @@
 import { APIBook } from '@/types/book';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { usePalette } from 'color-thief-react';
-import type { FilterProps } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-interface InteractiveBookProps extends FilterProps {
+interface InteractiveBookProps {
   imageUrl: APIBook['imageUrl'];
   bookId: APIBook['bookId'] | null;
 }
 
-const InteractiveBook = ({
-  imageUrl,
-  bookId,
-  filter,
-  blur,
-}: InteractiveBookProps) => {
+const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
   const { push } = useRouter();
   const { data: colors } = usePalette(
-    '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
+    bookId === null
+      ? imageUrl
+      : '/api/book/image?' + new URLSearchParams({ url: imageUrl }),
     2,
     'hex'
   );
@@ -32,9 +28,9 @@ const InteractiveBook = ({
       style={{ perspective: '200px' }}
       justify="center"
       flexGrow={1}
-      filter={filter}
-      blur={blur}
-      cursor={bookId ? 'pointer' : 'auto'}
+      filter={bookId === null ? 'auto' : 'none'}
+      blur={bookId === null ? '0.2rem' : 'none'}
+      cursor={bookId === null ? 'pointer' : 'auto'}
     >
       {colors && (
         <Box
