@@ -9,9 +9,9 @@ const accessTokenAtom = atom<string | null>({
   effects: [
     ({ setSelf }) => {
       const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
-      const defaultToken = storage.get();
+      const storedToken = storage.get();
 
-      defaultToken && setSelf(defaultToken);
+      storedToken && setSelf(storedToken);
     },
   ],
 });
