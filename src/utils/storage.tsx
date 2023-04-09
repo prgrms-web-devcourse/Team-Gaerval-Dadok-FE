@@ -1,8 +1,11 @@
+import isClient from '@/utils/isClient';
+
 const tokenStorage = (key: string) => {
   return {
-    get: () => localStorage.getItem(key) ?? null,
-    set: (newToken: string) => localStorage.setItem(key, newToken),
-    remove: () => localStorage.removeItem(key),
+    get: () => isClient() && (localStorage.getItem(key) ?? null),
+    set: (newToken: string) =>
+      isClient() && localStorage.setItem(key, newToken),
+    remove: () => isClient() && localStorage.removeItem(key),
   };
 };
 
