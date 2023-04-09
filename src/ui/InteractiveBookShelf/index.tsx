@@ -68,7 +68,9 @@ const InteractiveBookShelf = ({
               <InteractiveBook
                 key={bookId}
                 bookId={bookId}
-                imageUrl={imageUrl}
+                imageUrl={
+                  '/api/book/image?' + new URLSearchParams({ url: imageUrl })
+                }
               />
             ))}
           </SimpleGrid>
