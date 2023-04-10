@@ -1,4 +1,5 @@
 import { useAuth } from '@/hooks/auth';
+import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelf } from '@/types/bookshelf';
@@ -36,6 +37,7 @@ export default function UserBookShelfPage({
     bookshelfId,
   });
   const { asPath } = useRouter();
+  const { showToast } = useToast();
   const {
     data: booksData,
     fetchNextPage,
@@ -81,10 +83,10 @@ export default function UserBookShelfPage({
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        console.log('복사 성공 toast');
+        showToast({ message: '복사 성공!' });
       })
       .catch(() => {
-        console.error('복사 실패 토스트');
+        showToast({ message: '복사 실패! 뭔가 잘못되었어요' });
       });
   };
 
@@ -99,11 +101,11 @@ export default function UserBookShelfPage({
         style={{
           zIndex: 10,
           position: 'absolute',
-          top: '1.6rem',
+          top: '1.7rem',
           right: '2.4rem',
         }}
         // MEMO: Icon top, right 위치
-        // 1.6 / 2.4
+        // 1.7 / 2.4
         // 1.9 / 2
         // 1.9 / 2
       />
