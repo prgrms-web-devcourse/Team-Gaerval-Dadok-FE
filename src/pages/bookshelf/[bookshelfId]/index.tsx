@@ -19,6 +19,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -34,6 +35,7 @@ export default function UserBookShelfPage({
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
+  const { asPath } = useRouter();
   const {
     data: booksData,
     fetchNextPage,
@@ -74,9 +76,16 @@ export default function UserBookShelfPage({
   const filteredData = filtered();
 
   const handleShareClick = () => {
-    // TODO: 클릭시 해당 route 클립보드에 복사
-    // TODO: 복사 이후 Toast로 알려주기
-    console.log('복사 되었어요.');
+    const url = 'https://dev.dadok.site' + asPath;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        console.log('복사 성공 toast');
+      })
+      .catch(() => {
+        console.error('복사 실패 토스트');
+      });
   };
 
   return (
