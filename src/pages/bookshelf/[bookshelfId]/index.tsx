@@ -3,6 +3,7 @@ import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuer
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
+import IconButton from '@/ui/common/IconButton';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
@@ -72,9 +73,31 @@ export default function UserBookShelfPage({
 
   const filteredData = filtered();
 
+  const handleShareClick = () => {
+    // TODO: 클릭시 해당 route 클립보드에 복사
+    // TODO: 복사 이후 Toast로 알려주기
+    console.log('복사 되었어요.');
+  };
+
   return (
     <VStack width="100%" height="100%">
       <TopNavigation pageTitle={infoData.bookshelfName} />
+      <IconButton
+        name="share01"
+        size="2.2rem"
+        onClick={handleShareClick}
+        cursor="pointer"
+        style={{
+          zIndex: 10,
+          position: 'absolute',
+          top: '1.6rem',
+          right: '2.4rem',
+        }}
+        // MEMO: Icon top, right 위치
+        // 1.6 / 2.4
+        // 1.9 / 2
+        // 1.9 / 2
+      />
       <HStack width="100%" height="3rem" gap="0.08rem" px="1rem">
         <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
         {infoData.job.jobNameKoreanName && (
