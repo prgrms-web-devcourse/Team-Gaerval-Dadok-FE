@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/auth';
+import { isAuthed } from '@/utils/helpers';
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
@@ -7,7 +7,7 @@ import NavigationItem from './NavigationItem';
 
 const BottomNavigation = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isAuthed } = useAuth();
+
   const router = useRouter();
 
   const navigationItems = [
@@ -31,7 +31,7 @@ const BottomNavigation = () => {
       label: '내 프로필',
       href: '/profile/me',
       onClick: (event: MouseEvent<HTMLAnchorElement>) => {
-        if (isAuthed) return;
+        if (isAuthed()) return;
         onOpen();
         event.preventDefault();
       },

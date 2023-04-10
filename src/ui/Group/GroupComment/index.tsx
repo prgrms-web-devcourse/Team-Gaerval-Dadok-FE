@@ -3,21 +3,22 @@ import {
   Box,
   Flex,
   Highlight,
-  Text,
+  IconButton,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  IconButton,
+  MenuList,
+  Text,
 } from '@chakra-ui/react';
 
 import MoreIcon from '@public/icons/more.svg';
-import { useAuth } from '@/hooks/auth';
+
+import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
+import { APIGroupComment } from '@/types/group';
+import { isAuthed } from '@/utils/helpers';
+import Link from 'next/link';
 import CommentDeleteModal from './CommentDeleteModal';
 import CommentModifyModal from './CommentModifyModal';
-import { APIGroupComment } from '@/types/group';
-import Link from 'next/link';
-import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import GuideMessage from './GuideMessage';
 
 interface commentsListProps {
@@ -40,20 +41,18 @@ const CommentsList = ({
   handleDeleteCommentBtnClick,
   handleModifyCommentBtnClick,
 }: commentsListProps) => {
-  const { isAuthed } = useAuth();
-
   const getFilteredComments = () => {
     const commentsLength = commentsListData.length;
 
-    if (!isAuthed && !isPublic && commentsLength < 5) {
+    if (!isAuthed() && !isPublic && commentsLength < 5) {
       return initialBookGroupComments.slice(0, commentsLength);
-    } else if (!isAuthed && !isPublic) {
+    } else if (!isAuthed() && !isPublic) {
       return initialBookGroupComments;
     }
 
-    if (isAuthed && !isPublic && !isGroupMember && commentsLength < 5) {
+    if (isAuthed() && !isPublic && !isGroupMember && commentsLength < 5) {
       return initialBookGroupComments.slice(0, commentsLength);
-    } else if (isAuthed && !isPublic && !isGroupMember) {
+    } else if (isAuthed() && !isPublic && !isGroupMember) {
       return initialBookGroupComments;
     }
     return commentsListData;
@@ -87,8 +86,8 @@ const CommentsList = ({
                 <Box
                   filter="auto"
                   blur={
-                    (!isAuthed && !isPublic) ||
-                    (isAuthed && !isPublic && !isGroupMember)
+                    (!isAuthed() && !isPublic) ||
+                    (isAuthed() && !isPublic && !isGroupMember)
                       ? '3px'
                       : 'undefined'
                   }
@@ -153,7 +152,7 @@ const CommentsList = ({
           )}
       </Box>
       <GuideMessage
-        isAuthed={isAuthed}
+        isAuthed={isAuthed()}
         isPublic={isPublic}
         isGroupMember={isGroupMember}
       />

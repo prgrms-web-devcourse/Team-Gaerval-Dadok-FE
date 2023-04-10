@@ -1,16 +1,15 @@
-import { Box, Flex, Button, Text } from '@chakra-ui/react';
-import Link from 'next/link';
-import { useDisclosure } from '@chakra-ui/react';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
-import { useAuth } from '@/hooks/auth';
+import { Box, Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import Link from 'next/link';
+
+import { isAuthed } from '@/utils/helpers';
 import { MouseEvent } from 'react';
 
 const GroupHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isAuthed } = useAuth();
 
   const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (isAuthed) return;
+    if (isAuthed()) return;
     onOpen();
     event.preventDefault();
   };

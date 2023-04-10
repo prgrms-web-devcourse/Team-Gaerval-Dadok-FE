@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
+
 import BottomNavigation from '@/ui/BottomNavigation';
 import Toast from '../Toast';
 

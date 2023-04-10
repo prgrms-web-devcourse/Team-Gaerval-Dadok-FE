@@ -1,33 +1,34 @@
 import {
-  Box,
-  Image,
-  Text,
-  Input,
-  Flex,
   AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
+  AlertDialogOverlay,
+  Box,
   Button,
-  useTheme,
-  useDisclosure,
+  Flex,
+  IconButton,
+  Image,
+  Input,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  IconButton,
+  MenuList,
+  Text,
+  useDisclosure,
+  useTheme,
 } from '@chakra-ui/react';
 import MoreIcon from '@public/icons/more.svg';
 
 import { APIGroupDetail } from '@/types/group';
 import BottomSheet from '@/ui/common/BottomSheet';
-import { useState, useRef, MutableRefObject } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
-import LoginBottomSheet from '@/ui/LoginBottomSheet';
+import { MutableRefObject, useRef, useState } from 'react';
+
 import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
+import LoginBottomSheet from '@/ui/LoginBottomSheet';
+import { isAuthed } from '@/utils/helpers';
 
 interface GroupInfoProps {
   groupInfoData: APIGroupDetail;
@@ -45,7 +46,6 @@ const GroupInfo = ({
   handleDeleteGroupBtnClick,
 }: GroupInfoProps) => {
   const [password, setPassword] = useState('');
-  const { isAuthed } = useAuth();
   const cancelRef = useRef(null);
   const {
     isOpen: isLoginModalOpen,
@@ -102,7 +102,7 @@ const GroupInfo = ({
   };
 
   const onPartInButtonClick = () => {
-    if (!isAuthed) {
+    if (!isAuthed()) {
       onLoginModalOpen();
       return;
     }

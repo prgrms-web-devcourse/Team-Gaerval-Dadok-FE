@@ -1,16 +1,14 @@
-import { VStack } from '@chakra-ui/react';
-import ProfileForm from '@/ui/Profile/ProfileForm';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import TopNavigation from '@/ui/common/TopNavigation';
 import AuthRequired from '@/ui/AuthRequired';
-import { useAuth } from '@/hooks/auth';
+import TopNavigation from '@/ui/common/TopNavigation';
+import ProfileForm from '@/ui/Profile/ProfileForm';
+import { isAuthed } from '@/utils/helpers';
+import { VStack } from '@chakra-ui/react';
 
 const EditMyPage = () => {
-  const { isAuthed } = useAuth();
-
-  const allJobQuery = useAllJobQuery({ enabled: isAuthed });
-  const userProfileQuery = useMyProfileQuery({ enabled: isAuthed });
+  const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
+  const userProfileQuery = useMyProfileQuery({ enabled: isAuthed() });
 
   const isSuccess = allJobQuery.isSuccess && userProfileQuery.isSuccess;
 
