@@ -21,6 +21,15 @@ export interface APISearchedBook
   apiProvider: string;
 }
 
+export interface APISearchedBookPagination {
+  searchBookResponseList: APISearchedBook[];
+  requestedPageNumber: number;
+  requestedPageSize: 10;
+  isLast: true;
+  pageableCount: number;
+  totalCount: number;
+}
+
 export interface APIBookDetail extends APIBook {
   apiProvider: string;
   imageKey: string;
