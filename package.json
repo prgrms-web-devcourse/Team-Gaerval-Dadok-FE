@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H local.dev.dadok.site",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -H local.dev.dadok.site",
     "lint": "next lint",
     "prepare": "husky install"
   },
