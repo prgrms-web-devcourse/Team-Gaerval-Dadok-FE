@@ -1,15 +1,13 @@
-import { useAuth } from '@/hooks/auth';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import AuthRequired from '@/ui/AuthRequired';
 import ProfileForm from '@/ui/Profile/ProfileForm';
+import { isAuthed } from '@/utils/helpers';
 import { Text, VStack } from '@chakra-ui/react';
 
 const AdditionalProfile = () => {
-  const { isAuthed } = useAuth();
-
-  const allJobQuery = useAllJobQuery({ enabled: isAuthed });
-  const userProfileQuery = useMyProfileQuery({ enabled: isAuthed });
+  const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
+  const userProfileQuery = useMyProfileQuery({ enabled: isAuthed() });
 
   const isSuccess = allJobQuery.isSuccess && userProfileQuery.isSuccess;
 

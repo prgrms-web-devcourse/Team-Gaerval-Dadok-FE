@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import {
   Avatar,
   AvatarGroup,
@@ -9,14 +8,16 @@ import {
   useTheme,
   VStack,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 
-import IconButton from '@/ui/common/IconButton';
 import bookAPI from '@/apis/book';
 import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
+import IconButton from '@/ui/common/IconButton';
 
 import type { APIBookDetail } from '@/types/book';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/auth';
+
+import { isAuthed } from '@/utils/helpers';
 import LoginBottomSheet from '../LoginBottomSheet';
 
 type Props = Pick<
@@ -26,8 +27,9 @@ type Props = Pick<
 
 const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
   const theme = useTheme();
-  const { isAuthed } = useAuth();
-  const bookUserQueryInfo = useBookUserInfoQuery(bookId, { enabled: isAuthed });
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId, {
+    enabled: isAuthed(),
+  });
   const {
     isOpen: isLoginBottomSheetOpen,
     onOpen: onLoginBottomSheetOpen,
@@ -35,7 +37,7 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
   } = useDisclosure();
 
   const handleBookmarkClick = () => {
-    if (!bookUserQueryInfo.isSuccess || !isAuthed) {
+    if (!bookUserQueryInfo.isSuccess || !isAuthed()) {
       onLoginBottomSheetOpen();
       return;
     }
@@ -78,7 +80,7 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
       </Flex>
       <Text fontSize="md">{contents}</Text>
 
-      {!isAuthed && (
+      {!isAuthed() && (
         <LoginBottomSheet
           isOpen={isLoginBottomSheetOpen}
           onClose={onLoginBottomSheetsClose}

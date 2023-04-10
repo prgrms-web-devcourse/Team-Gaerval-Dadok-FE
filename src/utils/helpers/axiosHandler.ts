@@ -1,10 +1,10 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 
 import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants';
-import tokenStorage from '@/utils/storage';
+import webStorage from '@/utils/storage';
 
 const updateToken = async () => {
-  const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
+  const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
 
   try {
     const {
