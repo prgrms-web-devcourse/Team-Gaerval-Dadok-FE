@@ -6,6 +6,10 @@ import {
   useDisclosure,
   useTheme,
   VStack,
+  Input,
+  Text,
+  InputGroup,
+  Button,
 } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '@/ui/FormInput';
@@ -20,11 +24,8 @@ import { useRouter } from 'next/router';
 import { APICreateGroup } from '@/types/group';
 import {
   MAX_MEMBER_COUNT_VALUE,
-  MAX_MEMBER_DEFAULT_VALUE,
-  IS_PUBLICK_DEFAULT_VALUE,
   IS_PUBLICK_VALUE,
   HAS_JOIN_PASSWORD_VALUE,
-  HAS_JOIN_PASSWORD_DEFAULT_VALUE,
 } from '../../constants/groupRadioValues';
 
 interface FormValues
@@ -40,8 +41,19 @@ interface FormValues
 const AddGroupForm = () => {
   const theme = useTheme();
   const router = useRouter();
+  const [userSelectMemberCount, setUserSelectMemberCount] = useState('');
+
   const [selectedBook, setSeletedBook] = useState<APIBook>();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: isBookSearchOpen,
+    onClose: onBookSearchClose,
+    onOpen: onBookSearchOpen,
+  } = useDisclosure();
+  const {
+    isOpen: isMaxMemberSetOpen,
+    onClose: onMaxMemberSetClose,
+    onOpen: onMaxMemberSetOpen,
+  } = useDisclosure();
 
   const date = new Date();
   const today = Date.now();
@@ -55,7 +67,7 @@ const AddGroupForm = () => {
       bookId: 0,
       title: '',
       introduce: '',
-      maxMemberCount: '100',
+      maxMemberCount: 'null',
       startDate,
       endDate: '',
       hasJoinPasswd: 'false',
@@ -65,7 +77,7 @@ const AddGroupForm = () => {
     },
   });
 
-  const hasJoinPasswd = methods.getValues('hasJoinPasswd');
+  const { maxMemberCount, hasJoinPasswd, isPublic } = methods.watch();
 
   useEffect(() => {
     if (hasJoinPasswd === 'false') {
@@ -74,7 +86,11 @@ const AddGroupForm = () => {
       methods.clearErrors('joinPasswd');
       methods.clearErrors('joinQuestion');
     }
-  }, [methods, hasJoinPasswd]);
+    if (methods.watch('maxMemberCount') === '직접입력') {
+      onMaxMemberSetOpen();
+    }
+    console.log(maxMemberCount);
+  }, [methods, hasJoinPasswd, maxMemberCount, onMaxMemberSetOpen]);
 
   const onSubmit = async (group: FormValues) => {
     const request = {
@@ -93,12 +109,46 @@ const AddGroupForm = () => {
     }
   };
 
+  const onClick = () => {
+    if (
+      Number(userSelectMemberCount) > 0 &&
+      Number(userSelectMemberCount) <= 1000
+    ) {
+      methods.setValue('maxMemberCount', userSelectMemberCount);
+      onMaxMemberSetClose();
+    }
+  };
+
+  const getValidationMessage = () => {
+    if (Number(userSelectMemberCount) > 1000) {
+      return '1000명 이하의 인원을 입력해 주세요';
+    } else if (
+      userSelectMemberCount === '' ||
+      Number(userSelectMemberCount) < 1
+    ) {
+      return '1명 이상의 인원을 입력해 주세요';
+    } else {
+      return '';
+    }
+  };
+
+  const maxMemberCountViewer =
+    maxMemberCount === 'null'
+      ? '제한없음'
+      : maxMemberCount === '직접입력'
+      ? getValidationMessage() === ''
+        ? `${userSelectMemberCount}명`
+        : ''
+      : `${maxMemberCount}명`;
+
+  const validationMessage = getValidationMessage();
+
   return (
     <>
       <FormProvider {...methods}>
         <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
           <Box
-            onClick={onOpen}
+            onClick={onBookSearchOpen}
             fontSize="md"
             maxH="18rem"
             w="fit-content"
@@ -132,22 +182,22 @@ const AddGroupForm = () => {
             <FormInput label="제목" name="title" />
             <FormInput label="설명" name="introduce" />
             <FormRadio
-              label="참여 인원"
+              label={`참여 인원 : ${maxMemberCountViewer}`}
               name="maxMemberCount"
               radioValues={MAX_MEMBER_COUNT_VALUE}
-              defaultValue={MAX_MEMBER_DEFAULT_VALUE}
+              value={`${maxMemberCount}`}
             />
             <FormRadio
               label="댓글 공개 여부"
               name="isPublic"
               radioValues={IS_PUBLICK_VALUE}
-              defaultValue={IS_PUBLICK_DEFAULT_VALUE}
+              value={`${isPublic}`}
             />
             <FormRadio
               label="모임 가입 문제"
               name="hasJoinPasswd"
               radioValues={HAS_JOIN_PASSWORD_VALUE}
-              defaultValue={HAS_JOIN_PASSWORD_DEFAULT_VALUE}
+              value={`${hasJoinPasswd}`}
             />
 
             <FormInput
@@ -190,11 +240,11 @@ const AddGroupForm = () => {
           </Box>
         </Box>
       </FormProvider>
-      <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <BottomSheet isOpen={isBookSearchOpen} onClose={onBookSearchClose}>
         <VStack px="2rem" py="2rem" h="95vh" gap="1rem" overflow="scroll">
           <IconButton
             name="close"
-            onClick={onClose}
+            onClick={onBookSearchClose}
             alignSelf="flex-end"
             tabIndex={-1}
           />
@@ -202,9 +252,39 @@ const AddGroupForm = () => {
             onBookClick={book => {
               setSeletedBook(book);
               methods.setValue('bookId', book.bookId);
-              onClose();
+              onBookSearchClose();
             }}
           />
+        </VStack>
+      </BottomSheet>
+      <BottomSheet
+        isOpen={isMaxMemberSetOpen}
+        onClose={onMaxMemberSetClose}
+        onCancel={() => methods.setValue('maxMemberCount', 'null')}
+      >
+        <VStack px="2rem" py="2rem" h="50vh" gap="1rem" overflow="scroll">
+          <Button
+            fontSize="lg"
+            alignSelf="flex-end"
+            bgColor="white.900"
+            onClick={onClick}
+          >
+            확인
+          </Button>
+          <Text fontSize="lg">참여 인원</Text>
+          <InputGroup>
+            <Input
+              h="4rem"
+              value={userSelectMemberCount}
+              focusBorderColor="main"
+              type="number"
+              placeholder="모임 인원을 입력해주세요"
+              onChange={e => setUserSelectMemberCount(e.target.value)}
+            />
+          </InputGroup>
+          <Text fontSize="sm" color="red.900">
+            {validationMessage}
+          </Text>
         </VStack>
       </BottomSheet>
     </>

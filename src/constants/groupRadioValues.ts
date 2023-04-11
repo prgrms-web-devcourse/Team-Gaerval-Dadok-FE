@@ -4,10 +4,6 @@ export const MAX_MEMBER_COUNT_VALUE = [
     text: '제한없음',
   },
   {
-    value: '1000',
-    text: '1,000명',
-  },
-  {
     value: '500',
     text: '500명',
   },
@@ -22,6 +18,10 @@ export const MAX_MEMBER_COUNT_VALUE = [
   {
     value: '50',
     text: '50명',
+  },
+  {
+    value: '직접입력',
+    text: '직접입력',
   },
 ];
 
