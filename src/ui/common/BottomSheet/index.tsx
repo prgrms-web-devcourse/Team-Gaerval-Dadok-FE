@@ -6,13 +6,16 @@ import {
   UseDisclosureProps,
 } from '@chakra-ui/react';
 
-type Props = PropsWithChildren<
-  Required<Pick<UseDisclosureProps, 'isOpen' | 'onClose'>>
-> & {
+type Props = Required<Pick<UseDisclosureProps, 'isOpen' | 'onClose'>> & {
   onCancel?: () => void;
 };
 
-const BottomSheet = ({ isOpen, onClose, onCancel, children }: Props) => {
+const BottomSheet = ({
+  isOpen,
+  onClose,
+  onCancel,
+  children,
+}: PropsWithChildren<Props>) => {
   const handleDrawerCancel = () => {
     console.log('onCancel');
     onCancel && onCancel();
