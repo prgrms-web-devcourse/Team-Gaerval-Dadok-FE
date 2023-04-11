@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import debounce from '@/utils/debounce';
 
@@ -31,6 +31,12 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       page: 1,
       pageSize: 12,
     });
+
+  const searchedBooks = useMemo(() => {
+    return isSuccess
+      ? data.pages.flatMap(page => page.searchBookResponseList)
+      : [];
+  }, [isSuccess, data?.pages]);
 
   const onInputChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,19 +75,12 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         />
       </InputGroup>
 
-      {isSuccess ? (
-        <SimpleGrid columns={3} gap="1rem">
-          {data.pages
-            .flatMap(({ searchBookResponseList }) => searchBookResponseList)
-            .map(book => (
-              <SearchedBook
-                key={book.isbn}
-                book={book}
-                onBookClick={onBookClick}
-              />
-            ))}
-        </SimpleGrid>
-      ) : null}
+      <SimpleGrid columns={3} gap="1rem">
+        {searchedBooks.map(book => (
+          <SearchedBook key={book.isbn} book={book} onBookClick={onBookClick} />
+        ))}
+      </SimpleGrid>
+
       {isFetching && (
         <Flex gap="1rem" w="100%">
           <Skeleton w="100%" h="18rem" borderRadius={10} />

@@ -17,8 +17,8 @@ const useBookSearchQuery = ({
         .searchBooks({ query, page: pageParam, pageSize })
         .then(response => response.data),
     {
-      getNextPageParam: lastPage => {
-        return lastPage.isLast ? undefined : lastPage.requestedPageNumber + 1;
+      getNextPageParam: pages => {
+        return pages.isLast ? undefined : pages.requestedPageNumber + 1;
       },
       staleTime: 3000,
       enabled: !!query,
