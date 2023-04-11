@@ -52,8 +52,6 @@ type IconNameType =
   | 'more-circle'
   | 'job-card'
   | 'plus-circle'
-  | 'share01'
-  | 'share02'
-  | 'share03';
+  | 'share';
 
 export default IconButton;
