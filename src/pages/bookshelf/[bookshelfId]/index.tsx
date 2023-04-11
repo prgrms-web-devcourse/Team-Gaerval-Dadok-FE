@@ -11,6 +11,7 @@ import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData
 import UserJobInfoTag from '@/ui/UserJobInfoTag';
 import {
   Box,
+  Flex,
   Highlight,
   HStack,
   Image,
@@ -86,29 +87,22 @@ export default function UserBookShelfPage({
         showToast({ message: '복사 성공!' });
       })
       .catch(() => {
-        showToast({ message: '복사 실패! 뭔가 잘못되었어요' });
+        showToast({ message: '잠시 후 다시 시도해주세요' });
       });
   };
 
   return (
     <VStack width="100%" height="100%">
-      <TopNavigation pageTitle={infoData.bookshelfName} />
-      <IconButton
-        name="share01"
-        size="2.2rem"
-        onClick={handleShareClick}
-        cursor="pointer"
-        style={{
-          zIndex: 10,
-          position: 'absolute',
-          top: '1.7rem',
-          right: '2.4rem',
-        }}
-        // MEMO: Icon top, right 위치
-        // 1.7 / 2.4
-        // 1.9 / 2
-        // 1.9 / 2
-      />
+      <Flex width="100%" align="center">
+        <TopNavigation pageTitle={infoData.bookshelfName} />
+        <IconButton
+          name="share"
+          size="2.2rem"
+          onClick={handleShareClick}
+          cursor="pointer"
+          marginBottom="1rem"
+        />
+      </Flex>
       <HStack width="100%" height="3rem" gap="0.08rem" px="1rem">
         <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
         {infoData.job.jobNameKoreanName && (
