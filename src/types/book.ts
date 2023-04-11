@@ -24,8 +24,8 @@ export interface APISearchedBook
 export interface APISearchedBookPagination {
   searchBookResponseList: APISearchedBook[];
   requestedPageNumber: number;
-  requestedPageSize: 10;
-  isLast: true;
+  requestedPageSize: number;
+  isLast: boolean;
   pageableCount: number;
   totalCount: number;
 }
