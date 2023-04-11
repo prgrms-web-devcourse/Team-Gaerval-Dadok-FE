@@ -17,7 +17,6 @@ const BottomSheet = ({
   children,
 }: PropsWithChildren<Props>) => {
   const handleDrawerCancel = () => {
-    console.log('onCancel');
     onCancel && onCancel();
     onClose();
   };
