@@ -22,10 +22,17 @@ import LoginBottomSheet from '../LoginBottomSheet';
 
 type Props = Pick<
   APIBookDetail,
-  'title' | 'author' | 'contents' | 'imageUrl' | 'bookId'
+  'title' | 'author' | 'contents' | 'imageUrl' | 'bookId' | 'url'
 >;
 
-const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
+const BookInfo = ({
+  bookId,
+  title,
+  author,
+  contents,
+  imageUrl,
+  url: contentsUrl,
+}: Props) => {
   const theme = useTheme();
   const bookUserQueryInfo = useBookUserInfoQuery(bookId, {
     enabled: isAuthed(),
@@ -78,7 +85,20 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
           <Text fontSize="sm">{author}</Text>
         </VStack>
       </Flex>
-      <Text fontSize="md">{contents}</Text>
+      <Text fontSize="md">
+        {contents}&nbsp;...&nbsp;
+        {contentsUrl && (
+          <Text
+            as={Link}
+            href={contentsUrl}
+            color="main"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            더보기
+          </Text>
+        )}
+      </Text>
 
       {!isAuthed() && (
         <LoginBottomSheet
@@ -86,6 +106,7 @@ const BookInfo = ({ bookId, title, author, contents, imageUrl }: Props) => {
           onClose={onLoginBottomSheetsClose}
         />
       )}
+
       {bookUserQueryInfo.isSuccess && (
         <Flex align="center" minH="2rem">
           <AvatarGroup>

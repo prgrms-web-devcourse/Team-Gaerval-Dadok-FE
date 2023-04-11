@@ -36,6 +36,7 @@ const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
             author={bookQueryInfo.data.author}
             imageUrl={bookQueryInfo.data.imageUrl}
             contents={bookQueryInfo.data.contents}
+            url={bookQueryInfo.data.url}
           />
         )}
         {bookQueryInfo.isLoading && (
