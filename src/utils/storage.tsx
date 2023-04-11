@@ -1,6 +1,6 @@
 import isClient from '@/utils/isClient';
 
-const tokenStorage = (key: string) => {
+const webStorage = (key: string) => {
   return {
     get: () => isClient() && (localStorage.getItem(key) ?? null),
     set: (newToken: string) =>
@@ -9,4 +9,4 @@ const tokenStorage = (key: string) => {
   };
 };
 
-export default tokenStorage;
+export default webStorage;

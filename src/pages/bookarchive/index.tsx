@@ -1,12 +1,11 @@
-import { useAuth } from '@/hooks/auth';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import { BookArchiveForAuth, BookArchiveForUnAuth } from '@/ui/BookArchive';
+import { isAuthed } from '@/utils/helpers';
 import { Text, VStack } from '@chakra-ui/react';
 
 export default function BookArchive() {
-  const { isAuthed } = useAuth();
   const { data: userData, isSuccess } = useMyProfileQuery({
-    enabled: isAuthed,
+    enabled: isAuthed(),
   });
 
   return (
@@ -21,7 +20,7 @@ export default function BookArchive() {
           BookArchive
         </Text>
       </VStack>
-      {isAuthed && isSuccess ? (
+      {isAuthed() && isSuccess ? (
         <BookArchiveForAuth userJobGroup={userData.job.jobGroupName} />
       ) : (
         <BookArchiveForUnAuth />

@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/auth';
+
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
@@ -9,6 +9,7 @@ import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
 import UserJobInfoTag from '@/ui/UserJobInfoTag';
+import { isAuthed } from '@/utils/helpers';
 import {
   Box,
   Flex,
@@ -32,7 +33,6 @@ export default function UserBookShelfPage({
 }: {
   bookshelfId: APIBookshelf['bookshelfId'];
 }) {
-  const { isAuthed } = useAuth();
   const { ref, inView } = useInView();
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
@@ -71,7 +71,7 @@ export default function UserBookShelfPage({
   const filtered = () => {
     const data = booksData.pages[0].books;
 
-    if (isAuthed) return data;
+    if (isAuthed()) return data;
 
     return data.slice(0, 4);
   };
@@ -110,7 +110,7 @@ export default function UserBookShelfPage({
         )}
       </HStack>
       <VStack width="100%" spacing="2rem">
-        {isAuthed ? (
+        {isAuthed() ? (
           booksData.pages.map((page, idx) => (
             <InteractiveBookShelf key={idx} books={page.books} />
           ))

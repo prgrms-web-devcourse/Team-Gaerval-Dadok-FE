@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '@/hooks/auth';
+import { isAuthed, removeAuth } from '@/utils/helpers';
 import { Flex, Spinner } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const Logout = () => {
-  const { isAuthed, removeAuth } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    removeAuth();
-    !isAuthed && router.push('/');
+    isAuthed() && removeAuth();
+    router.push('/');
   });
 
   return (

@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Flex, Spinner } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-import { useAuth } from '@/hooks/auth';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
+import { isAuthed, setAuth } from '@/utils/helpers';
 
 const RedirectPage = () => {
   const router = useRouter();
@@ -11,8 +11,9 @@ const RedirectPage = () => {
   const { access_token: accessToken } = router.query as {
     access_token: string;
   };
-  const { isAuthed, setAuth } = useAuth();
-  const { isSuccess, data, refetch } = useMyProfileQuery({ enabled: isAuthed });
+  const { isSuccess, data, refetch } = useMyProfileQuery({
+    enabled: isAuthed(),
+  });
 
   useEffect(() => {
     const isAuthed = !!accessToken;
@@ -21,7 +22,7 @@ const RedirectPage = () => {
       accessToken && setAuth(accessToken);
       refetch();
     }
-  }, [accessToken, refetch, setAuth]);
+  }, [accessToken, refetch]);
 
   useEffect(() => {
     if (!isSuccess) {

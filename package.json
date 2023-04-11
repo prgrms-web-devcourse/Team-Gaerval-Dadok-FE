@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H local.dev.dadok.site",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -H local.dev.dadok.site",
     "lint": "next lint",
     "prepare": "husky install"
   },

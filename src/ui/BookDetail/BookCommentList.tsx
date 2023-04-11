@@ -1,17 +1,18 @@
 'use clinet';
 
-import { useMemo, useRef } from 'react';
 import { useDisclosure, VStack } from '@chakra-ui/react';
 import { isAxiosError } from 'axios';
+import { useMemo, useRef } from 'react';
 
-import Button from '@/ui/common/Button';
-import CommentDrawer from './CommentDrawer';
-import BookComment from './BookComment';
 import bookAPI from '@/apis/book';
 import useBookCommentsQuery from '@/queries/book/useBookCommentsQuery';
+import Button from '@/ui/common/Button';
+import BookComment from './BookComment';
+import CommentDrawer from './CommentDrawer';
 
 import type { APIBookComment } from '@/types/book';
-import { useAuth } from '@/hooks/auth';
+
+import { isAuthed } from '@/utils/helpers';
 import LoginBottomSheet from '../LoginBottomSheet';
 
 interface Props {
@@ -22,7 +23,6 @@ type CommentType = 'me' | 'user';
 type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
 const BookCommentList = ({ bookId }: Props) => {
-  const { isAuthed } = useAuth();
   const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
 
@@ -97,7 +97,7 @@ const BookCommentList = ({ bookId }: Props) => {
   };
 
   const handleCreateCommentDrawerOpen = () => {
-    if (!isAuthed) {
+    if (!isAuthed()) {
       onLoginBottomSheetOpen();
       return;
     }
@@ -107,7 +107,7 @@ const BookCommentList = ({ bookId }: Props) => {
 
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
-      {!isAuthed && (
+      {!isAuthed() && (
         <LoginBottomSheet
           isOpen={isLoginBottomSheetOpen}
           onClose={onLoginBottomSheetsClose}
