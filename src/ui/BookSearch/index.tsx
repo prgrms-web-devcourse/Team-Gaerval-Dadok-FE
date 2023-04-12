@@ -1,57 +1,56 @@
 import {
-  Center,
-  Image,
+  Box,
+  Flex,
   Input,
   InputGroup,
   SimpleGrid,
+  Skeleton,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { MouseEvent, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import bookAPI from '@/apis/book';
 import debounce from '@/utils/debounce';
-import LogoSmallIcon from '@public/icons/logo_sm.svg';
 
-import type { APIBook, APISearchedBook } from '@/types/book';
+import type { APIBook } from '@/types/book';
+import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
+import SearchedBook from './SearchedBook';
+import { useInView } from 'react-intersection-observer';
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
-  const [books, setBooks] = useState<APISearchedBook[]>([]);
+  const [keyword, setKeyword] = useState('');
+  const { ref, inView } = useInView();
 
-  const router = useRouter();
+  const { data, isSuccess, isFetching, hasNextPage, fetchNextPage } =
+    useBookSearchQuery({
+      query: keyword,
+      page: 1,
+      pageSize: 12,
+    });
+
+  const searchedBooks = isSuccess
+    ? data.pages.flatMap(page => page.searchBookResponseList)
+    : [];
 
   const onInputChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const query = event.target.value;
-      if (!query.trim()) return;
-      const {
-        data: { searchBookResponseList },
-      } = await bookAPI.getBooks({ query });
-      setBooks(searchBookResponseList);
+      if (!event.target) return;
+      const keyword = event.target.value;
+      if (!keyword.trim()) return;
+      setKeyword(keyword);
     },
     1000
   );
 
-  const onClick = (book: APISearchedBook) => async (event: MouseEvent) => {
-    try {
-      const {
-        data: { bookId },
-      } = await bookAPI.createBook({ book });
-      if (onBookClick) {
-        onBookClick({ ...book, bookId });
-        event.preventDefault();
-      } else {
-        router.push(`/book/${bookId}`);
-      }
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
     }
-  };
+  }, [fetchNextPage, inView, hasNextPage]);
 
   return (
     <VStack w="100%">
@@ -73,41 +72,21 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
           placeholder="검색어를 입력해 주세요."
         />
       </InputGroup>
+
       <SimpleGrid columns={3} gap="1rem">
-        {books.map(book => (
-          <VStack
-            key={book.isbn}
-            w="100%"
-            minH="18rem"
-            justify="center"
-            fontSize="sm"
-            bgColor="white"
-            p="1rem"
-            borderRadius={10}
-            boxShadow="lg"
-            cursor="pointer"
-            onClick={onClick(book)}
-          >
-            {book.imageUrl ? (
-              <Image src={book.imageUrl} alt="book-cover" />
-            ) : (
-              <Center bgColor="white" w="100%">
-                <LogoSmallIcon />
-              </Center>
-            )}
-            <Text
-              w="100%"
-              overflow="hidden"
-              whiteSpace="nowrap"
-              textOverflow="ellipsis"
-              textAlign="center"
-              fontSize="sm"
-            >
-              {book.title}
-            </Text>
-          </VStack>
+        {searchedBooks.map(book => (
+          <SearchedBook key={book.isbn} book={book} onBookClick={onBookClick} />
         ))}
       </SimpleGrid>
+
+      {isFetching && (
+        <Flex gap="1rem" w="100%">
+          <Skeleton w="100%" h="18rem" borderRadius={10} />
+          <Skeleton w="100%" h="18rem" borderRadius={10} />
+          <Skeleton w="100%" h="18rem" borderRadius={10} />
+        </Flex>
+      )}
+      <Box ref={ref} />
     </VStack>
   );
 };

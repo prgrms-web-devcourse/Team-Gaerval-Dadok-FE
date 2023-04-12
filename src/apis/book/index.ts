@@ -6,14 +6,23 @@ import type {
   APIBookmarkedUserList,
   APIPatchBookCommentRequest,
   APISearchedBook,
+  APISearchedBookPagination,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
 
 const bookAPI = {
-  getBooks: ({ query }: { query: string }) =>
-    publicApi.get<{ searchBookResponseList: APISearchedBook[] }>(
-      `/service-api/books?query=${query}`
+  searchBooks: ({
+    query,
+    page,
+    pageSize,
+  }: {
+    query: string;
+    page: number;
+    pageSize: number;
+  }) =>
+    publicApi.get<APISearchedBookPagination>(
+      `/service-api/books?query=${query}&page=${page}&pageSize=${pageSize}`
     ),
 
   getBookInfo: (bookId: APIBook['bookId']) =>
