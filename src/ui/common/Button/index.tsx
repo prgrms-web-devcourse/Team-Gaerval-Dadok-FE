@@ -1,9 +1,9 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ComponentProps } from 'react';
 import { useTheme, Flex } from '@chakra-ui/react';
-import type { ButtonProps } from '@chakra-ui/react';
+
 import type { ChakraTheme } from '@/styles/theme';
 
-type Props = ButtonProps & {
+type Props = ComponentProps<typeof Flex> & {
   size?: keyof ChakraTheme['buttonSizes'];
   scheme?: keyof ChakraTheme['scheme']['button'];
   fullWidth?: boolean;
@@ -17,7 +17,6 @@ const Button = ({
   ...props
 }: PropsWithChildren<Props>) => {
   const theme = useTheme();
-  ``;
 
   return (
     <Flex
