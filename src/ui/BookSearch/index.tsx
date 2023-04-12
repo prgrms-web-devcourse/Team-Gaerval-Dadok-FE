@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import debounce from '@/utils/debounce';
 
@@ -32,11 +32,9 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       pageSize: 12,
     });
 
-  const searchedBooks = useMemo(() => {
-    return isSuccess
-      ? data.pages.flatMap(page => page.searchBookResponseList)
-      : [];
-  }, [isSuccess, data?.pages]);
+  const searchedBooks = isSuccess
+    ? data.pages.flatMap(page => page.searchBookResponseList)
+    : [];
 
   const onInputChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
