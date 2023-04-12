@@ -1,11 +1,15 @@
 import { Box, Skeleton, SkeletonText, Text, VStack } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 
+import bookAPI from '@/apis/book';
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 import { APIBook } from '@/types/book';
 import { BookCommentList, BookInfo } from '@/ui/BookDetail';
 import TopNavigation from '@/ui/common/TopNavigation';
-import { GetServerSideProps } from 'next';
+import debounce from '@/utils/debounce';
+import { isAuthed } from '@/utils/helpers';
 
 const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const router = useRouter();
@@ -16,6 +20,28 @@ const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
       router.replace('/');
     },
   });
+
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId, {
+    enabled: isAuthed(),
+  });
+
+  const updateBookmark = (isBookMarked: boolean) => {
+    if (!bookUserQueryInfo.isSuccess) {
+      return;
+    }
+
+    const { isInMyBookshelf } = bookUserQueryInfo.data;
+
+    if (!isInMyBookshelf && isBookMarked) {
+      bookAPI.setBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    } else if (isInMyBookshelf && !isBookMarked) {
+      bookAPI.unsetBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    }
+  };
 
   return (
     <Box>
@@ -29,14 +55,15 @@ const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
         borderLeftRadius={15}
         gap="2rem"
       >
-        {bookQueryInfo.isSuccess && (
+        {bookQueryInfo.isSuccess && bookUserQueryInfo.isSuccess && (
           <BookInfo
-            bookId={bookId}
             title={bookQueryInfo.data.title}
             author={bookQueryInfo.data.author}
             imageUrl={bookQueryInfo.data.imageUrl}
             contents={bookQueryInfo.data.contents}
             url={bookQueryInfo.data.url}
+            onBookmarkClick={debounce(updateBookmark, 500)}
+            {...bookUserQueryInfo.data}
           />
         )}
         {bookQueryInfo.isLoading && (
@@ -56,7 +83,12 @@ const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
         <Text pt="3rem" pb="1rem" fontSize="lg" fontWeight="bold">
           책 코멘트
         </Text>
-        <BookCommentList bookId={bookId} />
+        {bookUserQueryInfo.isSuccess && (
+          <BookCommentList
+            bookId={bookId}
+            isInMyBookshelf={bookUserQueryInfo.data.isInMyBookshelf}
+          />
+        )}
       </VStack>
     </Box>
   );

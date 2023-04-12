@@ -1,27 +1,28 @@
-import { CSSProperties, MutableRefObject, useRef } from 'react';
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogOverlay,
   Avatar,
-  Flex,
-  VStack,
-  Text,
   Button,
+  Flex,
+  IconButton,
   Menu,
+  MenuButton,
   MenuItem,
   MenuList,
-  MenuButton,
-  IconButton,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogBody,
+  Text,
   useDisclosure,
-  AlertDialogFooter,
-  AlertDialogContent,
   useTheme,
+  VStack,
 } from '@chakra-ui/react';
+import { CSSProperties, MutableRefObject, useRef } from 'react';
 
 import MoreIcon from '@public/icons/more.svg';
 import CommentDrawer from './CommentDrawer';
 
+import { useToast } from '@/hooks/toast';
 import type { APIBookComment } from '@/types/book';
 import Link from 'next/link';
 
@@ -63,6 +64,7 @@ const BookComment = ({
     onClose: onEditDrawerClose,
     onOpen: onEditDrawerOpen,
   } = useDisclosure();
+  const { showToast } = useToast();
 
   const cancelRef = useRef(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -71,7 +73,7 @@ const BookComment = ({
     const comment = textareaRef.current?.value;
 
     if (!comment) {
-      console.log('입력된 코멘트가 없어요.');
+      showToast({ message: '코멘트를 입력해주세요!' });
       return;
     }
 

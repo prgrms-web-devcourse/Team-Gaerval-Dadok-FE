@@ -1,16 +1,10 @@
-import axios, {
-  AxiosError,
-  CreateAxiosDefaults,
-  InternalAxiosRequestConfig,
-  isAxiosError,
-} from 'axios';
+import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
 import { ACCESS_TOKEN_STORAGE_KEY, SERVICE_ERROR_MESSAGE } from '@/constants';
-import { APIErrorResponseData } from '@/types/error';
-import { RequiredWith } from '@/types/util';
 import {
   isAuthFailedError,
   isAuthRefreshError,
+  isAxiosErrorWithCustomCode,
   setAxiosAuthHeader,
   updateToken,
 } from '@/utils/helpers';
@@ -77,19 +71,6 @@ const silentRefresh = (originRequest: InternalAxiosRequestConfig) => {
     setAxiosAuthHeader(originRequest, newToken);
     return publicApi(originRequest);
   });
-};
-
-/**  axios 에러 응답에 custom error code가 포함되어 있는지 확인하며, 이를 보장하는 타입 가드 함수입니다. */
-const isAxiosErrorWithCustomCode = (
-  error: unknown
-): error is RequiredWith<AxiosError<APIErrorResponseData>, 'response'> => {
-  return (
-    error !== null &&
-    isAxiosError<APIErrorResponseData>(error) &&
-    !!error.response &&
-    !!error.response.data.code &&
-    error.response.data.code in SERVICE_ERROR_MESSAGE
-  );
 };
 
 publicApi.interceptors.request.use(requestHandler);
