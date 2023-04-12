@@ -1,7 +1,10 @@
+
+import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
+import IconButton from '@/ui/common/IconButton';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
@@ -9,6 +12,7 @@ import UserJobInfoTag from '@/ui/UserJobInfoTag';
 import { isAuthed } from '@/utils/helpers';
 import {
   Box,
+  Flex,
   Highlight,
   HStack,
   Image,
@@ -18,6 +22,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -32,6 +37,8 @@ export default function UserBookShelfPage({
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
+  const { asPath } = useRouter();
+  const { showToast } = useToast();
   const {
     data: booksData,
     fetchNextPage,
@@ -71,9 +78,31 @@ export default function UserBookShelfPage({
 
   const filteredData = filtered();
 
+  const handleShareClick = () => {
+    const url = 'https://dev.dadok.site' + asPath;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        showToast({ message: '복사 성공!' });
+      })
+      .catch(() => {
+        showToast({ message: '잠시 후 다시 시도해주세요' });
+      });
+  };
+
   return (
     <VStack width="100%" height="100%">
-      <TopNavigation pageTitle={infoData.bookshelfName} />
+      <Flex width="100%" align="center">
+        <TopNavigation pageTitle={infoData.bookshelfName} />
+        <IconButton
+          name="share"
+          size="2.2rem"
+          onClick={handleShareClick}
+          cursor="pointer"
+          marginBottom="1rem"
+        />
+      </Flex>
       <HStack width="100%" height="3rem" gap="0.08rem" px="1rem">
         <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
         {infoData.job.jobNameKoreanName && (
