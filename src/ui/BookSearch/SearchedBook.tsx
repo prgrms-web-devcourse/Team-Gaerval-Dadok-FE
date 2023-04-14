@@ -13,8 +13,10 @@ const SearchedBook = ({
   onBookClick?: (book: APIBook) => void;
 }) => {
   const router = useRouter();
+
   const handleClickBook =
-    (book: APISearchedBook) => async (event: MouseEvent) => {
+    (book: APISearchedBook) =>
+    async (event: React.MouseEvent<HTMLDivElement>) => {
       try {
         const {
           data: { bookId },
@@ -42,7 +44,9 @@ const SearchedBook = ({
       borderRadius={10}
       boxShadow="lg"
       cursor="pointer"
-      onClick={() => handleClickBook(book)}
+      onClick={event => {
+        handleClickBook(book)(event);
+      }}
     >
       {book.imageUrl ? (
         <Image src={book.imageUrl} alt="book-cover" />

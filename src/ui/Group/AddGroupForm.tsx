@@ -6,6 +6,9 @@ import {
   useDisclosure,
   useTheme,
   VStack,
+  Input,
+  Text,
+  InputGroup,
 } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '@/ui/FormInput';
@@ -20,12 +23,10 @@ import { useRouter } from 'next/router';
 import { APICreateGroup } from '@/types/group';
 import {
   MAX_MEMBER_COUNT_VALUE,
-  MAX_MEMBER_DEFAULT_VALUE,
-  IS_PUBLICK_DEFAULT_VALUE,
   IS_PUBLICK_VALUE,
   HAS_JOIN_PASSWORD_VALUE,
-  HAS_JOIN_PASSWORD_DEFAULT_VALUE,
 } from '../../constants/groupRadioValues';
+import Button from '@/ui/common/Button';
 
 interface FormValues
   extends Omit<
@@ -38,10 +39,21 @@ interface FormValues
 }
 
 const AddGroupForm = () => {
-  const theme = useTheme();
   const router = useRouter();
+  const [memberCountInput, setMemberCountInput] = useState('');
+  const memberCountInputAsNumber = Number(memberCountInput);
+
   const [selectedBook, setSeletedBook] = useState<APIBook>();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: isBookSearchOpen,
+    onClose: onBookSearchClose,
+    onOpen: onBookSearchOpen,
+  } = useDisclosure();
+  const {
+    isOpen: isMaxMemberSetOpen,
+    onClose: onMaxMemberSetClose,
+    onOpen: onMaxMemberSetOpen,
+  } = useDisclosure();
 
   const date = new Date();
   const today = Date.now();
@@ -55,7 +67,7 @@ const AddGroupForm = () => {
       bookId: 0,
       title: '',
       introduce: '',
-      maxMemberCount: '100',
+      maxMemberCount: 'null',
       startDate,
       endDate: '',
       hasJoinPasswd: 'false',
@@ -65,7 +77,8 @@ const AddGroupForm = () => {
     },
   });
 
-  const hasJoinPasswd = methods.getValues('hasJoinPasswd');
+  const { isValid } = methods.formState;
+  const { maxMemberCount, hasJoinPasswd, isPublic } = methods.watch();
 
   useEffect(() => {
     if (hasJoinPasswd === 'false') {
@@ -74,13 +87,23 @@ const AddGroupForm = () => {
       methods.clearErrors('joinPasswd');
       methods.clearErrors('joinQuestion');
     }
-  }, [methods, hasJoinPasswd]);
+    if (maxMemberCount === '직접입력') {
+      setMemberCountInput('');
+      onMaxMemberSetOpen();
+    }
+  }, [methods, hasJoinPasswd, maxMemberCount, onMaxMemberSetOpen]);
 
   const onSubmit = async (group: FormValues) => {
+    let maxMemberCount = group.maxMemberCount;
+
+    if (maxMemberCount === 'null') maxMemberCount = null;
+    else if (maxMemberCount === '직접입력')
+      maxMemberCount = memberCountInputAsNumber;
+    else maxMemberCount = Number(maxMemberCount);
+
     const request = {
       ...group,
-      maxMemberCount:
-        group.maxMemberCount === 'null' ? null : Number(group.maxMemberCount),
+      maxMemberCount,
       isPublic: group.isPublic === 'true' ? true : false,
       hasJoinPasswd: group.hasJoinPasswd === 'true' ? true : false,
     };
@@ -93,38 +116,49 @@ const AddGroupForm = () => {
     }
   };
 
+  const onMaxMemberInputComplete = () => {
+    const { isValid } = validateMaxMemberCount(memberCountInputAsNumber);
+    if (isValid) {
+      onMaxMemberSetClose();
+    }
+  };
+
+  const validateMaxMemberCount = (value: number) => {
+    if (value > 1000)
+      return { isValid: false, message: '1000명 이하의 인원을 입력해 주세요' };
+
+    if (value < 1)
+      return { isValid: false, message: '1명 이상의 인원을 입력해 주세요' };
+
+    return { isValid: true, message: null };
+  };
+
+  const getMaxMemberCountViewer = () => {
+    if (maxMemberCount === 'null') {
+      return '제한없음';
+    }
+
+    if (maxMemberCount === '직접입력') {
+      const { isValid } = validateMaxMemberCount(memberCountInputAsNumber);
+      return isValid ? `${memberCountInput}명` : '';
+    }
+
+    return `${maxMemberCount}명`;
+  };
+
+  const validationMessage = memberCountInput
+    ? validateMaxMemberCount(memberCountInputAsNumber).message
+    : '';
+
   return (
     <>
       <FormProvider {...methods}>
         <Box as="form" w="100%" onSubmit={methods.handleSubmit(onSubmit)}>
-          <Box
-            onClick={onOpen}
-            fontSize="md"
-            maxH="18rem"
-            w="fit-content"
-            mx="auto"
-            border={
-              methods.getFieldState('bookId').error
-                ? `2px solid ${theme.colors.red['500']}`
-                : 'none'
-            }
-          >
-            {selectedBook && selectedBook.imageUrl ? (
-              <Image src={selectedBook.imageUrl} alt="book-cover" />
-            ) : (
-              <Center
-                borderRadius={10}
-                bgColor="white"
-                w="12rem"
-                h="17.4rem"
-                textAlign="center"
-              >
-                책을
-                <br />
-                선택해주세요.
-              </Center>
-            )}
-          </Box>
+          <BookSelectBox
+            selectedBook={selectedBook}
+            onClick={onBookSearchOpen}
+            isShowError={!!methods.getFieldState('bookId').error}
+          />
           <Flex direction="column" gap="2rem" align="center">
             <Box display="none">
               <FormInput label="" name="bookId" />
@@ -132,24 +166,23 @@ const AddGroupForm = () => {
             <FormInput label="제목" name="title" />
             <FormInput label="설명" name="introduce" />
             <FormRadio
-              label="참여 인원"
+              label={`참여 인원 : ${getMaxMemberCountViewer()}`}
               name="maxMemberCount"
               radioValues={MAX_MEMBER_COUNT_VALUE}
-              defaultValue={MAX_MEMBER_DEFAULT_VALUE}
+              value={`${maxMemberCount}`}
             />
             <FormRadio
               label="댓글 공개 여부"
               name="isPublic"
               radioValues={IS_PUBLICK_VALUE}
-              defaultValue={IS_PUBLICK_DEFAULT_VALUE}
+              value={`${isPublic}`}
             />
             <FormRadio
               label="모임 가입 문제"
               name="hasJoinPasswd"
               radioValues={HAS_JOIN_PASSWORD_VALUE}
-              defaultValue={HAS_JOIN_PASSWORD_DEFAULT_VALUE}
+              value={`${hasJoinPasswd}`}
             />
-
             <FormInput
               label="문제"
               name="joinQuestion"
@@ -164,50 +197,150 @@ const AddGroupForm = () => {
                 methods.watch('hasJoinPasswd') === 'true' ? false : true
               }
             />
-
             <FormInput label="시작일" name="startDate" type="date" />
             <FormInput label="종료일" name="endDate" type="date" />
           </Flex>
-          <Box
-            as="button"
-            w="100%"
-            mt="4rem"
-            px="2rem"
-            py="1rem"
-            disabled={methods.formState.isSubmitting}
-            color="white.900"
-            bgColor="main"
-            border="1px solid"
-            borderRadius="1.2rem"
-            fontSize="lg"
-            fontWeight="bold"
-            _disabled={{
-              color: `${theme.colors.black['500']}`,
-              border: '1px solid',
-            }}
+          <Button
+            type="submit"
+            scheme={isValid ? 'orange-fill' : 'grey-fill'}
+            my="4rem"
+            fullWidth
           >
             모임 생성하기
-          </Box>
+          </Button>
         </Box>
       </FormProvider>
-      <BottomSheet isOpen={isOpen} onClose={onClose}>
-        <VStack px="2rem" py="2rem" h="95vh" gap="1rem" overflow="scroll">
-          <IconButton
-            name="close"
-            onClick={onClose}
-            alignSelf="flex-end"
-            tabIndex={-1}
-          />
-          <BookSearch
-            onBookClick={book => {
-              setSeletedBook(book);
-              methods.setValue('bookId', book.bookId);
-              onClose();
-            }}
-          />
-        </VStack>
-      </BottomSheet>
+      <BookSearchBottomSheet
+        isOpen={isBookSearchOpen}
+        onClose={onBookSearchClose}
+        onBookClick={book => {
+          setSeletedBook(book);
+          methods.setValue('bookId', book.bookId);
+          onBookSearchClose();
+        }}
+      />
+      <MaxMemberCountBottomSheet
+        isOpen={isMaxMemberSetOpen}
+        onClose={onMaxMemberSetClose}
+        onCancel={() => {
+          methods.setValue('maxMemberCount', 'null');
+        }}
+        onComplete={onMaxMemberInputComplete}
+        inputValue={memberCountInput}
+        onInputChange={e => setMemberCountInput(e.target.value)}
+        validationMessage={validationMessage}
+      />
     </>
+  );
+};
+
+const BookSelectBox = ({
+  selectedBook,
+  onClick,
+  isShowError,
+}: {
+  selectedBook?: APIBook;
+  isShowError?: boolean;
+  onClick: () => void;
+}) => {
+  const theme = useTheme();
+  return (
+    <Box
+      onClick={onClick}
+      fontSize="md"
+      maxH="18rem"
+      w="fit-content"
+      mx="auto"
+      border={isShowError ? `2px solid ${theme.colors.red['500']}` : 'none'}
+    >
+      {selectedBook && selectedBook.imageUrl ? (
+        <Image src={selectedBook.imageUrl} alt="book-cover" />
+      ) : (
+        <Center
+          borderRadius={10}
+          bgColor="white"
+          w="12rem"
+          h="17.4rem"
+          textAlign="center"
+        >
+          책을
+          <br />
+          선택해주세요.
+        </Center>
+      )}
+    </Box>
+  );
+};
+
+const BookSearchBottomSheet = ({
+  isOpen,
+  onClose,
+  onBookClick,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onBookClick: (book: APIBook) => void;
+}) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <VStack px="2rem" py="2rem" h="95vh" gap="1rem" overflow="scroll">
+        <IconButton
+          name="close"
+          onClick={onClose}
+          alignSelf="flex-end"
+          tabIndex={-1}
+        />
+        <BookSearch onBookClick={onBookClick} />
+      </VStack>
+    </BottomSheet>
+  );
+};
+
+const MaxMemberCountBottomSheet = ({
+  inputValue,
+  onInputChange,
+  isOpen,
+  onClose,
+  onCancel,
+  onComplete,
+  validationMessage,
+}: {
+  inputValue: string;
+  onInputChange: React.ChangeEventHandler<HTMLInputElement>;
+  isOpen: boolean;
+  onClose: () => void;
+  onCancel: () => void;
+  onComplete: () => void;
+  validationMessage: string | null;
+}) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose} onCancel={onCancel}>
+      <VStack px="2rem" py="2rem" h="50vh" gap="1rem" overflow="scroll">
+        <Text
+          fontSize="lg"
+          alignSelf="flex-end"
+          bgColor="white.900"
+          cursor="pointer"
+          onClick={onComplete}
+        >
+          확인
+        </Text>
+        <Text fontSize="lg">참여 인원</Text>
+        <InputGroup>
+          <Input
+            h="4rem"
+            value={inputValue}
+            focusBorderColor="main"
+            type="number"
+            placeholder="모임 인원을 입력해주세요"
+            onChange={onInputChange}
+          />
+        </InputGroup>
+        <Text fontSize="sm" color="red.900">
+          {validationMessage}
+        </Text>
+      </VStack>
+    </BottomSheet>
   );
 };
 

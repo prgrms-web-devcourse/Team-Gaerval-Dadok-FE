@@ -54,7 +54,7 @@ const colors = {
 
 interface SchemeTypings {
   component: 'button';
-  colorScheme: 'orange' | 'kakao' | 'orange-fill' | 'grey';
+  colorScheme: 'orange' | 'kakao' | 'orange-fill' | 'grey' | 'grey-fill';
   cssProps: ChakraStyledOptions;
 }
 
@@ -82,6 +82,10 @@ const scheme: Record<
         color: colors.black['800'],
         backgroundColor: colors.white[400],
       },
+    },
+    'grey-fill': {
+      color: colors.black[600],
+      backgroundColor: colors.white[400],
     },
     kakao: {
       color: colors.kakao.brown,

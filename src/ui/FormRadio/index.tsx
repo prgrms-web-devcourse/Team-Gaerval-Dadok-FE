@@ -17,21 +17,23 @@ interface FormRadioProps {
   label: string;
   name: string;
   radioValues: radioValues[];
-  defaultValue: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const FormRadio = ({
   label,
   name,
   radioValues,
-  defaultValue,
+  value,
+  onChange,
 }: FormRadioProps) => {
   const { register } = useFormContext();
 
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
-      <RadioGroup defaultValue={defaultValue}>
+      <RadioGroup value={value} onChange={onChange}>
         <Stack
           width="100%"
           direction="column"

@@ -1,13 +1,13 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
-
+import { PropsWithChildren, ComponentProps } from 'react';
 import { useTheme, Flex } from '@chakra-ui/react';
+
 import type { ChakraTheme } from '@/styles/theme';
 
-interface Props extends Partial<ComponentPropsWithoutRef<typeof Flex>> {
+type Props = ComponentProps<typeof Flex> & {
   size?: keyof ChakraTheme['buttonSizes'];
   scheme?: keyof ChakraTheme['scheme']['button'];
   fullWidth?: boolean;
-}
+};
 
 const Button = ({
   size = 'lg',
