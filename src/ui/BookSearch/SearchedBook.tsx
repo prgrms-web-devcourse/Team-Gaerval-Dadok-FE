@@ -14,23 +14,20 @@ const SearchedBook = ({
 }) => {
   const router = useRouter();
 
-  const handleClickBook =
-    (book: APISearchedBook) =>
-    async (event: React.MouseEvent<HTMLDivElement>) => {
-      try {
-        const {
-          data: { bookId },
-        } = await bookAPI.createBook({ book });
-        if (onBookClick) {
-          onBookClick({ ...book, bookId });
-          event.preventDefault();
-        } else {
-          router.push(`/book/${bookId}`);
-        }
-      } catch (error) {
-        console.error(error);
+  const handleClickBook = async (book: APISearchedBook) => {
+    try {
+      const {
+        data: { bookId },
+      } = await bookAPI.createBook({ book });
+      if (onBookClick) {
+        onBookClick({ ...book, bookId });
+      } else {
+        router.push(`/book/${bookId}`);
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <VStack
@@ -44,9 +41,7 @@ const SearchedBook = ({
       borderRadius={10}
       boxShadow="lg"
       cursor="pointer"
-      onClick={event => {
-        handleClickBook(book)(event);
-      }}
+      onClick={() => handleClickBook(book)}
     >
       {book.imageUrl ? (
         <Image src={book.imageUrl} alt="book-cover" />
