@@ -1,12 +1,25 @@
 import userAPI from '@/apis/users';
 import { APIUser } from '@/types/user';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
-const useUserProfileQuery = ({ userId }: { userId: APIUser['userId'] }) => {
-  return useQuery(['user', userId], async () => {
-    const { data } = await userAPI.getUserProfile({ userId });
-    return data;
-  });
+type Options = Pick<
+  UseQueryOptions<Awaited<ReturnType<typeof userAPI.getMyProfile>>['data']>,
+  'enabled' | 'suspense'
+>;
+
+const useUserProfileQuery = ({
+  userId,
+  options,
+}: {
+  userId: APIUser['userId'];
+  options?: Options;
+}) => {
+  return useQuery(
+    ['user', userId],
+    async () =>
+      await userAPI.getUserProfile({ userId }).then(({ data }) => data),
+    options
+  );
 };
 
 export default useUserProfileQuery;
