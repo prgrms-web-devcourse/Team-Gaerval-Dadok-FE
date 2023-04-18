@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import ProfileInfoPresenter from './ProfileInfoPresenter';
 
 const MyProfileContainer = () => {
-  const { isSuccess, data } = useMyProfileQuery();
+  const { isSuccess, data } = useMyProfileQuery({ suspense: true });
   const { pathname, replace } = useRouter();
 
   useEffect(() => {

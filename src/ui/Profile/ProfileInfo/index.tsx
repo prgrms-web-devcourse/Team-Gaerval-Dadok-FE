@@ -7,12 +7,12 @@ import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
 import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
 
-type ProfileInfoProps = { children?: ReactNode } & (
-  | { isMe: true; userId?: undefined }
-  | { isMe: false; userId: APIUser['userId'] }
-);
+type ProfileInfoProps = {
+  children?: ReactNode;
+  userId: 'me' | APIUser['userId'];
+};
 
-const ProfileInfo = ({ isMe, userId, children }: ProfileInfoProps) => {
+const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
@@ -26,7 +26,7 @@ const ProfileInfo = ({ isMe, userId, children }: ProfileInfoProps) => {
           )}
         >
           <Suspense fallback={<ProfileInfoSkelenton />}>
-            {isMe ? (
+            {userId === 'me' ? (
               <MyProfileContainer />
             ) : (
               <UserProfileInfoContainer userId={userId} />

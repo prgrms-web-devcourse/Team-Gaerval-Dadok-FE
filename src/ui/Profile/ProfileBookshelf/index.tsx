@@ -3,9 +3,11 @@ import { Skeleton } from '@chakra-ui/react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import ProfileBookshelfContainer from './ProfileBookshelfContainer';
+import type { APIUser } from '@/types/user';
+import MyProfileBookshelfContainer from './MyProfileBookshelfContainer';
+import UserProfileBookshelfContainer from './UserProfileBookshelfContainer';
 
-const ProfileBookShelf = () => {
+const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
@@ -18,7 +20,11 @@ const ProfileBookShelf = () => {
           )}
         >
           <Suspense fallback={<ProfileBookShelfSkelenton />}>
-            <ProfileBookshelfContainer />
+            {userId === 'me' ? (
+              <MyProfileBookshelfContainer />
+            ) : (
+              <UserProfileBookshelfContainer userId={userId} />
+            )}
           </Suspense>
         </ErrorBoundary>
       )}
