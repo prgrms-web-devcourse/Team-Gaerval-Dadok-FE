@@ -26,6 +26,7 @@ const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
                 onClick={() => {
                   setKeyword(searchedWord);
                 }}
+                cursor="pointer"
               >
                 {searchedWord}
               </Text>

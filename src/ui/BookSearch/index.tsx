@@ -38,8 +38,8 @@ interface BookSearchProps {
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
-  const [input, setInput] = useState('');
-  const queryKeyword = useDebounceValue(input, 1000);
+  const [inputValue, setInputValue] = useState('');
+  const queryKeyword = useDebounceValue(inputValue, 1000);
 
   const { ref, inView } = useInView();
 
@@ -57,7 +57,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target) return;
     const input = event.target.value;
-    setInput(input.trim());
+    setInputValue(input.trim());
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         </Text>
         <Input
           focusBorderColor="main"
-          value={input}
+          value={inputValue}
           borderColor="black.600"
           borderWidth="0.12rem"
           py="2rem"
@@ -89,7 +89,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       </InputGroup>
       <RecentSearches
         searchedWords={TEMP_SEARCHES_DATA}
-        setKeyword={setInput}
+        setKeyword={setInputValue}
       />
 
       <SimpleGrid columns={3} gap="1rem">
