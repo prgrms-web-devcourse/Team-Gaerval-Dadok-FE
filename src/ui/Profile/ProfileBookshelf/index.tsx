@@ -20,6 +20,7 @@ const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
             <QueryErrorBounaryFallback
+              minH="18rem"
               resetErrorBoundary={resetErrorBoundary}
             />
           )}

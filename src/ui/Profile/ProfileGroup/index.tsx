@@ -18,6 +18,7 @@ const ProfileGroup = () => {
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
             <QueryErrorBounaryFallback
+              minH="34.5rem"
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
