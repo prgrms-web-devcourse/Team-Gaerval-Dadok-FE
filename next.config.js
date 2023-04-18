@@ -15,6 +15,10 @@ const nextConfig = {
         source: '/service-api/:url*',
         destination: `${baseURL}/api/:url*`,
       },
+      {
+        source: '/kakaobook/:kakaoBookId',
+        destination: 'http://t1.daumcdn.net/lbook/image/:kakaoBookId',
+      },
     ];
   },
   async redirects() {
