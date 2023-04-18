@@ -1,3 +1,4 @@
+import useMounted from '@/hooks/useMounted';
 import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
 import { Skeleton } from '@chakra-ui/react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
@@ -6,6 +7,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ProfileGroupContainer from './ProfileGroupContainer';
 
 const ProfileGroup = () => {
+  const mounted = useMounted();
+
+  if (!mounted) return null;
+
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (

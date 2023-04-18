@@ -6,8 +6,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
 import MyProfileBookshelfContainer from './MyProfileBookshelfContainer';
 import UserProfileBookshelfContainer from './UserProfileBookshelfContainer';
+import useMounted from '@/hooks/useMounted';
 
 const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
+  const mounted = useMounted();
+
+  if (!mounted) return null;
+
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (

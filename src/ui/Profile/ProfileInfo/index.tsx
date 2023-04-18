@@ -6,6 +6,7 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
 import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
+import useMounted from '@/hooks/useMounted';
 
 type ProfileInfoProps = {
   children?: ReactNode;
@@ -13,6 +14,10 @@ type ProfileInfoProps = {
 };
 
 const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
+  const mounted = useMounted();
+
+  if (!mounted) return null;
+
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (

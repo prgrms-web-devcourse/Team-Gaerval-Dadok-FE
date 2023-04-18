@@ -10,10 +10,16 @@ import {
 
 import Link from 'next/link';
 import MoreIcon from '@public/icons/more.svg';
-import MyProfile from '@/ui/Profile/MyProfile';
 import AuthRequired from '@/ui/AuthRequired';
+import ProfileInfo from '@/ui/Profile/ProfileInfo';
+import ProfileBookShelf from '@/ui/Profile/ProfileBookshelf';
+import ProfileGroup from '@/ui/Profile/ProfileGroup';
+import { useRouter } from 'next/router';
+import Button from '@/ui/common/Button';
 
 const MyProfilePage = () => {
+  const { pathname } = useRouter();
+
   return (
     <AuthRequired>
       <VStack justify="center" align="flex-start">
@@ -33,7 +39,22 @@ const MyProfilePage = () => {
             </MenuList>
           </Menu>
         </Box>
-        <MyProfile />
+        <VStack w="100%" align="flex-start" gap="2rem">
+          <ProfileInfo userId="me">
+            <Button
+              as={Link}
+              href={`${pathname}/edit`}
+              scheme="orange"
+              fullWidth
+              bgColor="main"
+              color="white.900"
+            >
+              프로필 수정
+            </Button>
+          </ProfileInfo>
+          <ProfileBookShelf userId="me" />
+          <ProfileGroup />
+        </VStack>
       </VStack>
     </AuthRequired>
   );
