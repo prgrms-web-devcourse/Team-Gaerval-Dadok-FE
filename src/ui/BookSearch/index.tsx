@@ -10,24 +10,42 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import debounce from '@/utils/debounce';
-
 import type { APIBook } from '@/types/book';
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
-import SearchedBook from './SearchedBook';
 import { useInView } from 'react-intersection-observer';
+import useDebounceValue from '@/hooks/useDebounce';
+import SearchedBook from './SearchedBook';
+import RecentSearches from './RecentSearches';
+
+const TEMP_SEARCHES_DATA = [
+  '정의',
+  '사랑',
+  '추억',
+  '계란후라이',
+  '으라챠챠',
+  '우당탕탕',
+  '미유커피',
+  '마이마이쮸',
+  '하이',
+  '나루토',
+  '보루토',
+  '스미마셍',
+  '노인과 바다',
+];
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
-  const [keyword, setKeyword] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const queryKeyword = useDebounceValue(inputValue, 1000);
+
   const { ref, inView } = useInView();
 
   const { data, isSuccess, isFetching, hasNextPage, fetchNextPage } =
     useBookSearchQuery({
-      query: keyword,
+      query: queryKeyword,
       page: 1,
       pageSize: 12,
     });
@@ -36,15 +54,11 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     ? data.pages.flatMap(page => page.searchBookResponseList)
     : [];
 
-  const onInputChange = debounce(
-    async (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (!event.target) return;
-      const keyword = event.target.value;
-      if (!keyword.trim()) return;
-      setKeyword(keyword);
-    },
-    1000
-  );
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target) return;
+    const input = event.target.value;
+    setInputValue(input.trim());
+  };
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -65,6 +79,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         </Text>
         <Input
           focusBorderColor="main"
+          value={inputValue}
           borderColor="black.600"
           borderWidth="0.12rem"
           py="2rem"
@@ -72,6 +87,10 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
           placeholder="검색어를 입력해 주세요."
         />
       </InputGroup>
+      <RecentSearches
+        searchedWords={TEMP_SEARCHES_DATA}
+        setKeyword={setInputValue}
+      />
 
       <SimpleGrid columns={3} gap="1rem">
         {searchedBooks.map(book => (
