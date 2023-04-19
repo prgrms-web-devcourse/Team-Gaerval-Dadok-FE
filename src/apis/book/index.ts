@@ -7,6 +7,7 @@ import type {
   APIPatchBookCommentRequest,
   APISearchedBook,
   APISearchedBookPagination,
+  APIRecentSearches,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
@@ -24,6 +25,13 @@ const bookAPI = {
     publicApi.get<APISearchedBookPagination>(
       `/service-api/books?query=${query}&page=${page}&pageSize=${pageSize}`
     ),
+
+  getRecentSearches: () =>
+    publicApi.get<APIRecentSearches>('/service-api/books/recent-searches', {
+      params: {
+        limit: 10,
+      },
+    }),
 
   getBookInfo: (bookId: APIBook['bookId']) =>
     publicApi.get<APIBookDetail>(`/service-api/books/${bookId}`),

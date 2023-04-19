@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 
 import type { APIBook } from '@/types/book';
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
+import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 import { useInView } from 'react-intersection-observer';
 import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
@@ -49,6 +50,14 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       page: 1,
       pageSize: 12,
     });
+
+  //로그인, 비로그인 어떤 식으로 요청이 오고 가는 것인지?
+  //헤더에 토큰을 담지 않은 경우에 알아서 로그인 유저인지 비로그인 유저인지 구별할 수 있는 것인가?
+  //검색어 post API가 별도로 있는 것인지?
+  const recentSearches = useRecentSearchesQuery();
+  console.log(recentSearches.data);
+  console.log(recentSearches.isError);
+  console.log(recentSearches.isSuccess);
 
   const searchedBooks = isSuccess
     ? data.pages.flatMap(page => page.searchBookResponseList)

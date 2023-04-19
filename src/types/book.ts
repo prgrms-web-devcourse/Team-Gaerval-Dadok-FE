@@ -21,6 +21,17 @@ export interface APISearchedBook
   apiProvider: string;
 }
 
+export interface APISearchedWordInfo {
+  keyword: string;
+  createdAt: string;
+}
+
+export interface APIRecentSearches {
+  count: number;
+  isEmpty: boolean;
+  bookRecentSearchResponses: APISearchedWordInfo[];
+}
+
 export interface APISearchedBookPagination {
   searchBookResponseList: APISearchedBook[];
   requestedPageNumber: number;
