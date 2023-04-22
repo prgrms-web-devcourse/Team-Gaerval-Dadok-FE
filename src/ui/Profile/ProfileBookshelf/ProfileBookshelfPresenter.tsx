@@ -1,10 +1,10 @@
 import { APIBookshelf } from '@/types/bookshelf';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import IconButton from '../common/IconButton';
-import InteractiveBookShelf from '../InteractiveBookShelf';
+import IconButton from '../../common/IconButton';
+import InteractiveBookShelf from '../../InteractiveBookShelf';
 
-const ProfileBookshelf = ({
+const ProfileBookshelfPresenter = ({
   bookshelfId,
   bookshelfName,
   books,
@@ -32,4 +32,4 @@ const ProfileBookshelf = ({
   );
 };
 
-export default ProfileBookshelf;
+export default ProfileBookshelfPresenter;

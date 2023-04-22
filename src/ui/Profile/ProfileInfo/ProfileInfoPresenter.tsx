@@ -1,13 +1,13 @@
 import { Avatar, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import type { APIUser } from '@/types/user';
-import IconButton from '../common/IconButton';
+import IconButton from '../../common/IconButton';
 
 type ProfileInfoProps = Pick<
   APIUser,
   'nickname' | 'oauthNickname' | 'profileImage' | 'email' | 'job'
 >;
 
-const ProfileInfo = ({
+const ProfileInfoPresenter = ({
   nickname,
   oauthNickname,
   profileImage,
@@ -35,4 +35,4 @@ const ProfileInfo = ({
   );
 };
 
-export default ProfileInfo;
+export default ProfileInfoPresenter;

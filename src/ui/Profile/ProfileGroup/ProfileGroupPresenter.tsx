@@ -1,12 +1,12 @@
 import { APIGroup } from '@/types/group';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
-import GroupListItem from '../Group/GroupList/GroupListItem';
+import GroupListItem from '../../Group/GroupList/GroupListItem';
 
-interface ProfileGroupProps {
+interface ProfileGroupPresenterProps {
   bookGroups: APIGroup[];
 }
 
-const ProfileGroup = ({ bookGroups }: ProfileGroupProps) => {
+const ProfileGroupPresenter = ({ bookGroups }: ProfileGroupPresenterProps) => {
   return (
     <VStack w="100%">
       <Text alignSelf="flex-start" fontSize="md" fontWeight="bold">
@@ -25,4 +25,4 @@ const ProfileGroup = ({ bookGroups }: ProfileGroupProps) => {
   );
 };
 
-export default ProfileGroup;
+export default ProfileGroupPresenter;
