@@ -10,33 +10,35 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 
-import bookAPI from '@/apis/book';
-import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 import IconButton from '@/ui/common/IconButton';
 
-import type { APIBookDetail } from '@/types/book';
+import type { APIBookDetail, APIBookmarkedUserList } from '@/types/book';
 import Link from 'next/link';
 
 import { isAuthed } from '@/utils/helpers';
+import { useState } from 'react';
 import LoginBottomSheet from '../LoginBottomSheet';
 
 type Props = Pick<
   APIBookDetail,
-  'title' | 'author' | 'contents' | 'imageUrl' | 'bookId' | 'url'
->;
+  'title' | 'author' | 'contents' | 'imageUrl' | 'url'
+> &
+  Omit<APIBookmarkedUserList, 'bookId'> & {
+    onBookmarkClick: (isBookMarked: boolean) => void;
+  };
 
 const BookInfo = ({
-  bookId,
   title,
   author,
   contents,
   imageUrl,
   url: contentsUrl,
+  onBookmarkClick,
+  ...bookmarkInfo
 }: Props) => {
   const theme = useTheme();
-  const bookUserQueryInfo = useBookUserInfoQuery(bookId, {
-    enabled: isAuthed(),
-  });
+  const [bookmark, setBookmark] = useState(bookmarkInfo.isInMyBookshelf);
+
   const {
     isOpen: isLoginBottomSheetOpen,
     onOpen: onLoginBottomSheetOpen,
@@ -44,20 +46,16 @@ const BookInfo = ({
   } = useDisclosure();
 
   const handleBookmarkClick = () => {
-    if (!bookUserQueryInfo.isSuccess || !isAuthed()) {
+    if (!isAuthed()) {
       onLoginBottomSheetOpen();
       return;
     }
 
-    if (bookUserQueryInfo.data.isInMyBookshelf) {
-      bookAPI.unsetBookMarked(bookId).then(() => {
-        bookUserQueryInfo.refetch();
-      });
-    } else {
-      bookAPI.setBookMarked(bookId).then(() => {
-        bookUserQueryInfo.refetch();
-      });
-    }
+    setBookmark(prev => {
+      const next = !prev;
+      onBookmarkClick(next);
+      return next;
+    });
   };
 
   return (
@@ -72,10 +70,7 @@ const BookInfo = ({
             color={theme.colors.main}
             strokeWidth="0.15rem"
             onClick={handleBookmarkClick}
-            fill={
-              bookUserQueryInfo.isSuccess &&
-              bookUserQueryInfo.data.isInMyBookshelf
-            }
+            fill={bookmark}
             mb="0.5rem"
             ml="-0.1rem"
           />
@@ -107,26 +102,21 @@ const BookInfo = ({
         />
       )}
 
-      {bookUserQueryInfo.isSuccess && (
-        <Flex align="center" minH="2rem">
-          <AvatarGroup>
-            {bookUserQueryInfo.data.users.map(({ userId, profileImage }) => (
-              <Avatar
-                as={Link}
-                href={`/profile/${userId}`}
-                key={userId}
-                src={profileImage}
-              />
-            ))}
-          </AvatarGroup>
-          <Text fontSize="sm" pl="0.8rem">
-            {getUserInfoText(
-              bookUserQueryInfo.data.totalCount,
-              bookUserQueryInfo.data.users.length
-            )}
-          </Text>
-        </Flex>
-      )}
+      <Flex align="center" minH="2rem">
+        <AvatarGroup>
+          {bookmarkInfo.users.map(({ userId, profileImage }) => (
+            <Avatar
+              as={Link}
+              href={`/profile/${userId}`}
+              key={userId}
+              src={profileImage}
+            />
+          ))}
+        </AvatarGroup>
+        <Text fontSize="sm" pl="0.8rem">
+          {getUserInfoText(bookmarkInfo.totalCount, bookmarkInfo.users.length)}
+        </Text>
+      </Flex>
     </>
   );
 };

@@ -1,7 +1,6 @@
 'use clinet';
 
 import { useDisclosure, VStack } from '@chakra-ui/react';
-import { isAxiosError } from 'axios';
 import { useMemo, useRef } from 'react';
 
 import bookAPI from '@/apis/book';
@@ -10,19 +9,23 @@ import Button from '@/ui/common/Button';
 import BookComment from './BookComment';
 import CommentDrawer from './CommentDrawer';
 
-import type { APIBookComment } from '@/types/book';
+import type { APIBookComment, APIBookmarkedUserList } from '@/types/book';
 
-import { isAuthed } from '@/utils/helpers';
-import LoginBottomSheet from '../LoginBottomSheet';
+import { SERVICE_ERROR_MESSAGE } from '@/constants';
+import { useToast } from '@/hooks/toast';
+import LoginBottomSheet from '@/ui/LoginBottomSheet';
+import { isAuthed, isAxiosErrorWithCustomCode } from '@/utils/helpers';
 
 interface Props {
   bookId: number;
+  isInMyBookshelf: APIBookmarkedUserList['isInMyBookshelf'];
 }
 
 type CommentType = 'me' | 'user';
 type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
-const BookCommentList = ({ bookId }: Props) => {
+const BookCommentList = ({ bookId, isInMyBookshelf }: Props) => {
+  const { showToast } = useToast();
   const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
 
@@ -58,47 +61,59 @@ const BookCommentList = ({ bookId }: Props) => {
       );
   }, [bookCommentsQueryInfo, bookId]);
 
+  const handleCommentError = (error: unknown) => {
+    if (!isAxiosErrorWithCustomCode(error)) {
+      return;
+    }
+
+    const { code } = error.response.data;
+    const message = SERVICE_ERROR_MESSAGE[code];
+
+    if (code === 'BC1' || code === 'BC2') {
+      showToast({ message, duration: 3000 });
+    }
+  };
+
   const handleCommentCreate = () => {
     const comment = commentTextAreaRef.current?.value;
 
     if (!comment) {
-      console.log('입력된 코멘트가 없어요.');
+      showToast({ message: '코멘트를 입력해주세요!' });
       return;
     }
 
     bookAPI
       .creaetComment(bookId, { comment })
-      .catch(error => {
-        if (!isAxiosError(error)) {
-          console.error(error);
-          return;
-        }
-
-        const response = error.response;
-
-        if (response && response.status === 400) {
-          console.log('이미 사용자가 작성한 코멘트가 있어요.');
-        }
-      })
       .then(() => bookCommentsQueryInfo.refetch())
+      .catch(handleCommentError)
       .finally(onCreateDrawerClose);
   };
 
   const handleCommentEdit = (commentId: number, comment: string) => {
-    bookAPI.patchComment({ bookId, data: { commentId, comment } }).then(() => {
-      bookCommentsQueryInfo.refetch();
-    });
+    bookAPI
+      .patchComment({ bookId, data: { commentId, comment } })
+      .then(() => bookCommentsQueryInfo.refetch())
+      .catch(handleCommentError);
   };
 
   const handleCommentDelete = (commentId: number) => {
     bookAPI
       .deletComment(bookId, commentId)
-      .then(() => bookCommentsQueryInfo.refetch());
+      .then(() => bookCommentsQueryInfo.refetch())
+      .catch(handleCommentError);
   };
 
   const handleCreateCommentDrawerOpen = () => {
     if (!isAuthed()) {
       onLoginBottomSheetOpen();
+      return;
+    }
+
+    if (!isInMyBookshelf) {
+      showToast({
+        message: '책장에 책을 꽂은 후에 코멘트를 남길 수 있어요.',
+        duration: 3000,
+      });
       return;
     }
 
