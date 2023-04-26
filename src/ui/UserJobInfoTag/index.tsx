@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 type UserTagType = {
   tag: string;
@@ -6,15 +6,17 @@ type UserTagType = {
 
 const UserJobInfoTag = ({ tag }: UserTagType) => {
   return (
-    <Box
-      padding="0.12rem 0.8rem"
+    <Flex
+      align="center"
+      h="2.4rem"
+      padding="0.6rem 1.2rem"
       color="main"
       fontSize="sm"
       border="solid 0.1rem"
       borderRadius="1.6rem"
     >
       {tag}
-    </Box>
+    </Flex>
   );
 };
 
