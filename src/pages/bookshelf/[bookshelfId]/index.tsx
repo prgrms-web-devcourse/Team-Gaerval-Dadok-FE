@@ -1,10 +1,10 @@
-
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
+import LikeButton from '@/ui/common/LikeButton';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
@@ -103,12 +103,15 @@ export default function UserBookShelfPage({
           marginBottom="1rem"
         />
       </Flex>
-      <HStack width="100%" height="3rem" gap="0.08rem" px="1rem">
-        <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
-        {infoData.job.jobNameKoreanName && (
-          <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
-        )}
-      </HStack>
+      <Flex width="100%" height="3rem" align="center" justify="space-between">
+        <HStack gap="0.08rem" py="1.6rem">
+          <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
+          {infoData.job.jobNameKoreanName && (
+            <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
+          )}
+        </HStack>
+        <LikeButton />
+      </Flex>
       <VStack width="100%" spacing="2rem">
         {isAuthed() ? (
           booksData.pages.map((page, idx) => (

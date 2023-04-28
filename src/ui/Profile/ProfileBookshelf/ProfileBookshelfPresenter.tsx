@@ -1,4 +1,5 @@
 import { APIBookshelf } from '@/types/bookshelf';
+import LikeButton from '@/ui/common/LikeButton';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import IconButton from '../../common/IconButton';
@@ -11,17 +12,25 @@ const ProfileBookshelfPresenter = ({
 }: APIBookshelf) => {
   return (
     <VStack align="flex-start" gap="1rem" w="100%">
-      <Flex
-        as={Link}
-        href={`/bookshelf/${bookshelfId}`}
-        align="center"
-        w="100%"
-        justify="space-between"
-      >
-        <Text fontSize="md" fontWeight="bold">
+      <Flex align="center" w="100%" justify="space-between">
+        <Text
+          as={Link}
+          href={`/bookshelf/${bookshelfId}`}
+          fontSize="md"
+          fontWeight="bold"
+        >
           {`${bookshelfName}`}
         </Text>
-        <IconButton name="more-circle" size="1.6rem" fill />
+        <Flex h="2.4rem" gap="1.6rem" align="center">
+          <LikeButton />
+          <IconButton
+            as={Link}
+            href={`/bookshelf/${bookshelfId}`}
+            name="more-circle"
+            size="1.6rem"
+            fill
+          />
+        </Flex>
       </Flex>
       {books.length === 0 ? (
         <Text fontSize="md">책장이 비어있습니다.</Text>
