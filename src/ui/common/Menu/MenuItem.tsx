@@ -6,13 +6,13 @@ import {
 import { ReactNode } from 'react';
 
 const MenuItem = forwardRef<
-  MenuItemProps & { text?: string; render?: () => ReactNode },
+  MenuItemProps & { text?: string; children?: ReactNode },
   'button'
->(({ text, render, ...props }, ref) => {
+>(({ text, children, ...props }, ref) => {
   return (
     <ChakraMenuItem ref={ref} {...props}>
       {text}
-      {render && render()}
+      {children}
     </ChakraMenuItem>
   );
 });

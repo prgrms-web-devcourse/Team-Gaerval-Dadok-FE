@@ -102,34 +102,25 @@ const BookComment = ({
         </VStack>
         {editable && (
           <Menu>
-            <MenuItem
-              text="수정"
-              onClick={onEditDrawerOpen}
-              render={() => (
-                <CommentDrawer
-                  title="책 코멘트 수정하기"
-                  placeholder="더 멋진 코멘트를 작성해주세요!"
-                  defaultComment={contents}
-                  isOpen={isEditDrawerOpen}
-                  onClose={onEditDrawerClose}
-                  onComplete={handleCommentEdit}
-                  textareaRef={textareaRef}
-                />
-              )}
-            />
-            <MenuItem
-              text="삭제"
-              color="red.300"
-              onClick={onDeleteModalOpen}
-              render={() => (
-                <DeleteComfirmDialog
-                  cancelRef={cancelRef}
-                  isOpen={isDeleteModalOpen}
-                  onClose={onDeleteModalClose}
-                  onDelete={handleCommentDelete}
-                />
-              )}
-            />
+            <MenuItem text="수정" onClick={onEditDrawerOpen}>
+              <CommentDrawer
+                title="책 코멘트 수정하기"
+                placeholder="더 멋진 코멘트를 작성해주세요!"
+                defaultComment={contents}
+                isOpen={isEditDrawerOpen}
+                onClose={onEditDrawerClose}
+                onComplete={handleCommentEdit}
+                textareaRef={textareaRef}
+              />
+            </MenuItem>
+            <MenuItem text="삭제" color="red.300" onClick={onDeleteModalOpen}>
+              <DeleteComfirmDialog
+                cancelRef={cancelRef}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                onDelete={handleCommentDelete}
+              />
+            </MenuItem>
           </Menu>
         )}
       </Flex>

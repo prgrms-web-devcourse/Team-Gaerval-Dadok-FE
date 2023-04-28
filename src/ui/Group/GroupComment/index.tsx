@@ -100,28 +100,23 @@ const CommentsList = ({
                     </Flex>
                     {writtenByCurrentUser && (
                       <Menu>
-                        <MenuItem
-                          render={() => (
-                            <CommentModifyModal
-                              commentId={commentId}
-                              comment={contents}
-                              handleModifyCommentBtnClick={
-                                handleModifyCommentBtnClick
-                              }
-                            />
-                          )}
-                        />
-                        <MenuItem
-                          color="red.300"
-                          render={() => (
-                            <CommentDeleteModal
-                              commentId={commentId}
-                              handleDeleteCommentBtnClick={
-                                handleDeleteCommentBtnClick
-                              }
-                            />
-                          )}
-                        />
+                        <MenuItem>
+                          <CommentModifyModal
+                            commentId={commentId}
+                            comment={contents}
+                            handleModifyCommentBtnClick={
+                              handleModifyCommentBtnClick
+                            }
+                          />
+                        </MenuItem>
+                        <MenuItem color="red.300">
+                          <CommentDeleteModal
+                            commentId={commentId}
+                            handleDeleteCommentBtnClick={
+                              handleDeleteCommentBtnClick
+                            }
+                          />
+                        </MenuItem>
                       </Menu>
                     )}
                   </Flex>

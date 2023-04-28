@@ -115,19 +115,14 @@ const GroupInfo = ({
               as={Link}
               href={`/group/${bookGroupId}/edit`}
             />
-            <MenuItem
-              text="삭제"
-              color="red.300"
-              onClick={onDeleteModalOpen}
-              render={() => (
-                <DeleteComfirmDialog
-                  cancelRef={cancelRef}
-                  isOpen={isDeleteModalOpen}
-                  onClose={onDeleteModalClose}
-                  onDelete={onDeleteGroupClick}
-                />
-              )}
-            />
+            <MenuItem text="삭제" color="red.300" onClick={onDeleteModalOpen}>
+              <DeleteComfirmDialog
+                cancelRef={cancelRef}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                onDelete={onDeleteGroupClick}
+              />
+            </MenuItem>
           </Menu>
         )}
       </Flex>
