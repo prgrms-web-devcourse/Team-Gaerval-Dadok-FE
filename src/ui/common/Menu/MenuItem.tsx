@@ -17,4 +17,4 @@ const MenuItem = forwardRef<
   );
 });
 
-export { MenuItem };
+export default MenuItem;

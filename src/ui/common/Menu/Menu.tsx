@@ -23,4 +23,4 @@ const Menu = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { Menu };
+export default Menu;
