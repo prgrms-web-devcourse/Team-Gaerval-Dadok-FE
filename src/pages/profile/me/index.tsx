@@ -1,21 +1,13 @@
-import {
-  Box,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  VStack,
-} from '@chakra-ui/react';
-
+import { Box, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import MoreIcon from '@public/icons/more.svg';
+import { useRouter } from 'next/router';
+
 import AuthRequired from '@/ui/AuthRequired';
 import ProfileInfo from '@/ui/Profile/ProfileInfo';
 import ProfileBookShelf from '@/ui/Profile/ProfileBookshelf';
 import ProfileGroup from '@/ui/Profile/ProfileGroup';
-import { useRouter } from 'next/router';
 import Button from '@/ui/common/Button';
+import { Menu, MenuItem } from '@/ui/common/Menu';
 
 const MyProfilePage = () => {
   const { pathname } = useRouter();
@@ -25,18 +17,7 @@ const MyProfilePage = () => {
       <VStack justify="center" align="flex-start">
         <Box alignSelf="flex-end">
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<MoreIcon />}
-              background="inherit"
-              border="none"
-            />
-            <MenuList fontSize="md">
-              <MenuItem as={Link} href={'/logout'}>
-                로그아웃
-              </MenuItem>
-            </MenuList>
+            <MenuItem text="로그아웃" as={Link} href={'/logout'} />
           </Menu>
         </Box>
         <VStack w="100%" align="flex-start" gap="2rem">

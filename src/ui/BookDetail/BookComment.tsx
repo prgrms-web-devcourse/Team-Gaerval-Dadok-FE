@@ -7,24 +7,19 @@ import {
   Avatar,
   Button,
   Flex,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Text,
   useDisclosure,
   useTheme,
   VStack,
 } from '@chakra-ui/react';
 import { CSSProperties, MutableRefObject, useRef } from 'react';
-
-import MoreIcon from '@public/icons/more.svg';
-import CommentDrawer from './CommentDrawer';
+import Link from 'next/link';
 
 import { useToast } from '@/hooks/toast';
 import type { APIBookComment } from '@/types/book';
-import Link from 'next/link';
+import { Menu, MenuItem } from '@/ui/common/Menu';
+
+import CommentDrawer from './CommentDrawer';
 
 interface Props
   extends Pick<
@@ -107,16 +102,10 @@ const BookComment = ({
         </VStack>
         {editable && (
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<MoreIcon />}
-              background="inherit"
-              border="none"
-            />
-            <MenuList fontSize="md">
-              <MenuItem onClick={onEditDrawerOpen}>
-                수정
+            <MenuItem
+              text="수정"
+              onClick={onEditDrawerOpen}
+              render={() => (
                 <CommentDrawer
                   title="책 코멘트 수정하기"
                   placeholder="더 멋진 코멘트를 작성해주세요!"
@@ -126,17 +115,21 @@ const BookComment = ({
                   onComplete={handleCommentEdit}
                   textareaRef={textareaRef}
                 />
-              </MenuItem>
-              <MenuItem color="red.300" onClick={onDeleteModalOpen}>
-                삭제
+              )}
+            />
+            <MenuItem
+              text="삭제"
+              color="red.300"
+              onClick={onDeleteModalOpen}
+              render={() => (
                 <DeleteComfirmDialog
                   cancelRef={cancelRef}
                   isOpen={isDeleteModalOpen}
                   onClose={onDeleteModalClose}
                   onDelete={handleCommentDelete}
                 />
-              </MenuItem>
-            </MenuList>
+              )}
+            />
           </Menu>
         )}
       </Flex>

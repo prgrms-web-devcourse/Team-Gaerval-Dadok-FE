@@ -1,25 +1,13 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  Highlight,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-} from '@chakra-ui/react';
-
-import MoreIcon from '@public/icons/more.svg';
+import { Avatar, Box, Flex, Highlight, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import { APIGroupComment } from '@/types/group';
 import { isAuthed } from '@/utils/helpers';
-import Link from 'next/link';
 import CommentDeleteModal from './CommentDeleteModal';
 import CommentModifyModal from './CommentModifyModal';
 import GuideMessage from './GuideMessage';
+import { Menu, MenuItem } from '@/ui/common/Menu';
 
 interface commentsListProps {
   isGroupMember: boolean;
@@ -110,17 +98,10 @@ const CommentsList = ({
                         {nickname}
                       </Flex>
                     </Flex>
-                    {writtenByCurrentUser ? (
+                    {writtenByCurrentUser && (
                       <Menu>
-                        <MenuButton
-                          as={IconButton}
-                          aria-label="Options"
-                          icon={<MoreIcon />}
-                          background="inherit"
-                          border="none"
-                        />
-                        <MenuList fontSize="md">
-                          <MenuItem>
+                        <MenuItem
+                          render={() => (
                             <CommentModifyModal
                               commentId={commentId}
                               comment={contents}
@@ -128,19 +109,20 @@ const CommentsList = ({
                                 handleModifyCommentBtnClick
                               }
                             />
-                          </MenuItem>
-                          <MenuItem color="red.300">
+                          )}
+                        />
+                        <MenuItem
+                          color="red.300"
+                          render={() => (
                             <CommentDeleteModal
                               commentId={commentId}
                               handleDeleteCommentBtnClick={
                                 handleDeleteCommentBtnClick
                               }
                             />
-                          </MenuItem>
-                        </MenuList>
+                          )}
+                        />
                       </Menu>
-                    ) : (
-                      ''
                     )}
                   </Flex>
                   <Box lineHeight="2.2rem" fontSize="md">
