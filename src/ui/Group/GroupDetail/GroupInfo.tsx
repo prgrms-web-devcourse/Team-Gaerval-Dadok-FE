@@ -7,26 +7,21 @@ import {
   Box,
   Button,
   Flex,
-  IconButton,
   Image,
   Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Text,
   useDisclosure,
   useTheme,
 } from '@chakra-ui/react';
-import MoreIcon from '@public/icons/more.svg';
+import { MutableRefObject, useRef, useState } from 'react';
+import Link from 'next/link';
 
 import { APIGroupDetail } from '@/types/group';
 import BottomSheet from '@/ui/common/BottomSheet';
-import Link from 'next/link';
-import { MutableRefObject, useRef, useState } from 'react';
 
 import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
+import { Menu, MenuItem } from '@/ui/common/Menu';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { isAuthed } from '@/utils/helpers';
 
@@ -115,27 +110,19 @@ const GroupInfo = ({
         <TopNavigation pageTitle="모임 상세 페이지" />
         {isOwner && (
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<MoreIcon />}
-              background="inherit"
-              border="none"
+            <MenuItem
+              text="수정"
+              as={Link}
+              href={`/group/${bookGroupId}/edit`}
             />
-            <MenuList fontSize="md">
-              <MenuItem>
-                <Link href={`/group/${bookGroupId}/edit`}>수정</Link>
-              </MenuItem>
-              <MenuItem color="red.300" onClick={onDeleteModalOpen}>
-                삭제
-                <DeleteComfirmDialog
-                  cancelRef={cancelRef}
-                  isOpen={isDeleteModalOpen}
-                  onClose={onDeleteModalClose}
-                  onDelete={onDeleteGroupClick}
-                />
-              </MenuItem>
-            </MenuList>
+            <MenuItem text="삭제" color="red.300" onClick={onDeleteModalOpen}>
+              <DeleteComfirmDialog
+                cancelRef={cancelRef}
+                isOpen={isDeleteModalOpen}
+                onClose={onDeleteModalClose}
+                onDelete={onDeleteGroupClick}
+              />
+            </MenuItem>
           </Menu>
         )}
       </Flex>
