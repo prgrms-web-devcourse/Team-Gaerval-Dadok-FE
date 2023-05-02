@@ -1,5 +1,7 @@
 import { Flex, Text, Box } from '@chakra-ui/react';
 
+import { useAuth } from '@/hooks/auth';
+
 interface searchedWordsProps {
   keyword: string;
   createdAt: string;
@@ -10,6 +12,12 @@ interface RecentSearchesProps {
 }
 
 const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
+  const { isAuthed } = useAuth();
+
+  const guideText = isAuthed
+    ? '검색 기록이 없습니다.'
+    : '로그인 후 확인해 주세요.';
+
   return (
     <>
       <Box width="100%" fontSize="sm" color="black.700">
@@ -41,7 +49,7 @@ const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
         </Flex>
       ) : (
         <Box fontSize="sm" color="black.600">
-          <Text mb="1rem">검색 기록이 없습니다.</Text>
+          <Text mb="1.5rem">{guideText}</Text>
         </Box>
       )}
     </>
