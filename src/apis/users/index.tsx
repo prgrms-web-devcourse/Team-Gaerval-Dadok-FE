@@ -15,6 +15,8 @@ const userAPI = {
     nickname: APIUser['nickname'];
     job: { jobGroup: APIJobGroup['name']; jobName: APIJob['name'] };
   }) => publicApi.put<APIUser>('/service-api/users/profile', { nickname, job }),
+
+  logout: () => publicApi.post('/service-api/auth/logout'),
 };
 
 export default userAPI;
