@@ -18,22 +18,6 @@ import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
 import RecentSearches from './RecentSearches';
 
-const TEMP_SEARCHES_DATA = [
-  '정의',
-  '사랑',
-  '추억',
-  '계란후라이',
-  '으라챠챠',
-  '우당탕탕',
-  '미유커피',
-  '마이마이쮸',
-  '하이',
-  '나루토',
-  '보루토',
-  '스미마셍',
-  '노인과 바다',
-];
-
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
 }
@@ -51,17 +35,19 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
       pageSize: 12,
     });
 
-  //로그인, 비로그인 어떤 식으로 요청이 오고 가는 것인지?
-  //헤더에 토큰을 담지 않은 경우에 알아서 로그인 유저인지 비로그인 유저인지 구별할 수 있는 것인가?
-  //검색어 post API가 별도로 있는 것인지?
-  const recentSearches = useRecentSearchesQuery();
-  console.log(recentSearches.data);
-  console.log(recentSearches.isError);
-  console.log(recentSearches.isSuccess);
+  const {
+    data: recentSearchesData,
+    isSuccess: recentSearchesQueryIsSuccess,
+    refetch: recentSearchesQueryRefetch,
+  } = useRecentSearchesQuery();
 
   const searchedBooks = isSuccess
     ? data.pages.flatMap(page => page.searchBookResponseList)
     : [];
+
+  const recentSearches = recentSearchesQueryIsSuccess
+    ? recentSearchesData.bookRecentSearchResponses
+    : undefined;
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target) return;
@@ -73,7 +59,14 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [fetchNextPage, inView, hasNextPage]);
+    recentSearchesQueryRefetch();
+  }, [
+    fetchNextPage,
+    inView,
+    hasNextPage,
+    recentSearchesQueryRefetch,
+    queryKeyword,
+  ]);
 
   return (
     <VStack w="100%">
@@ -97,7 +90,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         />
       </InputGroup>
       <RecentSearches
-        searchedWords={TEMP_SEARCHES_DATA}
+        searchedWords={recentSearches}
         setKeyword={setInputValue}
       />
 
