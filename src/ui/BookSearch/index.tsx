@@ -12,26 +12,11 @@ import { useEffect, useState } from 'react';
 
 import type { APIBook } from '@/types/book';
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
+import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 import { useInView } from 'react-intersection-observer';
 import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
 import RecentSearches from './RecentSearches';
-
-const TEMP_SEARCHES_DATA = [
-  '정의',
-  '사랑',
-  '추억',
-  '계란후라이',
-  '으라챠챠',
-  '우당탕탕',
-  '미유커피',
-  '마이마이쮸',
-  '하이',
-  '나루토',
-  '보루토',
-  '스미마셍',
-  '노인과 바다',
-];
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
@@ -43,16 +28,21 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
 
   const { ref, inView } = useInView();
 
-  const { data, isSuccess, isFetching, hasNextPage, fetchNextPage } =
-    useBookSearchQuery({
-      query: queryKeyword,
-      page: 1,
-      pageSize: 12,
-    });
+  const bookSearchInfo = useBookSearchQuery({
+    query: queryKeyword,
+    page: 1,
+    pageSize: 12,
+  });
 
-  const searchedBooks = isSuccess
-    ? data.pages.flatMap(page => page.searchBookResponseList)
+  const recentSearchesInfo = useRecentSearchesQuery();
+
+  const searchedBooks = bookSearchInfo.isSuccess
+    ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
     : [];
+
+  const recentSearches = recentSearchesInfo.isSuccess
+    ? recentSearchesInfo.data.bookRecentSearchResponses
+    : undefined;
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target) return;
@@ -61,10 +51,18 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
   };
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
+    if (inView && bookSearchInfo.hasNextPage) {
+      bookSearchInfo.fetchNextPage();
     }
-  }, [fetchNextPage, inView, hasNextPage]);
+    recentSearchesInfo.refetch();
+  }, [
+    bookSearchInfo.fetchNextPage,
+    inView,
+    bookSearchInfo.hasNextPage,
+    queryKeyword,
+    bookSearchInfo,
+    recentSearchesInfo,
+  ]);
 
   return (
     <VStack w="100%">
@@ -88,7 +86,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         />
       </InputGroup>
       <RecentSearches
-        searchedWords={TEMP_SEARCHES_DATA}
+        searchedWords={recentSearches}
         setKeyword={setInputValue}
       />
 
@@ -98,7 +96,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         ))}
       </SimpleGrid>
 
-      {isFetching && (
+      {bookSearchInfo.isFetching && (
         <Flex gap="1rem" w="100%">
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
