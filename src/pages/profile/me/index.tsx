@@ -8,16 +8,24 @@ import ProfileBookShelf from '@/ui/Profile/ProfileBookshelf';
 import ProfileGroup from '@/ui/Profile/ProfileGroup';
 import Button from '@/ui/common/Button';
 import { Menu, MenuItem } from '@/ui/common/Menu';
+import { removeAuth } from '@/utils/helpers';
+import userAPI from '@/apis/users';
 
 const MyProfilePage = () => {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
+
+  const handleLogoutButtonClick = async () => {
+    await userAPI.logout();
+    removeAuth();
+    push('/');
+  };
 
   return (
     <AuthRequired>
       <VStack justify="center" align="flex-start">
         <Box alignSelf="flex-end">
           <Menu>
-            <MenuItem text="로그아웃" as={Link} href={'/logout'} />
+            <MenuItem text="로그아웃" onClick={handleLogoutButtonClick} />
           </Menu>
         </Box>
         <VStack w="100%" align="flex-start" gap="2rem">
