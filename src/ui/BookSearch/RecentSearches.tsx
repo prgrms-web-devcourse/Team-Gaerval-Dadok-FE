@@ -18,11 +18,12 @@ const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
       {searchedWords ? (
         <Flex width="100%" gap="1rem" overflowX="scroll" pb="3rem">
           {searchedWords &&
-            searchedWords.map((searchedWord, idx) => {
-              const { keyword } = searchedWord;
+            searchedWords.map(searchedWord => {
+              const { keyword, createdAt } = searchedWord;
+
               return (
                 <Text
-                  key={idx}
+                  key={createdAt}
                   whiteSpace="nowrap"
                   fontSize="md"
                   mr="0.5rem"

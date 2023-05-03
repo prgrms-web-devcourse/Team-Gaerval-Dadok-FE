@@ -28,25 +28,20 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
 
   const { ref, inView } = useInView();
 
-  const { data, isSuccess, isFetching, hasNextPage, fetchNextPage } =
-    useBookSearchQuery({
-      query: queryKeyword,
-      page: 1,
-      pageSize: 12,
-    });
+  const bookSearchInfo = useBookSearchQuery({
+    query: queryKeyword,
+    page: 1,
+    pageSize: 12,
+  });
 
-  const {
-    data: recentSearchesData,
-    isSuccess: recentSearchesQueryIsSuccess,
-    refetch: recentSearchesQueryRefetch,
-  } = useRecentSearchesQuery();
+  const recentSearchesInfo = useRecentSearchesQuery();
 
-  const searchedBooks = isSuccess
-    ? data.pages.flatMap(page => page.searchBookResponseList)
+  const searchedBooks = bookSearchInfo.isSuccess
+    ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
     : [];
 
-  const recentSearches = recentSearchesQueryIsSuccess
-    ? recentSearchesData.bookRecentSearchResponses
+  const recentSearches = recentSearchesInfo.isSuccess
+    ? recentSearchesInfo.data.bookRecentSearchResponses
     : undefined;
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,16 +51,17 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
   };
 
   useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
+    if (inView && bookSearchInfo.hasNextPage) {
+      bookSearchInfo.fetchNextPage();
     }
-    recentSearchesQueryRefetch();
+    recentSearchesInfo.refetch();
   }, [
-    fetchNextPage,
+    bookSearchInfo.fetchNextPage,
     inView,
-    hasNextPage,
-    recentSearchesQueryRefetch,
+    bookSearchInfo.hasNextPage,
     queryKeyword,
+    bookSearchInfo,
+    recentSearchesInfo,
   ]);
 
   return (
@@ -100,7 +96,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
         ))}
       </SimpleGrid>
 
-      {isFetching && (
+      {bookSearchInfo.isFetching && (
         <Flex gap="1rem" w="100%">
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
