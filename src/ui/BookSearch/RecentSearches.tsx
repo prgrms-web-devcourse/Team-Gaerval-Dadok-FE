@@ -16,17 +16,17 @@ const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
         최근 검색어
       </Text>
       {searchedWords ? (
-        <Flex width="100%" gap="1rem" overflowX="scroll" pb="3rem">
+        <Flex width="100%" gap="1rem" overflowX="scroll" pb="2rem">
           {searchedWords.map(({ keyword, createdAt }) => {
             return (
               <Text
                 key={createdAt}
                 whiteSpace="nowrap"
-                fontSize="md"
-                mr="0.5rem"
-                px="1.5rem"
-                borderRadius="1.5rem"
-                bgColor="white.700"
+                fontSize="sm"
+                color="yellow.900"
+                p="0.8rem 1.6rem 0.6rem"
+                borderRadius="2.8rem"
+                bgColor="yellow.200"
                 onClick={() => {
                   setKeyword(keyword);
                 }}
