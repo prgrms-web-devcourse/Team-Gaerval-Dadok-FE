@@ -1,6 +1,8 @@
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import useDeleteBookshelfLike from '@/queries/bookshelf/useDeleteBookshelfLike';
+import usePostBookshelfLike from '@/queries/bookshelf/usePostBookshelfLike';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
@@ -37,6 +39,8 @@ export default function UserBookShelfPage({
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
+  const { mutate: postLike } = usePostBookshelfLike();
+  const { mutate: deleteLike } = useDeleteBookshelfLike();
   const { asPath } = useRouter();
   const { showToast } = useToast();
   const {
@@ -93,9 +97,9 @@ export default function UserBookShelfPage({
 
   const handleLikeButton = () => {
     if (!infoData.isLiked) {
-      return console.log('좋아요');
+      return postLike({ bookshelfId });
     }
-    return console.log('싫어요');
+    return deleteLike({ bookshelfId });
   };
 
   return (
