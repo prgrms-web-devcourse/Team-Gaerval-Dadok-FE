@@ -6,7 +6,7 @@ import type { QueryOptions } from '@/types/query';
 
 const useRecentSearchesQuery = (options?: QueryOptions<APIRecentSearches>) =>
   useQuery(
-    ['keywords'],
+    ['recentSearches'],
     () => bookAPI.getRecentSearches().then(({ data }) => data),
     options
   );
