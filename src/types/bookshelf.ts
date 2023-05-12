@@ -20,12 +20,14 @@ type APIRecommendedJobGroup = {
 export type APIBookshelf = {
   bookshelfId: number;
   bookshelfName: string;
+  likeCount: number;
   books: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>[];
 };
 
 export interface APIBookshelfInfo
-  extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName'>,
+  extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName' | 'likeCount'>,
     Pick<APIUser, 'userId' | 'name' | 'nickname' | 'profileImage'> {
+  isLiked: boolean;
   isPublic: boolean;
   job: APIProfileJob;
 }
