@@ -69,8 +69,10 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
   return (
     <VStack w="100%" gap="2rem">
       <InputGroup>
-        <InputLeftElement w="2rem" h="2rem" top="0.8rem" left="0.5rem">
-          <SearchIcon />
+        <InputLeftElement top="0.8rem">
+          <Box w="1.8rem" h="1.8rem">
+            <SearchIcon />
+          </Box>
         </InputLeftElement>
         <Input
           variant="flushed"
@@ -84,23 +86,34 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
           _placeholder={{ color: 'black.500' }}
         />
       </InputGroup>
-      <RecentSearches
-        searchedWords={recentSearches}
-        setKeyword={setInputValue}
-      />
-      <SimpleGrid columns={3} gap="1rem">
-        {searchedBooks.map(book => (
-          <SearchedBook key={book.isbn} book={book} onBookClick={onBookClick} />
-        ))}
-      </SimpleGrid>
 
-      {bookSearchInfo.isFetching && (
+      {!inputValue && (
+        <RecentSearches
+          searchedWords={recentSearches}
+          setKeyword={setInputValue}
+        />
+      )}
+
+      {inputValue && (
+        <SimpleGrid columns={3} gap="1rem">
+          {searchedBooks.map(book => (
+            <SearchedBook
+              key={book.isbn}
+              book={book}
+              onBookClick={onBookClick}
+            />
+          ))}
+        </SimpleGrid>
+      )}
+
+      {inputValue && bookSearchInfo.isFetching && (
         <Flex gap="1rem" w="100%">
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
         </Flex>
       )}
+
       <Box ref={ref} />
     </VStack>
   );

@@ -5,7 +5,7 @@ interface searchedWordsProps {
   createdAt: string;
 }
 interface RecentSearchesProps {
-  searchedWords: searchedWordsProps[] | undefined;
+  searchedWords?: searchedWordsProps[];
   setKeyword: (searchedWord: string) => void;
 }
 
