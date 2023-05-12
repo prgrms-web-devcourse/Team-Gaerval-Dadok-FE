@@ -3,20 +3,22 @@ import {
   Flex,
   Input,
   InputGroup,
+  InputLeftElement,
   SimpleGrid,
   Skeleton,
-  Text,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import type { APIBook } from '@/types/book';
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
-import { useInView } from 'react-intersection-observer';
 import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
 import RecentSearches from './RecentSearches';
+import SearchIcon from '@public/icons/search.svg';
+import { isAuthed } from '@/utils/helpers';
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
@@ -34,7 +36,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     pageSize: 12,
   });
 
-  const recentSearchesInfo = useRecentSearchesQuery();
+  const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
@@ -54,7 +56,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
     }
-    recentSearchesInfo.refetch();
+    isAuthed() && recentSearchesInfo.refetch();
   }, [
     bookSearchInfo.fetchNextPage,
     inView,
@@ -65,44 +67,53 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
   ]);
 
   return (
-    <VStack w="100%">
-      <InputGroup display="flex" flexDirection="column" gap="2rem" size="lg">
-        <Text
-          alignSelf="flex-start"
-          fontSize="2rem"
-          fontWeight="800"
-          color="main"
-        >
-          Discover
-        </Text>
+    <VStack w="100%" gap="2rem">
+      <InputGroup>
+        <InputLeftElement top="0.8rem">
+          <Box w="1.8rem" h="1.8rem">
+            <SearchIcon />
+          </Box>
+        </InputLeftElement>
         <Input
+          variant="flushed"
+          borderColor="black.500"
           focusBorderColor="main"
+          fontSize="lg"
+          p="2rem 4rem"
           value={inputValue}
-          borderColor="black.600"
-          borderWidth="0.12rem"
-          py="2rem"
           onChange={onInputChange}
-          placeholder="검색어를 입력해 주세요."
+          placeholder="책 제목, 작가를 검색해보세요"
+          _placeholder={{ color: 'black.500' }}
         />
       </InputGroup>
-      <RecentSearches
-        searchedWords={recentSearches}
-        setKeyword={setInputValue}
-      />
 
-      <SimpleGrid columns={3} gap="1rem">
-        {searchedBooks.map(book => (
-          <SearchedBook key={book.isbn} book={book} onBookClick={onBookClick} />
-        ))}
-      </SimpleGrid>
+      {!inputValue && (
+        <RecentSearches
+          searchedWords={recentSearches}
+          setKeyword={setInputValue}
+        />
+      )}
 
-      {bookSearchInfo.isFetching && (
+      {inputValue && (
+        <SimpleGrid columns={3} gap="1rem">
+          {searchedBooks.map(book => (
+            <SearchedBook
+              key={book.isbn}
+              book={book}
+              onBookClick={onBookClick}
+            />
+          ))}
+        </SimpleGrid>
+      )}
+
+      {inputValue && bookSearchInfo.isFetching && (
         <Flex gap="1rem" w="100%">
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
           <Skeleton w="100%" h="18rem" borderRadius={10} />
         </Flex>
       )}
+
       <Box ref={ref} />
     </VStack>
   );

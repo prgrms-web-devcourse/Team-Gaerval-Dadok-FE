@@ -30,6 +30,10 @@ const colors = {
     800: '#F56565', // button (NoticeTheme)
     900: '#FF0000', // validation (NoticeTheme)
   },
+  yellow: {
+    200: '#FFD4802E',
+    900: '#FFA436',
+  },
   black: {
     400: '#C1C0C0', // subHeader (Slider)
     500: '#AFAFAF', // placeHolder (BookSearch)

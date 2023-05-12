@@ -1,51 +1,48 @@
-import { Flex, Text, Box } from '@chakra-ui/react';
+import { Flex, Text, VStack } from '@chakra-ui/react';
 
 interface searchedWordsProps {
   keyword: string;
   createdAt: string;
 }
 interface RecentSearchesProps {
-  searchedWords: searchedWordsProps[] | undefined;
+  searchedWords?: searchedWordsProps[];
   setKeyword: (searchedWord: string) => void;
 }
 
 const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
   return (
-    <>
-      <Box width="100%" fontSize="sm" color="black.700">
-        <Text my="1rem">최근 검색어</Text>
-      </Box>
+    <VStack width="100%" alignItems="stretch">
+      <Text fontSize="lg" color="black" my="1rem">
+        최근 검색어
+      </Text>
       {searchedWords ? (
-        <Flex width="100%" gap="1rem" overflowX="scroll" pb="3rem">
-          {searchedWords &&
-            searchedWords.map(searchedWord => {
-              const { keyword, createdAt } = searchedWord;
-
-              return (
-                <Text
-                  key={createdAt}
-                  whiteSpace="nowrap"
-                  fontSize="md"
-                  mr="0.5rem"
-                  px="1.5rem"
-                  borderRadius="1.5rem"
-                  bgColor="white.700"
-                  onClick={() => {
-                    setKeyword(keyword);
-                  }}
-                  cursor="pointer"
-                >
-                  {keyword}
-                </Text>
-              );
-            })}
+        <Flex width="100%" gap="1rem" overflowX="scroll" pb="2rem">
+          {searchedWords.map(({ keyword, createdAt }) => {
+            return (
+              <Text
+                key={createdAt}
+                whiteSpace="nowrap"
+                fontSize="sm"
+                color="yellow.900"
+                p="0.8rem 1.6rem 0.6rem"
+                borderRadius="2.8rem"
+                bgColor="yellow.200"
+                onClick={() => {
+                  setKeyword(keyword);
+                }}
+                cursor="pointer"
+              >
+                {keyword}
+              </Text>
+            );
+          })}
         </Flex>
       ) : (
-        <Box fontSize="sm" color="black.600">
-          <Text mb="1.5rem">검색 기록이 없습니다.</Text>
-        </Box>
+        <Text mb="1.5rem" fontSize="sm" color="black.700" alignSelf="center">
+          검색 기록이 없어요.
+        </Text>
       )}
-    </>
+    </VStack>
   );
 };
 

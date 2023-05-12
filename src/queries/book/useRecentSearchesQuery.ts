@@ -1,9 +1,14 @@
-import bookAPI from '@/apis/book';
 import { useQuery } from '@tanstack/react-query';
 
-const useRecentSearchesQuery = () =>
-  useQuery(['keywords'], () =>
-    bookAPI.getRecentSearches().then(({ data }) => data)
+import bookAPI from '@/apis/book';
+import type { APIRecentSearches } from '@/types/book';
+import type { QueryOptions } from '@/types/query';
+
+const useRecentSearchesQuery = (options?: QueryOptions<APIRecentSearches>) =>
+  useQuery(
+    ['recentSearches'],
+    () => bookAPI.getRecentSearches().then(({ data }) => data),
+    options
   );
 
 export default useRecentSearchesQuery;
