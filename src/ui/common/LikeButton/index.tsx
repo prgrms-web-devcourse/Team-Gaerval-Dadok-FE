@@ -4,12 +4,14 @@ import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 
 interface LikeButtonTypes {
   isButton?: boolean;
+  handleLikeButton?: () => void;
   isLiked?: APIBookshelfInfo['isLiked'];
   likeCount: APIBookshelfInfo['likeCount'];
 }
 
 const LikeButton = ({
   isButton = true,
+  handleLikeButton,
   isLiked,
   likeCount,
 }: LikeButtonTypes) => {
@@ -25,6 +27,7 @@ const LikeButton = ({
   return (
     <Box
       as={isButton ? 'button' : 'div'}
+      onClick={isButton ? handleLikeButton : undefined}
       p={isButton ? '0.6rem 0.8rem' : '0.4rem 0.6rem'}
       w="5.4rem"
       h="2.4rem"

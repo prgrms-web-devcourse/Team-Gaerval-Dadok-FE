@@ -78,7 +78,7 @@ export default function UserBookShelfPage({
 
   const filteredData = filtered();
 
-  const handleShareClick = () => {
+  const handleShareButton = () => {
     const url = 'https://dev.dadok.site' + asPath;
 
     navigator.clipboard
@@ -91,6 +91,13 @@ export default function UserBookShelfPage({
       });
   };
 
+  const handleLikeButton = () => {
+    if (!infoData.isLiked) {
+      return console.log('좋아요');
+    }
+    return console.log('싫어요');
+  };
+
   return (
     <VStack width="100%" height="100%">
       <Flex width="100%" align="center">
@@ -98,7 +105,7 @@ export default function UserBookShelfPage({
         <IconButton
           name="share"
           size="2.2rem"
-          onClick={handleShareClick}
+          onClick={handleShareButton}
           cursor="pointer"
           marginBottom="1rem"
         />
@@ -110,7 +117,11 @@ export default function UserBookShelfPage({
             <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
           )}
         </HStack>
-        <LikeButton isLiked={infoData.isLiked} likeCount={infoData.likeCount} />
+        <LikeButton
+          handleLikeButton={handleLikeButton}
+          isLiked={infoData.isLiked}
+          likeCount={infoData.likeCount}
+        />
       </Flex>
       <VStack width="100%" spacing="2rem">
         {isAuthed() ? (
