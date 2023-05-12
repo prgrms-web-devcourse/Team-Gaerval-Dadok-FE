@@ -17,13 +17,6 @@ const LikeButton = ({
 }: LikeButtonTypes) => {
   const theme = useTheme();
 
-  /**
-   * @todo
-   * POST, DELETE 메서드 작성
-   * bookshelfId props로 받기
-   * onClick시 isLike 값에 따라 POST, DELETE 실행
-   */
-
   return (
     <Box
       as={isButton ? 'button' : 'div'}
