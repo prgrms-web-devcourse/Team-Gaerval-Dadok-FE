@@ -22,7 +22,7 @@ const ProfileBookshelfPresenter = ({
           {`${bookshelfName}`}
         </Text>
         <Flex h="2.4rem" gap="1.6rem" align="center">
-          <LikeButton />
+          <LikeButton isButton={false} />
           <IconButton
             as={Link}
             href={`/bookshelf/${bookshelfId}`}

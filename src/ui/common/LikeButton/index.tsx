@@ -1,7 +1,11 @@
 import IconButton from '@/ui/common/IconButton';
-import { Box, Button, Flex, Text, useTheme } from '@chakra-ui/react';
+import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 
-const LikeButton = () => {
+interface Props {
+  isButton?: boolean;
+}
+
+const LikeButton = ({ isButton = true }: Props) => {
   const theme = useTheme();
 
   /**
@@ -20,25 +24,30 @@ const LikeButton = () => {
 
   return (
     <Box
-      as={Button}
+      as={isButton ? 'button' : 'div'}
+      p={isButton ? '0.6rem 0.8rem' : '0.4rem 0.6rem'}
       w="5.4rem"
       h="2.4rem"
-      p="0.6rem 0.8rem"
       fontSize="xs"
-      border="solid 0.1rem"
-      borderRadius="1.6rem"
       color={theme.colors.red['800']}
-      bg={theme.colors.white['900']}
+      bg={theme.colors.white['800']}
+      border="solid 0.1rem"
+      borderColor={
+        isButton ? theme.colors.red['800'] : theme.colors.white['800']
+      }
+      borderRadius="1.6rem"
     >
       <Flex w="100%" h="100%" gap="0.2rem" justify="flex-start" align="center">
         <IconButton
           as="div"
           name="like"
-          size="1.3rem"
+          size={isButton ? '1.3rem' : '1.7rem'}
           color={theme.colors.red['800']}
           fill={true}
         />
-        <Text w="2rem">--</Text>
+        <Text w="2rem" fontWeight={isButton ? '500' : '900'}>
+          --
+        </Text>
       </Flex>
     </Box>
   );
