@@ -3,7 +3,7 @@ import { Pagination } from './common';
 import { APIJobGroup, APIProfileJob } from './job';
 import { APIUser } from './user';
 
-interface APISeachedBook extends APIBook {
+interface APISearchedBook extends APIBook {
   bookshelfItemId: number;
 }
 
@@ -31,7 +31,7 @@ export interface APIBookshelfInfo
 }
 
 export interface APIBookshelfPagination extends Pagination {
-  books: APISeachedBook[];
+  books: APISearchedBook[];
 }
 
 export interface APIRecommendedBooksPagination
