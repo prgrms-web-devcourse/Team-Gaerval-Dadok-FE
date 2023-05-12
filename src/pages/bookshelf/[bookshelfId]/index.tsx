@@ -110,7 +110,7 @@ export default function UserBookShelfPage({
             <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
           )}
         </HStack>
-        <LikeButton />
+        <LikeButton isLiked={infoData.isLiked} likeCount={infoData.likeCount} />
       </Flex>
       <VStack width="100%" spacing="2rem">
         {isAuthed() ? (

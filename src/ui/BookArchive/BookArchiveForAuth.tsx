@@ -43,12 +43,13 @@ const BookArchiveForAuth = ({
         books={booksData.books}
       />
       {bookshelfData.bookshelfResponses.map(
-        ({ bookshelfId, bookshelfName, books }) => (
+        ({ bookshelfId, bookshelfName, books, likeCount }) => (
           <RecommendedBookshelf
             key={bookshelfId}
             bookshelfId={bookshelfId}
             bookshelfName={bookshelfName}
             books={books}
+            likeCount={likeCount}
           />
         )
       )}
