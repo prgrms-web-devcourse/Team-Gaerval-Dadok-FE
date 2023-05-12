@@ -32,6 +32,7 @@ const LikeButton = () => {
     >
       <Flex w="100%" h="100%" gap="0.2rem" justify="flex-start" align="center">
         <IconButton
+          as="div"
           name="like"
           size="1.3rem"
           color={theme.colors.red['800']}
