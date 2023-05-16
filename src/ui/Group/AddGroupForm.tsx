@@ -15,7 +15,6 @@ import FormInput from '@/ui/FormInput';
 import FormRadio from '@/ui/FormRadio';
 import BottomSheet from '@/ui/common/BottomSheet';
 import BookSearch from '@/ui/BookSearch';
-import IconButton from '@/ui/common/IconButton';
 import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
 import GroupAPI from '@/apis/group';
@@ -284,12 +283,6 @@ const BookSearchBottomSheet = ({
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <VStack px="2rem" py="2rem" h="95vh" gap="1rem" overflow="scroll">
-        <IconButton
-          name="close"
-          onClick={onClose}
-          alignSelf="flex-end"
-          tabIndex={-1}
-        />
         <BookSearch onBookClick={onBookClick} />
       </VStack>
     </BottomSheet>
