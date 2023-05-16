@@ -25,19 +25,11 @@ const bookshelfAPI = {
         pageParam
     ),
 
-  postBookshelfLike: ({
-    bookshelfId,
-  }: {
-    bookshelfId: APIBookshelf['bookshelfId'];
-  }) => {
+  likeBookshelf: (bookshelfId: APIBookshelf['bookshelfId']) => {
     publicApi.post(`/service-api/bookshelves/${bookshelfId}/like`);
   },
 
-  deleteBookshelfLike: ({
-    bookshelfId,
-  }: {
-    bookshelfId: APIBookshelf['bookshelfId'];
-  }) => {
+  unlikeBookshelf: (bookshelfId: APIBookshelf['bookshelfId']) => {
     publicApi.delete(`/service-api/bookshelves/${bookshelfId}/like`);
   },
 };

@@ -1,8 +1,8 @@
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
-import useDeleteBookshelfLike from '@/queries/bookshelf/useDeleteBookshelfLike';
-import usePostBookshelfLike from '@/queries/bookshelf/usePostBookshelfLike';
+import useBookshelfUnlikeMutation from '@/queries/bookshelf/useBookshelfUnlikeMutation';
+import useBookshelfLikeMutation from '@/queries/bookshelf/useBookshelfLikeMutation';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
@@ -36,11 +36,15 @@ export default function UserBookShelfPage({
   bookshelfId: APIBookshelf['bookshelfId'];
 }) {
   const { ref, inView } = useInView();
-  const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
+  const {
+    data: infoData,
+    isSuccess: infoIsSuccess,
+    refetch: infoRefetch,
+  } = useBookshelfInfoQuery({
     bookshelfId,
   });
-  const { mutate: postLike } = usePostBookshelfLike();
-  const { mutate: deleteLike } = useDeleteBookshelfLike();
+  const { mutate: likeBookshelf } = useBookshelfLikeMutation(bookshelfId);
+  const { mutate: unlikeBookshelf } = useBookshelfUnlikeMutation(bookshelfId);
   const { asPath } = useRouter();
   const { showToast } = useToast();
   const {
@@ -96,10 +100,9 @@ export default function UserBookShelfPage({
   };
 
   const handleLikeButton = () => {
-    if (!infoData.isLiked) {
-      return postLike({ bookshelfId });
-    }
-    return deleteLike({ bookshelfId });
+    !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
+
+    infoRefetch();
   };
 
   return (

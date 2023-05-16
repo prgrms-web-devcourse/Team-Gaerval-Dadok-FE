@@ -1,5 +1,5 @@
 import { APIBookshelf } from '@/types/bookshelf';
-import LikeButton from '@/ui/common/LikeButton';
+import LikeCount from '@/ui/common/LikeCount';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import IconButton from '../../common/IconButton';
@@ -22,8 +22,8 @@ const ProfileBookshelfPresenter = ({
         >
           {`${bookshelfName}`}
         </Text>
-        <Flex h="2.4rem" gap="1.6rem" align="center">
-          <LikeButton isButton={false} likeCount={likeCount} />
+        <Flex h="2.4rem" align="center">
+          <LikeCount likeCount={likeCount} />
           <IconButton
             as={Link}
             href={`/bookshelf/${bookshelfId}`}
