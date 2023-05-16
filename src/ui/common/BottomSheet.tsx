@@ -1,7 +1,8 @@
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import type { PropsWithChildren } from 'react';
+import { useEffect } from 'react';
 import IconButton from '@/ui/common/IconButton';
+import type { PropsWithChildren } from 'react';
 
 interface DrawerProps extends PropsWithChildren {
   isOpen: boolean;
@@ -15,6 +16,10 @@ const Drawer = ({ isOpen, onClose, onCancel, children }: DrawerProps) => {
     onClose();
   };
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'overlay';
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -23,7 +28,7 @@ const Drawer = ({ isOpen, onClose, onCancel, children }: DrawerProps) => {
           top="0"
           left="0"
           w="100vw"
-          height="100vh"
+          height="100dvh"
           alignItems="end"
           zIndex={10}
         >
