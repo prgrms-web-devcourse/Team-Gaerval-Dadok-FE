@@ -35,8 +35,8 @@ const Drawer = ({ isOpen, onClose, onCancel, children }: DrawerProps) => {
             width="100%"
             height="100%"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5, transition: { duration: 0.1 } }}
-            exit={{ opacity: 0, transition: { duration: 0.1 } }}
+            animate={{ opacity: 0.5, transition: { duration: 0.2 } }}
+            exit={{ opacity: 0, transition: { duration: 0.2 } }}
           />
           <Flex
             as={motion.div}
@@ -51,7 +51,7 @@ const Drawer = ({ isOpen, onClose, onCancel, children }: DrawerProps) => {
               opacity: 1,
               transition: { duration: 0.3, bounce: 0 },
             }}
-            exit={{ y: '100%', opacity: 0, transition: { duration: 0.1 } }}
+            exit={{ y: '100%', opacity: 0, transition: { duration: 0.2 } }}
           >
             <IconButton
               name="close"
