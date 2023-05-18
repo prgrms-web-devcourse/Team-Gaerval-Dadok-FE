@@ -99,9 +99,8 @@ export default function UserBookShelfPage({
       });
   };
 
-  const handleLikeButton = () => {
+  const handleLikeMutate = () => {
     !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
-
     infoRefetch();
   };
 
@@ -125,7 +124,7 @@ export default function UserBookShelfPage({
           )}
         </HStack>
         <LikeButton
-          handleLikeButton={handleLikeButton}
+          handleLikeButton={handleLikeMutate}
           isLiked={infoData.isLiked}
           likeCount={infoData.likeCount}
         />

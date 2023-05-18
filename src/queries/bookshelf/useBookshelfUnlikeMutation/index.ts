@@ -9,8 +9,11 @@ const useBookshelfUnlikeMutation = (
 
   return useMutation({
     mutationFn: async () => bookshelfAPI.unlikeBookshelf(bookshelfId),
-    onSuccess: () =>
-      queryClient.invalidateQueries(['bookshelfInfo', bookshelfId]),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['bookshelfInfo', bookshelfId],
+      });
+    },
     onError: (error: { message: string }) => {
       console.error(error.message);
     },
