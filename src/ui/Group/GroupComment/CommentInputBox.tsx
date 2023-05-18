@@ -3,14 +3,12 @@ import { useRef } from 'react';
 import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
 import { useDisclosure } from '@chakra-ui/react';
 interface CommentInputBoxProps {
-  isPartInUser: boolean;
   handleCreateCommentBtnClick: (comment: string) => void;
   userNickname?: string | null;
   userAvatar?: string;
 }
 
 const CommentInputBox = ({
-  isPartInUser,
   handleCreateCommentBtnClick,
 }: CommentInputBoxProps) => {
   const {
@@ -43,18 +41,12 @@ const CommentInputBox = ({
             fontSize="md"
             color="black.600"
             border="solid 1px"
-            borderColor={!isPartInUser ? 'white.900' : 'main'}
-            backgroundColor={!isPartInUser ? 'white.700' : 'white.900'}
+            borderColor="main"
+            backgroundColor="white.900"
             borderRadius="1rem"
-            onClick={() => {
-              if (isPartInUser) {
-                onCommentDrawerOpen();
-              }
-            }}
+            onClick={onCommentDrawerOpen}
           >
-            {isPartInUser
-              ? '댓글을 입력해 주세요'
-              : '모임에 참여해야 글을 작성할 수 있습니다'}
+            댓글을 입력해 주세요
           </Flex>
         </Box>
       </Box>

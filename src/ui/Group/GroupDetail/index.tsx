@@ -8,6 +8,9 @@ import useGroupInfoQuery from '@/queries/group/useGroupInfoQuery';
 import useGroupCommentsQuery from '@/queries/group/useGroupCommentsQuery';
 import GroupAPI from '@/apis/group';
 import { useToast } from '@/hooks/toast';
+import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
+import { SERVICE_ERROR_MESSAGE } from '@/constants';
+import { isDateExpired } from '@/utils/helpers/date';
 
 interface GroupDetailProps {
   bookGroupId: number;
@@ -41,9 +44,14 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
       onSuccess && onSuccess();
       showToast({ message: '모임에 가입되었어요' });
     } catch (error) {
-      error &&
-        showToast({ message: '정답이 아니에요 다시 한 번 도전해 주세요' });
+      if (!isAxiosErrorWithCustomCode(error)) {
+        return;
+      }
+
+      const { code } = error.response.data;
+      showToast({ message: SERVICE_ERROR_MESSAGE[code], duration: 3000 });
     }
+
     groupInfoQuery.refetch();
   };
 
@@ -94,7 +102,7 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     router.push('/group');
   };
 
-  const { isGroupMember, isPublic } = groupInfoQuery.data;
+  const { isGroupMember, isPublic, endDate } = groupInfoQuery.data;
   const { bookGroupComments, isEmpty } = groupCommentsQuery.data;
 
   return (
@@ -104,10 +112,11 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
         handleParticipateBtnClick={handleParticipateBtnClick}
         handleDeleteGroupBtnClick={handleDeleteGroupBtnClick}
       />
-      <CommentInputBox
-        isPartInUser={isGroupMember}
-        handleCreateCommentBtnClick={handleCreateCommentBtnClick}
-      />
+      {isGroupMember && !isDateExpired(endDate) && (
+        <CommentInputBox
+          handleCreateCommentBtnClick={handleCreateCommentBtnClick}
+        />
+      )}
       <CommentsList
         isGroupMember={isGroupMember}
         isPublic={isPublic}

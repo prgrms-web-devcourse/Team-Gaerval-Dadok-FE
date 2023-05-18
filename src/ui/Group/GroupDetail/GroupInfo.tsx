@@ -24,6 +24,7 @@ import TopNavigation from '@/ui/common/TopNavigation';
 import { Menu, MenuItem } from '@/ui/common/Menu';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { isAuthed } from '@/utils/helpers';
+import { isDateExpired } from '@/utils/helpers/date';
 
 interface GroupInfoProps {
   groupInfoData: APIGroupDetail;
@@ -78,7 +79,12 @@ const GroupInfo = ({
     isGroupMember,
   } = groupInfoData;
 
-  const message = hasJoinPasswd ? '가입 비밀번호 입력 필요' : '바로 참여 가능';
+  const isGroupExpired = isDateExpired(endDate);
+  const message = isGroupExpired
+    ? '모입 가입 기간이 지났아요.'
+    : hasJoinPasswd
+    ? '가입 문제가 있어요.'
+    : '바로 참여할 수 있어요.';
 
   const onDeleteGroupClick = () => {
     if (currentMemberCount > 1) {
@@ -192,77 +198,76 @@ const GroupInfo = ({
           </Link>
         </Flex>
       </Flex>
-      <Box mt="1.5rem">
-        {!isOwner && (
-          <>
-            <Button
-              w="100%"
-              h="4.5rem"
-              fontSize="md"
-              fontWeight="600"
-              borderRadius="1.2rem"
-              color="white.900"
-              border="0.1rem solid"
-              backgroundColor="main"
-              onClick={onPartInButtonClick}
-              isDisabled={isGroupMember}
-              _disabled={{
-                border: 'none',
-                color: 'main',
-                background: 'white',
-                pointerEvents: 'none',
-              }}
-            >
-              {isGroupMember ? '참여 중' : '모임 참여하기'}
-            </Button>
-            <BottomSheet
-              isOpen={isPasswordModalOpen}
-              onClose={onPasswordModalClose}
-            >
-              <Flex p="3rem" h="90vh" gap="3rem" direction="column">
-                <Button
-                  alignSelf="flex-end"
-                  bgColor="white.900"
-                  onClick={() => {
-                    handleParticipateBtnClick(password, () => {
-                      onPasswordModalClose();
-                      setPassword('');
-                    });
-                  }}
-                >
-                  확인
-                </Button>
-                <Flex direction="column" gap="1rem">
-                  <Text fontSize="xl" color="main">
-                    질문
-                  </Text>
-                  <Text fontSize="lg" fontWeight={700}>
-                    {joinQuestion}
-                  </Text>
-                </Flex>
-                <Flex direction="column" gap="1rem">
-                  <Text fontSize="xl" color="main">
-                    정답
-                  </Text>
-                  <Input
-                    focusBorderColor="main"
-                    value={password}
-                    h="4rem"
-                    placeholder="- 띄어쓰기 없이 정답을 입력해 주세요."
-                    onChange={onChangePassword}
-                  />
-                </Flex>
+
+      {!isOwner && !isGroupExpired && (
+        <Box mt="1.5rem">
+          <Button
+            w="100%"
+            h="4.5rem"
+            fontSize="md"
+            fontWeight="600"
+            borderRadius="1.2rem"
+            color="white.900"
+            border="0.1rem solid"
+            backgroundColor="main"
+            onClick={onPartInButtonClick}
+            isDisabled={isGroupMember}
+            _disabled={{
+              border: 'none',
+              color: 'main',
+              background: 'white',
+              pointerEvents: 'none',
+            }}
+          >
+            {isGroupMember ? '참여 중' : '모임 참여하기'}
+          </Button>
+          <BottomSheet
+            isOpen={isPasswordModalOpen}
+            onClose={onPasswordModalClose}
+          >
+            <Flex p="3rem" h="90vh" gap="3rem" direction="column">
+              <Button
+                alignSelf="flex-end"
+                bgColor="white.900"
+                onClick={() => {
+                  handleParticipateBtnClick(password, () => {
+                    onPasswordModalClose();
+                    setPassword('');
+                  });
+                }}
+              >
+                확인
+              </Button>
+              <Flex direction="column" gap="1rem">
+                <Text fontSize="xl" color="main">
+                  질문
+                </Text>
+                <Text fontSize="lg" fontWeight={700}>
+                  {joinQuestion}
+                </Text>
               </Flex>
-              <DeleteComfirmDialog
-                cancelRef={cancelRef}
-                isOpen={isDeleteModalOpen}
-                onClose={onDeleteModalClose}
-                onDelete={onDeleteGroupClick}
-              />
-            </BottomSheet>
-          </>
-        )}
-      </Box>
+              <Flex direction="column" gap="1rem">
+                <Text fontSize="xl" color="main">
+                  정답
+                </Text>
+                <Input
+                  focusBorderColor="main"
+                  value={password}
+                  h="4rem"
+                  placeholder="- 띄어쓰기 없이 정답을 입력해 주세요."
+                  onChange={onChangePassword}
+                />
+              </Flex>
+            </Flex>
+            <DeleteComfirmDialog
+              cancelRef={cancelRef}
+              isOpen={isDeleteModalOpen}
+              onClose={onDeleteModalClose}
+              onDelete={onDeleteGroupClick}
+            />
+          </BottomSheet>
+        </Box>
+      )}
       <LoginBottomSheet isOpen={isLoginModalOpen} onClose={onLoginModalClose} />
     </>
   );

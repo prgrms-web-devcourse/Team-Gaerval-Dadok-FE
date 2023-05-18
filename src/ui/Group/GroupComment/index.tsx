@@ -50,9 +50,13 @@ const CommentsList = ({
 
   return isEmpty ? (
     <Text w="100%" textAlign="center" mt="4rem" fontSize="lg" color="black.700">
-      <Highlight query="주인공" styles={{ color: 'main' }}>
-        첫 번째 글 작성의 주인공이 되어주세요.
-      </Highlight>
+      {isGroupMember ? (
+        <Highlight query="주인공" styles={{ color: 'main' }}>
+          첫 번째 글 작성의 주인공이 되어주세요.
+        </Highlight>
+      ) : (
+        '아직 작성된 글이 없어요.'
+      )}
     </Text>
   ) : (
     <Box mt="1.5rem">
