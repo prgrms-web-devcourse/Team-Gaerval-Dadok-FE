@@ -86,7 +86,7 @@ export default function UserBookShelfPage({
 
   const filteredData = filtered();
 
-  const handleShareButton = () => {
+  const handleClickShareButton = () => {
     const url = 'https://dev.dadok.site' + asPath;
 
     navigator.clipboard
@@ -99,7 +99,7 @@ export default function UserBookShelfPage({
       });
   };
 
-  const handleLikeMutate = () => {
+  const handleBookshelfLikeMutate = () => {
     !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
     infoRefetch();
   };
@@ -111,7 +111,7 @@ export default function UserBookShelfPage({
         <IconButton
           name="share"
           size="2.2rem"
-          onClick={handleShareButton}
+          onClick={handleClickShareButton}
           cursor="pointer"
           marginBottom="1rem"
         />
@@ -124,7 +124,7 @@ export default function UserBookShelfPage({
           )}
         </HStack>
         <LikeButton
-          handleLikeButton={handleLikeMutate}
+          handleBookshelfLikeMutate={handleBookshelfLikeMutate}
           isLiked={infoData.isLiked}
           likeCount={infoData.likeCount}
         />
