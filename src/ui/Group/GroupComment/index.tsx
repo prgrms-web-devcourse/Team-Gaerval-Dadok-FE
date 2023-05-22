@@ -14,8 +14,8 @@ interface commentsListProps {
   isPublic: boolean;
   isEmpty: boolean;
   commentsListData: APIGroupComment[];
-  handleDeleteCommentBtnClick: (commentId: number) => void;
-  handleModifyCommentBtnClick: (
+  handleDeleteCommentButtonClick: (commentId: number) => void;
+  handleModifyCommentButtonClick: (
     modifiedComment: string,
     commentId: number
   ) => void;
@@ -26,8 +26,8 @@ const CommentsList = ({
   isPublic,
   isEmpty,
   commentsListData,
-  handleDeleteCommentBtnClick,
-  handleModifyCommentBtnClick,
+  handleDeleteCommentButtonClick,
+  handleModifyCommentButtonClick,
 }: commentsListProps) => {
   const getFilteredComments = () => {
     const commentsLength = commentsListData.length;
@@ -108,16 +108,16 @@ const CommentsList = ({
                           <CommentModifyModal
                             commentId={commentId}
                             comment={contents}
-                            handleModifyCommentBtnClick={
-                              handleModifyCommentBtnClick
+                            handleModifyCommentButtonClick={
+                              handleModifyCommentButtonClick
                             }
                           />
                         </MenuItem>
                         <MenuItem color="red.300">
                           <CommentDeleteModal
                             commentId={commentId}
-                            handleDeleteCommentBtnClick={
-                              handleDeleteCommentBtnClick
+                            handleDeleteCommentButtonClick={
+                              handleDeleteCommentButtonClick
                             }
                           />
                         </MenuItem>

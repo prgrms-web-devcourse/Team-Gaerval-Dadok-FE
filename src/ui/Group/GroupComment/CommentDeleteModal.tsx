@@ -15,12 +15,12 @@ import { MutableRefObject, useRef } from 'react';
 
 interface CommentDeleteModalProps {
   commentId: number;
-  handleDeleteCommentBtnClick: (commentId: number) => void;
+  handleDeleteCommentButtonClick: (commentId: number) => void;
 }
 
 const CommentDeleteModal = ({
   commentId,
-  handleDeleteCommentBtnClick,
+  handleDeleteCommentButtonClick,
 }: CommentDeleteModalProps) => {
   const {
     isOpen: isDeleteModalOpen,
@@ -31,7 +31,7 @@ const CommentDeleteModal = ({
   const cancelRef = useRef(null);
 
   const onDeleteCommentClick = () => {
-    handleDeleteCommentBtnClick(commentId);
+    handleDeleteCommentButtonClick(commentId);
     onDeleteModalClose();
   };
 

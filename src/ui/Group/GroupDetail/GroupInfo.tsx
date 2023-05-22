@@ -28,18 +28,18 @@ import { isDateExpired } from '@/utils/helpers/date';
 
 interface GroupInfoProps {
   groupInfoData: APIGroupDetail;
-  handleParticipateBtnClick: (
+  handleParticipateButtonClick: (
     password?: string,
     onSuccess?: () => void,
     onFailed?: () => void
   ) => void;
-  handleDeleteGroupBtnClick: () => void;
+  handleDeleteGroupButtonClick: () => void;
 }
 
 const GroupInfo = ({
   groupInfoData,
-  handleParticipateBtnClick,
-  handleDeleteGroupBtnClick,
+  handleParticipateButtonClick,
+  handleDeleteGroupButtonClick,
 }: GroupInfoProps) => {
   const [password, setPassword] = useState('');
   const cancelRef = useRef(null);
@@ -69,11 +69,8 @@ const GroupInfo = ({
     endDate,
     hasJoinPasswd,
     joinQuestion,
-    isPublic: _isPublic,
-    maxMemberCount: _maxMemberCount,
     currentMemberCount,
     commentCount,
-    owner: _owner,
     book,
     isOwner,
     isGroupMember,
@@ -81,9 +78,9 @@ const GroupInfo = ({
 
   const isGroupExpired = isDateExpired(endDate);
   const message = isGroupExpired
-    ? '모입 가입 기간이 지났아요.'
+    ? '모집이 마감되었어요.'
     : hasJoinPasswd
-    ? '가입 문제가 있어요.'
+    ? '가입 질문이 있어요.'
     : '바로 참여할 수 있어요.';
 
   const onDeleteGroupClick = () => {
@@ -94,7 +91,7 @@ const GroupInfo = ({
       onDeleteModalClose();
       return;
     }
-    handleDeleteGroupBtnClick();
+    handleDeleteGroupButtonClick();
     onDeleteModalClose();
   };
 
@@ -107,7 +104,12 @@ const GroupInfo = ({
       onLoginModalOpen();
       return;
     }
-    hasJoinPasswd ? onPasswordModalOpen() : handleParticipateBtnClick();
+
+    if (hasJoinPasswd) {
+      onPasswordModalOpen();
+    } else {
+      handleParticipateButtonClick();
+    }
   };
 
   return (
@@ -230,7 +232,7 @@ const GroupInfo = ({
                 alignSelf="flex-end"
                 bgColor="white.900"
                 onClick={() => {
-                  handleParticipateBtnClick(password, () => {
+                  handleParticipateButtonClick(password, () => {
                     onPasswordModalClose();
                     setPassword('');
                   });

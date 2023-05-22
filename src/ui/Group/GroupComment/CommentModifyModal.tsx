@@ -6,7 +6,7 @@ import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
 interface CommentModifyModalProps {
   commentId: number;
   comment: string;
-  handleModifyCommentBtnClick: (
+  handleModifyCommentButtonClick: (
     modifiedComment: string,
     commentId: number
   ) => void;
@@ -15,7 +15,7 @@ interface CommentModifyModalProps {
 const CommentModifyModal = ({
   commentId,
   comment,
-  handleModifyCommentBtnClick,
+  handleModifyCommentButtonClick,
 }: CommentModifyModalProps) => {
   const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const {
@@ -27,7 +27,7 @@ const CommentModifyModal = ({
   const onCompleteClick = () => {
     const comment = commentTextAreaRef.current?.value;
     if (comment) {
-      handleModifyCommentBtnClick(comment, commentId);
+      handleModifyCommentButtonClick(comment, commentId);
     }
     onModifyModalClose();
   };

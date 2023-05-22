@@ -3,13 +3,13 @@ import { useRef } from 'react';
 import CommentDrawer from '@/ui/BookDetail/CommentDrawer';
 import { useDisclosure } from '@chakra-ui/react';
 interface CommentInputBoxProps {
-  handleCreateCommentBtnClick: (comment: string) => void;
+  handleCreateCommentButtonClick: (comment: string) => void;
   userNickname?: string | null;
   userAvatar?: string;
 }
 
 const CommentInputBox = ({
-  handleCreateCommentBtnClick,
+  handleCreateCommentButtonClick,
 }: CommentInputBoxProps) => {
   const {
     isOpen: isCommentDrawer,
@@ -21,7 +21,7 @@ const CommentInputBox = ({
   const onCompleteClick = () => {
     const comment = commentTextAreaRef.current?.value;
     if (comment) {
-      handleCreateCommentBtnClick(comment);
+      handleCreateCommentButtonClick(comment);
     }
     onCommentDrawerClose();
   };

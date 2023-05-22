@@ -8,8 +8,7 @@ import useGroupInfoQuery from '@/queries/group/useGroupInfoQuery';
 import useGroupCommentsQuery from '@/queries/group/useGroupCommentsQuery';
 import GroupAPI from '@/apis/group';
 import { useToast } from '@/hooks/toast';
-import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
-import { SERVICE_ERROR_MESSAGE } from '@/constants';
+import useAxsioError from '@/hooks/useAxiosError';
 import { isDateExpired } from '@/utils/helpers/date';
 
 interface GroupDetailProps {
@@ -20,6 +19,7 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const groupInfoQuery = useGroupInfoQuery({ bookGroupId });
   const groupCommentsQuery = useGroupCommentsQuery({ bookGroupId });
   const { showToast } = useToast();
+  const { handleAxiosError } = useAxsioError();
   const router = useRouter();
 
   if (groupInfoQuery.isLoading || groupCommentsQuery.isLoading)
@@ -35,27 +35,18 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const isSuccess = groupInfoQuery.isSuccess && groupCommentsQuery.isSuccess;
   if (!isSuccess) return null;
 
-  const handleParticipateBtnClick = async (
-    password?: string,
-    onSuccess?: () => void
-  ) => {
+  const handleParticipateButtonClick = async (password?: string) => {
     try {
       await GroupAPI.joinGroup({ bookGroupId, password });
-      onSuccess && onSuccess();
       showToast({ message: '모임에 가입되었어요' });
     } catch (error) {
-      if (!isAxiosErrorWithCustomCode(error)) {
-        return;
-      }
-
-      const { code } = error.response.data;
-      showToast({ message: SERVICE_ERROR_MESSAGE[code], duration: 3000 });
+      handleAxiosError(error);
     }
 
     groupInfoQuery.refetch();
   };
 
-  const handleCreateCommentBtnClick = async (comment: string) => {
+  const handleCreateCommentButtonClick = async (comment: string) => {
     if (comment.trim() === '') return;
     try {
       await GroupAPI.createGroupComment({ bookGroupId, comment });
@@ -66,7 +57,7 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     groupCommentsQuery.refetch();
   };
 
-  const handleModifyCommentBtnClick = async (
+  const handleModifyCommentButtonClick = async (
     modifiedComment: string,
     commentId: number
   ) => {
@@ -77,26 +68,26 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
         comment: modifiedComment,
       });
     } catch (error) {
-      console.error(error);
+      handleAxiosError(error);
     }
     groupCommentsQuery.refetch();
   };
 
-  const handleDeleteCommentBtnClick = async (commentId: number) => {
+  const handleDeleteCommentButtonClick = async (commentId: number) => {
     try {
       await GroupAPI.deleteGroupComment({ bookGroupId, commentId });
     } catch (error) {
-      console.error(error);
+      handleAxiosError(error);
     }
     groupInfoQuery.refetch();
     groupCommentsQuery.refetch();
   };
 
-  const handleDeleteGroupBtnClick = async () => {
+  const handleDeleteGroupButtonClick = async () => {
     try {
       await GroupAPI.deleteGroup({ bookGroupId });
     } catch (error) {
-      console.error(error);
+      handleAxiosError(error);
     }
 
     router.push('/group');
@@ -109,12 +100,12 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
     <Flex direction="column" justify="center">
       <GroupInfo
         groupInfoData={groupInfoQuery.data}
-        handleParticipateBtnClick={handleParticipateBtnClick}
-        handleDeleteGroupBtnClick={handleDeleteGroupBtnClick}
+        handleParticipateButtonClick={handleParticipateButtonClick}
+        handleDeleteGroupButtonClick={handleDeleteGroupButtonClick}
       />
       {isGroupMember && !isDateExpired(endDate) && (
         <CommentInputBox
-          handleCreateCommentBtnClick={handleCreateCommentBtnClick}
+          handleCreateCommentButtonClick={handleCreateCommentButtonClick}
         />
       )}
       <CommentsList
@@ -122,8 +113,8 @@ const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
         isPublic={isPublic}
         isEmpty={isEmpty}
         commentsListData={bookGroupComments}
-        handleDeleteCommentBtnClick={handleDeleteCommentBtnClick}
-        handleModifyCommentBtnClick={handleModifyCommentBtnClick}
+        handleDeleteCommentButtonClick={handleDeleteCommentButtonClick}
+        handleModifyCommentButtonClick={handleModifyCommentButtonClick}
       />
     </Flex>
   );
