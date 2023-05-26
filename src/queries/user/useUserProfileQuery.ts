@@ -1,4 +1,4 @@
-import userAPI from '@/apis/users';
+import userAPI from '@/apis/user';
 import useQueryWithSuspense, {
   useQueryOptionWithOutSuspense,
 } from '@/hooks/useQueryWithSuspense';

@@ -1,4 +1,4 @@
-import userAPI from '@/apis/users';
+import userAPI from '@/apis/user';
 import type { APIUser } from '@/types/user';
 import useQueryWithSuspense, {
   useQueryOptionWithOutSuspense,
