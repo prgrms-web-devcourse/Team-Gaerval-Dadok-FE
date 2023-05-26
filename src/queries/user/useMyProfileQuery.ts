@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import userAPI from '@/apis/users';
-import type { QueryOptions } from '@/types/query';
 import type { APIUser } from '@/types/user';
+import useQueryWithSuspense, {
+  useQueryOptionWithOutSuspense,
+} from '@/hooks/useQueryWithSuspense';
 
-const useMyProfileQuery = (options?: QueryOptions<APIUser>) =>
-  useQuery(
+const useMyProfileQuery = (options?: useQueryOptionWithOutSuspense<APIUser>) =>
+  useQueryWithSuspense(
     ['user', 'me'],
     () => userAPI.getMyProfile().then(({ data }) => data),
     options
