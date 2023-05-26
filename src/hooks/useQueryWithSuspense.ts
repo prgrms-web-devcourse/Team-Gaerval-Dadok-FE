@@ -4,6 +4,7 @@ import {
   QueryKey,
   useQuery,
   UseQueryOptions,
+  UseQueryResult,
 } from '@tanstack/react-query';
 
 export type useQueryOptionWithOutSuspense<
@@ -31,7 +32,9 @@ const useQueryWithSuspense = <
   return useQuery({
     ...parseQueryArgs(queryKey, queryFunction, queryOptions),
     suspense: true,
-  }) as { data: TData };
+  }) as UseQueryResult & {
+    data: TData;
+  };
 };
 
 export default useQueryWithSuspense;
