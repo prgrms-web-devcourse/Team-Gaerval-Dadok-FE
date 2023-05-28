@@ -9,7 +9,7 @@ export const ErrorPage = () => {
       pos="relative"
       zIndex="1"
       bgColor="white.800"
-      h="100vh"
+      h="100dvh"
       gap="2rem"
     >
       <Image
