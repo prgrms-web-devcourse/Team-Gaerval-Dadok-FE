@@ -11,8 +11,8 @@ const RedirectPage = () => {
     access_token?: string;
   };
 
-  const checkSavedAdditioanlInfo = useCallback(async () => {
-    const isSavedAdditioanlInfo = await userAPI.getMyProfile().then(
+  const checkSavedAdditionalInfo = useCallback(async () => {
+    const isSavedAdditionalInfo = await userAPI.getMyProfile().then(
       ({
         data: {
           job: { jobName, jobGroupName },
@@ -21,7 +21,7 @@ const RedirectPage = () => {
       }) => !!(nickname && jobGroupName && jobName)
     );
 
-    if (!isSavedAdditioanlInfo) {
+    if (!isSavedAdditionalInfo) {
       router.replace('/profile/me/add');
     }
 
@@ -33,9 +33,9 @@ const RedirectPage = () => {
 
     if (hasAccessToken) {
       accessToken && setAuth(accessToken);
-      checkSavedAdditioanlInfo();
+      checkSavedAdditionalInfo();
     }
-  }, [accessToken, checkSavedAdditioanlInfo]);
+  }, [accessToken, checkSavedAdditionalInfo]);
 
   return (
     <Flex align="center" justify="center" height="95vh">
