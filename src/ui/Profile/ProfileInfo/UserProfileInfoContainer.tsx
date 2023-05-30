@@ -7,9 +7,7 @@ const UserProfileInfoContainer = ({
 }: {
   userId: APIUser['userId'];
 }) => {
-  const { isSuccess, data } = useUserProfileQuery(userId, { suspense: true });
-
-  if (!isSuccess) return null;
+  const { data } = useUserProfileQuery(userId);
 
   return <ProfileInfoPresenter {...data}></ProfileInfoPresenter>;
 };

@@ -9,7 +9,7 @@ import ProfileGroup from '@/ui/Profile/ProfileGroup';
 import Button from '@/ui/common/Button';
 import { Menu, MenuItem } from '@/ui/common/Menu';
 import { removeAuth } from '@/utils/helpers';
-import userAPI from '@/apis/users';
+import userAPI from '@/apis/user';
 
 const MyProfilePage = () => {
   const { pathname, push } = useRouter();

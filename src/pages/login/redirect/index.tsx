@@ -1,47 +1,41 @@
 import { Flex, Spinner } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { isAuthed, setAuth } from '@/utils/helpers';
+import { useCallback, useEffect } from 'react';
+import { setAuth } from '@/utils/helpers';
+import userAPI from '@/apis/user';
 
 const RedirectPage = () => {
   const router = useRouter();
 
   const { access_token: accessToken } = router.query as {
-    access_token: string;
+    access_token?: string;
   };
-  const { isSuccess, data, refetch } = useMyProfileQuery({
-    enabled: isAuthed(),
-  });
 
-  useEffect(() => {
-    const isAuthed = !!accessToken;
+  const checkSavedAdditionalInfo = useCallback(async () => {
+    const isSavedAdditionalInfo = await userAPI.getMyProfile().then(
+      ({
+        data: {
+          job: { jobName, jobGroupName },
+          nickname,
+        },
+      }) => !!(nickname && jobGroupName && jobName)
+    );
 
-    if (isAuthed) {
-      accessToken && setAuth(accessToken);
-      refetch();
-    }
-  }, [accessToken, refetch]);
-
-  useEffect(() => {
-    if (!isSuccess) {
-      return;
-    }
-
-    const {
-      job: { jobName, jobGroupName },
-      nickname,
-    } = data;
-    const isSavedAdditioanlInfo = !!(nickname && jobGroupName && jobName);
-
-    if (!isSavedAdditioanlInfo) {
+    if (!isSavedAdditionalInfo) {
       router.replace('/profile/me/add');
-      return;
     }
 
     router.replace('/bookarchive');
-  }, [data, isSuccess, router]);
+  }, [router]);
+
+  useEffect(() => {
+    const hasAccessToken = !!accessToken;
+
+    if (hasAccessToken) {
+      accessToken && setAuth(accessToken);
+      checkSavedAdditionalInfo();
+    }
+  }, [accessToken, checkSavedAdditionalInfo]);
 
   return (
     <Flex align="center" justify="center" height="95vh">

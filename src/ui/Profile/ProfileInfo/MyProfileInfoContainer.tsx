@@ -4,20 +4,17 @@ import { useEffect } from 'react';
 import ProfileInfoPresenter from './ProfileInfoPresenter';
 
 const MyProfileContainer = () => {
-  const { isSuccess, data } = useMyProfileQuery({ suspense: true });
+  const { data } = useMyProfileQuery();
   const { pathname, replace } = useRouter();
 
   useEffect(() => {
-    if (!isSuccess) return;
     const {
       nickname,
       job: { jobGroupName, jobName },
     } = data;
     const isSavedAdditionalInfo = !!(nickname && jobGroupName && jobName);
     if (!isSavedAdditionalInfo) replace(`${pathname}/add`);
-  }, [data, isSuccess, pathname, replace]);
-
-  if (!isSuccess) return null;
+  }, [data, pathname, replace]);
 
   return <ProfileInfoPresenter {...data}></ProfileInfoPresenter>;
 };
