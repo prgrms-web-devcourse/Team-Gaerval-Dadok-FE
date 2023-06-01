@@ -1,25 +1,15 @@
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
-
-import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import { LineSeed } from '@/styles/font';
 import Layout from '@/ui/common/Layout';
 import { Global } from '@emotion/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorPage from './error';
+import ChakraThemeProvider from '@/components/ChakraThemeProvider';
+import ReactQueryProvider from '@/components/ReactQueryProvider';
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: true,
-        retry: 0,
-      },
-    },
-  });
   return (
     <>
       <Head>
@@ -29,8 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
       <Global styles={LineSeed.className} />
       <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        <ReactQueryProvider>
           <ChakraThemeProvider>
             <ErrorBoundary fallbackRender={ErrorPage}>
               <Layout>
@@ -38,7 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
               </Layout>
             </ErrorBoundary>
           </ChakraThemeProvider>
-        </QueryClientProvider>
+        </ReactQueryProvider>
       </RecoilRoot>
     </>
   );
