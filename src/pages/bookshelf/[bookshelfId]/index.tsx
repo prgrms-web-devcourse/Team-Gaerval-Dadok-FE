@@ -1,6 +1,10 @@
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import {
+  useBookshelfLike,
+  useBookshelfUnlike,
+} from '@/queries/bookshelf/useBookshelfLikeMutation';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
@@ -37,6 +41,8 @@ export default function UserBookShelfPage({
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
+  const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
+  const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
   const { asPath } = useRouter();
   const { showToast } = useToast();
   const {
@@ -91,6 +97,10 @@ export default function UserBookShelfPage({
       });
   };
 
+  const handleBookshelfLikeMutate = () => {
+    !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
+  };
+
   return (
     <VStack width="100%" height="100%">
       <Flex width="100%" align="center">
@@ -111,7 +121,7 @@ export default function UserBookShelfPage({
           )}
         </HStack>
         <LikeButton
-          bookshelfId={infoData.bookshelfId}
+          handleBookshelfLikeMutate={handleBookshelfLikeMutate}
           isLiked={infoData.isLiked}
           likeCount={infoData.likeCount}
         />

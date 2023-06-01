@@ -9,10 +9,38 @@ export const useBookshelfLike = (
 
   return useMutation({
     mutationFn: async () => bookshelfAPI.likeBookshelf(bookshelfId),
-    onError: (error: { message: string }) => {
-      console.error(error.message);
+    onMutate: async () => {
+      await queryClient.cancelQueries(['bookshelfInfo', bookshelfId]);
+
+      const oldData = queryClient.getQueryData<APIBookshelfInfo>([
+        'bookshelfInfo',
+        bookshelfId,
+      ]);
+
+      if (!oldData) return;
+
+      const newData: APIBookshelfInfo = {
+        ...oldData,
+        isLiked: !oldData.isLiked,
+        likeCount: oldData.likeCount + 1,
+      };
+
+      queryClient.setQueryData<APIBookshelfInfo>(
+        ['bookshelfInfo', bookshelfId],
+        newData
+      );
+
+      return { oldData };
     },
-    onSuccess: () => {
+    onError: (_error, _value, context) => {
+      if (context?.oldData) {
+        queryClient.setQueryData(
+          ['bookshelfInfo', bookshelfId],
+          context.oldData
+        );
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['bookshelfInfo', bookshelfId],
       });
@@ -27,10 +55,38 @@ export const useBookshelfUnlike = (
 
   return useMutation({
     mutationFn: async () => bookshelfAPI.unlikeBookshelf(bookshelfId),
-    onError: (error: { message: string }) => {
-      console.error(error.message);
+    onMutate: async () => {
+      await queryClient.cancelQueries(['bookshelfInfo', bookshelfId]);
+
+      const oldData = queryClient.getQueryData<APIBookshelfInfo>([
+        'bookshelfInfo',
+        bookshelfId,
+      ]);
+
+      if (!oldData) return;
+
+      const newData: APIBookshelfInfo = {
+        ...oldData,
+        isLiked: !oldData.isLiked,
+        likeCount: oldData.likeCount - 1,
+      };
+
+      queryClient.setQueryData<APIBookshelfInfo>(
+        ['bookshelfInfo', bookshelfId],
+        newData
+      );
+
+      return { oldData };
     },
-    onSuccess: () => {
+    onError: (_error, _value, context) => {
+      if (context?.oldData) {
+        queryClient.setQueryData(
+          ['bookshelfInfo', bookshelfId],
+          context.oldData
+        );
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['bookshelfInfo', bookshelfId],
       });
