@@ -53,7 +53,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
           transformStyle: 'preserve-3d',
         }}
         position="relative"
-        hidden={!bookSpineColor ? true : false}
+        visibility={!bookSpineColor ? 'hidden' : 'visible'}
         onClick={handleClickBook}
       >
         <Box
