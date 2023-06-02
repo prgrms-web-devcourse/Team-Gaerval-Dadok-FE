@@ -3,13 +3,13 @@ import IconButton from '@/ui/common/IconButton';
 import { Button, Flex, Text, useTheme } from '@chakra-ui/react';
 
 type LikeButtonTypes = {
-  handleBookshelfLikeMutate: () => void;
+  handleBookshelfLikeButton: () => void;
   isLiked: APIBookshelfInfo['isLiked'];
   likeCount: APIBookshelfInfo['likeCount'];
 };
 
 const LikeButton = ({
-  handleBookshelfLikeMutate,
+  handleBookshelfLikeButton,
   isLiked,
   likeCount,
 }: LikeButtonTypes) => {
@@ -17,7 +17,7 @@ const LikeButton = ({
 
   return (
     <Button
-      onClick={handleBookshelfLikeMutate}
+      onClick={handleBookshelfLikeButton}
       p="0.6rem 0.8rem"
       w="5.4rem"
       h="2.4rem"

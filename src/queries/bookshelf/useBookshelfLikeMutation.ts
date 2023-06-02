@@ -17,33 +17,29 @@ export const useBookshelfLike = (
         bookshelfId,
       ]);
 
-      if (!oldData) return;
+      if (oldData) {
+        const newData: APIBookshelfInfo = {
+          ...oldData,
+          isLiked: !oldData.isLiked,
+          likeCount: oldData.likeCount + 1,
+        };
 
-      const newData: APIBookshelfInfo = {
-        ...oldData,
-        isLiked: !oldData.isLiked,
-        likeCount: oldData.likeCount + 1,
-      };
-
-      queryClient.setQueryData<APIBookshelfInfo>(
-        ['bookshelfInfo', bookshelfId],
-        newData
-      );
+        queryClient.setQueryData<APIBookshelfInfo>(
+          ['bookshelfInfo', bookshelfId],
+          newData
+        );
+      }
 
       return { oldData };
     },
     onError: (_error, _value, context) => {
-      if (context?.oldData) {
-        queryClient.setQueryData(
-          ['bookshelfInfo', bookshelfId],
-          context.oldData
-        );
-      }
+      queryClient.setQueryData(
+        ['bookshelfInfo', bookshelfId],
+        context?.oldData
+      );
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['bookshelfInfo', bookshelfId],
-      });
+      queryClient.invalidateQueries(['bookshelfInfo', bookshelfId]);
     },
   });
 };
@@ -63,33 +59,29 @@ export const useBookshelfUnlike = (
         bookshelfId,
       ]);
 
-      if (!oldData) return;
+      if (oldData) {
+        const newData: APIBookshelfInfo = {
+          ...oldData,
+          isLiked: !oldData.isLiked,
+          likeCount: oldData.likeCount - 1,
+        };
 
-      const newData: APIBookshelfInfo = {
-        ...oldData,
-        isLiked: !oldData.isLiked,
-        likeCount: oldData.likeCount - 1,
-      };
-
-      queryClient.setQueryData<APIBookshelfInfo>(
-        ['bookshelfInfo', bookshelfId],
-        newData
-      );
+        queryClient.setQueryData<APIBookshelfInfo>(
+          ['bookshelfInfo', bookshelfId],
+          newData
+        );
+      }
 
       return { oldData };
     },
     onError: (_error, _value, context) => {
-      if (context?.oldData) {
-        queryClient.setQueryData(
-          ['bookshelfInfo', bookshelfId],
-          context.oldData
-        );
-      }
+      queryClient.setQueryData(
+        ['bookshelfInfo', bookshelfId],
+        context?.oldData
+      );
     },
     onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['bookshelfInfo', bookshelfId],
-      });
+      queryClient.invalidateQueries(['bookshelfInfo', bookshelfId]);
     },
   });
 };
