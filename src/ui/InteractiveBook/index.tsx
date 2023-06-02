@@ -15,7 +15,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
   const { push } = useRouter();
   const [bookSpineColor, setBookSpineColor] = useState<string>();
 
-  const getColors = async (image: HTMLImageElement) => {
+  const handleOnLoadImage = async (image: HTMLImageElement) => {
     const colorThief = new ColorThief();
     const colorHex =
       '#' +
@@ -67,7 +67,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
         <Image
           src={imageUrl}
           alt="book cover"
-          onLoadingComplete={getColors}
+          onLoadingComplete={handleOnLoadImage}
           fill
           sizes="256px"
           quality={100}
