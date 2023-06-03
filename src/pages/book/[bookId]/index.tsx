@@ -9,7 +9,6 @@ import { APIBook } from '@/types/book';
 import { BookCommentList, BookInfo } from '@/ui/BookDetail';
 import TopNavigation from '@/ui/common/TopNavigation';
 import debounce from '@/utils/debounce';
-import { isAuthed } from '@/utils/helpers';
 
 const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const router = useRouter();
@@ -21,9 +20,7 @@ const BookDetailPage = ({ bookId }: { bookId: APIBook['bookId'] }) => {
     },
   });
 
-  const bookUserQueryInfo = useBookUserInfoQuery(bookId, {
-    enabled: isAuthed(),
-  });
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId);
 
   const updateBookmark = (isBookMarked: boolean) => {
     if (!bookUserQueryInfo.isSuccess) {
