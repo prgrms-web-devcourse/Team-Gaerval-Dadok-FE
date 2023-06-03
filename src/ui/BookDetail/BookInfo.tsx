@@ -61,8 +61,19 @@ const BookInfo = ({
   return (
     <>
       <Flex gap="2rem" align="flex-end">
-        <Box shadow="lg">
-          <Image src={imageUrl} alt="book" width={180} height={240} />
+        <Box
+          shadow="lg"
+          position="relative"
+          width="18rem"
+          height="24rem"
+          flexShrink={0}
+        >
+          <Image
+            src={imageUrl.replace('R120x174.q85', 'R300x0.q100')}
+            alt="book"
+            fill
+            sizes="300px"
+          />
         </Box>
         <VStack align="flex-start">
           <IconButton
