@@ -1,7 +1,10 @@
 import { APIBook } from '@/types/book';
-import { Box, Flex, Image } from '@chakra-ui/react';
-import { usePalette } from 'color-thief-react';
+import { Box, Flex } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import ColorThief from 'colorthief';
+
+import { useState } from 'react';
 
 interface InteractiveBookProps {
   imageUrl: APIBook['imageUrl'];
@@ -10,7 +13,21 @@ interface InteractiveBookProps {
 
 const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
   const { push } = useRouter();
-  const { data: colors } = usePalette(imageUrl, 2, 'hex');
+  const [bookSpineColor, setBookSpineColor] = useState<string>();
+
+  const handleOnLoadImage = (image: HTMLImageElement) => {
+    const colorThief = new ColorThief();
+    const colorHex =
+      '#' +
+      colorThief
+        .getPalette(image, 2)[0]
+        .map(x => {
+          const hex = x.toString(16);
+          return hex.length === 1 ? '0' + hex : hex;
+        })
+        .join('');
+    setBookSpineColor(colorHex);
+  };
 
   const handleClickBook = () => {
     if (!bookId) return;
@@ -26,41 +43,42 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
       blur={bookId ? 'none' : '0.2rem'}
       cursor={bookId ? 'pointer' : 'auto'}
     >
-      {colors && (
+      <Box
+        w="8.5rem"
+        h="11rem"
+        transform="rotateY(30deg) translateX(1rem)"
+        boxSizing="border-box"
+        style={{
+          perspectiveOrigin: 'center center',
+          transformStyle: 'preserve-3d',
+        }}
+        position="relative"
+        visibility={!bookSpineColor ? 'hidden' : 'visible'}
+        onClick={handleClickBook}
+      >
         <Box
-          w="8.5rem"
-          h="11rem"
-          transform="rotateY(30deg) translateX(1rem)"
-          boxSizing="border-box"
-          style={{
-            perspectiveOrigin: 'center center',
-            transformStyle: 'preserve-3d',
-          }}
-          onClick={handleClickBook}
-        >
-          <Box
-            w="100%"
-            h="1rem"
-            pos="absolute"
-            bottom={0}
-            transform={`translateZ(-3rem)`}
-            boxShadow="1px -4px 20px 3px"
-          />
-          <Image
-            src={imageUrl}
-            pos="absolute"
-            alt="book cover"
-            w="100%"
-            h="100%"
-          />
-          <Box
-            w="3rem"
-            h="100%"
-            bgColor={colors[0]}
-            transform="rotateY(-90deg) translateX(-1.49rem) translateZ(1.5rem)"
-          />
-        </Box>
-      )}
+          w="100%"
+          h="1rem"
+          pos="absolute"
+          bottom={0}
+          transform={`translateZ(-3rem)`}
+          boxShadow="1px -4px 20px 3px"
+        />
+        <Image
+          src={imageUrl}
+          alt="book cover"
+          onLoadingComplete={handleOnLoadImage}
+          fill
+          sizes="256px"
+          quality={100}
+        />
+        <Box
+          w="3rem"
+          h="100%"
+          bgColor={bookSpineColor}
+          transform="rotateY(-90deg) translateX(-1.49rem) translateZ(1.5rem)"
+        />
+      </Box>
     </Flex>
   );
 };

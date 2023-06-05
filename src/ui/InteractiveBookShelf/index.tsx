@@ -1,7 +1,6 @@
 import { APIBook } from '@/types/book';
 import InteractiveBook from '@/ui//InteractiveBook';
 import { isAuthed } from '@/utils/helpers';
-import getKakaoBookId from '@/utils/helpers/getKakaoBookId';
 import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -65,11 +64,10 @@ const InteractiveBookShelf = ({
             overflow="hidden"
           >
             {books.map(({ bookId, imageUrl }) => (
-              // <>{'/kakaobook/' + getKakaoBookId(imageUrl)}</>
               <InteractiveBook
                 key={bookId}
                 bookId={bookId}
-                imageUrl={'/kakaobook/' + getKakaoBookId(imageUrl)}
+                imageUrl={imageUrl}
               />
             ))}
           </SimpleGrid>
