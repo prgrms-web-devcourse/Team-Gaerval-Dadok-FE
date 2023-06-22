@@ -1,5 +1,5 @@
 import { APIBookshelf } from '@/types/bookshelf';
-import LikeCount from '@/ui/common/LikeCount';
+import { LikeCount } from '@/ui/common/BookshelfLike/';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import IconButton from '../../common/IconButton';

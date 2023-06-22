@@ -8,7 +8,7 @@ import {
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
-import LikeButton from '@/ui/common/LikeButton';
+import { LikeButton } from '@/ui/common/BookshelfLike/';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
