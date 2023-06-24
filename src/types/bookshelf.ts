@@ -3,7 +3,7 @@ import { Pagination } from './common';
 import { APIJobGroup, APIProfileJob } from './job';
 import { APIUser } from './user';
 
-interface APISeachedBook extends APIBook {
+interface APISearchedBook extends APIBook {
   bookshelfItemId: number;
 }
 
@@ -20,18 +20,20 @@ type APIRecommendedJobGroup = {
 export type APIBookshelf = {
   bookshelfId: number;
   bookshelfName: string;
+  likeCount: number;
   books: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>[];
 };
 
 export interface APIBookshelfInfo
-  extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName'>,
+  extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName' | 'likeCount'>,
     Pick<APIUser, 'userId' | 'name' | 'nickname' | 'profileImage'> {
+  isLiked: boolean;
   isPublic: boolean;
   job: APIProfileJob;
 }
 
 export interface APIBookshelfPagination extends Pagination {
-  books: APISeachedBook[];
+  books: APISearchedBook[];
 }
 
 export interface APIRecommendedBooksPagination

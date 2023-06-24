@@ -1,14 +1,15 @@
 import { APIBookshelf } from '@/types/bookshelf';
+import IconButton from '@/ui/common/IconButton';
+import { LikeCount } from '@/ui/common/BookshelfLike/';
+import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import IconButton from '@/ui/common/IconButton';
-import LikeButton from '@/ui/common/LikeButton';
-import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 
 const RecommendedBookshelf = ({
   bookshelfId,
   bookshelfName,
   books,
+  likeCount,
 }: APIBookshelf) => {
   return (
     <VStack align="flex-start" spacing="2rem">
@@ -22,7 +23,7 @@ const RecommendedBookshelf = ({
           {`${bookshelfName}`}
         </Text>
         <Flex h="2.4rem" gap="1.6rem" align="center">
-          <LikeButton />
+          <LikeCount likeCount={likeCount} />
           <IconButton
             as={Link}
             href={`/bookshelf/${bookshelfId}`}

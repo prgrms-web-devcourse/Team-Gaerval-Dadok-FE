@@ -1,10 +1,14 @@
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import {
+  useBookshelfLike,
+  useBookshelfUnlike,
+} from '@/queries/bookshelf/useBookshelfLikeMutation';
 import { APIBookshelf } from '@/types/bookshelf';
 import Button from '@/ui/common/Button';
 import IconButton from '@/ui/common/IconButton';
-import LikeButton from '@/ui/common/LikeButton';
+import { LikeButton } from '@/ui/common/BookshelfLike/';
 import TopNavigation from '@/ui/common/TopNavigation';
 import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
 import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
@@ -37,6 +41,8 @@ export default function UserBookShelfPage({
   const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
     bookshelfId,
   });
+  const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
+  const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
   const { asPath } = useRouter();
   const { showToast } = useToast();
   const {
@@ -78,7 +84,7 @@ export default function UserBookShelfPage({
 
   const filteredData = filtered();
 
-  const handleShareClick = () => {
+  const handleClickShareButton = () => {
     const url = 'https://dev.dadok.site' + asPath;
 
     navigator.clipboard
@@ -91,6 +97,10 @@ export default function UserBookShelfPage({
       });
   };
 
+  const handleBookshelfLikeButton = () => {
+    !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
+  };
+
   return (
     <VStack width="100%" height="100%">
       <Flex width="100%" align="center">
@@ -98,7 +108,7 @@ export default function UserBookShelfPage({
         <IconButton
           name="share"
           size="2.2rem"
-          onClick={handleShareClick}
+          onClick={handleClickShareButton}
           cursor="pointer"
           marginBottom="1rem"
         />
@@ -110,7 +120,11 @@ export default function UserBookShelfPage({
             <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
           )}
         </HStack>
-        <LikeButton />
+        <LikeButton
+          handleBookshelfLikeButton={handleBookshelfLikeButton}
+          isLiked={infoData.isLiked}
+          likeCount={infoData.likeCount}
+        />
       </Flex>
       <VStack width="100%" spacing="2rem">
         {isAuthed() ? (
