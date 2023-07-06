@@ -1,5 +1,5 @@
 import { Flex, VStack, Skeleton } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
 import CommentInputBox from '../GroupComment/CommentInputBox';

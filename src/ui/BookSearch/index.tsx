@@ -96,9 +96,9 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
 
       {inputValue && (
         <SimpleGrid columns={3} gap="1rem">
-          {searchedBooks.map(book => (
+          {searchedBooks.map((book, index) => (
             <SearchedBook
-              key={book.isbn}
+              key={`${book.isbn}-${index}`} // API 데이터에 겹치는 isbn이 존재하여 임시 생성한 키
               book={book}
               onBookClick={onBookClick}
             />

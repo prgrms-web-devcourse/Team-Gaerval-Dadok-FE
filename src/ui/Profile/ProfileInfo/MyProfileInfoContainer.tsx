@@ -1,11 +1,12 @@
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import ProfileInfoPresenter from './ProfileInfoPresenter';
 
 const MyProfileContainer = () => {
   const { data } = useMyProfileQuery();
-  const { pathname, replace } = useRouter();
+  const { replace } = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const {

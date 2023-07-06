@@ -2,7 +2,7 @@ import { Flex, Text, VStack } from '@chakra-ui/react';
 
 interface searchedWordsProps {
   keyword: string;
-  createdAt: string;
+  modifiedAt: string;
 }
 interface RecentSearchesProps {
   searchedWords?: searchedWordsProps[];
@@ -17,10 +17,10 @@ const RecentSearches = ({ searchedWords, setKeyword }: RecentSearchesProps) => {
       </Text>
       {searchedWords ? (
         <Flex width="100%" gap="1rem" overflowX="scroll" pb="2rem">
-          {searchedWords.map(({ keyword, createdAt }) => {
+          {searchedWords.map(({ keyword, modifiedAt }) => {
             return (
               <Text
-                key={createdAt}
+                key={modifiedAt}
                 whiteSpace="nowrap"
                 fontSize="sm"
                 color="yellow.900"
