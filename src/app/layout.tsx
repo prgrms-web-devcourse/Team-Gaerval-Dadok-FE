@@ -1,13 +1,4 @@
-'use client';
-
-import { RecoilRoot } from 'recoil';
-import { LineSeed } from '@/styles/font';
-import Layout from '@/ui/common/Layout';
-import { Global } from '@emotion/react';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorPage from './error';
-import ChakraThemeProvider from '@/components/ChakraThemeProvider';
-import ReactQueryProvider from '@/components/ReactQueryProvider';
+import ContextProvider from '@/components/ContextProvider';
 import { PropsWithChildren } from 'react';
 
 const RootLayout = ({ children }: PropsWithChildren) => {
@@ -19,16 +10,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <Global styles={LineSeed.className} />
-        <RecoilRoot>
-          <ReactQueryProvider>
-            <ChakraThemeProvider>
-              <ErrorBoundary fallbackRender={ErrorPage}>
-                <Layout>{children}</Layout>
-              </ErrorBoundary>
-            </ChakraThemeProvider>
-          </ReactQueryProvider>
-        </RecoilRoot>
+        <ContextProvider>{children}</ContextProvider>
       </body>
     </html>
   );
