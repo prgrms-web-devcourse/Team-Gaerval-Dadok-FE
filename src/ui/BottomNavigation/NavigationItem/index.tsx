@@ -1,7 +1,7 @@
 import { Box, Flex, Text, useTheme } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import type { MouseEvent, SVGProps } from 'react';
+import { MouseEvent, SVGProps, useMemo } from 'react';
 
 interface NavigationItemPorps {
   iconName: string;
@@ -21,8 +21,12 @@ const NavigationItem = ({
   const theme = useTheme();
   const color = isActive ? theme.colors.main : theme.colors.black['900'];
 
-  const Icon = dynamic<SVGProps<SVGSVGElement>>(
-    () => import(`@/../public/icons/${iconName}.svg`)
+  const Icon = useMemo(
+    () =>
+      dynamic<SVGProps<SVGSVGElement>>(
+        () => import(`@/../public/icons/${iconName}.svg`)
+      ),
+    [iconName]
   );
 
   return (
