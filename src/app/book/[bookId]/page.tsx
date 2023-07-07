@@ -97,13 +97,3 @@ const BookDetailPage = ({
 };
 
 export default BookDetailPage;
-
-// export const getServerSideProps: GetServerSideProps = async context => {
-//   const { bookId } = context.query;
-
-//   return {
-//     props: {
-//       bookId: Number(bookId),
-//     },
-//   };
-// };
