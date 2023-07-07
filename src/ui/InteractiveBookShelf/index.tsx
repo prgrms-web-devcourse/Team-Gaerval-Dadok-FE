@@ -63,9 +63,9 @@ const InteractiveBookShelf = ({
             px="1rem"
             overflow="hidden"
           >
-            {books.map(({ bookId, imageUrl }) => (
+            {books.map(({ bookId, imageUrl }, index) => (
               <InteractiveBook
-                key={bookId}
+                key={`${bookId}-${index}`} // API 문제로 중복되는 책이 존재함. 임시 방편용
                 bookId={bookId}
                 imageUrl={imageUrl}
               />

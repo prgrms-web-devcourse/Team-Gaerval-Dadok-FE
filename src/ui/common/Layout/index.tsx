@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
 import BottomNavigation from '@/ui/BottomNavigation';
@@ -9,7 +9,7 @@ import Toast from '../Toast';
 const paths = ['/bookarchive', '/book/search', '/group', '/profile/me'];
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const isShowNavigation = pathname && paths.includes(pathname);
 
   return (

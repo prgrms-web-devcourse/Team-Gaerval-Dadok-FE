@@ -3,7 +3,7 @@ import { APISearchedBook, APIBook } from '@/types/book';
 import { Center, Image, Text, VStack } from '@chakra-ui/react';
 
 import LogoSmallIcon from '@public/icons/logo_sm.svg';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const SearchedBook = ({
   book,

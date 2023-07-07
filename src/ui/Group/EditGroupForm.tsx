@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import FormInput from '@/ui/FormInput';
 import { APIGroupDetail } from '@/types/group';
 import GroupAPI from '@/apis/group';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface EditGroupFormProps {
   group: APIGroupDetail;

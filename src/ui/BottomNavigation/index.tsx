@@ -1,6 +1,6 @@
 import { isAuthed } from '@/utils/helpers';
 import { Flex, useDisclosure } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { MouseEvent } from 'react';
 import LoginBottomSheet from '../LoginBottomSheet';
 import NavigationItem from './NavigationItem';
@@ -8,7 +8,7 @@ import NavigationItem from './NavigationItem';
 const BottomNavigation = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const router = useRouter();
+  const pathname = usePathname();
 
   const navigationItems = [
     {
@@ -59,7 +59,7 @@ const BottomNavigation = () => {
             iconName={iconName}
             label={label}
             href={href}
-            isActive={router.pathname.indexOf(href) === 0}
+            isActive={pathname.indexOf(href) === 0}
             onClick={onClick}
           />
         ))}

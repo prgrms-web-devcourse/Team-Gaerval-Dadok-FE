@@ -1,7 +1,7 @@
 import { APIBook } from '@/types/book';
 import { Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import ColorThief from 'colorthief';
 
 import { useState } from 'react';
@@ -12,7 +12,7 @@ interface InteractiveBookProps {
 }
 
 const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
-  const { push } = useRouter();
+  const router = useRouter();
   const [bookSpineColor, setBookSpineColor] = useState<string>();
 
   const handleOnLoadImage = (image: HTMLImageElement) => {
@@ -31,7 +31,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
 
   const handleClickBook = () => {
     if (!bookId) return;
-    push(`/book/${bookId}`);
+    router.push(`/book/${bookId}`);
   };
 
   return (

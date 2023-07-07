@@ -18,7 +18,7 @@ import BookSearch from '@/ui/BookSearch';
 import { useEffect, useState } from 'react';
 import { APIBook } from '@/types/book';
 import GroupAPI from '@/apis/group';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { APICreateGroup } from '@/types/group';
 import {
   MAX_MEMBER_COUNT_VALUE,

@@ -23,7 +23,7 @@ export interface APISearchedBook
 
 export interface APISearchedWordInfo {
   keyword: string;
-  createdAt: string;
+  modifiedAt: string;
 }
 
 export interface APIRecentSearches {

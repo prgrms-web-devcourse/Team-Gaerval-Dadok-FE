@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 
 import { useAuth } from '@/hooks/auth';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const AuthRequired = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
