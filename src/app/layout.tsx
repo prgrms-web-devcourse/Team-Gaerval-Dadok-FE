@@ -1,7 +1,7 @@
 import ContextProvider from '@/components/ContextProvider';
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 
-const RootLayout = ({ children }: PropsWithChildren) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html>
       <head>

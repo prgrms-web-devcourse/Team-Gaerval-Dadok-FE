@@ -7,10 +7,10 @@ import { Global } from '@emotion/react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvider from '@/components/ReactQueryProvider';
-import { PropsWithChildren } from 'react';
+import { ReactNode } from 'react';
 import ErrorPage from '@/app/error';
 
-const ContextProvider = ({ children }: PropsWithChildren) => {
+const ContextProvider = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Global styles={LineSeed.className} />
