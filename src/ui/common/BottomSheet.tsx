@@ -4,13 +4,18 @@ import { useEffect } from 'react';
 import IconButton from '@/ui/common/IconButton';
 import type { PropsWithChildren } from 'react';
 
-interface DrawerProps extends PropsWithChildren {
+interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onCancel?: () => void;
 }
 
-const Drawer = ({ isOpen, onClose, onCancel, children }: DrawerProps) => {
+const Drawer = ({
+  isOpen,
+  onClose,
+  onCancel,
+  children,
+}: PropsWithChildren<DrawerProps>) => {
   const handleClickOverlay = () => {
     onCancel && onCancel();
     onClose();
