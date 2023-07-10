@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start -H local.dev.dadok.site",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -31,13 +33,23 @@
     "recoil": "^0.7.7"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.26",
+    "@storybook/addon-interactions": "^7.0.26",
+    "@storybook/addon-links": "^7.0.26",
+    "@storybook/blocks": "^7.0.26",
+    "@storybook/nextjs": "^7.0.26",
+    "@storybook/react": "^7.0.26",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@svgr/webpack": "^6.5.1",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "chromatic": "^6.19.9",
     "eslint": "^8.34.0",
     "eslint-config-next": "^13.1.6",
+    "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.1",
     "prettier": "^2.8.4",
+    "storybook": "^7.0.26",
     "typescript": "^4.9.5"
   },
   "lint-staged": {
@@ -45,5 +57,7 @@
       "eslint --fix --max-warnings 0",
       "prettier --write"
     ]
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "team08-boilerplate@0.1.0"
 }
