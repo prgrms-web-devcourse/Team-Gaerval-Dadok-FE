@@ -17,6 +17,11 @@ module.exports = {
       xl: '2.0rem',
       '2xl': '2.2rem',
     },
+    fontWeight: {
+      thin: 100,
+      regular: 400,
+      bold: 700,
+    },
     colors: {
       main: {
         400: '#F5F4EE',
