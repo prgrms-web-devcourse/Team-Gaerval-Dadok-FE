@@ -17,6 +17,39 @@ module.exports = {
       xl: '2.0rem',
       '2xl': '2.2rem',
     },
+    colors: {
+      main: {
+        400: '#F5F4EE',
+        500: '#FAF0DD',
+        600: '#FFD480', // use with opacity 18%
+        700: '#FFC073',
+        800: '#F6AD55',
+        900: '#FFA436',
+      },
+      warning: {
+        700: '#FF8282',
+        800: '#F56565',
+        900: '#FF0000',
+      },
+      kakao: '#FEE102',
+      kakaotext: '#191600',
+      black: {
+        200: '#F4F4F4',
+        300: '#ECECEC',
+        400: '#D9D9D9',
+        500: '#8D8D8D',
+        600: '#4A4A4A',
+        700: '#2D2D2D', // MainText Color
+        800: '#191600',
+        900: '#000000',
+      },
+      white: '#FFFFFF',
+      background: '#FCFCFC',
+      cancel: '#CFCFCF',
+      shadow: '#CECECE',
+      placeholder: '#AFAFAF', // ( = description)
+      overlay: '#494949', // use with opacity 60%
+    },
     fontFamily: {
       lineseed: ['var(--font-lineseed)'],
     },
