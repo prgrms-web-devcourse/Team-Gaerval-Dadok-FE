@@ -8,7 +8,11 @@ module.exports = {
     './src/stories/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        lineseed: ['var(--font-lineseed)'],
+      },
+    },
   },
   plugins: [],
 };

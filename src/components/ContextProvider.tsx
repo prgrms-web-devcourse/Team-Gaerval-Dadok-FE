@@ -1,9 +1,7 @@
 'use client';
 
 import { RecoilRoot } from 'recoil';
-import { LineSeed } from '@/styles/font';
 import Layout from '@/ui/common/Layout';
-import { Global } from '@emotion/react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvider from '@/components/ReactQueryProvider';
@@ -13,7 +11,6 @@ import ErrorPage from '@/app/error';
 const ContextProvider = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <Global styles={LineSeed.className} />
       <RecoilRoot>
         <ReactQueryProvider>
           <ChakraThemeProvider>
