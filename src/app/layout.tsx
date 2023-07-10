@@ -1,5 +1,6 @@
 import ContextProvider from '@/components/ContextProvider';
 import { ReactNode } from 'react';
+import '@/styles/global.css';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
