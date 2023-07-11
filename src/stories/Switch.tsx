@@ -7,14 +7,14 @@ const MySwitch = () => {
       {({ checked }) => (
         <button
           className={`${
-            checked ? 'bg-blue-600' : 'bg-gray-200'
-          } relative inline-flex h-6 w-11 items-center rounded-full`}
+            checked ? 'bg-main-900' : 'bg-cancel'
+          } relative inline-flex h-[2.4rem] w-[4.2rem] items-center rounded-full`}
         >
           <span className="sr-only">Enable notifications</span>
           <span
             className={`${
-              checked ? 'translate-x-6' : 'translate-x-1'
-            } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+              checked ? 'translate-x-[0.25rem]' : 'translate-x-[2rem]'
+            } inline-block h-[2rem] w-[2rem] transform rounded-full bg-white transition`}
           />
         </button>
       )}
