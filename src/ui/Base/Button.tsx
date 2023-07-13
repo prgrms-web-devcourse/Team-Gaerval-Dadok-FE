@@ -2,11 +2,13 @@ import { ComponentPropsWithoutRef, useMemo } from 'react';
 
 type Size = 'small' | 'medium' | 'large' | 'full';
 type Theme = 'primary' | 'primary-light' | 'warning' | 'light' | 'kakao';
+type Weight = 'thin' | 'regular' | 'bold';
 
 interface ButtonProps {
   size?: Size;
   theme?: Theme;
   fill?: boolean;
+  fontWeight?: Weight;
   fullRadius?: boolean;
   label?: string;
 }
@@ -59,11 +61,12 @@ const getThemeClasses = (theme: Theme, isFill: boolean) => {
 };
 
 const BASE_BUTTON_CLASSES =
-  'cursor-pointer border-[0.1rem] font-bold leading-none inline-block';
+  'cursor-pointer border-[0.1rem] leading-none inline-block';
 
 const Button = ({
   size = 'medium',
   theme = 'primary',
+  fontWeight = 'bold',
   fill = true,
   fullRadius = false,
   label,
@@ -74,8 +77,8 @@ const Button = ({
     const themeClass = getThemeClasses(theme, fill);
     const roundedClass = fullRadius ? 'rounded-full' : 'rounded-[5px]';
 
-    return `${sizeClass} ${themeClass} ${roundedClass}`;
-  }, [size, theme, fill, fullRadius]);
+    return `${sizeClass} ${themeClass} ${roundedClass} font-${fontWeight}`;
+  }, [size, theme, fill, fullRadius, fontWeight]);
 
   return (
     <button

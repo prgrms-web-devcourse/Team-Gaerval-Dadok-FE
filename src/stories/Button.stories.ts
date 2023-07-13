@@ -47,3 +47,12 @@ export const Kakao: Story = {
     label: '버튼',
   },
 };
+
+export const RecentSearch: Story = {
+  args: {
+    ...PrimaryLight.args,
+    label: '최근 검색어',
+    fontWeight: 'regular',
+    fullRadius: true,
+  },
+};
