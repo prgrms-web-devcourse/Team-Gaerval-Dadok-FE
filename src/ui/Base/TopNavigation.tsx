@@ -1,3 +1,5 @@
+import { IconLeftArrow, IconOptions, IconPost, IconShare } from '@public/icons';
+
 interface Props {
   variant?: 'primary' | 'secondary';
   backgroundColor?: 'bg-background' | 'bg-white';
@@ -14,19 +16,40 @@ const TopNavigation = ({
   variant = 'primary',
   backgroundColor = 'bg-background',
   backButton = true,
+  onClickBack,
   title = '',
   option = 'none',
+  onClickOption,
   isOwner = false,
+  onClickOwner,
 }: Props) => {
   return (
     <div className={`${BASE_CLASSES} ${backgroundColor}`}>
-      {backButton && <div className={`${ICON_CLASSES}`}></div>}
+      <div className="flex">
+        {backButton && (
+          <div className={`${ICON_CLASSES}`}>
+            <IconLeftArrow width="2rem" height="2rem" onClick={onClickBack} />
+          </div>
+        )}
+      </div>
       <div className={`${TITLE_CLASSES} ${VARIANT_CLASSES[variant]}`}>
         {title}
       </div>
-      <div className="flex">
-        {option !== 'none' && <div className={`${ICON_CLASSES}`}></div>}
-        {isOwner && <div className={`${ICON_CLASSES}`}></div>}
+      <div className="flex gap-[1rem]">
+        {option !== 'none' && (
+          <div className={`${ICON_CLASSES}`}>
+            {option === 'share' ? (
+              <IconShare width="2rem" height="2rem" onClick={onClickOption} />
+            ) : (
+              <IconPost width="2rem" height="2rem" onClick={onClickOption} />
+            )}
+          </div>
+        )}
+        {isOwner && (
+          <div className={`${ICON_CLASSES}`}>
+            <IconOptions width="2rem" height="2rem" onClick={onClickOwner} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -35,12 +58,12 @@ const TopNavigation = ({
 export default TopNavigation;
 
 const BASE_CLASSES =
-  'flex justify-between align-middle max-w-[43rem] w-100% h-[5.4rem] px-[2rem] py-[1.5rem] border-main-900 border-[0.1rem]';
+  'flex gap-[1.5rem] align-middle max-w-[43rem] w-full h-[5.4rem] px-[2rem] py-[1.7rem]';
 
 const TITLE_CLASSES =
-  'flex w-[100%] border-[0.1rem] border-warning-800 text-md font-regular';
+  'flex w-full text-md font-regular leading-snug align-text-top';
 
-const ICON_CLASSES = 'w-[2.2rem] h-[2.2rem] border-[0.1rem] border-warning-800';
+const ICON_CLASSES = 'flex w-[2.2rem] h-full hover:cursor-pointer';
 
 const VARIANT_CLASSES = {
   primary: 'justify-center',
