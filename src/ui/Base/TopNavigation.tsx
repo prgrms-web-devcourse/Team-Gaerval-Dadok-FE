@@ -2,9 +2,12 @@ interface Props {
   variant?: 'primary' | 'secondary';
   backgroundColor?: 'bg-background' | 'bg-white';
   backButton?: boolean;
+  onClickBack?: () => void;
   title?: string;
-  options?: 'none' | 'share' | 'post';
+  option?: 'none' | 'share' | 'post';
+  onClickOption?: () => void;
   isOwner?: boolean;
+  onClickOwner?: () => void;
 }
 
 const TopNavigation = ({
@@ -12,7 +15,7 @@ const TopNavigation = ({
   backgroundColor = 'bg-background',
   backButton = true,
   title = '',
-  options = 'none',
+  option = 'none',
   isOwner = false,
 }: Props) => {
   return (
@@ -22,7 +25,7 @@ const TopNavigation = ({
         {title}
       </div>
       <div className="flex">
-        {options !== 'none' && <div className={`${ICON_CLASSES}`}></div>}
+        {option !== 'none' && <div className={`${ICON_CLASSES}`}></div>}
         {isOwner && <div className={`${ICON_CLASSES}`}></div>}
       </div>
     </div>

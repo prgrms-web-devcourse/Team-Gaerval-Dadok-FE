@@ -17,7 +17,7 @@ export const Primary: Story = {
     backgroundColor: 'bg-background',
     backButton: true,
     title: '리팩터링 2판',
-    options: 'share',
+    option: 'share',
     isOwner: false,
   },
 };
@@ -28,7 +28,7 @@ export const Secondary: Story = {
     backgroundColor: 'bg-white',
     backButton: true,
     title: '프롱이 리팩터링 스터디',
-    options: 'post',
+    option: 'post',
     isOwner: true,
   },
 };
