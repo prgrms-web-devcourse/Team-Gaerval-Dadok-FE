@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import Button from '@/ui/Base/Button';
 
 const meta: Meta<typeof Button> = {
-  title: 'Button',
+  title: 'Base/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {},
@@ -52,7 +52,7 @@ export const RecentSearch: Story = {
   args: {
     ...PrimaryLight.args,
     label: '최근 검색어',
-    fontWeight: 'regular',
+    fontWeight: 'normal',
     fullRadius: true,
   },
 };

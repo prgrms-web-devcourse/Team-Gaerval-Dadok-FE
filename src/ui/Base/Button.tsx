@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, useMemo } from 'react';
 
 type Size = 'small' | 'medium' | 'large' | 'full';
 type Theme = 'primary' | 'primary-light' | 'warning' | 'light' | 'kakao';
-type Weight = 'thin' | 'regular' | 'bold';
+type Weight = 'thin' | 'normal' | 'bold';
 
 interface ButtonProps {
   size?: Size;
@@ -76,8 +76,9 @@ const Button = ({
     const sizeClass = getSizeClasses(size);
     const themeClass = getThemeClasses(theme, fill);
     const roundedClass = fullRadius ? 'rounded-full' : 'rounded-[5px]';
+    const fontWeightClass = `font-${fontWeight}`;
 
-    return `${sizeClass} ${themeClass} ${roundedClass} font-${fontWeight}`;
+    return [sizeClass, themeClass, roundedClass, fontWeightClass].join(' ');
   }, [size, theme, fill, fullRadius, fontWeight]);
 
   return (
