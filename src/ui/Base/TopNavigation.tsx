@@ -28,7 +28,7 @@ const TopNavigation = ({
       <div className="flex">
         {backButton && (
           <div className={`${ICON_CLASSES}`}>
-            <IconLeftArrow width="2rem" height="2rem" onClick={onClickBack} />
+            <IconLeftArrow onClick={onClickBack} />
           </div>
         )}
       </div>
@@ -39,15 +39,15 @@ const TopNavigation = ({
         {option !== 'none' && (
           <div className={`${ICON_CLASSES}`}>
             {option === 'share' ? (
-              <IconShare width="2rem" height="2rem" onClick={onClickOption} />
+              <IconShare onClick={onClickOption} />
             ) : (
-              <IconPost width="2rem" height="2rem" onClick={onClickOption} />
+              <IconPost onClick={onClickOption} />
             )}
           </div>
         )}
         {isOwner && (
           <div className={`${ICON_CLASSES}`}>
-            <IconOptions width="2rem" height="2rem" onClick={onClickOwner} />
+            <IconOptions onClick={onClickOwner} />
           </div>
         )}
       </div>
@@ -63,7 +63,7 @@ const BASE_CLASSES =
 const TITLE_CLASSES =
   'flex w-full text-md font-regular leading-snug align-text-top';
 
-const ICON_CLASSES = 'flex w-[2.2rem] h-full hover:cursor-pointer';
+const ICON_CLASSES = 'flex w-[2rem] h-full hover:cursor-pointer';
 
 const VARIANT_CLASSES = {
   primary: 'justify-center',
