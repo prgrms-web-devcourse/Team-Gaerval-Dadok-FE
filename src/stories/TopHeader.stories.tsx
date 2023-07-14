@@ -5,7 +5,7 @@ import TopHeader from '@/ui/Base/TopHeader';
 import more from '/public/icons/more.svg';
 
 const meta: Meta<typeof TopHeader> = {
-  title: 'Example/TopHeader',
+  title: 'Base/TopHeader',
   component: TopHeader,
   tags: ['autodocs'],
 };
@@ -22,13 +22,13 @@ const TopHeaderWithMenu = () => {
           alert('HAMBURGUR MENU!🍔');
         }}
       >
-        <Image src={more} width={25} height={25} alt="대체" />
+        <Image src={more} width={25} height={25} alt="햄버거메뉴" />
       </button>
     </TopHeader>
   );
 };
 
-export const Primary: Story = {
+export const Default: Story = {
   args: { label: 'BookArchive' },
 };
 
