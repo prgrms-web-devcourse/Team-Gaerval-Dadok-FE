@@ -1,53 +1,42 @@
-import { IconLeftArrow, IconOptions, IconPost, IconShare } from '@public/icons';
+import { IconLeftArrow, IconOptions } from '@public/icons';
+import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 
 interface Props {
-  variant?: 'primary' | 'secondary';
   backgroundColor?: 'bg-background' | 'bg-white';
   backButton?: boolean;
-  onClickBack?: () => void;
+  titleAlign?: 'center' | 'left';
   title?: string;
-  option?: 'none' | 'share' | 'post';
-  onClickOption?: () => void;
   isOwner?: boolean;
-  onClickOwner?: () => void;
 }
 
 const TopNavigation = ({
-  variant = 'primary',
-  backgroundColor = 'bg-background',
+  children,
   backButton = true,
-  onClickBack,
+  titleAlign = 'center',
   title = '',
-  option = 'none',
-  onClickOption,
   isOwner = false,
-  onClickOwner,
-}: Props) => {
+  backgroundColor = 'bg-background',
+}: PropsWithChildren<Props>) => {
   return (
-    <div className={`${BASE_CLASSES} ${backgroundColor}`}>
+    <div className={`${CONTAINER_CLASSES} ${backgroundColor}`}>
       <div className="flex">
         {backButton && (
           <div className={`${ICON_CLASSES}`}>
-            <IconLeftArrow onClick={onClickBack} />
+            <Link href="..">
+              <IconLeftArrow />
+            </Link>
           </div>
         )}
       </div>
-      <div className={`${TITLE_CLASSES} ${VARIANT_CLASSES[variant]}`}>
+      <div className={`${TITLE_CLASSES} ${TITLE_ALIGN_CLASSES[titleAlign]}`}>
         {title}
       </div>
       <div className="flex gap-[1rem]">
-        {option !== 'none' && (
-          <div className={`${ICON_CLASSES}`}>
-            {option === 'share' ? (
-              <IconShare onClick={onClickOption} />
-            ) : (
-              <IconPost onClick={onClickOption} />
-            )}
-          </div>
-        )}
+        <div className={`${ICON_CLASSES}`}>{children}</div>
         {isOwner && (
           <div className={`${ICON_CLASSES}`}>
-            <IconOptions onClick={onClickOwner} />
+            <IconOptions />
           </div>
         )}
       </div>
@@ -57,7 +46,7 @@ const TopNavigation = ({
 
 export default TopNavigation;
 
-const BASE_CLASSES =
+const CONTAINER_CLASSES =
   'flex gap-[1.5rem] align-middle max-w-[43rem] w-full h-[5.4rem] px-[2rem] py-[1.7rem]';
 
 const TITLE_CLASSES =
@@ -65,7 +54,7 @@ const TITLE_CLASSES =
 
 const ICON_CLASSES = 'flex w-[2rem] h-full hover:cursor-pointer';
 
-const VARIANT_CLASSES = {
-  primary: 'justify-center',
-  secondary: 'justify-left',
+const TITLE_ALIGN_CLASSES = {
+  center: 'justify-center',
+  left: 'justify-left',
 };
