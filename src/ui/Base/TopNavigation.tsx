@@ -23,7 +23,7 @@ const TopNavigation = ({
       <div className="flex">
         {backButton && (
           <div className={`${ICON_CLASSES}`}>
-            <Link href="..">
+            <Link href=".">
               <IconLeftArrow />
             </Link>
           </div>
