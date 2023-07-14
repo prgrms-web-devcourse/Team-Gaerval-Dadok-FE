@@ -14,8 +14,6 @@ type Story = StoryObj<typeof TopNavigation>;
 export const Primary: Story = {
   args: {
     titleAlign: 'center',
-    backgroundColor: 'bg-background',
-    backButton: true,
     title: '리팩터링 2판',
     isOwner: false,
   },
@@ -24,8 +22,6 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     titleAlign: 'left',
-    backgroundColor: 'bg-white',
-    backButton: true,
     title: '프롱이 리팩터링 스터디',
     isOwner: true,
   },

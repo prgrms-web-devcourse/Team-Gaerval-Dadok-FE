@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 
 interface Props {
-  backgroundColor?: 'bg-background' | 'bg-white';
-  backButton?: boolean;
   titleAlign?: 'center' | 'left';
   title?: string;
   isOwner?: boolean;
@@ -12,22 +10,18 @@ interface Props {
 
 const TopNavigation = ({
   children,
-  backButton = true,
   titleAlign = 'center',
   title = '',
   isOwner = false,
-  backgroundColor = 'bg-background',
 }: PropsWithChildren<Props>) => {
   return (
-    <div className={`${CONTAINER_CLASSES} ${backgroundColor}`}>
+    <div className={`${CONTAINER_CLASSES}`}>
       <div className="flex">
-        {backButton && (
-          <div className={`${ICON_CLASSES}`}>
-            <Link href=".">
-              <IconLeftArrow />
-            </Link>
-          </div>
-        )}
+        <div className={`${ICON_CLASSES}`}>
+          <Link href=".">
+            <IconLeftArrow />
+          </Link>
+        </div>
       </div>
       <div className={`${TITLE_CLASSES} ${TITLE_ALIGN_CLASSES[titleAlign]}`}>
         {title}
@@ -47,7 +41,7 @@ const TopNavigation = ({
 export default TopNavigation;
 
 const CONTAINER_CLASSES =
-  'flex gap-[1.5rem] align-middle max-w-[43rem] w-full h-[5.4rem] px-[2rem] py-[1.7rem]';
+  'flex gap-[1.5rem] align-middle max-w-[43rem] w-full h-[5.4rem] px-[2rem] py-[1.7rem] bg-opacity-0';
 
 const TITLE_CLASSES =
   'flex w-full text-md font-regular leading-snug align-text-top';
