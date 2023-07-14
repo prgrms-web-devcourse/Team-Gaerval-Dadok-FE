@@ -12,7 +12,7 @@ const Input = ({ error, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
   return (
     <div className="flex flex-col gap-[0.5rem] text-sm">
       <input
-        className={`w-full rounded-[0.5rem] border-[0.05rem] px-[1rem] py-[1.3rem] outline-none  ${borderColor}`}
+        className={`w-full rounded-[0.5rem] border-[0.05rem] px-[1rem] py-[1.3rem] outline-none ${borderColor}`}
         {...props}
         ref={ref}
       />
