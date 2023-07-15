@@ -2,7 +2,7 @@ import { IconLeftArrow, IconOptions } from '@public/icons';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   titleAlign?: 'center' | 'left';
   title?: string;
   isOwner?: boolean;
@@ -13,7 +13,7 @@ const TopNavigation = ({
   titleAlign = 'center',
   title = '',
   isOwner = false,
-}: PropsWithChildren<Props>) => {
+}: Props) => {
   return (
     <div className={`${CONTAINER_CLASSES}`}>
       <div className="flex">
