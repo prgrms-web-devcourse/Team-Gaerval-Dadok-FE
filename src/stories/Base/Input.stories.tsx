@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Input from '@/ui/Base/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from './Button';
+import { Button } from '../Button';
 
 const meta: Meta<typeof Input> = {
   title: 'Base/Input',
@@ -62,12 +62,22 @@ const InputWithUseForm = () => {
     </form>
   );
 };
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    placeholder: '',
+    placeholder: '입력해 주세요.',
   },
 };
 
-export const UseForm: Story = {
+export const Invalid: Story = {
+  args: {
+    placeholder: '입력해 주세요.',
+    error: {
+      type: 'value',
+      message: '에러 메시지에요.',
+    },
+  },
+};
+
+export const WithUseForm: Story = {
   render: () => <InputWithUseForm />,
 };
