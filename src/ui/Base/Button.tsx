@@ -1,17 +1,16 @@
-import { ComponentPropsWithoutRef, useMemo } from 'react';
+import type { ComponentPropsWithoutRef, PropsWithChildren } from 'react';
+import { useMemo } from 'react';
 
 type Size = 'small' | 'medium' | 'large' | 'full';
-type Theme = 'primary' | 'primary-light' | 'warning' | 'light' | 'kakao';
-type Weight = 'thin' | 'normal' | 'bold';
+type ColorScheme = 'main' | 'main-light' | 'warning' | 'grey' | 'kakao';
 
-interface ButtonProps {
+type ButtonProps = PropsWithChildren<{
   size?: Size;
-  theme?: Theme;
+  colorScheme?: ColorScheme;
   fill?: boolean;
-  fontWeight?: Weight;
   fullRadius?: boolean;
-  label?: string;
-}
+}> &
+  ComponentPropsWithoutRef<'button'>;
 
 const getSizeClasses = (size: Size) => {
   switch (size) {
@@ -34,22 +33,22 @@ const getSizeClasses = (size: Size) => {
   }
 };
 
-const getThemeClasses = (theme: Theme, isFill: boolean) => {
+const getSchemeClasses = (theme: ColorScheme, isFill: boolean) => {
   switch (theme) {
-    case 'primary': {
+    case 'main': {
       return isFill
         ? 'border-main-900 bg-main-900 text-white'
         : 'border-main-900 text-main-900';
     }
-    case 'primary-light': {
-      return 'border-transparent bg-main-600/[.18] text-main-900';
+    case 'main-light': {
+      return 'border-transparent bg-main-600/[.18] text-main-900 font-normal';
     }
     case 'warning': {
       return isFill
         ? 'border-warning-800 bg-warning-800 text-white '
         : 'border-warning-800 text-warning-800';
     }
-    case 'light': {
+    case 'grey': {
       return isFill
         ? 'border-black-400 bg-black-400 text-black-500 '
         : 'border-black-400 text-black-500';
@@ -61,25 +60,23 @@ const getThemeClasses = (theme: Theme, isFill: boolean) => {
 };
 
 const BASE_BUTTON_CLASSES =
-  'cursor-pointer border-[0.1rem] leading-none inline-block';
+  'cursor-pointer border-[0.1rem] leading-none inline-block font-bold';
 
 const Button = ({
   size = 'medium',
-  theme = 'primary',
-  fontWeight = 'bold',
+  colorScheme = 'main',
   fill = true,
   fullRadius = false,
-  label,
+  children,
   ...props
-}: ButtonProps & ComponentPropsWithoutRef<'button'>) => {
+}: ButtonProps) => {
   const computedClasses = useMemo(() => {
     const sizeClass = getSizeClasses(size);
-    const themeClass = getThemeClasses(theme, fill);
+    const schemeClass = getSchemeClasses(colorScheme, fill);
     const roundedClass = fullRadius ? 'rounded-full' : 'rounded-[5px]';
-    const fontWeightClass = `font-${fontWeight}`;
 
-    return [sizeClass, themeClass, roundedClass, fontWeightClass].join(' ');
-  }, [size, theme, fill, fullRadius, fontWeight]);
+    return [sizeClass, schemeClass, roundedClass].join(' ');
+  }, [size, colorScheme, fill, fullRadius]);
 
   return (
     <button
@@ -87,7 +84,7 @@ const Button = ({
       className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
       {...props}
     >
-      {label}
+      {children}
     </button>
   );
 };
