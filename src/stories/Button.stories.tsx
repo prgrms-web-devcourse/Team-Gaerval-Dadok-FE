@@ -20,6 +20,10 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
+export const Default: Story = {
+  render: args => <Button {...args}>버튼</Button>,
+};
+
 export const Main: Story = {
   args: {
     colorScheme: 'main',
