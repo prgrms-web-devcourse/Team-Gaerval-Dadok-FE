@@ -11,11 +11,9 @@ export default meta;
 
 type Story = StoryObj<typeof TopNavigation>;
 
-export const TitleCenter: Story = {
+export const Default: Story = {
   args: {
-    titleAlign: 'center',
     title: '리팩터링 2판',
-    isOwner: false,
   },
 };
 
