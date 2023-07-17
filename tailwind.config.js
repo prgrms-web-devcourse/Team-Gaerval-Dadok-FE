@@ -21,7 +21,7 @@ module.exports = {
       },
       fontWeight: {
         thin: 100,
-        regular: 400,
+        normal: 400,
         bold: 700,
       },
       colors: {
