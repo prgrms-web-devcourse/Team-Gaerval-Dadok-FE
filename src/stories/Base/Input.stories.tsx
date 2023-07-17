@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Input from '@/ui/Base/Input';
+import Button from '@/ui/Base/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button } from '../Button';
 
 const meta: Meta<typeof Input> = {
   title: 'Base/Input',
@@ -54,11 +54,12 @@ const InputWithUseForm = () => {
         error={errors.age}
       />
       <Button
-        primary
-        size="sm"
-        label="Submit"
+        size="large"
+        type="submit"
         onClick={handleSubmit(handleSubmitForm)}
-      />
+      >
+        Submit
+      </Button>
     </form>
   );
 };
