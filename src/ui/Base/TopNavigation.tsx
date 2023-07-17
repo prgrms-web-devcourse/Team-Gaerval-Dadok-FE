@@ -15,38 +15,24 @@ const TopNavigation = ({
   isOwner = false,
 }: Props) => {
   return (
-    <div className={`${CONTAINER_CLASSES}`}>
-      <div className="flex">
-        <div className={`${ICON_CLASSES}`}>
-          <Link href=".">
-            <IconLeftArrow />
-          </Link>
-        </div>
-      </div>
-      <div className={`${TITLE_CLASSES} ${TITLE_ALIGN_CLASSES[titleAlign]}`}>
+    <div className="flex w-full justify-center gap-[1.5rem] bg-opacity-0 px-[2rem] py-[1.7rem]">
+      <Link href=".">
+        <IconLeftArrow className="hover:cursor-pointer" />
+      </Link>
+      <div
+        className={`flex w-full items-center pr-[3.5rem] text-md font-regular leading-[1.9rem] ${TITLE_ALIGN_CLASSES[titleAlign]}`}
+      >
         {title}
       </div>
-      <div className="flex gap-[1rem]">
-        <div className={`${ICON_CLASSES}`}>{children}</div>
-        {isOwner && (
-          <div className={`${ICON_CLASSES}`}>
-            <IconOptions />
-          </div>
-        )}
+      <div className="absolute right-0 flex gap-[1rem] pr-[3rem]">
+        {children}
+        {isOwner && <IconOptions className="hover:cursor-pointer" />}
       </div>
     </div>
   );
 };
 
 export default TopNavigation;
-
-const CONTAINER_CLASSES =
-  'flex gap-[1.5rem] align-middle max-w-[43rem] w-full h-[5.4rem] px-[2rem] py-[1.7rem] bg-opacity-0';
-
-const TITLE_CLASSES =
-  'flex w-full text-md font-regular leading-snug align-text-top';
-
-const ICON_CLASSES = 'flex w-[2rem] h-full hover:cursor-pointer';
 
 const TITLE_ALIGN_CLASSES = {
   center: 'justify-center',
