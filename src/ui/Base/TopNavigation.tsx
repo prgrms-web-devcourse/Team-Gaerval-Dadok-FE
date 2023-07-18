@@ -15,12 +15,12 @@ const TopNavigation = ({
   isOwner = false,
 }: Props) => {
   return (
-    <div className="flex w-full justify-center gap-[1.5rem] bg-opacity-0 px-[2rem] py-[1.7rem]">
+    <div className="flex h-[5.4rem] w-full gap-[1.5rem] bg-opacity-0 px-[2rem] py-[1.7rem]">
       <Link href=".">
         <IconLeftArrow className="hover:cursor-pointer" />
       </Link>
       <div
-        className={`flex w-full items-center pr-[3.5rem] text-md font-regular leading-[1.9rem] ${TITLE_ALIGN_CLASSES[titleAlign]}`}
+        className={`flex w-full pr-[3.5rem] text-md font-normal leading-[1.9rem] ${TITLE_ALIGN_CLASSES[titleAlign]}`}
       >
         {title}
       </div>
@@ -36,5 +36,5 @@ export default TopNavigation;
 
 const TITLE_ALIGN_CLASSES = {
   center: 'justify-center',
-  left: 'justify-left',
+  left: 'justify-start',
 };
