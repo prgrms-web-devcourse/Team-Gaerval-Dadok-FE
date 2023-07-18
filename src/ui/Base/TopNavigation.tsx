@@ -24,7 +24,7 @@ const TopNavigation = ({
       >
         {title}
       </div>
-      <div className="absolute right-0 flex gap-[1rem] pr-[3rem]">
+      <div className="absolute right-0 flex gap-[1rem] pr-[2rem]">
         {children}
         {isOwner && <IconOptions className="hover:cursor-pointer" />}
       </div>
