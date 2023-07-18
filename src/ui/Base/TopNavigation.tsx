@@ -15,7 +15,7 @@ const TopNavigation = ({
   isOwner = false,
 }: Props) => {
   return (
-    <div className="flex h-[5.4rem] w-full gap-[1.5rem] bg-opacity-0 px-[2rem] py-[1.7rem]">
+    <div className="relative flex h-[5.4rem] w-full gap-[1.5rem] bg-opacity-0 px-[2rem] py-[1.7rem]">
       <Link href=".">
         <IconLeftArrow className="hover:cursor-pointer" />
       </Link>
@@ -24,7 +24,7 @@ const TopNavigation = ({
       >
         {title}
       </div>
-      <div className="absolute right-0 flex gap-[1rem] pr-[2rem]">
+      <div className="absolute right-[2rem] flex gap-[1rem]">
         {children}
         {isOwner && <IconOptions className="hover:cursor-pointer" />}
       </div>
