@@ -4,7 +4,7 @@ const Logo = ({ width = 61 }: { width?: number }) => {
   const height = width * (60 / 61);
   return (
     <Image
-      src="/images/logo.svg"
+      src="/icons/logo-large.svg"
       alt="다독다독 로고"
       width={width}
       height={height}
