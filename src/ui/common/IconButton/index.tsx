@@ -43,11 +43,11 @@ const IconButton = ({
 };
 
 type IconNameType =
-  | 'close'
+  | 'close-legacy'
   | 'back'
   | 'book'
-  | 'search'
-  | 'bookmark'
+  | 'search-legacy'
+  | 'bookmark-legacy'
   | 'more'
   | 'more-circle'
   | 'job-card'
