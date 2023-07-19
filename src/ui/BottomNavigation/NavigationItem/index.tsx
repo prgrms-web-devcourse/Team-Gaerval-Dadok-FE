@@ -24,7 +24,7 @@ const NavigationItem = ({
   const Icon = useMemo(
     () =>
       dynamic<SVGProps<SVGSVGElement>>(
-        () => import(`@/../public/icons/${iconName}.svg`)
+        () => import(`@/../public/icons/legacy/${iconName}.svg`)
       ),
     [iconName]
   );

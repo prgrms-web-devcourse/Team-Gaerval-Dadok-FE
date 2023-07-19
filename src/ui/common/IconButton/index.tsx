@@ -19,7 +19,7 @@ const IconButton = ({
   ...props
 }: Props) => {
   const Icon = dynamic<SVGProps<SVGSVGElement>>(
-    () => import(`@/../public/icons/${name}.svg`)
+    () => import(`@/../public/icons/legacy/${name}.svg`)
   );
 
   return (
