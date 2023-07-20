@@ -1,8 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Image from 'next/image';
-
+import { IconMore } from '@public/icons';
 import TopHeader from '@/ui/Base/TopHeader';
-import more from '/public/icons/more.svg';
 
 const meta: Meta<typeof TopHeader> = {
   title: 'Base/TopHeader',
@@ -22,7 +20,7 @@ const TopHeaderWithMenu = () => {
           alert('HAMBURGUR MENU!🍔');
         }}
       >
-        <Image src={more} width={20} height={20} alt="햄버거메뉴" />
+        <IconMore width={25} height={25} alt="햄버거메뉴" />
       </button>
     </TopHeader>
   );
