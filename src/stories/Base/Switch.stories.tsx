@@ -34,7 +34,6 @@ const SwitchWithUseForm = () => {
       className="flex w-[43rem] flex-col gap-[1.6rem]"
     >
       <Switch {...register('comment')} />
-      {/* <input type="checkbox" {...register('comment')} /> */}
       <Button
         size="large"
         type="submit"
