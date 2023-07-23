@@ -20,7 +20,7 @@ const TopHeaderWithMenu = () => {
           alert('HAMBURGUR MENU!🍔');
         }}
       >
-        <IconMore width={25} height={25} alt="햄버거메뉴" />
+        <IconMore width={20} height={20} alt="햄버거메뉴" />
       </button>
     </TopHeader>
   );
