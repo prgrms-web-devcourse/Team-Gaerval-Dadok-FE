@@ -1,6 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef, Ref } from 'react';
 
-interface SelectProps extends ComponentPropsWithoutRef<'select'> {
+interface SelectProps
+  extends Omit<
+    ComponentPropsWithoutRef<'select'>,
+    'className' | 'defaultValue' | 'requirder'
+  > {
   errorMessage?: string;
 }
 
