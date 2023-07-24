@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, forwardRef, Ref } from 'react';
 interface SelectProps
   extends Omit<
     ComponentPropsWithoutRef<'select'>,
-    'className' | 'defaultValue' | 'requirder'
+    'className' | 'defaultValue' | 'required'
   > {
   errorMessage?: string;
 }
