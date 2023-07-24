@@ -14,17 +14,17 @@ export default meta;
 
 type Story = StoryObj<typeof Switch>;
 
-type DefaultValues = {
+type FormValues = {
   comment: string;
 };
 
 const SwitchWithUseForm = () => {
-  const { register, handleSubmit } = useForm<DefaultValues>({
+  const { register, handleSubmit } = useForm<FormValues>({
     mode: 'all',
     defaultValues: { comment: 'true' },
   });
 
-  const handleSubmitForm: SubmitHandler<DefaultValues> = ({ comment }) => {
+  const handleSubmitForm: SubmitHandler<FormValues> = ({ comment }) => {
     alert(`comment: ${comment ? 'public' : 'private'}`);
   };
 
@@ -33,7 +33,10 @@ const SwitchWithUseForm = () => {
       onSubmit={handleSubmit(handleSubmitForm)}
       className="flex w-[43rem] flex-col gap-[1.6rem]"
     >
-      <Switch {...register('comment')} />
+      <div className="flex justify-between">
+        <span className="text-md">댓글 공개</span>
+        <Switch {...register('comment')} />
+      </div>
       <Button
         size="large"
         type="submit"
@@ -46,7 +49,7 @@ const SwitchWithUseForm = () => {
 };
 
 export const Default: Story = {
-  args: { name: 'toggle' },
+  args: { name: 'switch' },
 };
 
 export const WithForm: Story = {
