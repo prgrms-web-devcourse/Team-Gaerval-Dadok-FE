@@ -44,7 +44,7 @@ const SelectWithUseForm = () => {
         {...register('requiredNumber', {
           required: '필수 항목입니다.',
         })}
-        error={errors.requiredNumber}
+        errorMessage={errors.requiredNumber?.message}
       >
         {numbers.map(number => (
           <Select.Option key={number} value={number}>
@@ -55,7 +55,7 @@ const SelectWithUseForm = () => {
       <Select
         placeholder="숫자를 선택해주세요."
         {...register('number')}
-        error={errors.number}
+        errorMessage={errors.number?.message}
       >
         {numbers.map(number => (
           <Select.Option key={number} value={number}>
@@ -78,19 +78,24 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   args: {
-    placeholder: '입력해 주세요.',
+    placeholder: '선택해 주세요.',
   },
   render: args => (
-    <div className="min-h-[20rem]">
-      <Select {...args}>
-        {numbers.map(number => (
-          <Select.Option key={number} value={number}>
-            {number}
-          </Select.Option>
-        ))}
-      </Select>
-    </div>
+    <Select {...args}>
+      {numbers.map(number => (
+        <Select.Option key={number} value={number}>
+          {number}
+        </Select.Option>
+      ))}
+    </Select>
   ),
+};
+
+export const Invalid: Story = {
+  args: {
+    placeholder: '선택해 주세요.',
+    errorMessage: '에러 메시지에요.',
+  },
 };
 
 export const WithUseForm: Story = {
