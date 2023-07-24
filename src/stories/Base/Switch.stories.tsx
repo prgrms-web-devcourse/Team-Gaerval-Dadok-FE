@@ -15,13 +15,13 @@ export default meta;
 type Story = StoryObj<typeof Switch>;
 
 type FormValues = {
-  comment: string;
+  comment: boolean;
 };
 
 const SwitchWithUseForm = () => {
   const { register, handleSubmit } = useForm<FormValues>({
     mode: 'all',
-    defaultValues: { comment: 'true' },
+    defaultValues: { comment: true },
   });
 
   const handleSubmitForm: SubmitHandler<FormValues> = ({ comment }) => {
