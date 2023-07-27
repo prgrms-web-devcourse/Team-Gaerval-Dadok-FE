@@ -77,7 +77,7 @@ const BookInfo = ({
         </Box>
         <VStack align="flex-start">
           <IconButton
-            name="bookmark"
+            name="bookmark-legacy"
             color={theme.colors.main}
             strokeWidth="0.15rem"
             onClick={handleBookmarkClick}
