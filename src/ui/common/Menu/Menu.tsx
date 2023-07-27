@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-import MoreIcon from '@public/icons/more.svg';
+import MoreIcon from '@public/icons/legacy/more.svg';
 
 const Menu = ({ children }: { children: ReactNode }) => {
   return (

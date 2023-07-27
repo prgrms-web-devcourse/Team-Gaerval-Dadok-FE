@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { IconMore } from '@public/icons';
+import { IconHamburger } from '@public/icons';
 import TopHeader from '@/ui/Base/TopHeader';
 
 const meta: Meta<typeof TopHeader> = {
@@ -20,7 +20,7 @@ const TopHeaderWithMenu = () => {
           alert('HAMBURGUR MENU!🍔');
         }}
       >
-        <IconMore width={20} height={20} alt="햄버거메뉴" />
+        <IconHamburger width={20} height={20} alt="햄버거메뉴" />
       </button>
     </TopHeader>
   );

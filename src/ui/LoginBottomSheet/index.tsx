@@ -36,7 +36,7 @@ const LoginBottomSheet = ({ isOpen, onClose }: Props) => {
         <Link href={kakaoUrl} style={{ width: '100%' }}>
           <Button scheme="kakao" fullWidth>
             <Image
-              src="/images/kakao.svg"
+              src="/icons/kakao-legacy.svg"
               alt="카카오 로고"
               width={21}
               height={19}
