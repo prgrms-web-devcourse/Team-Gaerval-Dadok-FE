@@ -43,7 +43,7 @@ const InputWithUseForm = () => {
           minLength: { value: 2, message: '2자 이상 입력해 주세요.' },
           maxLength: { value: 10, message: '10자 이하 입력해 주세요.' },
         })}
-        error={errors.name}
+        errorMessage={errors.name?.message}
       />
       <Input
         placeholder="나이를 입력해 주세요."
@@ -51,7 +51,7 @@ const InputWithUseForm = () => {
           pattern: { value: /^[0-9]+$/, message: '숫자만 입력 가능해요' },
           min: { value: 0, message: '0살부터 입력 가능해요.' },
         })}
-        error={errors.age}
+        errorMessage={errors.age?.message}
       />
       <Button
         size="large"
@@ -72,10 +72,7 @@ export const Default: Story = {
 export const Invalid: Story = {
   args: {
     placeholder: '입력해 주세요.',
-    error: {
-      type: 'value',
-      message: '에러 메시지에요.',
-    },
+    errorMessage: '에러 메시지에요.',
   },
 };
 

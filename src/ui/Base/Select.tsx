@@ -1,4 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef, Ref } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 interface SelectProps
   extends Omit<
@@ -32,7 +33,7 @@ const Select = (
         )}
         {children}
       </select>
-      {errorMessage && <div className="text-warning-800">{errorMessage}</div>}
+      <ErrorMessage>{errorMessage}</ErrorMessage>
     </div>
   );
 };

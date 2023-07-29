@@ -1,12 +1,15 @@
 import { ComponentPropsWithoutRef, forwardRef, Ref } from 'react';
-import { FieldError } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
-  error?: FieldError;
+  errorMessage?: string;
 }
 
-const Input = ({ error, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
-  const borderColor = error
+const Input = (
+  { errorMessage, ...props }: InputProps,
+  ref: Ref<HTMLInputElement>
+) => {
+  const borderColor = errorMessage
     ? 'border-warning-800 focus:border-warning-800'
     : 'border-black-400 focus:border-main-900';
   return (
@@ -16,10 +19,11 @@ const Input = ({ error, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
         {...props}
         ref={ref}
       />
-      {/* TODO: 에러 메시지 컴포넌트로 교체 */}
-      {error && <div className="text-warning-800">{error.message}</div>}
+      <ErrorMessage>{errorMessage}</ErrorMessage>
     </div>
   );
 };
 
-export default forwardRef(Input);
+const ExportInput = Object.assign(forwardRef(Input), { ErrorMessage });
+
+export default ExportInput;
