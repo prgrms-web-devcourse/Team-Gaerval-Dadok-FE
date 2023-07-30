@@ -3,15 +3,15 @@ import { Fragment, ReactNode } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
-  close: () => void;
+  onClose: () => void;
   children?: ReactNode;
 }
 
-const Modal = ({ isOpen, close, children }: ModalProps) => {
+const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={close}>
+        <Dialog as="div" className="relative z-10" onClose={onClose}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"

@@ -26,16 +26,16 @@ const BaseModal = () => {
       >
         Open Modal
       </Button>
-      <Modal isOpen={isOpen} close={onClose}></Modal>
+      <Modal isOpen={isOpen} onClose={onClose}></Modal>
     </Fragment>
   );
 };
 
-const DeleteMeetingModal = () => {
+const DeleteModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = () => {
-    alert('삭제했습니다.');
+    alert('삭제되었습니다.');
     onClose();
   };
 
@@ -48,9 +48,9 @@ const DeleteMeetingModal = () => {
       >
         Open Modal
       </Button>
-      <Modal isOpen={isOpen} close={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <div className="text-lg font-bold">
-          모임을 정말 삭제할까요?
+          정말 삭제할까요?
           <p className="text-xs font-normal text-black-500">
             한번 삭제하면 되돌릴 수 없어요.
           </p>
@@ -65,7 +65,7 @@ const DeleteMeetingModal = () => {
             취소
           </Button>
           <Button onClick={handleClick} size="small">
-            삭제
+            확인
           </Button>
         </div>
       </Modal>
@@ -77,6 +77,6 @@ export const Default: Story = {
   render: () => <BaseModal />,
 };
 
-export const DeleteCase: Story = {
-  render: () => <DeleteMeetingModal />,
+export const Delete: Story = {
+  render: () => <DeleteModal />,
 };
