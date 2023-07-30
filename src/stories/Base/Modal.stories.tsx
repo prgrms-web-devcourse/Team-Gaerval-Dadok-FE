@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Modal from '@/ui/Base/Modal';
-import { useState } from 'react';
+import useDisclosure from '@/hooks/useDisclosure';
 import Button from '@/ui/Base/Button';
+import { Fragment } from 'react';
 
 const meta: Meta<typeof Modal> = {
   title: 'Base/Modal',
@@ -13,32 +14,69 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
-const DeleteMeetingModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const deleteHandler = () => {
-    alert('삭제 되었습니다.');
-  };
+const BaseModal = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <div>
+    <Fragment>
       <Button
         onClick={() => {
-          setIsOpen(true);
+          onOpen();
         }}
       >
         Open Modal
       </Button>
-      <Modal
-        title="모임"
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        deleteHandler={deleteHandler}
-      />
-    </div>
+      <Modal isOpen={isOpen} close={onClose}></Modal>
+    </Fragment>
+  );
+};
+
+const DeleteMeetingModal = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleClick = () => {
+    alert('삭제했습니다.');
+    onClose();
+  };
+
+  return (
+    <Fragment>
+      <Button
+        onClick={() => {
+          onOpen();
+        }}
+      >
+        Open Modal
+      </Button>
+      <Modal isOpen={isOpen} close={onClose}>
+        <div className="text-lg font-bold">
+          모임을 정말 삭제할까요?
+          <p className="text-xs font-normal text-black-500">
+            한번 삭제하면 되돌릴 수 없어요.
+          </p>
+        </div>
+        <div className="flex justify-end gap-[10px]">
+          <Button
+            onClick={onClose}
+            fill={false}
+            colorScheme="grey"
+            size="small"
+          >
+            취소
+          </Button>
+          <Button onClick={handleClick} size="small">
+            삭제
+          </Button>
+        </div>
+      </Modal>
+    </Fragment>
   );
 };
 
 export const Default: Story = {
+  render: () => <BaseModal />,
+};
+
+export const DeleteCase: Story = {
   render: () => <DeleteMeetingModal />,
 };

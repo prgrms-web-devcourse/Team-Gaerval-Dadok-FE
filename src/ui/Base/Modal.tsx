@@ -1,28 +1,17 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import Button from '@/ui/Base/Button';
+import { Fragment, ReactNode } from 'react';
 
 interface ModalProps {
-  title: string;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  deleteHandler: () => void;
+  close: () => void;
+  children?: ReactNode;
 }
 
-const Modal = ({ title, isOpen, setIsOpen, deleteHandler }: ModalProps) => {
-  const closeButtonHandler = () => {
-    setIsOpen(false);
-  };
-
-  const deleteButtonHandler = () => {
-    setIsOpen(false);
-    deleteHandler();
-  };
-
+const Modal = ({ isOpen, close, children }: ModalProps) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeButtonHandler}>
+        <Dialog as="div" className="relative z-10" onClose={close}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -47,25 +36,7 @@ const Modal = ({ title, isOpen, setIsOpen, deleteHandler }: ModalProps) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="flex w-[313px] transform flex-col gap-[25px] overflow-hidden rounded-[4px] bg-white px-[25px] py-[20px] transition-all">
-                  <Dialog.Title as="div" className="text-lg font-bold">
-                    {title}을 정말 삭제할까요?
-                    <p className="text-xs font-normal text-black-500">
-                      한번 삭제하면 되돌릴 수 없어요.
-                    </p>
-                  </Dialog.Title>
-                  <div className="flex justify-end gap-[10px]">
-                    <Button
-                      onClick={closeButtonHandler}
-                      fill={false}
-                      colorScheme="grey"
-                      size="small"
-                    >
-                      취소
-                    </Button>
-                    <Button onClick={deleteButtonHandler} size="small">
-                      삭제
-                    </Button>
-                  </div>
+                  {children}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
