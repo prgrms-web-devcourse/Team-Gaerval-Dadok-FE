@@ -18,7 +18,7 @@ const BaseModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Fragment>
+    <>
       <Button
         onClick={() => {
           onOpen();
@@ -27,7 +27,7 @@ const BaseModal = () => {
         Open Modal
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}></Modal>
-    </Fragment>
+    </>
   );
 };
 
@@ -40,7 +40,7 @@ const DeleteModal = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <Button
         onClick={() => {
           onOpen();
@@ -55,7 +55,7 @@ const DeleteModal = () => {
             한번 삭제하면 되돌릴 수 없어요.
           </p>
         </div>
-        <div className="flex justify-end gap-[10px]">
+        <div className="flex justify-end gap-[1rem]">
           <Button
             onClick={onClose}
             fill={false}
@@ -69,7 +69,7 @@ const DeleteModal = () => {
           </Button>
         </div>
       </Modal>
-    </Fragment>
+    </>
   );
 };
 

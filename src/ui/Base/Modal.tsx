@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black-900 bg-opacity-30" />
+          <div className="fixed inset-0 bg-overlay bg-opacity-60" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex w-[313px] transform flex-col gap-[25px] overflow-hidden rounded-[4px] bg-white px-[25px] py-[20px] transition-all">
+              <Dialog.Panel className="flex w-[31.3rem] transform flex-col gap-[2.5rem] overflow-hidden rounded-[0.4rem] bg-white px-[2.5rem] py-[2rem] transition-all">
                 {children}
               </Dialog.Panel>
             </Transition.Child>
