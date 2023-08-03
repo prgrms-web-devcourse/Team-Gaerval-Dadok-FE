@@ -53,7 +53,7 @@ const InputWithUseForm = () => {
           {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
         </div>
       </div>
-      <div className="gap-[0.5rem flex flex-col">
+      <div className="flex flex-col gap-[0.5rem]">
         <Input
           placeholder="나이를 입력해 주세요."
           {...register('age', {
