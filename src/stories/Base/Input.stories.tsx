@@ -62,7 +62,7 @@ const InputWithUseForm = () => {
           })}
           error={!!errors.age}
         />
-        {errors.age && <ErrorMessage>{errors.age?.message}</ErrorMessage>}
+        {errors.age && <ErrorMessage>{errors.age.message}</ErrorMessage>}
       </div>
       <Button
         size="large"
