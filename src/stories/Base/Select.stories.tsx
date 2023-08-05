@@ -68,7 +68,7 @@ const SelectWithUseForm = () => {
             </Select.Option>
           ))}
         </Select>
-        <ErrorMessage>{errors.number?.message}</ErrorMessage>
+        {errors.number && <ErrorMessage>{errors.number.message}</ErrorMessage>}
       </div>
       <Button
         size="large"
