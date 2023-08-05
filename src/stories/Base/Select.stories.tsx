@@ -54,7 +54,7 @@ const SelectWithUseForm = () => {
             </Select.Option>
           ))}
         </Select>
-        <ErrorMessage>{errors.requiredNumber?.message}</ErrorMessage>
+        {errors.requiredNumber && <ErrorMessage>{errors.requiredNumber.message}</ErrorMessage>}
       </div>
       <div className="flex flex-col gap-[0.5rem]">
         <Select
