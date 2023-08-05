@@ -95,7 +95,7 @@ const Length = ({
 
   return (
     <div>
-      <span className={textColor}>{nickname ? nickname.length : 0}</span>/
+      <span className={textColor}>{currentLength}</span>/
       {maxLength}
     </div>
   );
