@@ -1,10 +1,18 @@
-import BottomNavigation from '@/ui/Base/BottomNavigation';
 import { Meta, StoryObj } from '@storybook/react';
+
+import BottomNavigation from '@/ui/Base/BottomNavigation';
 
 const meta: Meta<typeof BottomNavigation> = {
   title: 'Base/BottomNavigation',
   component: BottomNavigation,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      story: {
+        inline: false,
+      },
+    },
+  },
 };
 
 export default meta;
