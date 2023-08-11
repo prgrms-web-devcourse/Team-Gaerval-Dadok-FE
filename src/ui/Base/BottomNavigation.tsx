@@ -9,26 +9,24 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const BASE_ICON_CLASSES = 'h-[2.6rem] w-[2.6rem] text-placeholder';
-
 const icons = [
   {
-    icon: <IconBookarchive className={`${BASE_ICON_CLASSES}`} />,
+    icon: <IconBookarchive />,
     label: '북카이브',
     href: '/bookarchive',
   },
   {
-    icon: <IconDiscover className={`${BASE_ICON_CLASSES}`} />,
+    icon: <IconDiscover />,
     label: '도서 검색',
     href: '/book/search',
   },
   {
-    icon: <IconGroup className={`${BASE_ICON_CLASSES}`} />,
+    icon: <IconGroup />,
     label: '독서 모임',
     href: '/group',
   },
   {
-    icon: <IconProfile className={`${BASE_ICON_CLASSES}`} />,
+    icon: <IconProfile />,
     label: '내 프로필',
     href: '/profile/me',
   },
@@ -52,7 +50,7 @@ const BottomNavigation = () => {
               href
             )}`}
           >
-            {icon}
+            <div className="h-[2.6rem] w-[2.6rem] text-placeholder">{icon}</div>
             {label}
           </div>
         </Link>
