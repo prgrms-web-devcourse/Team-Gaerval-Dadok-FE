@@ -5,24 +5,24 @@ interface SelectProps
     ComponentPropsWithoutRef<'select'>,
     'className' | 'defaultValue' | 'required'
   > {
-  errorMessage?: string;
+  error?: boolean;
 }
 
-const Select = (
-  { errorMessage, children, placeholder, ...props }: SelectProps,
+const _Select = (
+  { error, children, placeholder, ...props }: SelectProps,
   ref: Ref<HTMLSelectElement>
 ) => {
-  const borderColor = errorMessage
+  const borderColor = error
     ? 'border-warning-800'
     : 'border-black-400 focus:border-main-900';
 
   return (
-    <div className="flex flex-col gap-[0.5rem] text-sm">
+    <div className="text-sm">
       <select
         ref={ref}
         defaultValue=""
         required
-        className={`rounded-[0.5rem] border-[0.05rem] px-[1.0rem] py-[1.3rem] outline-none ${borderColor} cursor-pointer appearance-none bg-[url('/icons/select-icon.svg')] bg-[calc(100%-1rem)_center] bg-no-repeat invalid:text-placeholder`}
+        className={`rounded-[0.5rem] border-[0.05rem] px-[1.0rem] py-[1.3rem] outline-none ${borderColor} w-full cursor-pointer appearance-none bg-[url('/icons/select-icon.svg')] bg-[length:1.5rem_1.5rem] bg-[calc(100%-1rem)_center] bg-no-repeat invalid:text-placeholder`}
         {...props}
       >
         {placeholder && (
@@ -32,7 +32,6 @@ const Select = (
         )}
         {children}
       </select>
-      {errorMessage && <div className="text-warning-800">{errorMessage}</div>}
     </div>
   );
 };
@@ -49,6 +48,6 @@ const Option = ({
   );
 };
 
-const ExportSelect = Object.assign(forwardRef(Select), { Option });
+const Select = Object.assign(forwardRef(_Select), { Option });
 
-export default ExportSelect;
+export default Select;
