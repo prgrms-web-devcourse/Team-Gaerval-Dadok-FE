@@ -8,7 +8,7 @@ type ItemProps = TopNavigationProps;
 
 const TopNavigation = ({ children }: TopNavigationProps) => {
   return (
-    <div className="relative flex w-full items-center justify-center bg-opacity-0 px-[2rem] py-[1.7rem] text-md">
+    <div className="relative flex h-[2.4rem] w-full items-center justify-center bg-opacity-0 px-[2rem] py-[1.7rem] text-md">
       {children}
     </div>
   );
