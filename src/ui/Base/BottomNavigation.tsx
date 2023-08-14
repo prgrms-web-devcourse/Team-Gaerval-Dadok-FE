@@ -32,13 +32,13 @@ const icons = [
   },
 ];
 
+const iconColor = {
+  active: 'fill-main-900 text-main-900',
+  inactive: 'fill-placeholder text-placeholder',
+} as const;
+
 const BottomNavigation = () => {
   const pathname = usePathname();
-
-  const iconColor = {
-    active: 'fill-main-900 text-main-900',
-    inactive: 'fill-placeholder text-placeholder',
-  } as const;
 
   return (
     <div className="border-top-[0.05rem] fixed bottom-0 flex h-[6.4rem] w-full max-w-[39.3rem] justify-between border-black-200 bg-white px-[2.6rem] pb-[1.2rem] pt-[0.8rem]">
