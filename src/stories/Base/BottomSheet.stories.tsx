@@ -33,7 +33,7 @@ const LoginBottomSheet = () => {
       <Button onClick={onOpen}>로그인 바텀시트 열기</Button>
       <BottomSheet isShow={isOpen} onClose={onClose}>
         <div
-          className="absolute right-0 top-0 mr-[2rem] mt-[2rem] cursor-pointer"
+          className="absolute right-0 top-0 mr-[2rem] mt-[2rem] h-[2rem] w-[2rem] cursor-pointer"
           onClick={onClose}
         >
           <IconClose />
