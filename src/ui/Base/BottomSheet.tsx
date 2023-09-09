@@ -16,10 +16,10 @@ const BottomSheet = ({
       <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
-          enter="ease-in-out duration-500"
+          enter="ease-in-out duration-300"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="ease-in-out duration-500"
+          leave="ease-in-out duration-300"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
@@ -31,10 +31,10 @@ const BottomSheet = ({
             <div className="pointer-events-none fixed bottom-0 left-1/2 flex max-w-full -translate-x-1/2">
               <Transition.Child
                 as={Fragment}
-                enter="transform transition ease-in-out duration-500"
+                enter="transform transition ease-in-out duration-300"
                 enterFrom="translate-y-full"
                 enterTo="translate-y-0"
-                leave="transform transition ease-in-out duration-500"
+                leave="transform transition ease-in-out duration-300"
                 leaveFrom="translate-y-0"
                 leaveTo="translate-y-full"
               >

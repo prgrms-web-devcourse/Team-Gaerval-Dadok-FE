@@ -1,3 +1,6 @@
+// 로고
+export { default as LogoWithText } from './logo-with-text.svg';
+
 // 상단 Nav & Header
 export { default as IconArrowLeft } from './arrow-left.svg';
 export { default as IconClose } from './close.svg';

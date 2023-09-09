@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Image from 'next/image';
 
-import { IconClose, IconKakao } from '@public/icons';
+import { IconClose, IconKakao, LogoWithText } from '@public/icons';
 import Button from '@/ui/Base/Button';
 import BottomSheet from '@/ui/Base/BottomSheet';
 import useDisclosure from '@/hooks/useDisclosure';
@@ -38,20 +37,17 @@ const LoginBottomSheet = () => {
         >
           <IconClose />
         </div>
-        <div className="m-auto flex w-full max-w-[38rem] flex-col items-center gap-[2.2rem] px-[2rem] pt-[5rem]">
-          <Image
-            width="60"
-            height="61"
-            src="/icons/logo-with-text.svg"
-            alt="logo"
-          />
+        <div className="m-auto flex w-full max-w-[38rem] flex-col items-center gap-[2.5rem] px-[2rem] pt-[5rem]">
+          <div className="h-auto w-[6rem]">
+            <LogoWithText />
+          </div>
           <p className="text-lg font-bold text-black-700">
             로그인이 필요한 서비스에요!
           </p>
-          <p className=" text-center text-sm font-normal text-placeholder">
+          <p className="text-center text-sm font-normal text-placeholder">
             간편하게 카카오로 로그인을 하고,
             <br />
-            <span className=" text-main-900">다독다독</span>의 다양한 기능을
+            <span className="text-main-900">다독다독</span>의 다양한 기능을
             이용해보세요.
           </p>
           <Button colorScheme="kakao" size="full">
