@@ -12,7 +12,9 @@ const BottomActionButton = ({
 }: BottomActionButtonProps) => {
   return (
     <div className="fixed bottom-0 left-0 z-10 w-full bg-white px-[2.0rem] py-[1.5rem]">
-      <Button {...props}>{children}</Button>
+      <Button size="full" {...props}>
+        {children}
+      </Button>
     </div>
   );
 };
