@@ -12,5 +12,8 @@ export default meta;
 type Story = StoryObj<typeof FloatingButton>;
 
 export const Default: Story = {
-  render: FloatingButton,
+  args: {
+    position: 'rb',
+  },
+  render: args => <FloatingButton {...args} />,
 };
