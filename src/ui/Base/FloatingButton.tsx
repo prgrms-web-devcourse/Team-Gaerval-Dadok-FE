@@ -1,10 +1,33 @@
 import { IconPlus } from '@public/icons';
 import { ComponentProps } from 'react';
 
-const FloatingButton = ({ ...props }: ComponentProps<'button'>) => {
+interface FloatingButtonProps extends ComponentProps<'button'> {
+  position: 'lt' | 'rt' | 'lb' | 'rb';
+}
+
+const getPositionClasses = (position: string) => {
+  switch (position) {
+    case 'lt': {
+      return 'left-[1.2rem] top-[6.4rem]';
+    }
+    case 'rt': {
+      return 'right-[1.2rem] top-[6.4rem]';
+    }
+    case 'lb': {
+      return 'left-[1.2rem] bottom-[7.2rem]';
+    }
+    case 'rb': {
+      return 'right-[1.2rem] bottom-[7.2rem]';
+    }
+  }
+};
+
+const FloatingButton = ({ position, ...props }: FloatingButtonProps) => {
+  const positionClasses = getPositionClasses(position);
+
   return (
     <button
-      className="flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900"
+      className={`fixed flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 ${positionClasses}`}
       {...props}
     >
       <IconPlus />
