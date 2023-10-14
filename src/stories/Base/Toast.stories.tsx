@@ -1,18 +1,18 @@
-import Toast from '@/ui/Base/Toast/ToastProvider';
 import { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/ui/Base/Button';
 import useToast from '@/ui/Base/Toast/useToast';
+import ToastItem from '@/ui/Base/Toast/ToastItem';
 
-const meta: Meta<typeof Toast> = {
+const meta: Meta<typeof ToastItem> = {
   title: 'Base/Toast',
-  component: Toast,
+  component: ToastItem,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Toast>;
+type Story = StoryObj<typeof ToastItem>;
 
 const DefaultToast = () => {
   const toast = useToast();
@@ -39,13 +39,13 @@ const ErrorToast = () => {
 };
 
 export const Default: Story = {
-  render: () => <DefaultToast />,
+  render: DefaultToast,
 };
 
 export const Success: Story = {
-  render: () => <SuccessToast />,
+  render: SuccessToast,
 };
 
 export const Error: Story = {
-  render: () => <ErrorToast />,
+  render: ErrorToast,
 };
