@@ -1,8 +1,8 @@
 import { IconPlus } from '@public/icons';
-import { ComponentProps } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { createPortal } from 'react-dom';
 
-interface FloatingButtonProps extends ComponentProps<'button'> {
+interface FloatingButtonProps extends ComponentPropsWithoutRef<'button'> {
   position: 'lt' | 'rt' | 'lb' | 'rb';
 }
 
