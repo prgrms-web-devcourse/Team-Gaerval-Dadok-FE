@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
+
+import Portal from '@/ui/Base/Portal';
 
 import ToastItem from './ToastItem';
 import useTimeout from './useTimeout';
@@ -47,14 +48,13 @@ const ToastProvider = ({
   return (
     <ToastContext.Provider value={controller}>
       {children}
-      {createPortal(
+      <Portal id="toast">
         <div
           className={`fixed bottom-[1.5rem] min-w-[40rem] translate-y-[300%] ${animations[animation]}`}
         >
           {toast && <ToastItem type={toast.type} message={toast.message} />}
-        </div>,
-        document.body
-      )}
+        </div>
+      </Portal>
     </ToastContext.Provider>
   );
 };
