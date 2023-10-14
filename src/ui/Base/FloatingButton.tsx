@@ -1,5 +1,6 @@
 import { IconPlus } from '@public/icons';
 import { ComponentProps } from 'react';
+import { createPortal } from 'react-dom';
 
 interface FloatingButtonProps extends ComponentProps<'button'> {
   position: 'lt' | 'rt' | 'lb' | 'rb';
@@ -25,13 +26,14 @@ const getPositionClasses = (position: string) => {
 const FloatingButton = ({ position, ...props }: FloatingButtonProps) => {
   const positionClasses = getPositionClasses(position);
 
-  return (
+  return createPortal(
     <button
-      className={`fixed flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 ${positionClasses}`}
+      className={`absolute flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 ${positionClasses}`}
       {...props}
     >
       <IconPlus />
-    </button>
+    </button>,
+    document.body
   );
 };
 
