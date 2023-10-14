@@ -15,17 +15,17 @@ export default meta;
 type Story = StoryObj<typeof RadioButton>;
 
 type FormValues = {
-  Radio: string;
+  radio: string;
 };
 
 const RadioButtonWithUseForm = () => {
   const { register, handleSubmit, watch } = useForm<FormValues>({
     mode: 'all',
-    defaultValues: { Radio: '라디오 A' },
+    defaultValues: { radio: '라디오 A' },
   });
 
-  const handleSubmitForm: SubmitHandler<FormValues> = ({ Radio }) => {
-    alert(`Submit as: ${Radio}`);
+  const handleSubmitForm: SubmitHandler<FormValues> = ({ radio }) => {
+    alert(`Submit as: ${radio}`);
   };
 
   return (
@@ -35,9 +35,9 @@ const RadioButtonWithUseForm = () => {
         className="flex w-[43rem] flex-col gap-[1.6rem]"
       >
         <div className="flex justify-between">
-          <RadioButton {...register('Radio')} value="라디오 A" />
-          <RadioButton {...register('Radio')} value="라디오 B" />
-          <RadioButton {...register('Radio')} value="라디오 C" />
+          <RadioButton {...register('radio')} value="라디오 A" />
+          <RadioButton {...register('radio')} value="라디오 B" />
+          <RadioButton {...register('radio')} value="라디오 C" />
         </div>
         <Button size="large" type="submit">
           Submit
