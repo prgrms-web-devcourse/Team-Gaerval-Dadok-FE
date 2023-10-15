@@ -14,7 +14,7 @@ export default meta;
 
 type Story = StoryObj<typeof ToastItem>;
 
-const DefaultToast = () => {
+const NormalToast = () => {
   const toast = useToast();
   const handleButtonClick = () =>
     toast.show({ type: 'normal', message: '토스트 메시지에요' });
@@ -46,7 +46,7 @@ export const Default: Story = {
 };
 
 export const Normal: Story = {
-  render: DefaultToast,
+  render: NormalToast,
 };
 
 export const Success: Story = {
