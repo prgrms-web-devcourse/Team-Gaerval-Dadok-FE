@@ -27,14 +27,14 @@ const ToastItem = ({ type = 'normal', message }: ToastOption) => {
 
   return (
     <div
-      className={`flex min-h-[5.3rem] w-full flex-row items-center gap-[1rem] rounded-full px-[2rem] ${scheme.backgroundColor}`}
+      className={`flex min-h-[5.3rem] w-full min-w-fit flex-row items-center gap-[1rem] rounded-full px-[2rem] ${scheme.backgroundColor}`}
     >
       {scheme.icon && (
         <div className={`h-[2rem] w-[2rem] ${scheme.fillColor}`}>
           {scheme.icon}
         </div>
       )}
-      <p className={`text-sm ${scheme.textColor}`}>{message}</p>
+      <p className={`text-sm leading-tight ${scheme.textColor}`}>{message}</p>
     </div>
   );
 };

@@ -17,7 +17,7 @@ type Story = StoryObj<typeof ToastItem>;
 const DefaultToast = () => {
   const toast = useToast();
   const handleButtonClick = () =>
-    toast.show({ type: 'normal', message: '토스트 메세지' });
+    toast.show({ type: 'normal', message: '토스트 메시지에요' });
 
   return <Button onClick={handleButtonClick}>토스트 띄우기</Button>;
 };
@@ -39,6 +39,13 @@ const ErrorToast = () => {
 };
 
 export const Default: Story = {
+  args: {
+    message: '토스트 예시',
+  },
+  render: args => <ToastItem {...args} />,
+};
+
+export const Normal: Story = {
   render: DefaultToast,
 };
 

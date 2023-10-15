@@ -50,7 +50,7 @@ const ToastProvider = ({
       {children}
       <Portal id="toast">
         <div
-          className={`fixed bottom-[1.5rem] min-w-[40rem] translate-y-[300%] ${animations[animation]}`}
+          className={`fixed bottom-[1.5rem] left-[1.5rem] right-[1.5rem] w-[43rem] max-w-[calc(100%-3rem)] translate-y-[300%] ${animations[animation]}`}
         >
           {toast && <ToastItem type={toast.type} message={toast.message} />}
         </div>
