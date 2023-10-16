@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useMemo, useState } from 'react';
+import { createContext, ReactNode, useMemo, useState } from 'react';
 
 import Portal from '@/ui/Base/Portal';
 
@@ -8,10 +8,6 @@ import type { ToastController, ToastOption } from './types';
 
 export const ToastContext = createContext({} as ToastController);
 
-type ToastProviderProps = {
-  duration?: number;
-};
-
 type SlideAnimation = 'slide-in' | 'slide-out' | 'slide-init';
 
 const animations = {
@@ -20,10 +16,7 @@ const animations = {
   'slide-init': 'animate-slide-init',
 } as const;
 
-const ToastProvider = ({
-  duration = 1000,
-  children,
-}: PropsWithChildren<ToastProviderProps>) => {
+const ToastProvider = ({ children }: { children?: ReactNode }) => {
   const [toast, setToast] = useState<ToastOption | null>(null);
   const [animation, setAnimation] = useState<SlideAnimation>('slide-init');
 
@@ -31,8 +24,8 @@ const ToastProvider = ({
 
   const controller = useMemo<ToastController>(
     () => ({
-      show: ({ type, message }) => {
-        setToast({ type, message });
+      show: ({ type, message, duration = 1000 }) => {
+        setToast({ type, message, duration });
 
         setAnimation('slide-init');
         setAnimation('slide-in');
@@ -42,7 +35,7 @@ const ToastProvider = ({
         }, duration);
       },
     }),
-    [timer, duration]
+    [timer]
   );
 
   return (

@@ -17,7 +17,11 @@ type Story = StoryObj<typeof ToastItem>;
 const NormalToast = () => {
   const toast = useToast();
   const handleButtonClick = () =>
-    toast.show({ type: 'normal', message: '토스트 메시지에요' });
+    toast.show({
+      type: 'normal',
+      message: '5초 동안 보여지는 토스트 메세지에요.',
+      duration: 5000,
+    });
 
   return <Button onClick={handleButtonClick}>토스트 띄우기</Button>;
 };
