@@ -18,9 +18,6 @@ const getHeaderLabel = (pathname: string) => {
     case '/profile/me': {
       return 'Profile';
     }
-    default: {
-      return 'BookArchive';
-    }
   }
 };
 
