@@ -61,6 +61,15 @@ module.exports = {
       fontFamily: {
         lineseed: ['var(--font-lineseed)'],
       },
+      // keyframes: {
+      //   'page-transition': {
+      //     from: { opacity: 0 },
+      //     to: { opacity: 1 },
+      //   },
+      // },
+      // animation: {
+      //   'page-transition': 'page-transition 5s ease-in-out',
+      // },
     },
   },
   plugins: [],

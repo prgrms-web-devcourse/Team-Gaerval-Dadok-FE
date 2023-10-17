@@ -1,14 +1,35 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
-interface TopHeaderProps {
-  label: string;
-  children?: ReactNode;
-}
+type TopHeaderProps = PropsWithChildren<{
+  pathname: string;
+}>;
 
-const TopHeader = ({ label, children }: TopHeaderProps) => {
+const getHeaderLabel = (pathname: string) => {
+  switch (pathname) {
+    case '/bookarchive': {
+      return 'BookArchive';
+    }
+    case '/book/search': {
+      return 'Search';
+    }
+    case '/group': {
+      return 'Group';
+    }
+    case '/profile/me': {
+      return 'Profile';
+    }
+    default: {
+      return 'BookArchive';
+    }
+  }
+};
+
+const TopHeader = ({ pathname, children }: TopHeaderProps) => {
   return (
-    <div className="flex items-center justify-between px-[2rem] pb-[0.8rem] pt-[2rem]">
-      <p className="text-xl font-bold text-main-900">{label}</p>
+    <div className="flex w-full max-w-[43rem] items-center justify-between pb-[0.8rem]">
+      <p className="text-xl font-bold text-main-900">
+        {getHeaderLabel(pathname)}
+      </p>
       {children}
     </div>
   );
