@@ -15,17 +15,27 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-// const rootPaths = ['/bookarchive', '/book/search', '/group', '/profile/me'];
+const rootPaths = ['/bookarchive', '/book/search', '/group', '/profile/me'];
+
+const BASE_LAYOUT_CLASS =
+  'h-screen w-full max-w-[43rem] px-[2rem] animate-page-transition overflow-auto';
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
+  const isRootPath = pathname && rootPaths.includes(pathname);
+
+  const DYNAMIC_LAYOUT_CLASS = isRootPath
+    ? 'pb-[6.4rem] pt-[2rem]'
+    : 'py-[2rem]';
 
   return (
-    <div className="block h-[20rem] max-w-[43rem] px-[2.0rem] pb-[2.4rem] pt-[2.0rem]">
-      <TopHeader pathname={pathname} />
-      {children}
-      <BottomNavigation pathname={pathname} />
-    </div>
+    <>
+      <div className={`${BASE_LAYOUT_CLASS} ${DYNAMIC_LAYOUT_CLASS}`}>
+        {isRootPath && <TopHeader pathname={pathname} />}
+        {children}
+      </div>
+      {isRootPath && <BottomNavigation pathname={pathname} />}
+    </>
   );
 };
 
