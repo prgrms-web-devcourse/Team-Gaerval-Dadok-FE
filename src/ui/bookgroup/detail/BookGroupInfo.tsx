@@ -53,7 +53,6 @@ const BookGroupInfo = ({
     new Date(date.end).getTime() - new Date().getTime()
   );
 
-  console.log(ddayByStart, ddayByEnd);
   const { ...ddayProps } = getBookGroupStatus(ddayByStart, ddayByEnd);
 
   return (
