@@ -180,12 +180,10 @@ const BookInfoCard = ({
           />
         )}
       </span>
-
       <div className="flex flex-grow flex-col">
         <span className="text-sm font-bold">{title}</span>
         <span className="text-2xs text-placeholder">{author}</span>
       </div>
-
       {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
       <span className="h-[1.5rem] w-[1.5rem] rotate-180">
         <IconArrowLeft />
