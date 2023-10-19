@@ -22,5 +22,5 @@ const alertMessage = () => {
 };
 
 export const Default: Story = {
-  render: () => <SearchGroup handler={alertMessage} />,
+  render: () => <SearchGroup handleClick={alertMessage} />,
 };
