@@ -13,7 +13,7 @@ type Story = StoryObj<typeof FloatingButton>;
 
 export const Default: Story = {
   args: {
-    position: 'rb',
+    position: 'bottom-right',
   },
   render: args => <FloatingButton {...args} />,
 };

@@ -3,22 +3,22 @@ import { ComponentPropsWithoutRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface FloatingButtonProps extends ComponentPropsWithoutRef<'button'> {
-  position: 'lt' | 'rt' | 'lb' | 'rb';
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
 const getPositionClasses = (position: string) => {
   switch (position) {
-    case 'lt': {
-      return 'left-[1.2rem] top-[6.4rem]';
+    case 'top-left': {
+      return 'top-[6.4rem] left-[1.2rem]';
     }
-    case 'rt': {
-      return 'right-[1.2rem] top-[6.4rem]';
+    case 'top-right': {
+      return 'top-[6.4rem] right-[1.2rem]';
     }
-    case 'lb': {
-      return 'left-[1.2rem] bottom-[7.2rem]';
+    case 'bottom-left': {
+      return 'bottom-[7.2rem] left-[1.2rem]';
     }
-    case 'rb': {
-      return 'right-[1.2rem] bottom-[7.2rem]';
+    case 'bottom-right': {
+      return 'bottom-[7.2rem] right-[1.2rem]';
     }
   }
 };
