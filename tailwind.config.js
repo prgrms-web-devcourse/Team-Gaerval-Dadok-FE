@@ -6,6 +6,7 @@ module.exports = {
     './src/ui/**/*.{ts,tsx}',
     './src/app/**/*.{ts,tsx}',
     './src/stories/**/*.{ts,tsx}',
+    './src/v1/**/*.{ts,tsx}',
     './.storybook/**/*.{ts,tsx}',
   ],
   theme: {
