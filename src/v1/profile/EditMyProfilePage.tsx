@@ -64,9 +64,11 @@ const EditMyProfilePage = () => {
   };
 
   return (
+    /* 공통 레이아웃 스타일링, 추후 제거할 것 */
     <div
       className={`animate-page-transition h-screen w-full max-w-[43rem] overflow-auto p-[2rem]`}
     >
+      {/* 헤더 부분 */}
       <TopNavigation>
         <TopNavigation.LeftItem>
           <IconClose className="h-[2rem] w-[2rem] cursor-pointer fill-black-900" />
@@ -86,12 +88,16 @@ const EditMyProfilePage = () => {
         </TopNavigation.RightItem>
       </TopNavigation>
 
+      {/* 폼 컨테이너 */}
       <form
         onSubmit={handleSubmit(handleSubmitForm)}
         className="mt-[9.2rem] flex w-full flex-col gap-[3.2rem]"
       >
+        {/* 닉네임 입력 폼 */}
         <div className="flex flex-col gap-[1rem]">
-          <span className="text-md font-normal text-black-700">닉네임</span>
+          <span className="h-[2.1rem] text-md font-normal text-black-700">
+            닉네임
+          </span>
           <div className="flex flex-col gap-[0.5rem]">
             <Input
               placeholder="닉네임을 입력해주세요."
@@ -116,8 +122,13 @@ const EditMyProfilePage = () => {
           </div>
         </div>
 
+        {/* 직업 직군 입력 폼 */}
         <div className="flex flex-col gap-[1rem]">
-          <span className="text-md font-normal text-black-700">직업/직군</span>
+          <span className="h-[2.1rem] text-md font-normal text-black-700">
+            직업/직군
+          </span>
+
+          {/* 직군 선택 폼 */}
           <div className="flex flex-col gap-[0.5rem]">
             <Select
               placeholder="직군을 선택해주세요."
@@ -132,13 +143,12 @@ const EditMyProfilePage = () => {
                 </Select.Option>
               ))}
             </Select>
-            <div className="flex h-[1.4rem] flex-row justify-between">
-              {errors.jobGroup && (
-                <ErrorMessage>{errors.jobGroup.message}</ErrorMessage>
-              )}
-            </div>
+            {errors.jobGroup && (
+              <ErrorMessage>{errors.jobGroup.message}</ErrorMessage>
+            )}
           </div>
 
+          {/* 직업 선택 폼 */}
           <div className="flex flex-col gap-[0.5rem]">
             <Select
               placeholder="직업을 선택해주세요."
@@ -155,9 +165,7 @@ const EditMyProfilePage = () => {
                   </Select.Option>
                 ))}
             </Select>
-            <div className="flex h-[1.4rem] flex-row justify-between">
-              {errors.job && <ErrorMessage>{errors.job.message}</ErrorMessage>}
-            </div>
+            {errors.job && <ErrorMessage>{errors.job.message}</ErrorMessage>}
           </div>
         </div>
       </form>
