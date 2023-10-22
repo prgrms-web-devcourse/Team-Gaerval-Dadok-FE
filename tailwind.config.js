@@ -7,6 +7,7 @@ module.exports = {
     './src/app/**/*.{ts,tsx}',
     './src/stories/**/*.{ts,tsx}',
     './.storybook/**/*.{ts,tsx}',
+    './src/v1/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
