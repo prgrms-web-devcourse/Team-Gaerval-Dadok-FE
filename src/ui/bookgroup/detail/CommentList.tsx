@@ -2,18 +2,18 @@ import Image from 'next/image';
 
 import { IconHamburger } from '@public/icons';
 
-type BookGroupComment = {
+type Comment = {
   id: number;
   writer: { id: number; profileImageSrc: string; name: string };
   createdAt: string;
   content: string;
 };
 
-interface BookGroupCommentProps {
-  comments: BookGroupComment[];
+interface CommentListProps {
+  comments: Comment[];
 }
 
-const BookGroupComment = ({ comments }: BookGroupCommentProps) => {
+const CommentList = ({ comments }: CommentListProps) => {
   return (
     <div className="flex flex-col gap-[1rem]">
       {/* FIXME: Heading 컴포넌트 페이지 단으로 빼기 */}
@@ -40,7 +40,7 @@ const BookGroupComment = ({ comments }: BookGroupCommentProps) => {
   );
 };
 
-export default BookGroupComment;
+export default CommentList;
 
 const Heading = ({ text }: { text: string }) => (
   <p className="text-xl font-bold">{text}</p>

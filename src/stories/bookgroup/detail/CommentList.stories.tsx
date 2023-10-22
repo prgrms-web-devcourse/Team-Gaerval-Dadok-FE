@@ -1,16 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import BookGroupCommentList from '@/ui/bookgroup/detail/BookGroupCommentList';
+import CommentList from '@/ui/bookgroup/detail/CommentList';
 
-const meta: Meta<typeof BookGroupCommentList> = {
-  title: 'bookgroup/detail/BookGroupCommentList',
-  component: BookGroupCommentList,
+const meta: Meta<typeof CommentList> = {
+  title: 'bookgroup/detail/CommentList',
+  component: CommentList,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof BookGroupCommentList>;
+type Story = StoryObj<typeof CommentList>;
 
 export const Default: Story = {
   args: {
