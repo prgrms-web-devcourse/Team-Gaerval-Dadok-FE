@@ -1,16 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import DetailMyGroup from '@/v1/bookgroup/DetailMyGroup';
+import BookGroupDetail from '@/v1/bookgroup/BookGroupDetail';
 
-const meta: Meta<typeof DetailMyGroup> = {
-  title: 'bookgroup/DetailMyGroup',
-  component: DetailMyGroup,
+const meta: Meta<typeof BookGroupDetail> = {
+  title: 'bookgroup/BookGroupDetail',
+  component: BookGroupDetail,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof DetailMyGroup>;
+type Story = StoryObj<typeof BookGroupDetail>;
 
 export const Default: Story = {
   args: {
