@@ -31,10 +31,10 @@ const BookInBookshelf = ({
       }}
     >
       <div
-        className="h-full w-[2rem]"
+        className="h-full w-[1.5rem]"
         style={{
           backgroundColor: bookSpineColor,
-          transform: 'rotateY(320deg) translateX(1rem) translateZ(0.5rem)',
+          transform: 'rotateY(320deg) translateX(0.7rem) translateZ(0.2rem)',
         }}
       />
       <Link
@@ -44,6 +44,7 @@ const BookInBookshelf = ({
         }}
       >
         <Image
+          className="h-auto w-auto"
           src={imageUrl}
           width={120}
           height={110}

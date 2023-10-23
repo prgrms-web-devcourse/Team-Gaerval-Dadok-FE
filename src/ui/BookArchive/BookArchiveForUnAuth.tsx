@@ -1,5 +1,5 @@
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
-import { Flex, Skeleton, VStack } from '@chakra-ui/react';
+import { Skeleton, VStack } from '@chakra-ui/react';
 import Bookshelf from '../Bookshelf';
 
 const BookArchiveForUnAuth = () => {
@@ -17,11 +17,11 @@ const BookArchiveForUnAuth = () => {
   if (!isSuccess) return null;
 
   return (
-    <Flex direction="column" width="100%" gap="3rem">
+    <div className="flex w-full flex-col gap-[3rem]">
       {data.bookshelfResponses.map(bookshelf => (
         <Bookshelf key={bookshelf.bookshelfId} {...bookshelf} />
       ))}
-    </Flex>
+    </div>
   );
 };
 

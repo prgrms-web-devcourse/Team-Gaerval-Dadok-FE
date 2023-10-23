@@ -22,7 +22,7 @@ const Bookshelf = ({ bookshelfName, books, likeCount }: APIBookshelf) => {
             </div>
           </Badge>
         </div>
-        <div className="flex justify-center px-[2rem]">
+        <div className="flex justify-between px-[2rem]">
           {books.map(book => (
             <BookInBookshelf key={book.bookId} {...book} />
           ))}
