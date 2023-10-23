@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import BookGroupInfo from '@/ui/bookgroup/detail/BookGroupInfo';
 
 const meta: Meta<typeof BookGroupInfo> = {
-  title: 'bookgroup/BookGroupInfo',
+  title: 'bookgroup/detail/BookGroupInfo',
   component: BookGroupInfo,
   tags: ['autodocs'],
 };
