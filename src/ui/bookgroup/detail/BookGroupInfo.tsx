@@ -4,6 +4,8 @@ import Badge from '@/ui/Base/Badge';
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
 import { toDayFromMillseconds } from '@/utils/date';
 
+import { DATA_URL } from '@/constants/dataUrl';
+
 interface BookGroupInfoProps {
   title: string;
   description: string;
@@ -133,27 +135,22 @@ const Owner = ({
   name,
   isMe,
 }: {
-  profileImageSrc?: string;
+  profileImageSrc: string;
   name: string;
   isMe: boolean;
 }) => {
   return (
     <div className="flex items-center gap-[1rem]">
       {/** FIXME: Avatar 컴포넌트로 변경 */}
-      <span
-        className={`relative h-[3.2rem] w-[3.2rem] rounded-full ${
-          profileImageSrc ? 'bg-white' : 'bg-black-400'
-        }`}
-      >
-        {profileImageSrc && (
-          <Image
-            alt={name}
-            src={profileImageSrc}
-            fill
-            className="rounded-full"
-          />
-        )}
-      </span>
+      <Image
+        width={32}
+        height={32}
+        alt={name}
+        src={profileImageSrc}
+        className="rounded-full"
+        placeholder="blur"
+        blurDataURL={DATA_URL['placeholder']}
+      />
       <span className="text-center text-sm font-bold">
         {name} {isMe && ' 👑'}
       </span>
@@ -176,16 +173,15 @@ const BookInfoCard = ({
 }) => {
   return (
     <div className="flex min-h-[10rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
-      <span className="relative h-[8.7rem] w-[6.4rem]">
-        {bookImageSrc && (
-          <Image
-            src={bookImageSrc}
-            alt={title}
-            fill
-            className="object-fit rounded-[0.5rem] shadow-[0_0_0.5rem_0.2rem_rgba(0,0,0,0.2)]"
-          />
-        )}
-      </span>
+      <Image
+        src={bookImageSrc}
+        alt={title}
+        width={64}
+        height={87}
+        className="object-fit rounded-[0.5rem] shadow-[0_0_0.5rem_0.2rem_rgba(0,0,0,0.2)]"
+        placeholder="blur"
+        blurDataURL={DATA_URL['placeholder']}
+      />
       <div className="flex flex-grow flex-col">
         <span className="text-sm font-bold">{title}</span>
         <span className="text-xs text-placeholder">{author}</span>
