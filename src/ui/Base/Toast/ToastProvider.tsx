@@ -3,7 +3,6 @@ import { createContext, ReactNode, useMemo, useState } from 'react';
 import Portal from '@/ui/Base/Portal';
 
 import ToastItem from './ToastItem';
-import useTimeout from './useTimeout';
 import type { ToastController, ToastOption } from './types';
 
 export const ToastContext = createContext({} as ToastController);
@@ -20,8 +19,6 @@ const ToastProvider = ({ children }: { children?: ReactNode }) => {
   const [toast, setToast] = useState<ToastOption | null>(null);
   const [animation, setAnimation] = useState<SlideAnimation>('slide-init');
 
-  const timer = useTimeout();
-
   const controller = useMemo<ToastController>(
     () => ({
       show: ({ type, message, duration = 1000 }) => {
@@ -30,12 +27,12 @@ const ToastProvider = ({ children }: { children?: ReactNode }) => {
         setAnimation('slide-init');
         setAnimation('slide-in');
 
-        timer.set(() => {
+        setTimeout(() => {
           setAnimation('slide-out');
         }, duration);
       },
     }),
-    [timer]
+    []
   );
 
   return (
