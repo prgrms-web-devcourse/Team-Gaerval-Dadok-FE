@@ -178,7 +178,7 @@ const BookInfoCard = ({
         alt={title}
         width={64}
         height={87}
-        className="object-fit rounded-[0.5rem] shadow-[0_0_0.5rem_0.2rem_rgba(0,0,0,0.2)]"
+        className="object-fit rounded-r-[0.6rem] shadow-[0_0_0.5rem_0.05rem_rgba(114,114,114,0.5)]"
         placeholder="blur"
         blurDataURL={DATA_URL['placeholder']}
       />
