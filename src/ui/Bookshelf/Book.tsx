@@ -34,13 +34,20 @@ const BookInBookshelf = ({
         className="h-full w-[1.5rem]"
         style={{
           backgroundColor: bookSpineColor,
-          transform: 'rotateY(320deg) translateX(0.7rem) translateZ(0.2rem)',
+          transform: 'rotateY(320deg) translateX(1rem) translateZ(0.4rem)',
+        }}
+      />
+      <div
+        className="absolute bottom-0 h-2 w-[calc(100%-1.5rem)] shadow-[1px_4px_10px_4px_#b1b1b1]"
+        style={{
+          transform: 'rotateY(20deg) translateX(1.25rem) translateZ(-0.5rem)',
         }}
       />
       <Link
+        className="relative"
         href={`/book/${bookId}`}
         style={{
-          transform: 'rotateY(22deg)',
+          transform: 'rotateY(22deg) translateZ(0.3rem)',
         }}
       >
         <Image
