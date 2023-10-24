@@ -16,7 +16,7 @@ const getSizeClasses = (size: AvatarSize) => {
       return 'w-[2rem] h-[2rem]';
     }
     case 'medium': {
-      return 'w-[3.5rem] h-[3.5rem]';
+      return 'w-[3.2rem] h-[3.2rem]';
     }
     case 'large': {
       return 'w-[7rem] h-[7rem]';
