@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
 import Badge from '@/ui/Base/Badge';
+import BookCover from '@/ui/book/BookCover';
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
 import { toDayFromMillseconds } from '@/utils/date';
-
 import { DATA_URL } from '@/constants/dataUrl';
 
 interface BookGroupInfoProps {
@@ -173,15 +173,7 @@ const BookInfoCard = ({
 }) => {
   return (
     <div className="flex min-h-[10rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
-      <Image
-        src={bookImageSrc}
-        alt={title}
-        width={64}
-        height={87}
-        className="object-fit rounded-r-[0.6rem] shadow-[0_0_0.5rem_0.05rem_rgba(114,114,114,0.5)]"
-        placeholder="blur"
-        blurDataURL={DATA_URL['placeholder']}
-      />
+      <BookCover size="xsmall" src={bookImageSrc} title={title} />
       <div className="flex flex-grow flex-col">
         <span className="text-sm font-bold">{title}</span>
         <span className="text-xs text-placeholder">{author}</span>
