@@ -40,9 +40,11 @@ const MemberList = ({ members }: { members: Member[] }) => (
   </div>
 );
 
-const ViewAllButton = ({ onClick }: { onClick?: () => void }) => (
-  <Button size="small" colorScheme="main-light" onClick={onClick}>
-    <span className="mr-[0.5rem] font-bold text-black-700">전체보기</span>
+const ViewAllButton = () => (
+  <Button size="full" colorScheme="main-light">
+    <span className="mr-[0.5rem] text-sm font-bold text-black-700">
+      전체보기
+    </span>
     <span className="inline-block h-[1rem] w-[1rem] rotate-180">
       <IconArrowLeft />
     </span>
