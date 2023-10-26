@@ -1,4 +1,4 @@
-'use client';
+import Link from 'next/link';
 
 import {
   IconBookarchive,
@@ -6,8 +6,10 @@ import {
   IconGroup,
   IconProfile,
 } from '@public/icons';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+
+type BottomNavigationProps = {
+  pathname: string;
+};
 
 const icons = [
   {
@@ -30,18 +32,16 @@ const icons = [
     label: '내 프로필',
     href: '/profile/me',
   },
-];
+] as const;
 
 const iconColor = {
   active: 'fill-main-900 text-main-900',
   inactive: 'fill-placeholder text-placeholder',
 } as const;
 
-const BottomNavigation = () => {
-  const pathname = usePathname();
-
+const BottomNavigation = ({ pathname }: BottomNavigationProps) => {
   return (
-    <div className="border-top-[0.05rem] fixed bottom-0 flex h-[6.4rem] w-full max-w-[39.3rem] justify-between border-black-200 bg-white px-[2.6rem] pb-[1.2rem] pt-[0.8rem]">
+    <div className="absolute bottom-0 left-0 flex h-[6.4rem] w-full max-w-[43rem] justify-between border-t-[0.05rem] border-black-200 bg-white px-[2.6rem] pb-[1.2rem] pt-[0.8rem]">
       {icons.map(({ icon, label, href }) => (
         <Link key={label} type="button" href={href}>
           <div
