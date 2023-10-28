@@ -15,9 +15,7 @@ const Bookshelf = ({ bookshelfName, books, likeCount }: APIBookshelf) => {
           <div className="text-md font-bold">{bookshelfName}</div>
           <Badge colorScheme="red" fontWeight="bold" size="small">
             <div className="flex items-center gap-[0.4rem]">
-              <div className="h-[1.3rem] w-[1.3rem] fill-white">
-                <IconHeart />
-              </div>
+              <IconHeart fill="white" height="1.3rem" w="1.3rem" />
               <div className="bold text-xs">{likeCount}</div>
             </div>
           </Badge>
