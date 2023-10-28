@@ -1,6 +1,8 @@
 import { IconArrowLeft } from '@public/icons';
 import Button from '@/ui/Base/Button';
 import MemberItem from './MemberItem';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 type Member = {
   id: number;
@@ -40,13 +42,17 @@ const MemberList = ({ members }: { members: Member[] }) => (
   </div>
 );
 
-const ViewAllButton = () => (
-  <Button size="full" colorScheme="main-light">
-    <span className="mr-[0.5rem] text-sm font-bold text-black-700">
-      전체보기
-    </span>
-    <span className="inline-block h-[1rem] w-[1rem] rotate-180">
-      <IconArrowLeft />
-    </span>
-  </Button>
-);
+const ViewAllButton = () => {
+  const pathname = usePathname();
+
+  return (
+    <Link href={`${pathname}/members`}>
+      <Button size="full" colorScheme="main-light">
+        <span className="mr-[0.5rem] text-sm font-bold text-black-700">
+          전체보기
+        </span>
+        <IconArrowLeft className="inline-block h-[1rem] w-[1rem] rotate-180" />
+      </Button>
+    </Link>
+  );
+};
