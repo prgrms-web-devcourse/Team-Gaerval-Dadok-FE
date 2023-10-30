@@ -19,27 +19,23 @@ export const Default: Story = {
     books: [
       {
         bookId: 3,
-        title: 'L2 원급비교(as-as)',
-        imageUrl:
-          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F4809492%3Ftimestamp%3D20190302213625',
+        title: '리액트를 다루는 기술',
+        imageUrl: '/images/book-cover/book1.jpeg',
       },
       {
         bookId: 11,
-        title: '슬램덩크 리소스(THE FIRST SLAM DUNK re:SOURCE)',
-        imageUrl:
-          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6269015%3Ftimestamp%3D20230307155520',
+        title: '모던 자바스크립트 Deep Dive',
+        imageUrl: '/images/book-cover/book2.jpeg',
       },
       {
         bookId: 22,
-        title: '리팩터링',
-        imageUrl:
-          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5326912%3Ftimestamp%3D20230430144257',
+        title: '이펙티브 타입스크립트',
+        imageUrl: '/images/book-cover/book3.jpeg',
       },
       {
         bookId: 23,
-        title: '쏙쏙 들어오는 함수형 코딩',
-        imageUrl:
-          'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6052931%3Ftimestamp%3D20230629180034',
+        title: '리팩터링 2판',
+        imageUrl: '/images/book-cover/book4.jpeg',
       },
     ],
     likeCount: 3,
