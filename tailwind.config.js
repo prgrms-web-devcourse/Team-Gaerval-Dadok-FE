@@ -34,7 +34,14 @@ module.exports = {
           800: '#F6AD55',
           900: '#FFA436',
         },
+        success: {
+          500: '#F2FDF5',
+          800: '#8FDEA3',
+          900: '#70B681',
+        },
         warning: {
+          500: '#FCF2F2',
+          600: '#FFA0A0',
           700: '#FF8282',
           800: '#F56565',
           900: '#FF0000',
@@ -67,9 +74,24 @@ module.exports = {
           from: { opacity: 0 },
           to: { opacity: 1 },
         },
+        'slide-in': {
+          from: { transform: 'translateY(300%)' },
+          to: { transform: 'translateY(0%)' },
+        },
+        'slide-out': {
+          from: { transform: 'translateY(0%)' },
+          to: { transform: 'translateY(300%)' },
+        },
+        'slide-init': {
+          from: { transform: 'translateY(300%)' },
+          to: { transform: 'translateY(300%)' },
+        },
       },
       animation: {
         'page-transition': 'page-transition 0.2s forwards ease-in-out',
+        'slide-in': '0.3s forwards slide-in ease-in-out',
+        'slide-out': '0.3s forwards slide-out ease-in-out',
+        'slide-init': '0.3s forwards slide-init ease-in-out',
       },
     },
   },
