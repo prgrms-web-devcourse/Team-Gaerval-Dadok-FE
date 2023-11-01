@@ -1,5 +1,9 @@
+import React from 'react';
+
 import type { Preview } from '@storybook/react';
 import '@/styles/global.css';
+
+import ToastProvider from '../src/ui/Base/Toast/ToastProvider';
 
 const preview: Preview = {
   parameters: {
@@ -15,6 +19,13 @@ const preview: Preview = {
     },
     layout: 'fullscreen',
   },
+  decorators: [
+    Story => (
+      <ToastProvider>
+        <Story />
+      </ToastProvider>
+    ),
+  ],
 };
 
 export default preview;
