@@ -20,53 +20,21 @@ export default meta;
 type Story = StoryObj<typeof BottomNavigation>;
 
 export const Default: Story = {
-  parameters: {
-    nextjs: {
-      navigation: {
-        pathname: '/bookarchive',
-      },
-    },
-  },
-  render: () => {
-    return <BottomNavigation />;
-  },
+  args: { pathname: '/bookarchive' },
+  render: args => <BottomNavigation {...args} />,
 };
 
 export const Search: Story = {
-  parameters: {
-    nextjs: {
-      navigation: {
-        pathname: '/book/search',
-      },
-    },
-  },
-  render: () => {
-    return <BottomNavigation />;
-  },
+  args: { pathname: '/book/search' },
+  render: args => <BottomNavigation {...args} />,
 };
 
 export const Group: Story = {
-  parameters: {
-    nextjs: {
-      navigation: {
-        pathname: '/group',
-      },
-    },
-  },
-  render: () => {
-    return <BottomNavigation />;
-  },
+  args: { pathname: '/group' },
+  render: args => <BottomNavigation {...args} />,
 };
 
 export const Profile: Story = {
-  parameters: {
-    nextjs: {
-      navigation: {
-        pathname: '/profile/me',
-      },
-    },
-  },
-  render: () => {
-    return <BottomNavigation />;
-  },
+  args: { pathname: '/profile/me' },
+  render: args => <BottomNavigation {...args} />,
 };

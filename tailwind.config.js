@@ -6,6 +6,7 @@ module.exports = {
     './src/ui/**/*.{ts,tsx}',
     './src/app/**/*.{ts,tsx}',
     './src/stories/**/*.{ts,tsx}',
+    './src/v1/**/*.{ts,tsx}',
     './.storybook/**/*.{ts,tsx}',
   ],
   theme: {
@@ -33,7 +34,14 @@ module.exports = {
           800: '#F6AD55',
           900: '#FFA436',
         },
+        success: {
+          500: '#F2FDF5',
+          800: '#8FDEA3',
+          900: '#70B681',
+        },
         warning: {
+          500: '#FCF2F2',
+          600: '#FFA0A0',
           700: '#FF8282',
           800: '#F56565',
           900: '#FF0000',
@@ -64,6 +72,30 @@ module.exports = {
       boxShadow: {
         bookcover:
           '0px 0px 2px rgba(0, 0, 0, 0.2), 2px 2px 6px rgba(0, 0, 0, 0.1)',
+      },
+      keyframes: {
+        'page-transition': {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        'slide-in': {
+          from: { transform: 'translateY(300%)' },
+          to: { transform: 'translateY(0%)' },
+        },
+        'slide-out': {
+          from: { transform: 'translateY(0%)' },
+          to: { transform: 'translateY(300%)' },
+        },
+        'slide-init': {
+          from: { transform: 'translateY(300%)' },
+          to: { transform: 'translateY(300%)' },
+        },
+      },
+      animation: {
+        'page-transition': 'page-transition 0.2s forwards ease-in-out',
+        'slide-in': '0.3s forwards slide-in ease-in-out',
+        'slide-out': '0.3s forwards slide-out ease-in-out',
+        'slide-init': '0.3s forwards slide-init ease-in-out',
       },
     },
   },
