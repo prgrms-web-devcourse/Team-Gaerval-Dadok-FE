@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Badge from '@/ui/Base/Badge';
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
 
-interface BookGroupDetailProps {
+interface DetailBookGroupCardProps {
   title: string;
   description: string;
   book: { title: string; bookImageSrc: string };
@@ -42,7 +42,7 @@ const toDayFromMillseconds = (value: number) => {
   return Math.ceil(value / (1000 * 60 * 60 * 24));
 };
 
-const BookGroupDetail = ({
+const DetailBookGroupCard = ({
   title,
   description,
   book,
@@ -52,7 +52,7 @@ const BookGroupDetail = ({
   commentCount,
   isPublic,
   handleClick,
-}: BookGroupDetailProps) => {
+}: DetailBookGroupCardProps) => {
   const ddayByStart = toDayFromMillseconds(
     new Date(date.start).getTime() - new Date().getTime()
   );
@@ -95,7 +95,7 @@ const BookGroupDetail = ({
   );
 };
 
-export default BookGroupDetail;
+export default DetailBookGroupCard;
 
 const getDdayBadgeInfo = (status: BookGroupStatus, ddayCount?: number) => {
   switch (status) {
