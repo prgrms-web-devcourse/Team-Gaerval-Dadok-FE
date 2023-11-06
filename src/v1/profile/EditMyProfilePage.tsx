@@ -1,6 +1,7 @@
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
 
-import type { APIAllJob } from '@/types/job';
+import type { APIJobGroup } from '@/types/job';
+import type { APIUser } from '@/types/user';
 
 import { IconClose } from '@public/icons';
 
@@ -9,25 +10,9 @@ import Input from '@/ui/Base/Input';
 import Select from '@/ui/Base/Select';
 import ErrorMessage from '@/ui/Base/ErrorMessage';
 
-const jobData: APIAllJob = {
-  jobGroups: [
-    {
-      koreanName: '개발',
-      name: 'DEVELOPMENT',
-      jobs: [
-        {
-          koreanName: '백엔드 개발자',
-          name: 'BACKEND_DEVELOPER',
-          order: 1,
-        },
-        {
-          koreanName: '프론트엔드 개발자',
-          name: 'FRONTEND_DEVELOPER',
-          order: 2,
-        },
-      ],
-    },
-  ],
+type UserProfileProps = {
+  profile: Pick<APIUser, 'nickname' | 'job'>;
+  jobGroups: APIJobGroup[];
 };
 
 type FormValues = {
@@ -43,7 +28,7 @@ type InputLengthProps = {
   maxLength: number;
 };
 
-const EditMyProfilePage = () => {
+const EditMyProfilePage = ({ profile, jobGroups }: UserProfileProps) => {
   const {
     register,
     watch,
@@ -52,8 +37,12 @@ const EditMyProfilePage = () => {
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'all',
+    defaultValues: {
+      nickname: profile.nickname || '',
+      jobGroup: profile.job.jobGroupName || '',
+      job: profile.job.jobName || '',
+    },
   });
-  const jobGroups = jobData.jobGroups;
 
   const handleSubmitForm: SubmitHandler<FormValues> = ({
     nickname,
