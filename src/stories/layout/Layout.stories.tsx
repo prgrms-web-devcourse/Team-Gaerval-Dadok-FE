@@ -1,4 +1,4 @@
-import Layout from '@/v1/layout';
+import Layout from '@/v1/layout/Layout';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Layout> = {
