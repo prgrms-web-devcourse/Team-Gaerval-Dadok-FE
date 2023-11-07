@@ -73,6 +73,10 @@ module.exports = {
       fontFamily: {
         lineseed: ['var(--font-lineseed)'],
       },
+      boxShadow: {
+        bookcover:
+          '0px 0px 2px rgba(0, 0, 0, 0.2), 2px 2px 6px rgba(0, 0, 0, 0.1)',
+      },
       keyframes: {
         'page-transition': {
           from: { opacity: 0 },
