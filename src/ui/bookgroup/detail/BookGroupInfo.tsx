@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 import Badge from '@/ui/Base/Badge';
 import BookCover from '@/ui/book/BookCover';
+import BookGroupStatus from '@/ui/bookgroup/BookGroupStatus';
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
-import { toDayFromMillseconds } from '@/utils/date';
 import { DATA_URL } from '@/constants/dataUrl';
 
 interface BookGroupInfoProps {
@@ -16,29 +16,6 @@ interface BookGroupInfoProps {
   isPublic: boolean;
 }
 
-type BookGroupStatus = 'before' | 'dday' | 'ongoing' | 'end';
-
-const getBookGroupStatus = (ddayByStart: number, ddayByEnd: number) => {
-  if (ddayByStart > 0) {
-    return {
-      status: 'before' as const,
-      ddayCount: ddayByStart,
-    };
-  } else if (ddayByStart === 0 && ddayByEnd > 0) {
-    return {
-      status: 'dday' as const,
-    };
-  } else if (ddayByStart < 0 && ddayByEnd >= 0) {
-    return {
-      status: 'ongoing' as const,
-    };
-  } else {
-    return {
-      status: 'end' as const,
-    };
-  }
-};
-
 const BookGroupInfo = ({
   title,
   description,
@@ -48,19 +25,10 @@ const BookGroupInfo = ({
   owner,
   isPublic,
 }: BookGroupInfoProps) => {
-  const ddayByStart = toDayFromMillseconds(
-    new Date(date.start).getTime() - new Date().getTime()
-  );
-  const ddayByEnd = toDayFromMillseconds(
-    new Date(date.end).getTime() - new Date().getTime()
-  );
-
-  const { ...ddayProps } = getBookGroupStatus(ddayByStart, ddayByEnd);
-
   return (
     <div className="flex flex-col gap-[1rem]">
       <div className="flex gap-[0.5rem]">
-        <Dday {...ddayProps} />
+        <BookGroupStatus start={date.start} end={date.end} />
         <Public isPublic={isPublic} />
       </div>
       <Owner
@@ -84,47 +52,6 @@ const BookGroupInfo = ({
 };
 
 export default BookGroupInfo;
-
-const getDdayBadgeInfo = (status: BookGroupStatus, ddayCount?: number) => {
-  switch (status) {
-    case 'before':
-      return {
-        colorScheme: 'main' as const,
-        isFilled: true,
-        text: `D-${ddayCount}`,
-      };
-    case 'dday':
-      return {
-        colorScheme: 'main' as const,
-        isFilled: false,
-        text: 'D-day',
-      };
-    case 'ongoing':
-      return {
-        colorScheme: 'main' as const,
-        isFilled: true,
-        text: '진행중',
-      };
-    case 'end':
-      return {
-        colorScheme: 'grey' as const,
-        isFilled: true,
-        text: '모임종료',
-      };
-  }
-};
-
-const Dday = ({
-  status,
-  ddayCount,
-}: {
-  status: BookGroupStatus;
-  ddayCount?: number;
-}) => {
-  const { text, ...badgeProps } = getDdayBadgeInfo(status, ddayCount);
-
-  return <Badge {...badgeProps}>{text}</Badge>;
-};
 
 const Public = ({ isPublic }: { isPublic: boolean }) => (
   <Badge colorScheme="grey">{isPublic ? '공개' : '비공개'}</Badge>
