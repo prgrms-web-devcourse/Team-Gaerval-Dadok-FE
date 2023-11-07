@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SimpleBookGroupCard from '@/v1/bookgroups/SimpleBookGroupCard';
+import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
 
 const meta: Meta<typeof SimpleBookGroupCard> = {
   title: 'BookGroup/SimpleBookGroupCard',
