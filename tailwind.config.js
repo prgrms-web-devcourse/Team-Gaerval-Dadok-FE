@@ -8,6 +8,7 @@ module.exports = {
     './src/stories/**/*.{ts,tsx}',
     './src/v1/**/*.{ts,tsx}',
     './.storybook/**/*.{ts,tsx}',
+    './src/v1/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
@@ -58,6 +59,9 @@ module.exports = {
           700: '#2D2D2D', // MainText Color
           800: '#191600',
           900: '#000000',
+        },
+        orange: {
+          100: '#F5F4EE',
         },
         white: '#FFFFFF',
         background: '#FCFCFC',

@@ -44,7 +44,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
       cursor={bookId ? 'pointer' : 'auto'}
     >
       <Box
-        w="8.5rem"
+        w="8.0rem"
         h="11rem"
         transform="rotateY(30deg) translateX(1rem)"
         boxSizing="border-box"
@@ -61,7 +61,7 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
           h="1rem"
           pos="absolute"
           bottom={0}
-          transform={`translateZ(-3rem)`}
+          transform={`translateZ(-2.5rem)`}
           boxShadow="1px -4px 20px 3px"
         />
         <Image
@@ -73,10 +73,10 @@ const InteractiveBook = ({ imageUrl, bookId }: InteractiveBookProps) => {
           quality={100}
         />
         <Box
-          w="3rem"
+          w="2.5rem"
           h="100%"
           bgColor={bookSpineColor}
-          transform="rotateY(-90deg) translateX(-1.49rem) translateZ(1.5rem)"
+          transform="rotateY(-90deg) translateX(-1.49rem) translateZ(1.15rem)"
         />
       </Box>
     </Flex>
