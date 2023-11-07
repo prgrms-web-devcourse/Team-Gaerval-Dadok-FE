@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import MemberItem from '@/ui/bookgroup/detail/MemberItem';
+import MemberItem from '@/v1/bookGroup/detail/MemberItem';
 
 const meta: Meta<typeof MemberItem> = {
   title: 'bookgroup/detail/MemberItem',
