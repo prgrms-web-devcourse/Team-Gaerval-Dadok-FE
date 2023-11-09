@@ -1,8 +1,9 @@
 import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks';
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';
-import { RecommendedBooks, RecommendedBookshelf } from '@/ui/Recommended';
-import { Flex, Skeleton, VStack } from '@chakra-ui/react';
+import BookCover from '@/v1/book/BookCover';
+import BookShelf from '@/v1/bookShelf/BookShelf';
+import { Skeleton, VStack } from '@chakra-ui/react';
 
 const BookArchiveForAuth = ({
   userJobGroup,
@@ -37,23 +38,25 @@ const BookArchiveForAuth = ({
   if (!bookshelfData || !booksData) return null;
 
   return (
-    <Flex direction="column" width="100%" gap="3rem">
-      <RecommendedBooks
-        jobGroup={booksData.jobGroupKoreanName}
-        books={booksData.books}
-      />
-      {bookshelfData.bookshelfResponses.map(
-        ({ bookshelfId, bookshelfName, books, likeCount }) => (
-          <RecommendedBookshelf
-            key={bookshelfId}
-            bookshelfId={bookshelfId}
-            bookshelfName={bookshelfName}
-            books={books}
-            likeCount={likeCount}
-          />
-        )
-      )}
-    </Flex>
+    <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
+      <div>👀 이런 책들이 많이 꽂혔어요</div>
+      <div className="flex gap-[1.5rem] overflow-auto">
+        {booksData.books.map(({ bookId, imageUrl, title }) => (
+          <div key={bookId}>
+            <BookCover src={imageUrl} title={title} size="large" />
+            <div className="line-clamp-2 break-keep text-center text-xs font-normal">
+              {title}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div>🔥 인기 책장</div>
+      <div className="flex w-full flex-col gap-[3rem]">
+        {bookshelfData.bookshelfResponses.map(bookshelf => (
+          <BookShelf key={bookshelf.bookshelfId} {...bookshelf} />
+        ))}
+      </div>
+    </div>
   );
 };
 
