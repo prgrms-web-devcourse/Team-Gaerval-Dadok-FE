@@ -1,9 +1,10 @@
+'use client';
+
 import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks';
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';
 import BookCover from '@/v1/book/BookCover';
 import BookShelf from '@/v1/bookShelf/BookShelf';
-import { Skeleton, VStack } from '@chakra-ui/react';
 
 const BookArchiveForAuth = ({
   userJobGroup,
@@ -25,13 +26,8 @@ const BookArchiveForAuth = ({
   const isLoading = bookshelfIsLoading && booksIsLoading;
 
   if (isLoading) {
-    return (
-      <VStack gap="3rem">
-        <Skeleton width="39rem" height="19.6rem" />
-        <Skeleton width="39rem" height="19.6rem" />
-        <Skeleton width="39rem" height="19.6rem" />
-      </VStack>
-    );
+    // TODO: 스켈레톤 컴포넌트로 교체
+    return null;
   }
 
   if (!isSuccess) return null;
@@ -51,11 +47,11 @@ const BookArchiveForAuth = ({
         ))}
       </div>
       <div>🔥 인기 책장</div>
-      <div className="flex w-full flex-col gap-[3rem]">
+      <BookShelf>
         {bookshelfData.bookshelfResponses.map(bookshelf => (
-          <BookShelf key={bookshelf.bookshelfId} {...bookshelf} />
+          <BookShelf.Row key={bookshelf.bookshelfId} {...bookshelf} />
         ))}
-      </div>
+      </BookShelf>
     </div>
   );
 };

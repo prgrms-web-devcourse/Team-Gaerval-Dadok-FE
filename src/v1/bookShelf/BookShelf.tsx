@@ -4,7 +4,11 @@ import Link from 'next/link';
 import Badge from '@/ui/Base/Badge';
 import Book from './Book';
 
-const BookShelf = ({
+const BookShelf = ({ children }: { children: React.ReactNode }) => {
+  return <div className="flex w-full flex-col gap-[3rem]">{children}</div>;
+};
+
+const BookShelfRow = ({
   bookshelfId,
   bookshelfName,
   books,
@@ -40,5 +44,7 @@ const BookShelf = ({
     </div>
   );
 };
+
+BookShelf.Row = BookShelfRow;
 
 export default BookShelf;

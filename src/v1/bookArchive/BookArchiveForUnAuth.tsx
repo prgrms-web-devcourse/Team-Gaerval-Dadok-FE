@@ -1,3 +1,5 @@
+'use client';
+
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import Bookshelf from '@/v1/bookShelf/BookShelf';
@@ -17,13 +19,13 @@ const BookArchiveForUnAuth = () => {
   if (!isSuccess) return null;
 
   return (
-    <div className="flex w-full flex-col gap-[1.5rem]">
-      <div className="text-md font-bold">🔥 인기 책장</div>
-      <div className="flex w-full flex-col gap-[3rem]">
+    <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
+      <div>🔥 인기 책장</div>
+      <Bookshelf>
         {data.bookshelfResponses.map(bookshelf => (
-          <Bookshelf key={bookshelf.bookshelfId} {...bookshelf} />
+          <Bookshelf.Row key={bookshelf.bookshelfId} {...bookshelf} />
         ))}
-      </div>
+      </Bookshelf>
     </div>
   );
 };
