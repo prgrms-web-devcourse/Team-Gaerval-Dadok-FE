@@ -1,31 +1,23 @@
 'use client';
 
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
-import { Skeleton, VStack } from '@chakra-ui/react';
-import Bookshelf from '@/v1/bookShelf/BookShelf';
+import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
 
 const BookArchiveForUnAuth = () => {
   const { data, isSuccess, isLoading } = useUnAuthRecommendedBookshelfQuery();
 
   if (isLoading) {
-    return (
-      <VStack gap="3rem">
-        <Skeleton width="39rem" height="19.6rem" />
-        <Skeleton width="39rem" height="19.6rem" />
-        <Skeleton width="39rem" height="19.6rem" />
-      </VStack>
-    );
+    // TODO: 스켈레톤 컴포넌트로 교체
+    return null;
   }
   if (!isSuccess) return null;
 
   return (
     <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
       <div>🔥 인기 책장</div>
-      <Bookshelf>
-        {data.bookshelfResponses.map(bookshelf => (
-          <Bookshelf.Row key={bookshelf.bookshelfId} {...bookshelf} />
-        ))}
-      </Bookshelf>
+      {...data.bookshelfResponses.map(bookShelf => (
+        <BookShelfCard key={bookShelf.bookshelfId} {...bookShelf} />
+      ))}
     </div>
   );
 };

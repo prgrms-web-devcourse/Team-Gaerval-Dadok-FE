@@ -4,7 +4,7 @@ import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';
 import BookCover from '@/v1/book/BookCover';
-import BookShelf from '@/v1/bookShelf/BookShelf';
+import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
 
 const BookArchiveForAuth = ({
   userJobGroup,
@@ -47,11 +47,9 @@ const BookArchiveForAuth = ({
         ))}
       </div>
       <div>🔥 인기 책장</div>
-      <BookShelf>
-        {bookshelfData.bookshelfResponses.map(bookshelf => (
-          <BookShelf.Row key={bookshelf.bookshelfId} {...bookshelf} />
-        ))}
-      </BookShelf>
+      {...bookshelfData.bookshelfResponses.map(bookShelf => (
+        <BookShelfCard key={bookShelf.bookshelfId} {...bookShelf} />
+      ))}
     </div>
   );
 };
