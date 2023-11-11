@@ -1,10 +1,10 @@
 import { APIJob, APIJobGroup } from '@/types/job';
-import { APIUser } from '@/types/user';
+import { APIUser, APIUserProfile } from '@/types/user';
 import { publicApi } from './core/axios';
 
 const userAPI = {
   getUserProfile: ({ userId }: { userId: APIUser['userId'] }) =>
-    publicApi.get<APIUser>(`/service-api/users/${userId}/profile`),
+    publicApi.get<APIUserProfile>(`/service-api/users/${userId}/profile`),
 
   getMyProfile: () => publicApi.get<APIUser>('/service-api/users/me'),
 

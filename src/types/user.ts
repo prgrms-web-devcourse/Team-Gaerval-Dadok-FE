@@ -7,7 +7,15 @@ export interface APIUser {
   oauthNickname: string;
   email: string | null;
   profileImage: string;
-  gender: true;
-  authProvider: true;
+  gender: string;
+  authProvider: string;
+  job: APIProfileJob;
+}
+
+export interface APIUserProfile {
+  userId: number;
+  nickname: string;
+  profileImage: string;
+  gender: string | null;
   job: APIProfileJob;
 }

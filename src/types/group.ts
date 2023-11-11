@@ -23,7 +23,7 @@ export interface APIGroup {
   hasJoinPasswd: boolean;
   isPublic: boolean;
   bookGroupId: number;
-  memberCount: number;
+  currentMemberCount: number;
   commentCount: number;
   book: APIGroupBook;
   owner: APIGroupOwner;
@@ -35,6 +35,20 @@ export interface APIGroupDetail extends APIGroup {
   isOwner: boolean;
   isGroupMember: boolean;
 }
+
+export type BookGroupDetail = {
+  title: APIGroup['title'];
+  description: APIGroup['introduce'];
+  bookId: APIBook['bookId'];
+  owner: { isMe: boolean; id: APIUser['userId'] };
+  date: { start: APIGroup['startDate']; end: APIGroup['endDate'] };
+  memberCount: {
+    current: APIGroup['currentMemberCount'];
+    max: APIGroup['maxMemberCount'];
+  };
+  isPublic: APIGroup['isPublic'];
+  isMember: APIGroupDetail['isGroupMember'];
+};
 
 export interface APIGroupPagination extends Pagination {
   bookGroups: APIGroup[];
