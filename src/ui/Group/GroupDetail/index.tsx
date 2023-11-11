@@ -15,7 +15,7 @@ interface GroupDetailProps {
 
 const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const groupInfoQuery = useGroupInfoQuery({ bookGroupId });
-  const groupCommentsQuery = useGroupCommentsQuery({ bookGroupId });
+  const groupCommentsQuery = useGroupCommentsQuery(bookGroupId);
   const { showToast } = useToast();
   const router = useRouter();
 

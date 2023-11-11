@@ -19,7 +19,7 @@ const transformComments = ({ bookGroupComments }: APIGroupCommentPagination) =>
 
 const useGroupCommentsQuery = <TData = APIGroupCommentPagination>(
   groupId: APIGroupDetail['bookGroupId'],
-  select: QueryOptions<APIGroupCommentPagination, TData>['select']
+  select?: QueryOptions<APIGroupCommentPagination, TData>['select']
 ) =>
   useQuery({
     queryKey: bookGroupKeys.comments(groupId),
