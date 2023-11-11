@@ -69,19 +69,16 @@ const DetailBookGroupCard = ({
       className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]"
     >
       <div className="mb-[1rem] flex gap-[0.5rem]">
-        <Dday {...ddayProps}></Dday>
-        <Public isPublic={isPublic}></Public>
+        <Dday {...ddayProps} />
+        <Public isPublic={isPublic} />
       </div>
       <div className="flex justify-between gap-[1.5rem]">
         <div className="flex flex-grow flex-col gap-[0.63rem]">
-          <Title title={title}></Title>
-          <Description description={description}></Description>
-          <Duration start={date.start} end={date.end}></Duration>
+          <Title title={title} />
+          <Description description={description} />
+          <Duration start={date.start} end={date.end} />
           <div className="flex justify-between">
-            <Owner
-              name={owner.name}
-              profileImageSrc={owner.profileImageSrc}
-            ></Owner>
+            <Owner name={owner.name} profileImageSrc={owner.profileImageSrc} />
             <div className="flex gap-[0.5rem]">
               <MemberCount memberCount={memberCount} />
               <CommentCount commentCount={commentCount} />

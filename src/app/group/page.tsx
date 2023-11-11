@@ -4,10 +4,10 @@ import TopHeader from '@/ui/Base/TopHeader';
 import SearchGroup from '@/v1/bookGroup/SearchGroup';
 import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
-import Link from 'next/link';
 
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
+import Link from 'next/link';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -24,9 +24,8 @@ const GroupPage = () => {
     isFetchingNextPage,
   } = useEntireGroupsQuery();
 
-  const { isSuccess: myGroupsIsSuccess, data: myGroupsData } = useMyGroupsQuery(
-    { suspense: true }
-  );
+  const { isSuccess: myGroupsIsSuccess, data: myGroupsData } =
+    useMyGroupsQuery();
 
   useEffect(() => {
     if (inView && hasNextPage) {
