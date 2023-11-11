@@ -14,7 +14,7 @@ const BookGroupInfo = ({ groupId }: BookGroupInfoProps) => {
   const { data: bookGroupInfo } = useBookGroup(groupId);
 
   return (
-    <div className="flex flex-col gap-[1rem] py-[2rem]">
+    <div className="flex flex-col gap-[1rem] bg-white py-[2rem]">
       {bookGroupInfo && (
         <>
           <div className="flex gap-[0.5rem]">
@@ -96,12 +96,12 @@ const BookInfoCard = ({ bookId }: { bookId: number }) => {
             src={bookInfo.imageUrl}
             title={bookInfo.title}
           />
-          <div className="flex flex-grow flex-col">
-            <span className="text-sm font-bold">{bookInfo.title}</span>
+          <div className="flex min-w-0 flex-grow flex-col">
+            <span className="truncate text-sm font-bold">{bookInfo.title}</span>
             <span className="text-xs text-placeholder">{bookInfo.author}</span>
           </div>
           {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
-          <IconArrowLeft className="h-[1.5rem] w-[1.5rem] rotate-180" />
+          <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
         </>
       )}
     </div>
