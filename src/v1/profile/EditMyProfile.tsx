@@ -22,7 +22,7 @@ type FormValues = {
   job: string;
 };
 
-const EditMyProfilePage = ({ profile, jobGroups }: UserProfileProps) => {
+const EditMyProfile = ({ profile, jobGroups }: UserProfileProps) => {
   const {
     register,
     watch,
@@ -154,4 +154,4 @@ const EditMyProfilePage = ({ profile, jobGroups }: UserProfileProps) => {
   );
 };
 
-export default EditMyProfilePage;
+export default EditMyProfile;

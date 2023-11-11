@@ -1,15 +1,15 @@
-import EditMyProfilePage from '@/v1/profile/EditMyProfilePage';
+import EditMyProfile from '@/v1/profile/EditMyProfile';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof EditMyProfilePage> = {
-  title: 'profile/EditMyProfilePage',
-  component: EditMyProfilePage,
+const meta: Meta<typeof EditMyProfile> = {
+  title: 'profile/EditMyProfile',
+  component: EditMyProfile,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof EditMyProfilePage>;
+type Story = StoryObj<typeof EditMyProfile>;
 
 export const Default: Story = {
   args: {
@@ -42,5 +42,5 @@ export const Default: Story = {
       },
     ],
   },
-  render: args => <EditMyProfilePage {...args} />,
+  render: args => <EditMyProfile {...args} />,
 };
