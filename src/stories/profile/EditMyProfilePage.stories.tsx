@@ -16,8 +16,8 @@ export const Default: Story = {
     profile: {
       nickname: '벨로퍼어트',
       job: {
-        jobGroupName: '개발',
-        jobName: '프론트엔드 개발',
+        jobGroupName: 'DEVELOPMENT',
+        jobName: 'FRONTEND_DEVELOPER',
         jobGroupKoreanName: '개발',
         jobNameKoreanName: '프론트엔드 개발',
         order: 1,
