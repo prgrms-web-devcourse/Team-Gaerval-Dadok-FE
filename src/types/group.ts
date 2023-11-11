@@ -25,7 +25,7 @@ export interface APIGroup {
   bookGroupId: number;
   memberCount: number;
   commentCount: number;
-  book: APIGroupBook;
+  book: Omit<APIGroupBook, 'title'>;
   owner: APIGroupOwner;
 }
 

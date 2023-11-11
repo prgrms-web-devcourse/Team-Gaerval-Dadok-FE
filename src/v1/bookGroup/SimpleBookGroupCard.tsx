@@ -4,7 +4,7 @@ interface SimpleBookGroupCardProps {
   title: string;
   isOwner: boolean;
   imageSource: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const SimpleBookGroupCard = ({
