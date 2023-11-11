@@ -5,6 +5,7 @@ import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
 import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
 
 import { useBookGroupTitle } from '@/queries/group/useBookGroupQuery';
+import CommentList from '@/v1/bookGroup/detail/CommentList';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -14,7 +15,13 @@ const DetailBookGroupPage = ({
   return (
     <>
       <BookGroupNavigation groupId={groupId} />
-      <BookGroupInfo groupId={groupId} />
+      <div className="flex flex-col gap-[2rem]">
+        <BookGroupInfo groupId={groupId} />
+        <div className="flex flex-col gap-[1rem]">
+          <Heading text="게시글" />
+          <CommentList groupId={groupId} />
+        </div>
+      </div>
     </>
   );
 };
@@ -39,3 +46,7 @@ const BookGroupNavigation = ({ groupId }: { groupId: number }) => {
     </TopNavigation>
   );
 };
+
+const Heading = ({ text }: { text: string }) => (
+  <p className=" text-xl font-bold">{text}</p>
+);

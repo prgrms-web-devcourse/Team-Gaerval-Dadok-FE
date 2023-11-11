@@ -5,6 +5,8 @@ const bookGroupKeys = {
   details: () => [...bookGroupKeys.all, 'detail'] as const,
   detail: (id: APIGroupDetail['bookGroupId']) =>
     [...bookGroupKeys.details(), id] as const,
+  comments: (id: APIGroupDetail['bookGroupId']) =>
+    [...bookGroupKeys.details(), id, 'comments'] as const,
 };
 
 export default bookGroupKeys;

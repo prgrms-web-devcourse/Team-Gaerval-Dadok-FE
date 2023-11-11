@@ -79,10 +79,18 @@ export interface APIGroupComment {
   userProfileImage: APIUser['profileImage'];
   createdAt: string;
   modifiedAt: string;
-  nickname: APIUser['nickname'];
+  nickname: string;
   writtenByCurrentUser: boolean;
 }
 
 export interface APIGroupCommentPagination extends Pagination {
+  bookGroup: { isPublic: APIGroup['isPublic'] };
   bookGroupComments: APIGroupComment[];
 }
+
+export type BookGroupComment = {
+  id: number;
+  writer: { id: number; profileImageSrc: string; name: string };
+  createdAt: string;
+  content: string;
+};

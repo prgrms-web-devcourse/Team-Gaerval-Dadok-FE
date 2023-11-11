@@ -14,7 +14,7 @@ const BookGroupInfo = ({ groupId }: BookGroupInfoProps) => {
   const { data: bookGroupInfo } = useBookGroup(groupId);
 
   return (
-    <div className="flex flex-col gap-[1rem] bg-white py-[2rem]">
+    <div className="flex flex-col gap-[1rem] py-[2rem]">
       {bookGroupInfo && (
         <>
           <div className="flex gap-[0.5rem]">
