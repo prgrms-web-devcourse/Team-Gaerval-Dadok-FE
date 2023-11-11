@@ -32,7 +32,7 @@ const textAligns = {
 const CenterItem = ({ children, textAlign = 'center' }: CenterItemProps) => {
   const alignClassName = textAligns[textAlign];
   return (
-    <div className={`w-full px-[3.5rem] ${alignClassName}`}>{children}</div>
+    <div className={`w-full px-[1.5rem] ${alignClassName}`}>{children}</div>
   );
 };
 
