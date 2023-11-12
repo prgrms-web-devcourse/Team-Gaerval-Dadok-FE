@@ -1,12 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { QueryOptions } from '@/types/query';
-import { APIGroupCommentPagination, APIGroupDetail } from '@/types/group';
+import {
+  APIGroupCommentPagination,
+  APIGroupDetail,
+  BookGroupComment,
+} from '@/types/group';
 
 import GroupAPI from '@/apis/group';
-import bookGroupKeys from '../key';
+import bookGroupKeys from './key';
 
 const transformComments = ({ bookGroupComments }: APIGroupCommentPagination) =>
-  bookGroupComments.map(comment => ({
+  bookGroupComments.map<BookGroupComment>(comment => ({
     id: comment.commentId,
     writer: {
       id: comment.userId,
@@ -17,7 +21,7 @@ const transformComments = ({ bookGroupComments }: APIGroupCommentPagination) =>
     content: comment.contents,
   }));
 
-const useGroupCommentsQuery = <TData = APIGroupCommentPagination>(
+const useBookGroupCommentsQuery = <TData = APIGroupCommentPagination>(
   groupId: APIGroupDetail['bookGroupId'],
   select?: QueryOptions<APIGroupCommentPagination, TData>['select']
 ) =>
@@ -30,7 +34,7 @@ const useGroupCommentsQuery = <TData = APIGroupCommentPagination>(
     select,
   });
 
-export default useGroupCommentsQuery;
+export default useBookGroupCommentsQuery;
 
 export const useBookGroupComments = (groupId: APIGroupDetail['bookGroupId']) =>
-  useGroupCommentsQuery(groupId, transformComments);
+  useBookGroupCommentsQuery(groupId, transformComments);

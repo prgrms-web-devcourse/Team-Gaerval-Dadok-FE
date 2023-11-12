@@ -31,6 +31,8 @@ export const useBookGroupQuery = <TData = APIGroupDetail>(
     select,
   });
 
+export default useBookGroupQuery;
+
 export const useBookGroup = (groupId: APIGroupDetail['bookGroupId']) =>
   useBookGroupQuery(groupId, transformBookGroupDetail);
 

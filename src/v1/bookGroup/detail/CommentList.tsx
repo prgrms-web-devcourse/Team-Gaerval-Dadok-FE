@@ -1,6 +1,6 @@
 import { IconHamburger } from '@public/icons';
 import Avatar from '@/ui/Base/Avatar';
-import { useBookGroupComments } from '@/queries/group/useGroupCommentsQuery';
+import { useBookGroupComments } from '@/queries/group/useBookGroupCommentsQuery';
 
 const CommentList = ({ groupId }: { groupId: number }) => {
   const { data: comments } = useBookGroupComments(groupId);
