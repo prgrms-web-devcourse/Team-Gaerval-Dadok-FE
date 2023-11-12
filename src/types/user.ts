@@ -1,17 +1,5 @@
 import { APIProfileJob } from './job';
 
-export interface APIUser {
-  userId: number;
-  name: string | null;
-  nickname: string | null;
-  oauthNickname: string;
-  email: string | null;
-  profileImage: string;
-  gender: string;
-  authProvider: string;
-  job: APIProfileJob;
-}
-
 export interface APIUserProfile {
   userId: number;
   nickname: string;
@@ -19,3 +7,14 @@ export interface APIUserProfile {
   gender: string | null;
   job: APIProfileJob;
 }
+
+export interface APIMyProfile extends Omit<APIUserProfile, 'nickname'> {
+  name: string | null;
+  nickname: string | null;
+  oauthNickname: string;
+  email: string | null;
+  gender: string;
+  authProvider: string;
+}
+
+export type APIUser = APIUserProfile & { name: string | null };

@@ -8,9 +8,7 @@ import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
 import { useBookGroup } from '@/queries/group/useBookGroupQuery';
 import useUserProfileQuery from '@/queries/user/useUserProfileQuery';
 
-type BookGroupInfoProps = { groupId: number };
-
-const BookGroupInfo = ({ groupId }: BookGroupInfoProps) => {
+const BookGroupInfo = ({ groupId }: { groupId: number }) => {
   const { data: bookGroupInfo } = useBookGroup(groupId);
 
   return (
