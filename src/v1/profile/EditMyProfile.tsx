@@ -1,7 +1,13 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import type { APIJobGroup } from '@/types/job';
 import type { APIUser } from '@/types/user';
+
+import { isAxiosError } from 'axios';
+import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 
 import { IconClose } from '@public/icons';
 
@@ -10,6 +16,7 @@ import Input from '@/ui/Base/Input';
 import InputLength from '@/ui/Base/InputLength';
 import Select from '@/ui/Base/Select';
 import ErrorMessage from '@/ui/Base/ErrorMessage';
+import useToast from '@/ui/Base/Toast/useToast';
 
 type UserProfileProps = {
   profile: Pick<APIUser, 'nickname' | 'job'>;
@@ -37,16 +44,47 @@ const EditMyProfile = ({ profile, jobGroups }: UserProfileProps) => {
     },
   });
 
+  const router = useRouter();
+  const myProfileMutation = useMyProfileMutation();
+  const toast = useToast();
+
+  const showToastEditSuccess = () =>
+    toast.show({
+      type: 'success',
+      message: '프로필 수정 완료!',
+      duration: 3000,
+    });
+
+  const showToastEditFailed = () =>
+    toast.show({
+      type: 'error',
+      message: '알 수 없는 에러가 발생했어요.',
+      duration: 3000,
+    });
+
   const handleSubmitForm: SubmitHandler<FormValues> = ({
     nickname,
     jobGroup,
     job,
   }) => {
-    return alert(`닉네임: ${nickname}, 직군: ${jobGroup}, 직업: ${job}`);
-  };
-
-  const handleCloseButton = () => {
-    return alert('뒤로 가기');
+    myProfileMutation.mutateAsync(
+      {
+        nickname,
+        job: { jobGroup, jobName: job },
+      },
+      {
+        onSuccess: () => {
+          router.replace('/profile/me');
+          showToastEditSuccess();
+        },
+        onError: error => {
+          if (isAxiosError(error) && error.response) {
+            console.error(error.response.data);
+            showToastEditFailed();
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -54,7 +92,7 @@ const EditMyProfile = ({ profile, jobGroups }: UserProfileProps) => {
       <TopNavigation>
         <TopNavigation.LeftItem>
           <IconClose
-            onClick={handleCloseButton}
+            onClick={() => router.push('/profile/me')}
             className="h-[2rem] w-[2rem] cursor-pointer fill-black-900"
           />
         </TopNavigation.LeftItem>

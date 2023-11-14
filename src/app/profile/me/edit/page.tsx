@@ -11,7 +11,7 @@ import EditMyProfile from '@/v1/profile/EditMyProfile';
 
 /**
  * @todo
- * Suspense 추가
+ * Fallback UI 추가하기
  */
 
 const EditMyProfilePage = () => {
