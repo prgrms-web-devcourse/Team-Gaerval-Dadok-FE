@@ -29,7 +29,7 @@ export const Default: Story = {
     },
     isPublic: false,
     commentCount: 12,
-    handleClick: () => {
+    onClick: () => {
       alert('모임 상세 페이지로 이동');
     },
   },
