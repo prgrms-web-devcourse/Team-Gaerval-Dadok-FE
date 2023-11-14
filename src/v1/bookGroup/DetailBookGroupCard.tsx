@@ -13,7 +13,7 @@ interface DetailBookGroupCardProps {
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
-  handleClick?: () => void;
+  onClick?: () => void;
 }
 
 type BookGroupStatus = 'before' | 'dday' | 'ongoing' | 'end';
@@ -52,7 +52,7 @@ const DetailBookGroupCard = ({
   memberCount,
   commentCount,
   isPublic,
-  handleClick,
+  onClick,
 }: DetailBookGroupCardProps) => {
   const ddayByStart = toDayFromMillseconds(
     new Date(date.start).getTime() - new Date().getTime()
@@ -65,7 +65,7 @@ const DetailBookGroupCard = ({
 
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]"
     >
       <div className="mb-[1rem] flex gap-[0.5rem]">
