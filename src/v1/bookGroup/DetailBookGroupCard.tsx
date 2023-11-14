@@ -17,8 +17,6 @@ interface DetailBookGroupCardProps {
   handleClick: () => void;
 }
 
-type BookGroupStatus = 'before' | 'dday' | 'ongoing' | 'end';
-
 const DetailBookGroupCard = ({
   title,
   description,
