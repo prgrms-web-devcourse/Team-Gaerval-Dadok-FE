@@ -7,14 +7,14 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 import { isAuthed } from '@/utils/helpers';
 import AuthRequired from '@/ui/AuthRequired';
 
-import EditMyProfile from '@/v1/profile/EditMyProfile';
+import EditProfile from '@/v1/profile/EditProfile';
 
 /**
  * @todo
  * Fallback UI 추가하기
  */
 
-const EditMyProfilePage = () => {
+const EditProfilePage = () => {
   return (
     <AuthRequired>
       <Suspense fallback={null}>
@@ -29,11 +29,8 @@ const Contents = () => {
   const { data: profileData } = useMyProfileQuery();
 
   return allJobQuery.isSuccess ? (
-    <EditMyProfile
-      profile={profileData}
-      jobGroups={allJobQuery.data.jobGroups}
-    />
+    <EditProfile profile={profileData} jobGroups={allJobQuery.data.jobGroups} />
   ) : null;
 };
 
-export default EditMyProfilePage;
+export default EditProfilePage;
