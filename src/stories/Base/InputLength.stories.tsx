@@ -2,9 +2,9 @@ import { Meta, StoryObj } from '@storybook/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Button from '@/ui/Base/Button';
-import ErrorMessage from '@/ui/Base/ErrorMessage';
 import Input from '@/ui/Base/Input';
 import InputLength from '@/ui/Base/InputLength';
+import ErrorMessage from '@/ui/Base/ErrorMessage';
 
 const meta: Meta<typeof InputLength> = {
   title: 'Base/InputLength',
@@ -17,65 +17,48 @@ export default meta;
 type Story = StoryObj<typeof InputLength>;
 
 type DefaultValues = {
-  name: string;
-  age: number;
+  password: string;
 };
 
-const InputWithUseForm = () => {
+const InputLengthUseWithForm = () => {
   const {
     register,
+    watch,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<DefaultValues>({
     mode: 'all',
   });
 
-  const handleSubmitForm: SubmitHandler<DefaultValues> = ({ name, age }) => {
-    alert(`name: ${name}, age: ${age}`);
+  const handleSubmitForm: SubmitHandler<DefaultValues> = ({ password }) => {
+    alert(`password: ${password}`);
   };
 
   return (
     <form
       onSubmit={handleSubmit(handleSubmitForm)}
-      className="flex w-[43rem] flex-col gap-[1.6rem]"
+      className="flex w-full flex-col gap-[1.6rem]"
     >
       <div className="flex flex-col gap-[0.5rem]">
         <Input
-          placeholder="이름을 입력해주세요."
-          {...register('name', {
+          placeholder="비밀번호를 입력해주세요."
+          {...register('password', {
             required: '필수 항목입니다.',
             minLength: { value: 2, message: '2자 이상 입력해 주세요.' },
             maxLength: { value: 10, message: '10자 이하 입력해 주세요.' },
           })}
-          error={!!errors.name}
+          error={!!errors.password}
         />
         <div className="flex flex-row-reverse justify-between gap-[0.4rem]">
           <InputLength
-            control={control}
-            name={'name'}
-            minLength={2}
+            currentValue={watch('password')}
+            isError={!!errors.password}
             maxLength={10}
           />
-          {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+          {errors.password && (
+            <ErrorMessage>{errors.password.message}</ErrorMessage>
+          )}
         </div>
-      </div>
-      <div className="flex flex-col gap-[0.5rem]">
-        <Input
-          placeholder="나이를 입력해 주세요."
-          {...register('age', {
-            pattern: { value: /^[0-9]+$/, message: '숫자만 입력 가능해요' },
-            min: { value: 0, message: '0살부터 입력 가능해요.' },
-          })}
-          error={!!errors.age}
-        />
-        <InputLength
-          control={control}
-          name={'age'}
-          minLength={1}
-          maxLength={3}
-        />
-        {errors.age && <ErrorMessage>{errors.age.message}</ErrorMessage>}
       </div>
       <Button
         size="large"
@@ -89,5 +72,5 @@ const InputWithUseForm = () => {
 };
 
 export const Default: Story = {
-  render: () => <InputWithUseForm />,
+  render: () => <InputLengthUseWithForm />,
 };
