@@ -27,7 +27,6 @@ const EditMyProfile = ({ profile, jobGroups }: UserProfileProps) => {
     register,
     watch,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'all',
@@ -94,9 +93,8 @@ const EditMyProfile = ({ profile, jobGroups }: UserProfileProps) => {
             />
             <div className="flex h-[1.4rem] flex-row-reverse justify-between">
               <InputLength
-                control={control}
-                name={'nickname'}
-                minLength={2}
+                currentValue={watch('nickname')}
+                isError={!!errors.nickname}
                 maxLength={10}
               />
               {errors.nickname && (
