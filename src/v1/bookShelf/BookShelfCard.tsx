@@ -34,11 +34,13 @@ const BookShelf = ({
             </div>
           </Badge>
         </div>
-        <div className="flex justify-between px-[0.5rem]">
+        <ul className="flex justify-between px-[0.5rem]">
           {books.map(book => (
-            <Book key={book.bookId} {...book} />
+            <li key={book.bookId} className="flex">
+              <Book {...book} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

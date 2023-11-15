@@ -5,6 +5,7 @@ import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedB
 import { APIJobGroup } from '@/types/job';
 import BookCover from '@/v1/book/BookCover';
 import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
+import Link from 'next/link';
 
 const BookArchiveForAuth = ({
   userJobGroup,
@@ -35,18 +36,20 @@ const BookArchiveForAuth = ({
 
   return (
     <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
-      <div>👀 이런 책들이 많이 꽂혔어요</div>
-      <div className="flex gap-[1.5rem] overflow-auto">
+      <h2>👀 이런 책들이 많이 꽂혔어요</h2>
+      <ul className="flex gap-[1.5rem] overflow-auto">
         {booksData.books.map(({ bookId, imageUrl, title }) => (
-          <div key={bookId}>
-            <BookCover src={imageUrl} title={title} size="large" />
-            <div className="line-clamp-2 break-keep text-center text-xs font-normal">
-              {title}
-            </div>
-          </div>
+          <li key={bookId} className="max-w-[9rem]">
+            <Link href={`/book/${bookId}`} className="flex flex-col gap-[1rem]">
+              <BookCover src={imageUrl} title={title} size="large" />
+              <span className="line-clamp-2 break-keep text-center text-xs font-normal leading-tight">
+                {title}
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
-      <div>🔥 인기 책장</div>
+      </ul>
+      <h2>🔥 인기 책장</h2>
       {...bookshelfData.bookshelfResponses.map(bookShelf => (
         <BookShelfCard key={bookShelf.bookshelfId} {...bookShelf} />
       ))}

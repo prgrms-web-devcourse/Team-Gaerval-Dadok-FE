@@ -14,7 +14,7 @@ const BookArchiveForUnAuth = () => {
 
   return (
     <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
-      <div>🔥 인기 책장</div>
+      <h2>🔥 인기 책장</h2>
       {...data.bookshelfResponses.map(bookShelf => (
         <BookShelfCard key={bookShelf.bookshelfId} {...bookShelf} />
       ))}
