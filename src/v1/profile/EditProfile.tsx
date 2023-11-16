@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -91,10 +92,9 @@ const EditProfile = ({ profile, jobGroups }: UserProfileProps) => {
     <>
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <IconClose
-            onClick={() => router.push('/profile/me')}
-            className="h-[2rem] w-[2rem] cursor-pointer fill-black-900"
-          />
+          <Link href="/profile/me" className="h-[2rem] w-[2rem] cursor-pointer">
+            <IconClose className="fill-black-900" />
+          </Link>
         </TopNavigation.LeftItem>
         <TopNavigation.CenterItem textAlign="center">
           <span className="text-md font-normal text-black-900">
