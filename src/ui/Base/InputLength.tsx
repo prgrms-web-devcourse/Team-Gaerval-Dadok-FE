@@ -5,7 +5,7 @@ type InputLengthProps = {
 };
 
 const InputLength = ({
-  currentLength = 0,
+  currentLength,
   isError,
   maxLength,
 }: InputLengthProps) => {
@@ -13,7 +13,8 @@ const InputLength = ({
 
   return (
     <div>
-      <span className={textColor}>{currentLength}</span>/{maxLength}
+      <span className={textColor}>{currentLength ? currentLength : 0}</span>/
+      {maxLength}
     </div>
   );
 };
