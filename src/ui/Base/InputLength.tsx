@@ -1,15 +1,14 @@
 type InputLengthProps = {
-  currentValue: string;
+  currentLength: number;
   isError: boolean;
   maxLength: number;
 };
 
 const InputLength = ({
-  currentValue = '',
+  currentLength,
   isError,
   maxLength,
 }: InputLengthProps) => {
-  const currentLength = currentValue ? currentValue.length : 0;
   const textColor = isError ? 'text-warning-800 ' : 'text-main-900';
 
   return (
