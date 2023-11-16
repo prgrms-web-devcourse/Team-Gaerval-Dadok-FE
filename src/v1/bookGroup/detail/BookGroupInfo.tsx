@@ -127,10 +127,10 @@ const MemberCapacity = ({
   return (
     <div className="flex items-center gap-[1rem]">
       <IconMembers className="h-auto w-[1.6rem] fill-placeholder" />
-      <span className="text-sm text-placeholder">
+      <p className="text-sm text-placeholder">
         <span className="text-main-900">{current}</span>
         {`${max ? ` / ${max}` : ''}명`}
-      </span>
+      </p>
     </div>
   );
 };
