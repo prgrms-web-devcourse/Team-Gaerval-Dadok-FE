@@ -51,7 +51,7 @@ const InputLengthUseWithForm = () => {
         />
         <div className="flex flex-row-reverse justify-between gap-[0.4rem]">
           <InputLength
-            currentLength={watch('password').length}
+            currentLength={watch('password')?.length}
             isError={!!errors.password}
             maxLength={10}
           />

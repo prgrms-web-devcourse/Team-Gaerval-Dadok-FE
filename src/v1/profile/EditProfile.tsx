@@ -131,7 +131,7 @@ const EditProfile = ({ profile, jobGroups }: UserProfileProps) => {
             />
             <div className="flex h-[1.4rem] flex-row-reverse justify-between">
               <InputLength
-                currentLength={watch('nickname').length}
+                currentLength={watch('nickname')?.length}
                 isError={!!errors.nickname}
                 maxLength={10}
               />

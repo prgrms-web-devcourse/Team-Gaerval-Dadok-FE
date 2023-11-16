@@ -5,7 +5,7 @@ type InputLengthProps = {
 };
 
 const InputLength = ({
-  currentLength,
+  currentLength = 0,
   isError,
   maxLength,
 }: InputLengthProps) => {
