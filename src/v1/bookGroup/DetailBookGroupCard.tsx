@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Badge from '@/ui/Base/Badge';
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
 import BookCover from '@/v1/book/BookCover';
+import Link from 'next/link';
 
 interface DetailBookGroupCardProps {
   title: string;
@@ -13,7 +14,7 @@ interface DetailBookGroupCardProps {
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
-  onClick?: () => void;
+  bookGroupId: number;
 }
 
 type BookGroupStatus = 'before' | 'dday' | 'ongoing' | 'end';
@@ -52,7 +53,7 @@ const DetailBookGroupCard = ({
   memberCount,
   commentCount,
   isPublic,
-  onClick,
+  bookGroupId,
 }: DetailBookGroupCardProps) => {
   const ddayByStart = toDayFromMillseconds(
     new Date(date.start).getTime() - new Date().getTime()
@@ -64,30 +65,32 @@ const DetailBookGroupCard = ({
   const { ...ddayProps } = getBookGroupStatus(ddayByStart, ddayByEnd);
 
   return (
-    <div
-      onClick={onClick}
-      className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]"
-    >
-      <div className="mb-[1rem] flex gap-[0.5rem]">
-        <Dday {...ddayProps} />
-        <Public isPublic={isPublic} />
-      </div>
-      <div className="flex justify-between gap-[1.5rem]">
-        <div className="flex flex-grow flex-col gap-[0.63rem]">
-          <Title title={title} />
-          <Description description={description} />
-          <Duration start={date.start} end={date.end} />
-          <div className="flex justify-between">
-            <Owner name={owner.name} profileImageSrc={owner.profileImageSrc} />
-            <div className="flex gap-[0.5rem]">
-              <MemberCount memberCount={memberCount} />
-              <CommentCount commentCount={commentCount} />
+    <Link className="w-full" href={`/group/${bookGroupId}`}>
+      <div className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+        <div className="mb-[1rem] flex gap-[0.5rem]">
+          <Dday {...ddayProps} />
+          <Public isPublic={isPublic} />
+        </div>
+        <div className="flex justify-between gap-[1.5rem]">
+          <div className="flex flex-grow flex-col gap-[0.63rem]">
+            <Title title={title} />
+            <Description description={description} />
+            <Duration start={date.start} end={date.end} />
+            <div className="flex justify-between">
+              <Owner
+                name={owner.name}
+                profileImageSrc={owner.profileImageSrc}
+              />
+              <div className="flex gap-[0.5rem]">
+                <MemberCount memberCount={memberCount} />
+                <CommentCount commentCount={commentCount} />
+              </div>
             </div>
           </div>
+          <BookCover src={bookImageSrc} size="medium" />
         </div>
-        <BookCover src={bookImageSrc} size="medium" />
       </div>
-    </div>
+    </Link>
   );
 };
 

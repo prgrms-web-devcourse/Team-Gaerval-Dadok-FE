@@ -7,7 +7,6 @@ import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
 
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
-import Link from 'next/link';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -58,13 +57,13 @@ const GroupPage = () => {
               const { title, book, bookGroupId } = group;
               return (
                 //API isOwner 값이 존재하지 않아 비교하는 로직 추가 필요
-                <Link key={bookGroupId} href={`/book/${book.id}`}>
-                  <SimpleBookGroupCard
-                    title={title}
-                    imageSource={book.imageUrl}
-                    isOwner={false}
-                  />
-                </Link>
+                <SimpleBookGroupCard
+                  key={bookGroupId}
+                  title={title}
+                  imageSource={book.imageUrl}
+                  isOwner={false}
+                  bookId={book.id}
+                />
               );
             })}
         </div>
@@ -85,25 +84,21 @@ const GroupPage = () => {
                   bookGroupId,
                 } = group;
                 return (
-                  <Link
+                  <DetailBookGroupCard
                     key={bookGroupId}
-                    className="w-full"
-                    href={`/group/${bookGroupId}`}
-                  >
-                    <DetailBookGroupCard
-                      title={title}
-                      description={introduce}
-                      bookImageSrc={book.imageUrl}
-                      date={{ start: startDate, end: endDate }}
-                      owner={{
-                        name: owner.nickname,
-                        profileImageSrc: owner.profileUrl,
-                      }}
-                      memberCount={memberCount}
-                      commentCount={commentCount}
-                      isPublic={isPublic}
-                    />
-                  </Link>
+                    title={title}
+                    description={introduce}
+                    bookImageSrc={book.imageUrl}
+                    date={{ start: startDate, end: endDate }}
+                    owner={{
+                      name: owner.nickname,
+                      profileImageSrc: owner.profileUrl,
+                    }}
+                    memberCount={memberCount}
+                    commentCount={commentCount}
+                    isPublic={isPublic}
+                    bookGroupId={bookGroupId}
+                  />
                 );
               });
             })}
