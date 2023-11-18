@@ -10,7 +10,7 @@ interface DetailBookGroupCardProps {
   description: string;
   bookImageSrc: string;
   date: { start: string; end: string };
-  owner: { name: string | null; profileImageSrc: string };
+  owner: { name: string; profileImageSrc: string };
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
