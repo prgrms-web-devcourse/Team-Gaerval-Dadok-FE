@@ -16,7 +16,7 @@ export const Default: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: false,
-    bookId: 1,
+    bookGroupId: 1,
   },
 };
 
@@ -25,6 +25,6 @@ export const OwnerCase: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: true,
-    bookId: 1,
+    bookGroupId: 1,
   },
 };
