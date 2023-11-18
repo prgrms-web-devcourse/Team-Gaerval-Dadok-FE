@@ -3,6 +3,7 @@ import React from 'react';
 import type { Preview } from '@storybook/react';
 import '@/styles/global.css';
 
+import Layout from '../src/v1/layout/Layout';
 import ToastProvider from '../src/ui/Base/Toast/ToastProvider';
 
 const preview: Preview = {
@@ -22,7 +23,9 @@ const preview: Preview = {
   decorators: [
     Story => (
       <ToastProvider>
-        <Story />
+        <Layout>
+          <Story />
+        </Layout>
       </ToastProvider>
     ),
   ],
