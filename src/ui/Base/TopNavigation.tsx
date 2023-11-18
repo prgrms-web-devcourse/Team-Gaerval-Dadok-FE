@@ -16,7 +16,7 @@ const TopNavigation = ({ children }: TopNavigationProps) => {
 
 const LeftItem = ({ children }: ItemProps) => {
   return (
-    <div className="absolute left-[2rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
+    <div className="absolute left-[0rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
       {children}
     </div>
   );
@@ -32,13 +32,15 @@ const textAligns = {
 const CenterItem = ({ children, textAlign = 'center' }: CenterItemProps) => {
   const alignClassName = textAligns[textAlign];
   return (
-    <div className={`w-full px-[3.5rem] ${alignClassName}`}>{children}</div>
+    <div className={`h-[2rem] w-full px-[1.5rem] ${alignClassName}`}>
+      {children}
+    </div>
   );
 };
 
 const RightItem = ({ children }: ItemProps) => {
   return (
-    <div className="absolute right-[2rem] flex gap-[1rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
+    <div className="absolute right-[0rem] flex gap-[1rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
       {children}
     </div>
   );
