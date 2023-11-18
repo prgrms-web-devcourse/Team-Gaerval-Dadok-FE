@@ -62,7 +62,7 @@ const GroupPage = () => {
                   title={title}
                   imageSource={book.imageUrl}
                   isOwner={false}
-                  bookId={book.id}
+                  bookGroupId={bookGroupId}
                 />
               );
             })}

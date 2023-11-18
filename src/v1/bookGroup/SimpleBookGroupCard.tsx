@@ -5,17 +5,17 @@ interface SimpleBookGroupCardProps {
   title: string;
   isOwner: boolean;
   imageSource: string;
-  bookId: number;
+  bookGroupId: number;
 }
 
 const SimpleBookGroupCard = ({
   title,
   isOwner,
   imageSource,
-  bookId,
+  bookGroupId,
 }: SimpleBookGroupCardProps) => {
   return (
-    <Link href={`/book/${bookId}`}>
+    <Link href={`/group/${bookGroupId}`}>
       <div className="flex h-[15rem] w-[10rem] flex-col gap-[0.5rem]">
         <div className="h-[11.6rem] w-[10rem] rounded-[0.534rem] bg-orange-100 px-[1.8rem] py-[1.6rem]">
           <Image
