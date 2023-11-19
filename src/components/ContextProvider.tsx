@@ -7,6 +7,7 @@ import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvider from '@/components/ReactQueryProvider';
 import { ReactNode } from 'react';
 import ErrorPage from '@/app/error';
+import ToastProvider from '@/ui/Base/Toast/ToastProvider';
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {
   return (
@@ -15,7 +16,9 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
         <ReactQueryProvider>
           <ChakraThemeProvider>
             <ErrorBoundary fallbackRender={ErrorPage}>
-              <Layout>{children}</Layout>
+              <ToastProvider>
+                <Layout>{children}</Layout>
+              </ToastProvider>
             </ErrorBoundary>
           </ChakraThemeProvider>
         </ReactQueryProvider>
