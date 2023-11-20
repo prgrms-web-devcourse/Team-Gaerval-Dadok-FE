@@ -1,31 +1,22 @@
-import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+'use client';
 
-import type { APIAllJob } from '@/types/job';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import type { APIJobGroup } from '@/types/job';
+
+import { isAxiosError } from 'axios';
+import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 
 import TopNavigation from '@/ui/Base/TopNavigation';
 import Input from '@/ui/Base/Input';
+import InputLength from '@/ui/Base/InputLength';
 import Select from '@/ui/Base/Select';
 import ErrorMessage from '@/ui/Base/ErrorMessage';
+import useToast from '@/ui/Base/Toast/useToast';
 
-const jobData: APIAllJob = {
-  jobGroups: [
-    {
-      koreanName: '개발',
-      name: 'DEVELOPMENT',
-      jobs: [
-        {
-          koreanName: '백엔드 개발자',
-          name: 'BACKEND_DEVELOPER',
-          order: 1,
-        },
-        {
-          koreanName: '프론트엔드 개발자',
-          name: 'FRONTEND_DEVELOPER',
-          order: 2,
-        },
-      ],
-    },
-  ],
+type UserProfileProps = {
+  jobGroups: APIJobGroup[];
 };
 
 type FormValues = {
@@ -34,39 +25,66 @@ type FormValues = {
   job: string;
 };
 
-type InputLengthProps = {
-  control: Control<FormValues>;
-  keyNames: keyof FormValues;
-  minLength: number;
-  maxLength: number;
-};
-
-const EditMyProfilePage = () => {
+const CreateProfile = ({ jobGroups }: UserProfileProps) => {
   const {
     register,
     watch,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'all',
+    defaultValues: {
+      nickname: '',
+      jobGroup: '',
+      job: '',
+    },
   });
-  const jobGroups = jobData.jobGroups;
+
+  const router = useRouter();
+  const myProfileMutation = useMyProfileMutation();
+  const toast = useToast();
+
+  const showToastEditSuccess = () =>
+    toast.show({
+      type: 'success',
+      message: '회원 가입 완료!',
+      duration: 3000,
+    });
+
+  const showToastEditFailed = () =>
+    toast.show({
+      type: 'error',
+      message: '잠시 후 다시 시도해 주세요.',
+      duration: 3000,
+    });
 
   const handleSubmitForm: SubmitHandler<FormValues> = ({
     nickname,
     jobGroup,
     job,
   }) => {
-    return alert(`닉네임: ${nickname}, 직군: ${jobGroup}, 직업: ${job}`);
+    myProfileMutation.mutateAsync(
+      {
+        nickname,
+        job: { jobGroup: jobGroup, jobName: job },
+      },
+      {
+        onSuccess: () => {
+          router.replace('/bookarchive');
+          showToastEditSuccess();
+        },
+        onError: error => {
+          if (isAxiosError(error) && error.response) {
+            console.error(error.response.data);
+            showToastEditFailed();
+          }
+        },
+      }
+    );
   };
 
   return (
-    /* 공통 레이아웃 스타일링, 추후 제거할 것 */
-    <div
-      className={`animate-page-transition h-screen w-full max-w-[43rem] overflow-auto p-[2rem]`}
-    >
-      {/* 헤더 부분 */}
+    <>
       <TopNavigation>
         <TopNavigation.CenterItem textAlign="center">
           <span className="text-md font-normal text-black-900">
@@ -83,9 +101,7 @@ const EditMyProfilePage = () => {
         </TopNavigation.RightItem>
       </TopNavigation>
 
-      {/* 컨탠츠 컨테이너 */}
       <div className="mt-[9.2rem] flex w-full flex-col gap-[3.3rem]">
-        {/* 프로필을 등록해주세요! */}
         <div className="flex flex-col gap-[1rem] font-normal">
           <span className="text-lg text-black-700">프로필을 등록해주세요!</span>
           <div className="text-sm text-placeholder">
@@ -97,12 +113,10 @@ const EditMyProfilePage = () => {
           </div>
         </div>
 
-        {/* 폼 컨테이너 */}
         <form
           onSubmit={handleSubmit(handleSubmitForm)}
           className="flex w-full flex-col gap-[3.2rem]"
         >
-          {/* 닉네임 입력 폼 */}
           <div className="flex flex-col gap-[1rem]">
             <span className="h-[2.1rem] text-md font-normal text-black-700">
               닉네임
@@ -119,9 +133,8 @@ const EditMyProfilePage = () => {
               />
               <div className="flex h-[1.4rem] flex-row-reverse justify-between">
                 <InputLength
-                  control={control}
-                  keyNames={'nickname'}
-                  minLength={2}
+                  currentLength={watch('nickname')?.length}
+                  isError={!!errors.nickname}
                   maxLength={10}
                 />
                 {errors.nickname && (
@@ -131,13 +144,11 @@ const EditMyProfilePage = () => {
             </div>
           </div>
 
-          {/* 직업 직군 입력 폼 */}
           <div className="flex flex-col gap-[1rem]">
             <span className="h-[2.1rem] text-md font-normal text-black-700">
               직업/직군
             </span>
 
-            {/* 직군 선택 폼 */}
             <div className="flex flex-col gap-[0.5rem]">
               <Select
                 placeholder="직군을 선택해주세요."
@@ -157,7 +168,6 @@ const EditMyProfilePage = () => {
               )}
             </div>
 
-            {/* 직업 선택 폼 */}
             <div className="flex flex-col gap-[0.5rem]">
               <Select
                 placeholder="직업을 선택해주세요."
@@ -179,30 +189,8 @@ const EditMyProfilePage = () => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
-export default EditMyProfilePage;
-
-const InputLength = ({
-  control,
-  keyNames,
-  minLength,
-  maxLength,
-}: InputLengthProps) => {
-  const targetInput = useWatch({
-    control,
-    name: keyNames,
-  });
-
-  const currentLength = targetInput ? targetInput.length : 0;
-  const isError = currentLength < minLength || currentLength > maxLength;
-  const textColor = isError ? 'text-warning-800 ' : 'text-main-900';
-
-  return (
-    <div>
-      <span className={textColor}>{currentLength}</span>/{maxLength}
-    </div>
-  );
-};
+export default CreateProfile;
