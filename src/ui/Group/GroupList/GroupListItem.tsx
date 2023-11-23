@@ -12,7 +12,7 @@ const GroupListItem = ({
   endDate,
   maxMemberCount,
   owner,
-  memberCount,
+  currentMemberCount,
   commentCount,
   book,
 }: APIGroup) => {
@@ -99,7 +99,7 @@ const GroupListItem = ({
                           <Image src="/icons/peopleIcon.svg" alt="peopleIcon" />
                         </Box>
                         <Box w="6rem" ml="0.5rem" fontSize="1.2rem">
-                          {memberCount}
+                          {currentMemberCount}
                           {maxMemberCount ? ` / ${maxMemberCount}` : ''}
                         </Box>
                       </Flex>

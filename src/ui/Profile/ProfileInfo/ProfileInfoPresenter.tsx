@@ -2,16 +2,12 @@ import { Avatar, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import type { APIUser } from '@/types/user';
 import IconButton from '../../common/IconButton';
 
-type ProfileInfoProps = Pick<
-  APIUser,
-  'nickname' | 'oauthNickname' | 'profileImage' | 'email' | 'job'
->;
+type ProfileInfoProps = Pick<APIUser, 'nickname' | 'profileImage' | 'job'>;
 
+// COMMENT: 프로필 정보 조회 API 스키마 변경으로 email, oauthnickname props 제거
 const ProfileInfoPresenter = ({
   nickname,
-  oauthNickname,
   profileImage,
-  email,
   job: { jobGroupKoreanName, jobNameKoreanName },
 }: ProfileInfoProps) => {
   return (
@@ -19,8 +15,8 @@ const ProfileInfoPresenter = ({
       <Flex width="100%" gap="1.5rem">
         <Avatar src={profileImage} w="8rem" h="8rem" />
         <Flex direction="column" justify="center">
-          <Text fontSize="xl">{nickname || oauthNickname}</Text>
-          <Text fontSize="sm">{email}</Text>
+          <Text fontSize="xl">{nickname}</Text>
+          {/* <Text fontSize="sm">{email}</Text> */}
         </Flex>
       </Flex>
       <HStack>
