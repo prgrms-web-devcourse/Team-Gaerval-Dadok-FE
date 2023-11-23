@@ -6,6 +6,7 @@ import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
 
 import { useBookGroupTitle } from '@/queries/group/useBookGroupQuery';
 import CommentList from '@/v1/bookGroup/detail/CommentList';
+import { useRouter } from 'next/navigation';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -29,12 +30,15 @@ const DetailBookGroupPage = ({
 export default DetailBookGroupPage;
 
 const BookGroupNavigation = ({ groupId }: { groupId: number }) => {
+  const router = useRouter();
   const { data: title } = useBookGroupTitle(groupId);
 
   return (
     <TopNavigation>
       <TopNavigation.LeftItem>
-        <IconArrowLeft />
+        <a onClick={router.back}>
+          <IconArrowLeft />
+        </a>
       </TopNavigation.LeftItem>
       <TopNavigation.CenterItem textAlign="left">
         <p className="w-[90%] truncate">{title}</p>
