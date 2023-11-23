@@ -45,7 +45,7 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
   const sizeClasses = getCoverSizeClasses(size);
 
   return (
-    <div className={`relative ${sizeClasses}`}>
+    <div className={`relative flex-shrink-0 ${sizeClasses}`}>
       <Image
         src={src}
         alt={title || 'book-cover'}

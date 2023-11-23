@@ -5,7 +5,7 @@ import GroupInfo from '@/ui/Group/GroupDetail/GroupInfo';
 import CommentInputBox from '../GroupComment/CommentInputBox';
 import CommentsList from '../GroupComment';
 import useGroupInfoQuery from '@/queries/group/useGroupInfoQuery';
-import useGroupCommentsQuery from '@/queries/group/useGroupCommentsQuery';
+import useGroupCommentsQuery from '@/queries/group/useBookGroupCommentsQuery';
 import GroupAPI from '@/apis/group';
 import { useToast } from '@/hooks/toast';
 
@@ -15,7 +15,7 @@ interface GroupDetailProps {
 
 const GroupDetail = ({ bookGroupId }: GroupDetailProps) => {
   const groupInfoQuery = useGroupInfoQuery({ bookGroupId });
-  const groupCommentsQuery = useGroupCommentsQuery({ bookGroupId });
+  const groupCommentsQuery = useGroupCommentsQuery(bookGroupId);
   const { showToast } = useToast();
   const router = useRouter();
 
