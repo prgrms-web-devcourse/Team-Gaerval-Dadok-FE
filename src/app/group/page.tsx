@@ -1,56 +1,36 @@
 'use client';
 
+import TopHeader from '@/ui/Base/TopHeader';
+import SearchGroup from '@/v1/bookGroup/SearchGroup';
+import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
+import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
+
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
-import GroupHeader from '@/ui/Group/GroupHeader';
-import GroupList from '@/ui/Group/GroupList';
-import GroupSearch from '@/ui/Group/GroupSearch';
-import { Box, Skeleton, VStack } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
+import { Skeleton, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-interface SearchValue {
-  [key: string]: string;
-  input: string;
-  select: string;
-}
-
 const GroupPage = () => {
-  const [searchValue, setSearchValue] = useState<SearchValue>({
-    input: '',
-    select: '모임',
-  });
   const { ref, inView } = useInView();
 
   const {
-    isSuccess,
-    data,
+    isSuccess: entireGroupsIsSuccess,
+    data: entireGroupsData,
     isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useEntireGroupsQuery();
 
+  const { isSuccess: myGroupsIsSuccess, data: myGroupsData } =
+    useMyGroupsQuery();
+
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [fetchNextPage, inView, hasNextPage]);
-
-  const handleSumbit = () => {
-    const { input } = searchValue;
-    if (input.trim().length === 0) {
-      /*공백만 입력한 경우 전체 데이터 렌더링 */
-    } else {
-      /*검색 API호출 및 setMeetingListData 업데이트 */
-    }
-  };
-
-  const handleChange = (name: string, value: string) => {
-    if (!(name in searchValue)) return;
-    const tempSearchValue = { ...searchValue };
-    tempSearchValue[name] = value;
-    setSearchValue(tempSearchValue);
-  };
 
   if (isLoading)
     return (
@@ -63,22 +43,73 @@ const GroupPage = () => {
     );
 
   return (
-    <VStack align="center">
-      <Box w="100%">
-        <GroupHeader />
-        <GroupSearch
-          searchValue={searchValue}
-          handleChange={handleChange}
-          handleSumbit={handleSumbit}
+    <>
+      <TopHeader pathname={'/group'} />
+      <div className="mt-[2rem] flex w-full flex-col gap-[1.5rem]">
+        <SearchGroup
+          onClick={() => {
+            alert('추후 업데이트 될 예정입니다.');
+          }}
         />
-        {isSuccess &&
-          data.pages.map((groups, idx) => {
-            return <GroupList key={idx} bookGroups={groups.bookGroups} />;
-          })}
-      </Box>
-      <Box ref={ref} />
+        <div className="mt-[0.7rem] flex gap-[1rem] overflow-scroll">
+          {myGroupsIsSuccess &&
+            myGroupsData.bookGroups.map(group => {
+              const { title, book, bookGroupId } = group;
+              return (
+                //API isOwner 값이 존재하지 않아 비교하는 로직 추가 필요
+                <SimpleBookGroupCard
+                  key={bookGroupId}
+                  title={title}
+                  imageSource={book.imageUrl}
+                  isOwner={false}
+                  bookGroupId={bookGroupId}
+                />
+              );
+            })}
+        </div>
+        <div className="flex flex-col gap-[1rem]">
+          {entireGroupsIsSuccess &&
+            entireGroupsData.pages.map(groups => {
+              return groups.bookGroups.map(group => {
+                const {
+                  title,
+                  introduce,
+                  book,
+                  startDate,
+                  endDate,
+                  owner,
+                  memberCount,
+                  commentCount,
+                  isPublic,
+                  bookGroupId,
+                } = group;
+                return (
+                  <DetailBookGroupCard
+                    key={bookGroupId}
+                    title={title}
+                    description={introduce}
+                    bookImageSrc={book.imageUrl}
+                    date={{ start: startDate, end: endDate }}
+                    owner={{
+                      name: owner.nickname,
+                      profileImageSrc: owner.profileUrl,
+                    }}
+                    memberCount={memberCount}
+                    commentCount={commentCount}
+                    isPublic={isPublic}
+                    bookGroupId={bookGroupId}
+                  />
+                );
+              });
+            })}
+        </div>
+      </div>
+      <div ref={ref} />
       {isFetchingNextPage && <Skeleton w="100%" height="28rem" />}
-    </VStack>
+      {/* <Link href={'/group/create'}>
+        <FloatingButton position="bottom-right" />
+      </Link> */}
+    </>
   );
 };
 
