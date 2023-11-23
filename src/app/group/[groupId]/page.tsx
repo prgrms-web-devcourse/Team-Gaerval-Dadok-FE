@@ -37,7 +37,7 @@ const BookGroupNavigation = ({ groupId }: { groupId: number }) => {
         <IconArrowLeft />
       </TopNavigation.LeftItem>
       <TopNavigation.CenterItem textAlign="left">
-        {title}
+        <p className="w-[90%] truncate">{title}</p>
       </TopNavigation.CenterItem>
       <TopNavigation.RightItem>
         <IconPost />
