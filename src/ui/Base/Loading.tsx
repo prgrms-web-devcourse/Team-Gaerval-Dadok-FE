@@ -1,5 +1,3 @@
-import Portal from './Portal';
-
 const schemes = {
   main: 'bg-main-900',
   grey: 'bg-black-400',
@@ -15,11 +13,9 @@ interface LoadingProps {
 const Loading = ({ color = 'main', fullpage = false }: LoadingProps) => {
   if (fullpage) {
     return (
-      <Portal id="loading">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <LoadingDots color={color} />
-        </div>
-      </Portal>
+      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <LoadingDots color={color} />
+      </div>
     );
   }
 
