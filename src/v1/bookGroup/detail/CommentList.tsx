@@ -10,7 +10,7 @@ const CommentList = ({ groupId }: { groupId: number }) => {
 
   return (
     <div className="flex flex-col gap-[1rem]">
-      {comments &&
+      {comments.length ? (
         comments.map(({ id, writer, createdAt, content }) => (
           <div className="flex flex-col gap-[1.7rem] pt-[1rem]" key={id}>
             <div className="flex gap-[1rem]">
@@ -28,7 +28,13 @@ const CommentList = ({ groupId }: { groupId: number }) => {
             <Comment content={content} />
             <Divider />
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="self-center whitespace-pre-line py-[2rem] text-center text-sm">
+          {`아직 게시글이 없어요.
+          가장 먼저 게시글을 남겨보세요!`}
+        </p>
+      )}
     </div>
   );
 };
