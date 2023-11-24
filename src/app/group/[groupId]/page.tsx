@@ -69,7 +69,7 @@ const Heading = ({ text }: { text: string }) => (
 );
 
 const TitleSkeleton = () => (
-  <div className="h-[1.3rem] w-[8rem] bg-black-400"></div>
+  <div className="h-[1.3rem] w-[8rem] animate-pulse bg-black-400"></div>
 );
 
 const PageSkeleton = () => (
