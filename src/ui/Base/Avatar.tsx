@@ -10,23 +10,23 @@ interface AvatarProps {
 
 const FALLBACK_IMAGE_SRC = '/icons/avatar.svg';
 
-const getSizeClasses = (size: AvatarSize) => {
+const getAvatarSize = (size: AvatarSize) => {
   switch (size) {
     case 'small': {
-      return 'w-[2rem] h-[2rem]';
+      return ['w-[2rem] h-[2rem]', { width: 20, height: 20 }] as const;
     }
     case 'medium': {
-      return 'w-[3.2rem] h-[3.2rem]';
+      return ['w-[3.2rem] h-[3.2rem]', { width: 32, height: 32 }] as const;
     }
     case 'large': {
-      return 'w-[7rem] h-[7rem]';
+      return ['w-[7rem] h-[7rem]', { width: 70, height: 70 }] as const;
     }
   }
 };
 
 const Avatar = ({ name, src, size = 'medium' }: AvatarProps) => {
   const [image, setImage] = useState(src ?? FALLBACK_IMAGE_SRC);
-  const sizeClass = getSizeClasses(size);
+  const [sizeClass, sizeProps] = getAvatarSize(size);
 
   const setFallbackImage = () => setImage(FALLBACK_IMAGE_SRC);
 
@@ -37,8 +37,8 @@ const Avatar = ({ name, src, size = 'medium' }: AvatarProps) => {
       <Image
         alt={name || 'avatar'}
         src={image}
-        fill
-        className={`rounded-full object-cover ${sizeClass}`}
+        className={`h-full w-full rounded-full object-cover`}
+        {...sizeProps}
         onError={setFallbackImage}
       />
     </span>
