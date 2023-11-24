@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryOptions } from '@tanstack/react-query';
 
 import { APIGroupDetail, BookGroupDetail } from '@/types/group';
-import { QueryOptions } from '@/types/query';
 
+import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
 import GroupAPI from '@/apis/group';
 import bookGroupKeys from './key';
 
@@ -20,21 +20,23 @@ const transformBookGroupDetail = (data: APIGroupDetail) =>
 
 export const useBookGroupQuery = <TData = APIGroupDetail>(
   groupId: APIGroupDetail['bookGroupId'],
-  select: QueryOptions<APIGroupDetail, TData>['select']
+  options?: UseQueryOptions<APIGroupDetail, unknown, TData>
 ) =>
-  useQuery({
-    queryKey: bookGroupKeys.detail(groupId),
-    queryFn: () =>
+  useQueryWithSuspense(
+    bookGroupKeys.detail(groupId),
+    () =>
       GroupAPI.getGroupDetailInfo({ bookGroupId: groupId }).then(
         ({ data }) => data
       ),
-    select,
-  });
+    options
+  );
 
 export default useBookGroupQuery;
 
 export const useBookGroup = (groupId: APIGroupDetail['bookGroupId']) =>
-  useBookGroupQuery(groupId, transformBookGroupDetail);
+  useBookGroupQuery(groupId, {
+    select: transformBookGroupDetail,
+  });
 
 export const useBookGroupTitle = (groupId: APIGroupDetail['bookGroupId']) =>
-  useBookGroupQuery(groupId, data => data.title);
+  useBookGroupQuery(groupId, { select: data => data.title });

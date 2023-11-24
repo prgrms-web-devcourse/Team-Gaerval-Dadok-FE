@@ -1,12 +1,15 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import Loading from '@/ui/Base/Loading';
 import TopNavigation from '@/ui/Base/TopNavigation';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
+import CommentList from '@/v1/bookGroup/detail/CommentList';
 import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
 
 import { useBookGroupTitle } from '@/queries/group/useBookGroupQuery';
-import CommentList from '@/v1/bookGroup/detail/CommentList';
-import { useRouter } from 'next/navigation';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -16,13 +19,15 @@ const DetailBookGroupPage = ({
   return (
     <>
       <BookGroupNavigation groupId={groupId} />
-      <div className="flex flex-col gap-[2rem]">
-        <BookGroupInfo groupId={groupId} />
-        <div className="flex flex-col gap-[1rem]">
-          <Heading text="게시글" />
-          <CommentList groupId={groupId} />
+      <SSRSafeSuspense fallback={<Loading fullpage />}>
+        <div className="flex flex-col gap-[2rem]">
+          <BookGroupInfo groupId={groupId} />
+          <div className="flex flex-col gap-[1rem]">
+            <Heading text="게시글" />
+            <CommentList groupId={groupId} />
+          </div>
         </div>
-      </div>
+      </SSRSafeSuspense>
     </>
   );
 };

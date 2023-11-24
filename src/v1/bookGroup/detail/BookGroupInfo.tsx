@@ -13,34 +13,27 @@ const BookGroupInfo = ({ groupId }: { groupId: number }) => {
 
   return (
     <div className="flex flex-col gap-[1rem] py-[2rem]">
-      {bookGroupInfo && (
-        <>
-          <div className="flex gap-[0.5rem]">
-            <BookGroupStatus
-              start={bookGroupInfo.date.start}
-              end={bookGroupInfo.date.end}
-            />
-            <Public isPublic={bookGroupInfo.isPublic} />
-          </div>
-          <Owner
-            userId={bookGroupInfo.owner.id}
-            isMe={bookGroupInfo.owner.isMe}
-          />
-          <Title title={bookGroupInfo.title} />
-          <BookInfoCard bookId={bookGroupInfo.bookId} />
-          <div className="flex flex-col gap-[0.3rem]">
-            <Duration
-              start={bookGroupInfo.date.start}
-              end={bookGroupInfo.date.end}
-            />
-            <MemberCapacity
-              current={bookGroupInfo.memberCount.current}
-              max={bookGroupInfo.memberCount.max}
-            />
-          </div>
-          <Description content={bookGroupInfo.description} />
-        </>
-      )}
+      <div className="flex gap-[0.5rem]">
+        <BookGroupStatus
+          start={bookGroupInfo.date.start}
+          end={bookGroupInfo.date.end}
+        />
+        <Public isPublic={bookGroupInfo.isPublic} />
+      </div>
+      <Owner userId={bookGroupInfo.owner.id} isMe={bookGroupInfo.owner.isMe} />
+      <Title title={bookGroupInfo.title} />
+      <BookInfoCard bookId={bookGroupInfo.bookId} />
+      <div className="flex flex-col gap-[0.3rem]">
+        <Duration
+          start={bookGroupInfo.date.start}
+          end={bookGroupInfo.date.end}
+        />
+        <MemberCapacity
+          current={bookGroupInfo.memberCount.current}
+          max={bookGroupInfo.memberCount.max}
+        />
+      </div>
+      <Description content={bookGroupInfo.description} />
     </div>
   );
 };
@@ -62,18 +55,15 @@ const Owner = ({
 
   return (
     <div className="flex items-center gap-[1rem]">
-      {userInfo && (
-        <>
-          <Avatar
-            name={userInfo.nickname}
-            size="medium"
-            src={userInfo.profileImage}
-          />
-          <span className="text-center text-sm font-bold">
-            {userInfo.nickname} {isMe && ' 👑'}
-          </span>
-        </>
-      )}
+      <Avatar
+        name={userInfo.nickname}
+        size="medium"
+        src={userInfo.profileImage}
+      />
+      <span className="text-center text-sm font-bold">
+        <span>{userInfo.nickname}</span>
+        <span>{isMe && ' 👑'}</span>
+      </span>
     </div>
   );
 };
@@ -86,22 +76,14 @@ const BookInfoCard = ({ bookId }: { bookId: number }) => {
   const { data: bookInfo } = useBookInfoQuery(bookId);
 
   return (
-    <div className="flex min-h-[10rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
-      {bookInfo && (
-        <>
-          <BookCover
-            size="xsmall"
-            src={bookInfo.imageUrl}
-            title={bookInfo.title}
-          />
-          <div className="flex min-w-0 flex-grow flex-col">
-            <span className="truncate text-sm font-bold">{bookInfo.title}</span>
-            <span className="text-xs text-placeholder">{bookInfo.author}</span>
-          </div>
-          {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
-          <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
-        </>
-      )}
+    <div className="flex min-h-[11rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
+      <BookCover size="xsmall" src={bookInfo.imageUrl} title={bookInfo.title} />
+      <div className="flex min-w-0 flex-grow flex-col">
+        <span className="truncate text-sm font-bold">{bookInfo.title}</span>
+        <span className="text-xs text-placeholder">{bookInfo.author}</span>
+      </div>
+      {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
+      <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
     </div>
   );
 };

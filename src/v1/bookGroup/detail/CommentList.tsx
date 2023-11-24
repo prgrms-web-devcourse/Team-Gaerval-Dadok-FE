@@ -1,9 +1,12 @@
 import { IconHamburger } from '@public/icons';
 import Avatar from '@/ui/Base/Avatar';
 import { useBookGroupComments } from '@/queries/group/useBookGroupCommentsQuery';
+import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
+import { isAuthed } from '@/utils/helpers';
 
 const CommentList = ({ groupId }: { groupId: number }) => {
   const { data: comments } = useBookGroupComments(groupId);
+  const { data: myId } = useMyProfileId({ enabled: isAuthed() });
 
   return (
     <div className="flex flex-col gap-[1rem]">
@@ -20,7 +23,7 @@ const CommentList = ({ groupId }: { groupId: number }) => {
                 <Name name={writer.name} />
                 <Date date={createdAt} />
               </div>
-              <MenuButton />
+              {writer.id === myId && <MenuButton />}
             </div>
             <Comment content={content} />
             <Divider />
@@ -52,4 +55,4 @@ const Comment = ({ content }: { content: string }) => (
   <p className="text-justify text-md">{content}</p>
 );
 
-const Divider = () => <p className=" border-b-black100 border-[0.05rem]"></p>;
+const Divider = () => <p className=" border-[0.05rem] border-b-[#eaf1fa]"></p>;
