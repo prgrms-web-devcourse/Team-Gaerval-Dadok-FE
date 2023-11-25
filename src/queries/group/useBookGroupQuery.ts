@@ -1,9 +1,10 @@
 import { UseQueryOptions } from '@tanstack/react-query';
 
 import { APIGroupDetail, BookGroupDetail } from '@/types/group';
-
-import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+import { isExpired } from '@/utils/date';
 import GroupAPI from '@/apis/group';
+import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+
 import bookGroupKeys from './key';
 
 const transformBookGroupDetail = (data: APIGroupDetail) =>
@@ -40,3 +41,18 @@ export const useBookGroup = (groupId: APIGroupDetail['bookGroupId']) =>
 
 export const useBookGroupTitle = (groupId: APIGroupDetail['bookGroupId']) =>
   useBookGroupQuery(groupId, { select: data => data.title });
+
+export const useBookGroupOwner = (groupId: APIGroupDetail['bookGroupId']) =>
+  useBookGroupQuery(groupId, {
+    select: data => ({ isMe: data.isOwner, id: data.owner.id }),
+  });
+
+export const useBookGroupJoinInfo = (groupId: APIGroupDetail['bookGroupId']) =>
+  useBookGroupQuery(groupId, {
+    select: data => ({
+      isExpired: isExpired(data.endDate),
+      isMember: data.isGroupMember,
+      hasPassword: data.hasJoinPasswd,
+      question: data.joinQuestion,
+    }),
+  });
