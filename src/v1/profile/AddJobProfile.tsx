@@ -15,8 +15,8 @@ import Select from '@/ui/Base/Select';
 import ErrorMessage from '@/ui/Base/ErrorMessage';
 import useToast from '@/ui/Base/Toast/useToast';
 
-type UserProfileProps = {
-  jobGroups: APIJobGroup[];
+type AddJobProfileProps = {
+  jobCategories: APIJobGroup[];
 };
 
 type FormValues = {
@@ -25,7 +25,7 @@ type FormValues = {
   job: string;
 };
 
-const CreateProfile = ({ jobGroups }: UserProfileProps) => {
+const AddJobProfile = ({ jobCategories }: AddJobProfileProps) => {
   const {
     register,
     watch,
@@ -47,9 +47,15 @@ const CreateProfile = ({ jobGroups }: UserProfileProps) => {
   const showToastEditSuccess = () =>
     toast.show({
       type: 'success',
-      message: '회원 가입 완료!',
+      message: '프로필을 등록했어요!',
       duration: 3000,
     });
+
+  /**
+   * @todo
+   * showToastEditFailed()
+   * 범용적으로 에러 핸들링 할 수 있도록 수정
+   */
 
   const showToastEditFailed = () =>
     toast.show({
@@ -157,7 +163,7 @@ const CreateProfile = ({ jobGroups }: UserProfileProps) => {
                 })}
                 error={!!errors.jobGroup}
               >
-                {jobGroups.map(({ name, koreanName }) => (
+                {jobCategories.map(({ name, koreanName }) => (
                   <Select.Option key={name} value={name}>
                     {koreanName}
                   </Select.Option>
@@ -176,7 +182,7 @@ const CreateProfile = ({ jobGroups }: UserProfileProps) => {
                 })}
                 error={!!errors.job}
               >
-                {jobGroups
+                {jobCategories
                   .find(({ name }) => name === watch('jobGroup'))
                   ?.jobs.map(({ name, koreanName }) => (
                     <Select.Option key={name} value={name}>
@@ -193,4 +199,4 @@ const CreateProfile = ({ jobGroups }: UserProfileProps) => {
   );
 };
 
-export default CreateProfile;
+export default AddJobProfile;

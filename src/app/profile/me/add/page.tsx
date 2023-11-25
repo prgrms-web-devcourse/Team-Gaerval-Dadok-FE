@@ -6,9 +6,9 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import { isAuthed } from '@/utils/helpers';
 import AuthRequired from '@/ui/AuthRequired';
 
-import CreateProfile from '@/v1/profile/CreateProfile';
+import AddJobProfile from '@/v1/profile/AddJobProfile';
 
-const CreateProfilePage = () => {
+const AddJobProfilePage = () => {
   return (
     <AuthRequired>
       <Suspense fallback={null}>
@@ -22,8 +22,8 @@ const Contents = () => {
   const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
 
   return allJobQuery.isSuccess ? (
-    <CreateProfile jobGroups={allJobQuery.data.jobGroups} />
+    <AddJobProfile jobCategories={allJobQuery.data.jobGroups} />
   ) : null;
 };
 
-export default CreateProfilePage;
+export default AddJobProfilePage;
