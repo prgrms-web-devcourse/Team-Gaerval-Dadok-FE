@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
 import Badge from '@/ui/Base/Badge';
 import Avatar from '@/ui/Base/Avatar';
@@ -76,15 +78,21 @@ const BookInfoCard = ({ bookId }: { bookId: number }) => {
   const { data: bookInfo } = useBookInfoQuery(bookId);
 
   return (
-    <div className="flex min-h-[11rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
-      <BookCover size="xsmall" src={bookInfo.imageUrl} title={bookInfo.title} />
-      <div className="flex min-w-0 flex-grow flex-col">
-        <span className="truncate text-sm font-bold">{bookInfo.title}</span>
-        <span className="text-xs text-placeholder">{bookInfo.author}</span>
+    <Link href={`/book/${bookId}`}>
+      <div className="flex min-h-[11rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
+        <BookCover
+          size="xsmall"
+          src={bookInfo.imageUrl}
+          title={bookInfo.title}
+        />
+        <div className="flex min-w-0 flex-grow flex-col">
+          <span className="truncate text-sm font-bold">{bookInfo.title}</span>
+          <span className="text-xs text-placeholder">{bookInfo.author}</span>
+        </div>
+        {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
+        <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
       </div>
-      {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
-      <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
-    </div>
+    </Link>
   );
 };
 
