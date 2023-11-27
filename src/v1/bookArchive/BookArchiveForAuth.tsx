@@ -4,8 +4,8 @@ import useAuthRecommendedBooks from '@/queries/recommend/useAuthRecommendedBooks
 import useAuthRecommendedBookshelf from '@/queries/recommend/useAuthRecommendedBookshelf';
 import { APIJobGroup } from '@/types/job';
 import BookCover from '@/v1/book/BookCover';
-import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
 import Link from 'next/link';
+import BookShelfCard from '../bookShelf/BookShelfCard';
 
 const BookArchiveForAuth = ({
   userJobGroup,
