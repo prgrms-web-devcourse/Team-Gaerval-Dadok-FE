@@ -1,5 +1,6 @@
 'use client';
 
+import { IconHeart, IconArrowLeft, IconShare } from '@public/icons';
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
@@ -8,30 +9,14 @@ import {
   useBookshelfUnlike,
 } from '@/queries/bookshelf/useBookshelfLikeMutation';
 import { APIBookshelf } from '@/types/bookshelf';
-import Button from '@/ui/common/Button';
-import IconButton from '@/ui/common/IconButton';
-import { LikeButton } from '@/ui/common/BookshelfLike/';
-import TopNavigation from '@/ui/common/TopNavigation';
-import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
-import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
-import UserJobInfoTag from '@/ui/UserJobInfoTag';
-import { isAuthed } from '@/utils/helpers';
-import {
-  Box,
-  Flex,
-  Highlight,
-  HStack,
-  Image,
-  Link,
-  Skeleton,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { usePathname } from 'next/navigation';
+
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Button from '@/ui/Base/Button';
+import TopNavigation from '@/ui/Base/TopNavigation';
+import BookShelf from '@/v1/bookShelf/BookShelf';
 
-const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -40,55 +25,15 @@ export default function UserBookShelfPage({
     bookshelfId: APIBookshelf['bookshelfId'];
   };
 }) {
-  const { ref, inView } = useInView();
-  const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
-    bookshelfId,
-  });
+  const { data, isSuccess } = useBookshelfInfoQuery({ bookshelfId });
   const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
   const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
-  const pathname = usePathname();
   const { showToast } = useToast();
-  const {
-    data: booksData,
-    fetchNextPage,
-    hasNextPage,
-    isSuccess: booksIsSuccess,
-    isLoading,
-    isFetching,
-    isFetchingNextPage,
-  } = useBookshelfBooksQuery({ bookshelfId });
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [fetchNextPage, inView, hasNextPage]);
-
-  if (isLoading) {
-    return (
-      <VStack gap="2rem" mt="7.8rem">
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-      </VStack>
-    );
-  }
-
-  if (!(infoIsSuccess && booksIsSuccess)) return null;
-
-  const filtered = () => {
-    const data = booksData.pages[0].books;
-
-    if (isAuthed()) return data;
-
-    return data.slice(0, 4);
-  };
-
-  const filteredData = filtered();
+  if (!isSuccess) return null;
 
   const handleClickShareButton = () => {
-    const url = 'https://dev.dadok.site' + pathname;
+    const url = window.location.href;
 
     navigator.clipboard
       .writeText(url)
@@ -100,69 +45,89 @@ export default function UserBookShelfPage({
       });
   };
 
-  const handleBookshelfLikeButton = () => {
-    !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
+  const handleClickLikeButton = () => {
+    !data.isLiked ? likeBookshelf() : unlikeBookshelf();
   };
 
   return (
-    <VStack width="100%" height="100%">
-      <Flex width="100%" align="center">
-        <TopNavigation pageTitle={infoData.bookshelfName} />
-        <IconButton
-          name="share"
-          size="2.2rem"
-          onClick={handleClickShareButton}
-          cursor="pointer"
-          marginBottom="1rem"
-        />
-      </Flex>
-      <Flex width="100%" height="3rem" align="center" justify="space-between">
-        <HStack gap="0.08rem" py="1.6rem">
-          <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
-          {infoData.job.jobNameKoreanName && (
-            <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
-          )}
-        </HStack>
-        <LikeButton
-          handleBookshelfLikeButton={handleBookshelfLikeButton}
-          isLiked={infoData.isLiked}
-          likeCount={infoData.likeCount}
-        />
-      </Flex>
-      <VStack width="100%" spacing="2rem">
-        {isAuthed() ? (
-          booksData.pages.map((page, idx) => (
-            <InteractiveBookShelf key={idx} books={page.books} />
-          ))
-        ) : (
-          <>
-            <InteractiveBookShelf books={filteredData} />
-            <InitialBookShelfData />
-            <Text textAlign="center" fontSize="lg" pt="5rem">
-              로그인 후에
-              <br />
-              <Highlight
-                query={infoData.bookshelfName}
-                styles={{ color: 'main', fontWeight: 'bold' }}
-              >
-                {`${infoData.bookshelfName}을 확인해 주세요!`}
-              </Highlight>
-            </Text>
-            <Link href={kakaoUrl} style={{ width: '100%' }}>
-              <Button scheme="kakao" fullWidth>
-                <Image
-                  src="/icons/kakao-legacy.svg"
-                  alt="카카오 로고"
-                  width={21}
-                  height={19}
-                />
-                카카오 로그인
-              </Button>
-            </Link>
-          </>
-        )}
-        {isFetching && !isFetchingNextPage ? null : <Box ref={ref} />}
-      </VStack>
-    </VStack>
+    <div className="flex w-full flex-col">
+      <TopNavigation>
+        <TopNavigation.LeftItem>
+          <IconArrowLeft />
+        </TopNavigation.LeftItem>
+        <TopNavigation.RightItem>
+          <button onClick={handleClickShareButton}>
+            <IconShare />
+          </button>
+        </TopNavigation.RightItem>
+      </TopNavigation>
+      <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">
+        <h1 className="text-[1.8rem]">
+          <span className="text-main-900">{data.userNickname}</span>
+          님의 책장
+        </h1>
+        <div className="flex items-center justify-between">
+          <span className="text-[1.4rem] text-[#939393]">
+            {`${data.job.jobGroupKoreanName} • ${data.job.jobNameKoreanName}`}
+          </span>
+          <Button
+            size="small"
+            colorScheme="warning"
+            fullRadius
+            onClick={handleClickLikeButton}
+          >
+            <div className="bold flex items-center gap-[0.4rem] text-xs">
+              <IconHeart fill="white" height="1.3rem" w="1.3rem" />
+              {data.likeCount}
+            </div>
+          </Button>
+        </div>
+      </div>
+
+      <BookShelfContent bookshelfId={bookshelfId} />
+    </div>
   );
 }
+
+const BookShelfContent = ({
+  bookshelfId,
+}: {
+  bookshelfId: APIBookshelf['bookshelfId'];
+}) => {
+  const { ref, inView } = useInView();
+
+  const {
+    data: booksData,
+    fetchNextPage,
+    hasNextPage,
+    isSuccess,
+    isFetching,
+    isFetchingNextPage,
+  } = useBookshelfBooksQuery({ bookshelfId });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView, hasNextPage]);
+
+  // TODO: Suspense 적용
+  if (!isSuccess) return null;
+
+  return (
+    <>
+      {booksData.pages.map(page =>
+        page.books.map((rowBooks, idx) => (
+          <BookShelf key={idx}>
+            <div className="relative pb-[2.5rem] pt-[2rem] shadow-[0px_0px_10px_0px_#D1D1D1]">
+              <BookShelf.Background />
+              <BookShelf.Books books={rowBooks} />
+            </div>
+          </BookShelf>
+        ))
+      )}
+
+      {isFetching && !isFetchingNextPage ? null : <div ref={ref} />}
+    </>
+  );
+};
