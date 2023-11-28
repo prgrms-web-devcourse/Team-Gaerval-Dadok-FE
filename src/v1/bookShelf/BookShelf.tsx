@@ -13,9 +13,9 @@ const BookShelf = ({ children }: { children: ReactNode }) => {
 
 const Backgrond = () => {
   return (
-    <div className="absolute bottom-0 w-full">
+    <div className="absolute bottom-0 w-full rounded-b-[inherit]">
       <div className="h-[3rem] bg-[#F2ECDF] shadow-[0px_-3px_8px_0px_#F1F1F1_inset]" />
-      <div className="h-[1rem] rounded-b-[2rem] bg-[#F6F3EC] shadow-[0px_-1px_8px_-4.5px_#494949]" />
+      <div className="h-[1rem] rounded-b-[inherit] bg-[#F6F3EC] shadow-[0px_-1px_8px_-4.5px_#494949]" />
     </div>
   );
 };
@@ -100,10 +100,9 @@ const Book = ({
         }}
       >
         <Image
-          className="h-auto w-auto"
           src={imageUrl}
-          width={120}
-          height={110}
+          width={60}
+          height={90}
           alt="book cover"
           onLoadingComplete={handleOnLoadImage}
           quality={100}
