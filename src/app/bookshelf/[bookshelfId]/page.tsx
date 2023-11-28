@@ -1,6 +1,6 @@
 'use client';
 
-import { IconHeart, IconArrowLeft, IconShare } from '@public/icons';
+import { IconHeart, IconArrowLeft, IconShare, IconKakao } from '@public/icons';
 import { useToast } from '@/hooks/toast';
 import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
@@ -8,15 +8,18 @@ import {
   useBookshelfLike,
   useBookshelfUnlike,
 } from '@/queries/bookshelf/useBookshelfLikeMutation';
-import { APIBookshelf } from '@/types/bookshelf';
 
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Button from '@/ui/Base/Button';
 import TopNavigation from '@/ui/Base/TopNavigation';
-import BookShelf from '@/v1/bookShelf/BookShelf';
+import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
+import { useRouter } from 'next/navigation';
+import { isAuthed } from '@/utils/helpers';
+import Link from 'next/link';
+import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
 
-// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+const KAKAO_OAUTH_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -29,6 +32,7 @@ export default function UserBookShelfPage({
   const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
   const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
   const { showToast } = useToast();
+  const router = useRouter();
 
   if (!isSuccess) return null;
 
@@ -53,7 +57,9 @@ export default function UserBookShelfPage({
     <div className="flex w-full flex-col">
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <IconArrowLeft />
+          <button onClick={() => router.back()}>
+            <IconArrowLeft />
+          </button>
         </TopNavigation.LeftItem>
         <TopNavigation.RightItem>
           <button onClick={handleClickShareButton}>
@@ -84,15 +90,20 @@ export default function UserBookShelfPage({
         </div>
       </div>
 
-      <BookShelfContent bookshelfId={bookshelfId} />
+      <BookShelfContent
+        bookshelfId={bookshelfId}
+        userNickname={data.userNickname}
+      />
     </div>
   );
 }
 
 const BookShelfContent = ({
   bookshelfId,
+  userNickname,
 }: {
   bookshelfId: APIBookshelf['bookshelfId'];
+  userNickname: APIBookshelfInfo['userNickname'];
 }) => {
   const { ref, inView } = useInView();
 
@@ -114,20 +125,50 @@ const BookShelfContent = ({
   // TODO: Suspense 적용
   if (!isSuccess) return null;
 
-  return (
+  return isAuthed() ? (
     <>
       {booksData.pages.map(page =>
         page.books.map((rowBooks, idx) => (
-          <BookShelf key={idx}>
-            <div className="relative pb-[2.5rem] pt-[2rem] shadow-[0px_0px_10px_0px_#D1D1D1]">
-              <BookShelf.Background />
-              <BookShelf.Books books={rowBooks} />
-            </div>
-          </BookShelf>
+          <BookShelfRow key={idx} books={rowBooks} />
         ))
       )}
 
       {isFetching && !isFetchingNextPage ? null : <div ref={ref} />}
     </>
+  ) : (
+    <>
+      <BookShelfRow books={booksData.pages[0].books[0]} />
+      <div className="pointer-events-none blur-sm">
+        <BookShelfRow books={initialBookImageUrl} />
+      </div>
+      <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
+        <p className="text-center text-md font-bold">
+          지금 로그인하면
+          <br />
+          책장에 담긴 모든 책을 볼 수 있어요!
+        </p>
+        <p className="text-center text-xs text-placeholder">
+          <span className="text-main-900">{userNickname}</span>님의 책장에서
+          다양한
+          <br />
+          인사이트를 얻을 수 있어요.
+        </p>
+        <Link href={KAKAO_OAUTH_LOGIN_URL}>
+          <Button colorScheme="kakao" size="full">
+            <div className="flex justify-center gap-[1rem]">
+              <IconKakao width={16} height={'auto'} />
+              <span className="text-md font-normal">카카오 로그인</span>
+            </div>
+          </Button>
+        </Link>
+      </div>
+    </>
   );
 };
+
+const initialBookImageUrl = [
+  { bookId: 1, title: 'book1', imageUrl: '/images/book-cover/book1.jpeg' },
+  { bookId: 2, title: 'book2', imageUrl: '/images/book-cover/book2.jpeg' },
+  { bookId: 3, title: 'book3', imageUrl: '/images/book-cover/book3.jpeg' },
+  { bookId: 4, title: 'book4', imageUrl: '/images/book-cover/book4.jpeg' },
+];
