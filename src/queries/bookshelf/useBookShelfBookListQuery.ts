@@ -1,14 +1,15 @@
 import bookshelfAPI from '@/apis/bookshelf';
 import { APIBookshelf } from '@/types/bookshelf';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import bookShelfKeys from './key';
 
-const useBookshelfBooksQuery = ({
+const useBookShelfBooksQuery = ({
   bookshelfId,
 }: {
   bookshelfId: APIBookshelf['bookshelfId'];
 }) =>
   useInfiniteQuery({
-    queryKey: ['bookshelfBooks'],
+    queryKey: bookShelfKeys.books(bookshelfId),
     queryFn: ({ pageParam = '' }) =>
       bookshelfAPI
         .getBookshelfBooks(bookshelfId, pageParam)
@@ -33,4 +34,4 @@ const useBookshelfBooksQuery = ({
     },
   });
 
-export default useBookshelfBooksQuery;
+export default useBookShelfBooksQuery;

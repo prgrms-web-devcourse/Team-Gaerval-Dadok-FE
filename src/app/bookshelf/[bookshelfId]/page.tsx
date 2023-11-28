@@ -2,7 +2,7 @@
 
 import { IconHeart, IconArrowLeft, IconShare, IconKakao } from '@public/icons';
 import { useToast } from '@/hooks/toast';
-import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
+import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import {
   useBookshelfLike,
@@ -114,7 +114,7 @@ const BookShelfContent = ({
     isSuccess,
     isFetching,
     isFetchingNextPage,
-  } = useBookshelfBooksQuery({ bookshelfId });
+  } = useBookShelfBooksQuery({ bookshelfId });
 
   useEffect(() => {
     if (inView && hasNextPage) {
