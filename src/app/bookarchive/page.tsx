@@ -11,7 +11,7 @@ import TopHeader from '@/ui/Base/TopHeader';
 export default function BookArchivePage() {
   return (
     <div className="flex w-full flex-col gap-[1rem]">
-      <TopHeader pathname="/bookarchive"></TopHeader>
+      <TopHeader pathname="/bookarchive" />
       {/* TODO: 스켈레톤 컴포넌트로 교체 */}
       <Suspense fallback={null}>
         <Contents />
