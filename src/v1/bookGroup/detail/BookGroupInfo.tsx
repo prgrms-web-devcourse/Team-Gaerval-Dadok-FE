@@ -14,7 +14,7 @@ const BookGroupInfo = ({ groupId }: { groupId: number }) => {
   const { data: bookGroupInfo } = useBookGroup(groupId);
 
   return (
-    <div className="flex flex-col gap-[1rem] py-[2rem]">
+    <div className="flex flex-col gap-[1rem] pt-[2rem]">
       <div className="flex gap-[0.5rem]">
         <BookGroupStatus
           start={bookGroupInfo.date.start}

@@ -23,8 +23,11 @@ const DetailBookGroupPage = ({
       <SSRSafeSuspense fallback={<PageSkeleton />}>
         <div className="flex flex-col gap-[2rem]">
           <BookGroupInfo groupId={groupId} />
-          <Heading text="게시글" />
-          <CommentList groupId={groupId} />
+          <Divider />
+          <div className="flex flex-col gap-[1rem]">
+            <Heading text="게시글" />
+            <CommentList groupId={groupId} />
+          </div>
         </div>
         <JoinBookGroupButton groupId={groupId} />
       </SSRSafeSuspense>
@@ -49,3 +52,5 @@ const PageSkeleton = () => (
     <div className="h-[18rem] w-full bg-black-400"></div>
   </div>
 );
+
+const Divider = () => <p className="w-app h-[0.5rem] bg-background"></p>;
