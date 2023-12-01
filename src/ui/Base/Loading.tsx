@@ -4,7 +4,6 @@ const schemes = {
 } as const;
 
 type DotScheme = keyof typeof schemes;
-
 interface LoadingProps {
   color?: DotScheme;
   fullpage?: boolean;
@@ -26,24 +25,29 @@ export default Loading;
 
 const LoadingDots = ({ color }: { color: DotScheme }) => (
   <div className="flex gap-[1rem]">
-    <LoadingDot color={color} animationStep={0} />
     <LoadingDot color={color} animationStep={1} />
     <LoadingDot color={color} animationStep={2} />
+    <LoadingDot color={color} animationStep={3} />
   </div>
 );
 
-const animations = {
-  0: 'animate-dot-flash',
-  1: 'animate-dot-flash-delay-0.5',
-  2: 'animate-dot-flash-delay-1',
-} as const;
+type AnimationStep = 1 | 2 | 3;
+type LoadingAnimations = {
+  [key in AnimationStep]: string;
+};
 
-export const LoadingDot = ({
+const animations: LoadingAnimations = {
+  1: 'animate-dot-flash',
+  2: 'animate-dot-flash-delay-0.5',
+  3: 'animate-dot-flash-delay-1',
+};
+
+const LoadingDot = ({
   color,
-  animationStep = 0,
+  animationStep = 1,
 }: {
   color: DotScheme;
-  animationStep?: keyof typeof animations;
+  animationStep?: AnimationStep;
 }) => (
   <span
     className={`h-[1rem] w-[1rem] rounded-full ${schemes[color]} ${animations[animationStep]}`}
