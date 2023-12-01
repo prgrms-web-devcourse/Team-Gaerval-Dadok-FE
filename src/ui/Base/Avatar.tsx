@@ -13,26 +13,35 @@ const FALLBACK_IMAGE_SRC = '/icons/avatar.svg';
 const getAvatarSize = (size: AvatarSize) => {
   switch (size) {
     case 'small': {
-      return ['w-[2rem] h-[2rem]', { width: 20, height: 20 }] as const;
+      return {
+        sizeClasses: 'w-[2rem] h-[2rem]',
+        sizeProps: { width: 20, height: 20 },
+      } as const;
     }
     case 'medium': {
-      return ['w-[3.2rem] h-[3.2rem]', { width: 32, height: 32 }] as const;
+      return {
+        sizeClasses: 'w-[3.2rem] h-[3.2rem]',
+        sizeProps: { width: 32, height: 32 },
+      } as const;
     }
     case 'large': {
-      return ['w-[7rem] h-[7rem]', { width: 70, height: 70 }] as const;
+      return {
+        sizeClasses: 'w-[7rem] h-[7rem]',
+        sizeProps: { width: 70, height: 70 },
+      } as const;
     }
   }
 };
 
 const Avatar = ({ name, src, size = 'medium' }: AvatarProps) => {
   const [image, setImage] = useState(src ?? FALLBACK_IMAGE_SRC);
-  const [sizeClass, sizeProps] = getAvatarSize(size);
+  const { sizeClasses, sizeProps } = getAvatarSize(size);
 
   const setFallbackImage = () => setImage(FALLBACK_IMAGE_SRC);
 
   return (
     <span
-      className={`relative inline-block rounded-full bg-white ${sizeClass}`}
+      className={`relative inline-block rounded-full bg-white ${sizeClasses}`}
     >
       <Image
         alt={name || 'avatar'}

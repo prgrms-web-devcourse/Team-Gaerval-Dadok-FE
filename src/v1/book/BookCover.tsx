@@ -21,28 +21,46 @@ type BookCoverProps = Required<
 const getCoverSize = (size: BookCoverSize) => {
   switch (size) {
     case 'xsmall': {
-      return ['w-[6.5rem] h-[9.1rem]', { width: 65, height: 91 }] as const;
+      return {
+        sizeClasses: 'w-[6.5rem] h-[9.1rem]',
+        sizeProps: { width: 65, height: 91 },
+      } as const;
     }
     case 'small': {
-      return ['w-[7.0rem] h-[9.8rem]', { width: 70, height: 98 }] as const;
+      return {
+        sizeClasses: 'w-[7.0rem] h-[9.8rem]',
+        sizeProps: { width: 70, height: 98 },
+      } as const;
     }
     case 'medium': {
-      return ['w-[7.5rem] h-[10.5rem]', { width: 75, height: 105 }] as const;
+      return {
+        sizeClasses: 'w-[7.5rem] h-[10.5rem]',
+        sizeProps: { width: 75, height: 105 },
+      } as const;
     }
     case 'large': {
-      return ['w-[9.0rem] h-[12.6rem]', { width: 90, height: 126 }] as const;
+      return {
+        sizeClasses: 'w-[9.0rem] h-[12.6rem]',
+        sizeProps: { width: 90, height: 126 },
+      } as const;
     }
     case 'xlarge': {
-      return ['w-[11.0rem] h-[15.4rem]', { width: 110, height: 154 }] as const;
+      return {
+        sizeClasses: 'w-[11.0rem] h-[15.4rem]',
+        sizeProps: { width: 110, height: 154 },
+      } as const;
     }
     case '2xlarge': {
-      return ['w-[18.0rem] h-[25.2rem]', { width: 180, height: 252 }] as const;
+      return {
+        sizeClasses: 'w-[18.0rem] h-[25.2rem]',
+        sizeProps: { width: 180, height: 252 },
+      } as const;
     }
   }
 };
 
 const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
-  const [sizeClasses, sizeProps] = getCoverSize(size);
+  const { sizeClasses, sizeProps } = getCoverSize(size);
 
   return (
     <div className={`relative flex-shrink-0 ${sizeClasses}`}>
