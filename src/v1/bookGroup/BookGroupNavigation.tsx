@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import TopNavigation from '@/ui/Base/TopNavigation';
 import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
 import {
@@ -39,11 +40,15 @@ const BookGroupNavigation = ({
           {getTargetChildren(children, BackButton)}
         </TopNavigation.LeftItem>
         <TopNavigation.CenterItem textAlign="left">
-          {getTargetChildren(children, Title)}
+          <SSRSafeSuspense fallback={<TitleSkeleton />}>
+            {getTargetChildren(children, Title)}
+          </SSRSafeSuspense>
         </TopNavigation.CenterItem>
         <TopNavigation.RightItem>
-          {getTargetChildren(children, WriteButton)}
-          {getTargetChildren(children, MenuButton)}
+          <SSRSafeSuspense>
+            {getTargetChildren(children, WriteButton)}
+            {getTargetChildren(children, MenuButton)}
+          </SSRSafeSuspense>
         </TopNavigation.RightItem>
       </TopNavigation>
     </NavigationContext.Provider>
@@ -88,3 +93,7 @@ BookGroupNavigation.MenuButton = MenuButton;
 BookGroupNavigation.WriteButton = WriteButton;
 
 export default BookGroupNavigation;
+
+const TitleSkeleton = () => (
+  <div className="h-[1.5rem] w-[40%] animate-pulse bg-black-400"></div>
+);
