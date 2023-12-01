@@ -9,9 +9,9 @@ const CommentList = ({ groupId }: { groupId: number }) => {
   const { data: bookGroupInfo } = useBookGroup(groupId);
   const { data: comments } = useBookGroupComments(groupId);
   const { data: myId } = useMyProfileId({ enabled: isAuthed() });
-  const { isPublic } = bookGroupInfo;
+  const { isPublic, isMember } = bookGroupInfo;
 
-  if (!isPublic) {
+  if (!isPublic && !isMember) {
     return (
       <p className="py-[2rem] text-center text-sm">
         {`멤버만 볼 수 있어요 🥲`}
@@ -31,7 +31,7 @@ const CommentList = ({ groupId }: { groupId: number }) => {
   return (
     <div className="flex flex-col gap-[1rem]">
       {comments.map(({ id, writer, createdAt, content }) => (
-        <div className="flex flex-col gap-[1.7rem] pt-[1rem]" key={id}>
+        <div className="flex flex-col gap-[1rem] py-[1rem]" key={id}>
           <div className="flex gap-[1rem]">
             <Avatar
               src={writer.profileImageSrc}
@@ -45,7 +45,6 @@ const CommentList = ({ groupId }: { groupId: number }) => {
             {writer.id === myId && <MenuButton />}
           </div>
           <Comment content={content} />
-          <Divider />
         </div>
       ))}
     </div>
@@ -73,5 +72,3 @@ const MenuButton = () => {
 const Comment = ({ content }: { content: string }) => (
   <p className="text-justify text-md">{content}</p>
 );
-
-const Divider = () => <p className=" border-[0.05rem] border-b-[#eaf1fa]"></p>;
