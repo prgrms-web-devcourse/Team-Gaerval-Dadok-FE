@@ -11,7 +11,7 @@ const BookShelf = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
 
-const Backgrond = () => {
+const Background = () => {
   return (
     <div className="absolute bottom-0 w-full rounded-b-[inherit]">
       <div className="h-[3rem] bg-[#F2ECDF] shadow-[0px_-3px_8px_0px_#F1F1F1_inset]" />
@@ -112,7 +112,7 @@ const Book = ({
   );
 };
 
-BookShelf.Background = Backgrond;
+BookShelf.Background = Background;
 BookShelf.Info = Info;
 BookShelf.Books = Books;
 
