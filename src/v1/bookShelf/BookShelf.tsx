@@ -51,9 +51,9 @@ type BooksProps = Pick<APIBookshelf, 'books'>;
 
 const Books = ({ books }: BooksProps) => {
   return (
-    <ul className="flex justify-between px-[0.5rem]">
+    <ul className="grid grid-cols-4 px-[0.5rem]">
       {books.map(book => (
-        <li key={book.bookId} className="flex">
+        <li key={book.bookId} className="flex justify-center">
           <Book {...book} />
         </li>
       ))}
