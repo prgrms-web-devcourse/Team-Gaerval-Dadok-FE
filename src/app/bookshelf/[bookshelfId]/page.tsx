@@ -1,7 +1,7 @@
 'use client';
 
 import { IconHeart, IconArrowLeft, IconShare, IconKakao } from '@public/icons';
-import { useToast } from '@/hooks/toast';
+import useToast from '@/ui/Base/Toast/useToast';
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
 import {
@@ -31,7 +31,7 @@ export default function UserBookShelfPage({
   const { data, isSuccess } = useBookshelfInfoQuery({ bookshelfId });
   const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
   const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
-  const { showToast } = useToast();
+  const { show: showToast } = useToast();
   const router = useRouter();
 
   if (!isSuccess) return null;
@@ -42,10 +42,10 @@ export default function UserBookShelfPage({
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        showToast({ message: '복사 성공!' });
+        showToast({ message: '링크를 복사했어요.', type: 'success' });
       })
       .catch(() => {
-        showToast({ message: '잠시 후 다시 시도해주세요' });
+        showToast({ message: '잠시 후 다시 시도해주세요', type: 'error' });
       });
   };
 
