@@ -88,10 +88,11 @@ export default function UserBookShelfPage({
             fill={data.isLiked ? false : true}
             onClick={handleClickLikeButton}
           >
-            <div className="bold flex items-center gap-[0.2rem] text-xs">
+            <div className="bold flex items-center gap-[0.3rem] text-xs">
               <IconHeart
-                fill={data.isLiked ? '#F56565' : 'white'}
+                fill={!data.isLiked ? '#F56565' : 'white'}
                 stroke={data.isLiked ? '#F56565' : 'white'}
+                stroke-width={1.5}
                 height="1.3rem"
                 w="1.3rem"
               />
