@@ -2,12 +2,10 @@
 
 import { usePathname } from 'next/navigation';
 
-import TopHeader from '@/ui/Base/TopHeader';
 import BottomNavigation from '@/ui/Base/BottomNavigation';
 
 /**
  * @todo
- * 토스트 추가
  * 크로스 브라우징 - dvh & vh에 대해 고민
  */
 
@@ -28,7 +26,6 @@ const Layout = ({ children }: LayoutProps) => {
       <div
         className={`h-screen w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
       >
-        {isRootPath && <TopHeader pathname={pathname} />}
         {children}
       </div>
       {isRootPath && <BottomNavigation pathname={pathname} />}
