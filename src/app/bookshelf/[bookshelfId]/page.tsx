@@ -50,6 +50,11 @@ export default function UserBookShelfPage({
   };
 
   const handleClickLikeButton = () => {
+    if (!isAuthed()) {
+      showToast({ message: '로그인 후 이용해주세요.', type: 'normal' });
+      return;
+    }
+
     !data.isLiked ? likeBookshelf() : unlikeBookshelf();
   };
 
