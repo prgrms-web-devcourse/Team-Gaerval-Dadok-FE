@@ -3,11 +3,11 @@
 import { IconHeart, IconArrowLeft, IconShare, IconKakao } from '@public/icons';
 import useToast from '@/ui/Base/Toast/useToast';
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
-import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
+import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
 import {
   useBookshelfLike,
   useBookshelfUnlike,
-} from '@/queries/bookshelf/useBookshelfLikeMutation';
+} from '@/queries/bookshelf/useBookShelfLikeMutation';
 
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -28,7 +28,7 @@ export default function UserBookShelfPage({
     bookshelfId: APIBookshelf['bookshelfId'];
   };
 }) {
-  const { data, isSuccess } = useBookshelfInfoQuery({ bookshelfId });
+  const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
   const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
   const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
   const { show: showToast } = useToast();
