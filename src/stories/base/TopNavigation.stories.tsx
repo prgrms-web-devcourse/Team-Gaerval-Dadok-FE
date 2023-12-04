@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import TopNavigation from '@/ui/Base/TopNavigation';
+import TopNavigation from '@/v1/base/TopNavigation';
 import {
   IconPost,
   IconShare,

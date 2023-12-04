@@ -1,4 +1,4 @@
-import Badge from '@/ui/Base/Badge';
+import Badge from '@/v1/base/Badge';
 import { IconHeart } from '@public/icons';
 import { Meta, StoryObj } from '@storybook/react';
 

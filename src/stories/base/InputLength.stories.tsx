@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import Button from '@/ui/Base/Button';
-import Input from '@/ui/Base/Input';
-import InputLength from '@/ui/Base/InputLength';
-import ErrorMessage from '@/ui/Base/ErrorMessage';
+import Button from '@/v1/base/Button';
+import Input from '@/v1/base/Input';
+import InputLength from '@/v1/base/InputLength';
+import ErrorMessage from '@/v1/base/ErrorMessage';
 
 const meta: Meta<typeof InputLength> = {
   title: 'Base/InputLength',

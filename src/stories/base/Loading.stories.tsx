@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Loading from '@/ui/Base/Loading';
+import Loading from '@/v1/base/Loading';
 
 const meta: Meta<typeof Loading> = {
   title: 'Base/Loading',

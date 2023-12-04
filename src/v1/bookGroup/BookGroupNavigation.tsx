@@ -8,7 +8,7 @@ import {
 import { useRouter } from 'next/navigation';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import TopNavigation from '@/ui/Base/TopNavigation';
+import TopNavigation from '@/v1/base/TopNavigation';
 import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
 import {
   useBookGroupOwner,

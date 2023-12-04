@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
-import Badge from '@/ui/Base/Badge';
-import Avatar from '@/ui/Base/Avatar';
+import Badge from '@/v1/base/Badge';
+import Avatar from '@/v1/base/Avatar';
 import BookCover from '@/v1/book/BookCover';
 import BookGroupStatus from '@/v1/bookGroup/BookGroupStatus';
 
