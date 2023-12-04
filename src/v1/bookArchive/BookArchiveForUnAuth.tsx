@@ -1,7 +1,7 @@
 'use client';
 
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
-import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
+import BookShelfCard from '../bookShelf/BookShelfCard';
 
 const BookArchiveForUnAuth = () => {
   const { data, isSuccess, isLoading } = useUnAuthRecommendedBookshelfQuery();
