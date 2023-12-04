@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { APIBookshelfInfo } from '@/types/bookshelf';
 import bookshelfAPI from '@/apis/bookshelf';
+import bookShelfKeys from './key';
 
 export const useBookshelfLike = (
   bookshelfId: APIBookshelfInfo['bookshelfId']
@@ -10,12 +11,11 @@ export const useBookshelfLike = (
   return useMutation({
     mutationFn: async () => bookshelfAPI.likeBookshelf(bookshelfId),
     onMutate: async () => {
-      await queryClient.cancelQueries(['bookshelfInfo', bookshelfId]);
+      await queryClient.cancelQueries(bookShelfKeys.info(bookshelfId));
 
-      const oldData = queryClient.getQueryData<APIBookshelfInfo>([
-        'bookshelfInfo',
-        bookshelfId,
-      ]);
+      const oldData = queryClient.getQueryData<APIBookshelfInfo>(
+        bookShelfKeys.info(bookshelfId)
+      );
 
       if (oldData) {
         const newData: APIBookshelfInfo = {
@@ -25,7 +25,7 @@ export const useBookshelfLike = (
         };
 
         queryClient.setQueryData<APIBookshelfInfo>(
-          ['bookshelfInfo', bookshelfId],
+          bookShelfKeys.info(bookshelfId),
           newData
         );
       }
@@ -34,12 +34,12 @@ export const useBookshelfLike = (
     },
     onError: (_error, _value, context) => {
       queryClient.setQueryData(
-        ['bookshelfInfo', bookshelfId],
+        bookShelfKeys.info(bookshelfId),
         context?.oldData
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['bookshelfInfo', bookshelfId]);
+      queryClient.invalidateQueries(bookShelfKeys.info(bookshelfId));
     },
   });
 };
@@ -52,12 +52,11 @@ export const useBookshelfUnlike = (
   return useMutation({
     mutationFn: async () => bookshelfAPI.unlikeBookshelf(bookshelfId),
     onMutate: async () => {
-      await queryClient.cancelQueries(['bookshelfInfo', bookshelfId]);
+      await queryClient.cancelQueries(bookShelfKeys.info(bookshelfId));
 
-      const oldData = queryClient.getQueryData<APIBookshelfInfo>([
-        'bookshelfInfo',
-        bookshelfId,
-      ]);
+      const oldData = queryClient.getQueryData<APIBookshelfInfo>(
+        bookShelfKeys.info(bookshelfId)
+      );
 
       if (oldData) {
         const newData: APIBookshelfInfo = {
@@ -67,7 +66,7 @@ export const useBookshelfUnlike = (
         };
 
         queryClient.setQueryData<APIBookshelfInfo>(
-          ['bookshelfInfo', bookshelfId],
+          bookShelfKeys.info(bookshelfId),
           newData
         );
       }
@@ -76,12 +75,12 @@ export const useBookshelfUnlike = (
     },
     onError: (_error, _value, context) => {
       queryClient.setQueryData(
-        ['bookshelfInfo', bookshelfId],
+        bookShelfKeys.info(bookshelfId),
         context?.oldData
       );
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['bookshelfInfo', bookshelfId]);
+      queryClient.invalidateQueries(bookShelfKeys.info(bookshelfId));
     },
   });
 };
