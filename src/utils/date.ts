@@ -3,3 +3,7 @@ export const toDayFromMillseconds = (value: number) =>
 
 export const getDdayCount = (target: Date) =>
   toDayFromMillseconds(target.getTime() - new Date().getTime());
+
+export const isExpired = (end: string) => {
+  return getDdayCount(new Date(end)) < 0;
+};

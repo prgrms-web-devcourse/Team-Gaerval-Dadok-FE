@@ -94,12 +94,25 @@ module.exports = {
           from: { transform: 'translateY(300%)' },
           to: { transform: 'translateY(300%)' },
         },
+        'dot-flash': {
+          '0%': {
+            opacity: 1,
+            transform: 'translateY(0px)',
+          },
+          '50%,100%': {
+            opacity: 0.2,
+            transform: 'translateY(5px)',
+          },
+        },
       },
       animation: {
         'page-transition': 'page-transition 0.2s forwards ease-in-out',
         'slide-in': '0.3s forwards slide-in ease-in-out',
         'slide-out': '0.3s forwards slide-out ease-in-out',
         'slide-init': '0.3s forwards slide-init ease-in-out',
+        'dot-flash': '1s infinite dot-flash alternate',
+        'dot-flash-delay-0.5': '1s 0.5s infinite dot-flash alternate',
+        'dot-flash-delay-1': '1s 1s infinite dot-flash alternate',
       },
     },
   },
