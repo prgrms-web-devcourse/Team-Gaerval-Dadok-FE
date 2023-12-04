@@ -1,5 +1,5 @@
 import { IconArrowLeft } from '@public/icons';
-import Button from '@/ui/Base/Button';
+import Button from '@/v1/base/Button';
 import MemberItem from './MemberItem';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

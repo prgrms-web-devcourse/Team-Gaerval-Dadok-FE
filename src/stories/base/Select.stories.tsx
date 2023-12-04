@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Select from '@/ui/Base/Select';
+import Select from '@/v1/base/Select';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Button from '@/ui/Base/Button';
-import ErrorMessage from '@/ui/Base/ErrorMessage';
+import Button from '@/v1/base/Button';
+import ErrorMessage from '@/v1/base/ErrorMessage';
 
 const meta: Meta<typeof Select> = {
   title: 'Base/Select',
@@ -54,7 +54,9 @@ const SelectWithUseForm = () => {
             </Select.Option>
           ))}
         </Select>
-        {errors.requiredNumber && <ErrorMessage>{errors.requiredNumber.message}</ErrorMessage>}
+        {errors.requiredNumber && (
+          <ErrorMessage>{errors.requiredNumber.message}</ErrorMessage>
+        )}
       </div>
       <div className="flex flex-col gap-[0.5rem]">
         <Select

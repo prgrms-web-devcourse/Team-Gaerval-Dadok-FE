@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import BottomNavigation from '@/ui/Base/BottomNavigation';
+import BottomNavigation from '@/v1/base/BottomNavigation';
 
 /**
  * @todo

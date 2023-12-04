@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useMemo, useState } from 'react';
 
-import Portal from '@/ui/Base/Portal';
+import Portal from '@/v1/base/Portal';
 
 import ToastItem from './ToastItem';
 import type { ToastController, ToastOption } from './types';

@@ -12,12 +12,12 @@ import useMyProfileMutation from '@/queries/user/useMyProfileMutation';
 
 import { IconClose } from '@public/icons';
 
-import TopNavigation from '@/ui/Base/TopNavigation';
-import Input from '@/ui/Base/Input';
-import InputLength from '@/ui/Base/InputLength';
-import Select from '@/ui/Base/Select';
-import ErrorMessage from '@/ui/Base/ErrorMessage';
-import useToast from '@/ui/Base/Toast/useToast';
+import TopNavigation from '@/v1/base/TopNavigation';
+import Input from '@/v1/base/Input';
+import InputLength from '@/v1/base/InputLength';
+import Select from '@/v1/base/Select';
+import ErrorMessage from '@/v1/base/ErrorMessage';
+import useToast from '@/v1/base/Toast/useToast';
 
 type UserProfileProps = {
   profile: Pick<APIUser, 'nickname' | 'job'>;

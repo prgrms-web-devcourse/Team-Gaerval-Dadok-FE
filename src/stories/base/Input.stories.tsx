@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Input from '@/ui/Base/Input';
-import Button from '@/ui/Base/Button';
+import Input from '@/v1/base/Input';
+import Button from '@/v1/base/Button';
 import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import ErrorMessage from '@/ui/Base/ErrorMessage';
+import ErrorMessage from '@/v1/base/ErrorMessage';
 
 const meta: Meta<typeof Input> = {
   title: 'Base/Input',
@@ -95,8 +95,7 @@ const Length = ({
 
   return (
     <div>
-      <span className={textColor}>{currentLength}</span>/
-      {maxLength}
+      <span className={textColor}>{currentLength}</span>/{maxLength}
     </div>
   );
 };
