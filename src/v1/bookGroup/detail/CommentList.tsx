@@ -1,5 +1,5 @@
 import { IconHamburger } from '@public/icons';
-import Avatar from '@/ui/Base/Avatar';
+import Avatar from '@/v1/base/Avatar';
 import { useBookGroupComments } from '@/queries/group/useBookGroupCommentsQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { isAuthed } from '@/utils/helpers';

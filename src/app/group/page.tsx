@@ -1,6 +1,6 @@
 'use client';
 
-import TopHeader from '@/ui/Base/TopHeader';
+import TopHeader from '@/v1/base/TopHeader';
 import SearchGroup from '@/v1/bookGroup/SearchGroup';
 import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';

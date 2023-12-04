@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@/ui/Base/Button';
-import useToast from '@/ui/Base/Toast/useToast';
-import ToastItem from '@/ui/Base/Toast/ToastItem';
+import Button from '@/v1/base/Button';
+import useToast from '@/v1/base/Toast/useToast';
+import ToastItem from '@/v1/base/Toast/ToastItem';
 
 const meta: Meta<typeof ToastItem> = {
   title: 'Base/Toast',

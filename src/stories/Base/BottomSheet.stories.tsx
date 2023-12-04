@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { IconClose, IconKakao, LogoWithText } from '@public/icons';
-import Button from '@/ui/Base/Button';
-import BottomSheet from '@/ui/Base/BottomSheet';
+import Button from '@/v1/base/Button';
+import BottomSheet from '@/v1/base/BottomSheet';
 import useDisclosure from '@/hooks/useDisclosure';
 
 const meta: Meta<typeof BottomSheet> = {

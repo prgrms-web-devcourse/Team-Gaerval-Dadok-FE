@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import FloatingButton from '@/ui/Base/FloatingButton';
+import FloatingButton from '@/v1/base/FloatingButton';
 
 const meta: Meta<typeof FloatingButton> = {
   title: 'Base/FloatingButton',
