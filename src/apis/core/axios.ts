@@ -12,8 +12,8 @@ import isClient from '@/utils/isClient';
 import webStorage from '@/utils/storage';
 
 const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
-
 const options: CreateAxiosDefaults = {
+  baseURL: process.env.NEXT_HOST,
   headers: {
     Accept: '*/*',
     'Content-Type': 'application/json',
