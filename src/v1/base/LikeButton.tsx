@@ -1,8 +1,9 @@
+import { APIBookshelfInfo } from '@/types/bookshelf';
 import { IconHeart } from '@public/icons';
 
 type LikeButtonProps = {
-  isLiked: boolean;
-  likeCount: number;
+  isLiked: APIBookshelfInfo['isLiked'];
+  likeCount: APIBookshelfInfo['likeCount'];
   onClick: () => void;
 };
 
@@ -14,13 +15,13 @@ const LikeButton = ({ isLiked, likeCount, onClick }: LikeButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${BG_COLOR_CLASS} flex h-[2.4rem] w-[5.4rem] items-center gap-[0.4rem] rounded-full border-[0.1rem] border-warning-800 bg-warning-800 px-[0.6rem] py-[0.2rem]`}
+      className={`${BG_COLOR_CLASS} flex h-[2.4rem] w-[5.4rem] items-center gap-[0.4rem] rounded-full border-[0.1rem] border-warning-800 bg-warning-800 px-[0.8rem] py-[0.2rem]`}
     >
       <IconHeart
         className={`${ICON_COLOR_CLASS} h-[1.3rem] w-[1.3rem] fill-white stroke-[0.15rem]`}
       />
       <p
-        className={`${TEXT_COLOR_CLASS} w-[2.3rem] text-center text-xs font-bold`}
+        className={`${TEXT_COLOR_CLASS} w-[2rem] text-center text-xs font-bold`}
       >
         {likeCount}
       </p>
