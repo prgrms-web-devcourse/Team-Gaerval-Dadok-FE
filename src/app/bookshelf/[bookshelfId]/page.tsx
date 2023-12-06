@@ -9,10 +9,7 @@ import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
 
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
-import {
-  useBookshelfLike,
-  useBookshelfUnlike,
-} from '@/queries/bookshelf/useBookShelfLikeMutation';
+import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useBookShelfLikeMutation';
 
 import useToast from '@/v1/base/Toast/useToast';
 import { isAuthed } from '@/utils/helpers';
@@ -34,8 +31,9 @@ export default function UserBookShelfPage({
   };
 }) {
   const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
-  const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
-  const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
+  const { mutate: mutateBookshelfLike } = useMutateBookshelfLikeQuery({
+    bookshelfId,
+  });
   const { show: showToast } = useToast();
   const router = useRouter();
 
@@ -60,7 +58,7 @@ export default function UserBookShelfPage({
       return;
     }
 
-    !data.isLiked ? likeBookshelf() : unlikeBookshelf();
+    mutateBookshelfLike(data.isLiked);
   };
 
   return (

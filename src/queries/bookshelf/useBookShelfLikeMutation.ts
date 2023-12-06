@@ -3,25 +3,32 @@ import type { APIBookshelfInfo } from '@/types/bookshelf';
 import bookshelfAPI from '@/apis/bookshelf';
 import bookShelfKeys from './key';
 
-export const useBookshelfLike = (
-  bookshelfId: APIBookshelfInfo['bookshelfId']
-) => {
+const useMutateBookshelfLikeQuery = ({
+  bookshelfId,
+}: {
+  bookshelfId: APIBookshelfInfo['bookshelfId'];
+}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => bookshelfAPI.likeBookshelf(bookshelfId),
+    mutationFn: async (isLiked: APIBookshelfInfo['isLiked']) =>
+      !isLiked
+        ? bookshelfAPI.likeBookshelf(bookshelfId)
+        : bookshelfAPI.unlikeBookshelf(bookshelfId),
     onMutate: async () => {
       await queryClient.cancelQueries(bookShelfKeys.info(bookshelfId));
 
-      const oldData = queryClient.getQueryData<APIBookshelfInfo>(
+      const prevData = queryClient.getQueryData<APIBookshelfInfo>(
         bookShelfKeys.info(bookshelfId)
       );
 
-      if (oldData) {
+      if (prevData) {
         const newData: APIBookshelfInfo = {
-          ...oldData,
-          isLiked: !oldData.isLiked,
-          likeCount: oldData.likeCount + 1,
+          ...prevData,
+          isLiked: !prevData.isLiked,
+          likeCount: prevData.isLiked
+            ? prevData.likeCount - 1
+            : prevData.likeCount + 1,
         };
 
         queryClient.setQueryData<APIBookshelfInfo>(
@@ -30,12 +37,12 @@ export const useBookshelfLike = (
         );
       }
 
-      return { oldData };
+      return { prevData };
     },
     onError: (_error, _value, context) => {
       queryClient.setQueryData(
         bookShelfKeys.info(bookshelfId),
-        context?.oldData
+        context?.prevData
       );
     },
     onSettled: () => {
@@ -44,43 +51,4 @@ export const useBookshelfLike = (
   });
 };
 
-export const useBookshelfUnlike = (
-  bookshelfId: APIBookshelfInfo['bookshelfId']
-) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async () => bookshelfAPI.unlikeBookshelf(bookshelfId),
-    onMutate: async () => {
-      await queryClient.cancelQueries(bookShelfKeys.info(bookshelfId));
-
-      const oldData = queryClient.getQueryData<APIBookshelfInfo>(
-        bookShelfKeys.info(bookshelfId)
-      );
-
-      if (oldData) {
-        const newData: APIBookshelfInfo = {
-          ...oldData,
-          isLiked: !oldData.isLiked,
-          likeCount: oldData.likeCount - 1,
-        };
-
-        queryClient.setQueryData<APIBookshelfInfo>(
-          bookShelfKeys.info(bookshelfId),
-          newData
-        );
-      }
-
-      return { oldData };
-    },
-    onError: (_error, _value, context) => {
-      queryClient.setQueryData(
-        bookShelfKeys.info(bookshelfId),
-        context?.oldData
-      );
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(bookShelfKeys.info(bookshelfId));
-    },
-  });
-};
+export default useMutateBookshelfLikeQuery;
