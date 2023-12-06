@@ -9,7 +9,7 @@ import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
 
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
-import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useBookShelfLikeMutation';
+import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
 
 import useToast from '@/v1/base/Toast/useToast';
 import { isAuthed } from '@/utils/helpers';
