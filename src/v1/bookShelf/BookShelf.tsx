@@ -36,7 +36,7 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
           <IconHeart
             fill="#F56565"
             stroke="white"
-            stroke-width={1.5}
+            strokeWidth={1.5}
             height="1.3rem"
             w="1.3rem"
           />
