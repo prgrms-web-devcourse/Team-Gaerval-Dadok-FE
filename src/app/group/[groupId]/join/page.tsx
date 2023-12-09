@@ -1,6 +1,6 @@
 'use client';
 
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import groupAPI from '@/apis/group';
@@ -37,6 +37,7 @@ const BookGroupJoinPage = ({
 
 const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
   const toast = useToast();
+  const router = useRouter();
   const { data: bookGroupJoinData } = useBookGroupJoinInfo(groupId);
   const { isMember, hasPassword, question } = bookGroupJoinData;
 
@@ -55,6 +56,7 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
     try {
       await groupAPI.joinGroup({ bookGroupId: groupId, password: answer });
       toast.show({ message: '🎉 모임에 가입되었어요! 🎉', type: 'success' });
+      router.replace(`/group/${groupId}`);
     } catch (error) {
       if (
         isAxiosErrorWithCustomCode(error) &&
