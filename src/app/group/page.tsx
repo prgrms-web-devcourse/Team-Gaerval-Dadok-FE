@@ -44,7 +44,7 @@ const GroupPage = () => {
 
   return (
     <>
-      <TopHeader pathname={'/group'} />
+      <TopHeader text="Group" />
       <div className="mt-[2rem] flex w-full flex-col gap-[1.5rem]">
         <SearchGroup
           onClick={() => {
