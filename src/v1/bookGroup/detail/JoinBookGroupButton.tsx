@@ -9,8 +9,8 @@ import useToast from '@/v1/base/Toast/useToast';
 import BottomActionButton from '@/v1/base/BottomActionButton';
 
 const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
-  const _router = useRouter();
-  const _pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
   const toast = useToast();
 
   const {
@@ -38,8 +38,7 @@ const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
 
   const handleButtonClick = async () => {
     if (hasPassword) {
-      // TODO: 모임 가입문제 페이지 생성 후 연결
-      // router.push(`${pathname}/join`);
+      router.push(`${pathname}/join`);
       return;
     }
 
