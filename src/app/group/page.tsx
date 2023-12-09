@@ -6,7 +6,7 @@ import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
 
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
-import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';

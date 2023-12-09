@@ -1,4 +1,4 @@
-import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { APIUser } from '@/types/user';
 import ProfileGroupPresenter from './ProfileGroupPresenter';
 
