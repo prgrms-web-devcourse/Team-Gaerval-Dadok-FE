@@ -1,12 +1,12 @@
 import { ReactNode, Suspense } from 'react';
 import MyProfileContainer from './MyProfileInfoContainer';
 import UserProfileInfoContainer from './UserProfileInfoContainer';
-import { Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
-import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
+import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
 import useMounted from '@/hooks/useMounted';
+import Loading from '@/v1/base/Loading';
 
 type ProfileInfoProps = {
   children?: ReactNode;
@@ -24,8 +24,7 @@ const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
         <ErrorBoundary
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
-            <QueryErrorBounaryFallback
-              minH="12rem"
+            <QueryErrorBoundaryFallback
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
@@ -48,9 +47,8 @@ export default ProfileInfo;
 
 const ProfileInfoSkelenton = () => {
   return (
-    <VStack gap="1rem" align="stretch" w="100%">
-      <SkeletonCircle size="8rem" />
-      <Skeleton w="80%" height="3rem" />
-    </VStack>
+    <div className="flex min-h-[11.1rem] items-center justify-center">
+      <Loading />
+    </div>
   );
 };

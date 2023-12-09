@@ -1,7 +1,7 @@
 import useMounted from '@/hooks/useMounted';
 import { APIUser } from '@/types/user';
-import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
-import { Skeleton } from '@chakra-ui/react';
+import Loading from '@/v1/base/Loading';
+import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -18,8 +18,7 @@ const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
         <ErrorBoundary
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
-            <QueryErrorBounaryFallback
-              minH="34.5rem"
+            <QueryErrorBoundaryFallback
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
@@ -36,5 +35,9 @@ const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
 export default ProfileGroup;
 
 const ProfileBookShelfSkelenton = () => {
-  return <Skeleton w="100%" height="34.5rem" />;
+  return (
+    <div className="flex min-h-[16.5rem] items-center justify-center">
+      <Loading />
+    </div>
+  );
 };
