@@ -1,54 +1,35 @@
 'use client';
 
-import { Box, VStack } from '@chakra-ui/react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-
-import AuthRequired from '@/ui/AuthRequired';
-import ProfileInfo from '@/ui/Profile/ProfileInfo';
-import ProfileBookShelf from '@/ui/Profile/ProfileBookshelf';
-import ProfileGroup from '@/ui/Profile/ProfileGroup';
-import Button from '@/ui/common/Button';
-import { Menu, MenuItem } from '@/ui/common/Menu';
+import { useRouter } from 'next/navigation';
 import { removeAuth } from '@/utils/helpers';
 import userAPI from '@/apis/user';
+import TopHeader from '@/v1/base/TopHeader';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
+import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
+import ProfileGroup from '@/v1/profile/group/ProfileGroup';
+
+const USER_ID = 'me';
 
 const MyProfilePage = () => {
-  const { push } = useRouter();
-  const pathname = usePathname();
+  const router = useRouter();
 
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
     removeAuth();
-    push('/');
+    router.push('/');
   };
 
   return (
-    <AuthRequired>
-      <VStack justify="center" align="flex-start">
-        <Box alignSelf="flex-end">
-          <Menu>
-            <MenuItem text="로그아웃" onClick={handleLogoutButtonClick} />
-          </Menu>
-        </Box>
-        <VStack w="100%" align="flex-start" gap="2rem">
-          <ProfileInfo userId="me">
-            <Button
-              as={Link}
-              href={`${pathname}/edit`}
-              scheme="orange"
-              fullWidth
-              bgColor="main"
-              color="white.900"
-            >
-              프로필 수정
-            </Button>
-          </ProfileInfo>
-          <ProfileBookShelf userId="me" />
-          <ProfileGroup />
-        </VStack>
-      </VStack>
-    </AuthRequired>
+    <>
+      <TopHeader text="Profile">
+        <button onClick={handleLogoutButtonClick}>로그아웃</button>
+      </TopHeader>
+      <div className="flex flex-col gap-[2rem]">
+        <ProfileInfo userId={USER_ID} />
+        <ProfileBookShelf userId={USER_ID} />
+        <ProfileGroup userId={USER_ID} />
+      </div>
+    </>
   );
 };
 
