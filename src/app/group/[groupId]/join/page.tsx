@@ -27,7 +27,10 @@ const BookGroupJoinPage = ({
   return (
     <SSRSafeSuspense>
       <BookGroupNavigation groupId={groupId}>
-        <BookGroupNavigation.BackButton />
+        <BookGroupNavigation.BackButton
+          href={`/group/${groupId}`}
+          routeOption="replace"
+        />
         <BookGroupNavigation.Title />
       </BookGroupNavigation>
       <BookGroupJoinForm groupId={groupId} />

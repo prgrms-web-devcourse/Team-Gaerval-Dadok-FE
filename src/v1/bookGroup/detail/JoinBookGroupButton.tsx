@@ -38,7 +38,7 @@ const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
 
   const handleButtonClick = async () => {
     if (hasPassword) {
-      router.push(`${pathname}/join`);
+      router.replace(`${pathname}/join`);
       return;
     }
 

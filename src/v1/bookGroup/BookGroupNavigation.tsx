@@ -18,14 +18,6 @@ import {
 
 const NavigationContext = createContext({} as { groupId: number });
 
-const getTargetChildren = (children: ReactNode, Target: () => JSX.Element) => {
-  const childrenArray = Children.toArray(children);
-
-  return childrenArray.filter(
-    child => isValidElement(child) && child.type === (<Target />).type
-  );
-};
-
 const BookGroupNavigation = ({
   groupId,
   children,
@@ -55,11 +47,29 @@ const BookGroupNavigation = ({
   );
 };
 
-const BackButton = () => {
+type BackButtonProps =
+  | {
+      routeOption: 'push' | 'replace';
+      href: string;
+    }
+  | {
+      routeOption: 'back';
+      href?: undefined;
+    };
+
+const BackButton = ({ routeOption, href }: BackButtonProps) => {
   const router = useRouter();
 
   return (
-    <a onClick={router.back}>
+    <a
+      onClick={() =>
+        routeOption === 'push'
+          ? router.push(href)
+          : routeOption === 'replace'
+          ? router.replace(href)
+          : router.back()
+      }
+    >
       <IconArrowLeft />
     </a>
   );
@@ -97,3 +107,23 @@ export default BookGroupNavigation;
 const TitleSkeleton = () => (
   <div className="h-[1.5rem] w-[40%] animate-pulse bg-black-400"></div>
 );
+
+const BackButtonType = (<BackButton routeOption="back" />).type;
+const TitleType = (<Title />).type;
+const MenuButtonType = (<MenuButton />).type;
+const WriteButtonType = (<WriteButton />).type;
+
+const getTargetChildren = (
+  children: ReactNode,
+  targetType:
+    | typeof BackButtonType
+    | typeof TitleType
+    | typeof MenuButtonType
+    | typeof WriteButtonType
+) => {
+  const childrenArray = Children.toArray(children);
+
+  return childrenArray.find(
+    child => isValidElement(child) && child.type === targetType
+  );
+};
