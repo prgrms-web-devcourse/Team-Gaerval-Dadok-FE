@@ -1,40 +1,13 @@
 import { usePathname, useRouter } from 'next/navigation';
 
-import { SERVICE_ERROR_MESSAGE } from '@/constants';
-import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
-
-import { useBookGroupJoinInfo } from '@/queries/group/useBookGroupQuery';
-import groupAPI from '@/apis/group';
-import useToast from '@/v1/base/Toast/useToast';
+import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
 import BottomActionButton from '@/v1/base/BottomActionButton';
 
 const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const toast = useToast();
-
-  const {
-    data: { isExpired, isMember, hasPassword },
-    refetch,
-  } = useBookGroupJoinInfo(groupId);
-
-  const joinBookGroup = async () => {
-    try {
-      await groupAPI.joinGroup({ bookGroupId: groupId });
-      toast.show({ message: '모임에 가입했어요!', type: 'success' });
-      refetch();
-    } catch (error) {
-      if (!isAxiosErrorWithCustomCode(error)) {
-        toast.show({ message: '잠시 후 다시 시도해주세요.', type: 'error' });
-        return;
-      }
-
-      const { code } = error.response.data;
-      const message = SERVICE_ERROR_MESSAGE[code];
-
-      toast.show({ message, type: 'error' });
-    }
-  };
+  const { isExpired, isMember, hasPassword, joinBookGroup, refetch } =
+    useJoinBookGroup(groupId);
 
   const handleButtonClick = async () => {
     if (hasPassword) {
@@ -42,7 +15,7 @@ const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
       return;
     }
 
-    joinBookGroup();
+    joinBookGroup({ onSuccess: refetch });
   };
 
   if (isMember) {

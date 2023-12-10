@@ -3,12 +3,10 @@
 import { notFound, useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import groupAPI from '@/apis/group';
-import useToast from '@/v1/base/Toast/useToast';
-import { useBookGroupJoinInfo } from '@/queries/group/useBookGroupQuery';
-import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
+import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import Loading from '@/v1/base/Loading';
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
 import ErrorMessage from '@/v1/base/ErrorMessage';
@@ -19,13 +17,13 @@ type JoinFormValues = {
   answer: string;
 };
 
-const BookGroupJoinPage = ({
+const JoinBookGroupPage = ({
   params: { groupId },
 }: {
   params: { groupId: number };
 }) => {
   return (
-    <SSRSafeSuspense>
+    <SSRSafeSuspense fallback={<Loading fullpage />}>
       <BookGroupNavigation groupId={groupId}>
         <BookGroupNavigation.BackButton
           href={`/group/${groupId}`}
@@ -39,10 +37,9 @@ const BookGroupJoinPage = ({
 };
 
 const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
-  const toast = useToast();
   const router = useRouter();
-  const { data: bookGroupJoinData } = useBookGroupJoinInfo(groupId);
-  const { isMember, hasPassword, question } = bookGroupJoinData;
+  const { isMember, hasPassword, question, joinBookGroup } =
+    useJoinBookGroup(groupId);
 
   if (isMember || !hasPassword) {
     notFound();
@@ -55,19 +52,11 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
     formState: { errors },
   } = useForm<JoinFormValues>({ mode: 'all' });
 
-  const submitJoinForm: SubmitHandler<JoinFormValues> = async ({ answer }) => {
-    try {
-      await groupAPI.joinGroup({ bookGroupId: groupId, password: answer });
-      toast.show({ message: '🎉 모임에 가입되었어요! 🎉', type: 'success' });
-      router.replace(`/group/${groupId}`);
-    } catch (error) {
-      if (
-        isAxiosErrorWithCustomCode(error) &&
-        error.response.data.code === 'BG3'
-      ) {
-        toast.show({ message: '올바른 답이 아니에요', type: 'error' });
-      }
-    }
+  const submitJoinForm: SubmitHandler<JoinFormValues> = ({ answer }) => {
+    joinBookGroup({
+      answer,
+      onSuccess: () => router.replace(`/group/${groupId}`),
+    });
   };
 
   return (
@@ -108,4 +97,4 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
   );
 };
 
-export default BookGroupJoinPage;
+export default JoinBookGroupPage;
