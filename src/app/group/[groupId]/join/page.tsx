@@ -83,7 +83,7 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
             {...register('answer', {
               required: '정답을 입력해주세요',
               minLength: { value: 1, message: '2자 이상 입력해주세요.' },
-              maxLength: { value: 20, message: '20자 이하 입력해주세요.' },
+              maxLength: { value: 10, message: '10자 이하 입력해주세요.' },
             })}
             placeholder="띄어쓰기 없이 정답을 입력해주세요"
             error={!!errors.answer}
@@ -92,7 +92,7 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
             <InputLength
               isError={!!errors.answer}
               currentLength={watch('answer')?.length}
-              maxLength={20}
+              maxLength={10}
             />
             {errors.answer && (
               <ErrorMessage>{errors.answer.message}</ErrorMessage>
