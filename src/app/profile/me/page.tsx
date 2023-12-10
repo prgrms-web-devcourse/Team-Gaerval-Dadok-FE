@@ -13,6 +13,7 @@ import { IconArrowRight } from '@public/icons';
 import BookShelf from '@/v1/bookShelf/BookShelf';
 
 const USER_ID = 'me';
+const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 const MyProfilePage = () => {
   return isAuthed() ? <MyProfileForAuth /> : <MyProfileForUnAuth />;
@@ -32,7 +33,7 @@ const MyProfileForUnAuth = () => {
                 카카오로 3초만에 가입할 수 있어요.
               </p>
             </div>
-            <Link href="/login">
+            <Link href={KAKAO_LOGIN_URL}>
               <IconArrowRight width="20px" />
             </Link>
           </div>
