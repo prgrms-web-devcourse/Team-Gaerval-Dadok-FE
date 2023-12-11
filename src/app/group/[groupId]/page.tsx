@@ -14,7 +14,7 @@ const DetailBookGroupPage = ({
   return (
     <>
       <BookGroupNavigation groupId={groupId}>
-        <BookGroupNavigation.BackButton routeOption="back" />
+        <BookGroupNavigation.BackButton />
         <BookGroupNavigation.Title />
         <BookGroupNavigation.WriteButton />
         <BookGroupNavigation.MenuButton />

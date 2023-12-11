@@ -49,24 +49,28 @@ const BookGroupNavigation = ({
 
 type BackButtonProps =
   | {
-      routeOption: 'push' | 'replace';
+      routeOption: 'push';
       href: string;
     }
   | {
-      routeOption: 'back';
-      href?: undefined;
+      routeOption: 'replace';
+      href: string;
+    }
+  | {
+      routeOption?: 'back';
     };
 
-const BackButton = ({ routeOption, href }: BackButtonProps) => {
+const BackButton = (props: BackButtonProps) => {
+  const { routeOption } = props;
   const router = useRouter();
 
   return (
     <a
       onClick={() =>
         routeOption === 'push'
-          ? router.push(href)
+          ? router.push(props.href)
           : routeOption === 'replace'
-          ? router.replace(href)
+          ? router.replace(props.href)
           : router.back()
       }
     >
@@ -108,7 +112,7 @@ const TitleSkeleton = () => (
   <div className="h-[1.5rem] w-[40%] animate-pulse bg-black-400"></div>
 );
 
-const BackButtonType = (<BackButton routeOption="back" />).type;
+const BackButtonType = (<BackButton />).type;
 const TitleType = (<Title />).type;
 const MenuButtonType = (<MenuButton />).type;
 const WriteButtonType = (<WriteButton />).type;
