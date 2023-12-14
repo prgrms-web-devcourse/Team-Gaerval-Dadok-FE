@@ -3,11 +3,9 @@ import type { APIBookshelfInfo } from '@/types/bookshelf';
 import bookshelfAPI from '@/apis/bookshelf';
 import bookShelfKeys from './key';
 
-const useMutateBookshelfLikeQuery = ({
-  bookshelfId,
-}: {
-  bookshelfId: APIBookshelfInfo['bookshelfId'];
-}) => {
+const useMutateBookshelfLikeQuery = (
+  bookshelfId: APIBookshelfInfo['bookshelfId']
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({

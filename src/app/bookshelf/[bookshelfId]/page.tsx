@@ -31,9 +31,8 @@ export default function UserBookShelfPage({
   };
 }) {
   const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
-  const { mutate: mutateBookshelfLike } = useMutateBookshelfLikeQuery({
-    bookshelfId,
-  });
+  const { mutate: mutateBookshelfLike } =
+    useMutateBookshelfLikeQuery(bookshelfId);
   const { show: showToast } = useToast();
   const router = useRouter();
 
