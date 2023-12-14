@@ -4,7 +4,7 @@ import { IconHeart } from '@public/icons';
 type LikeButtonProps = {
   isLiked: APIBookshelfInfo['isLiked'];
   likeCount: APIBookshelfInfo['likeCount'];
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const LikeButton = ({ isLiked, likeCount, onClick }: LikeButtonProps) => {
