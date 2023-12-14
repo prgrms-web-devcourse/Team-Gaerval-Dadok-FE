@@ -8,15 +8,9 @@ type LoginBottomSheetProps = {
   onClose: () => void;
 };
 
-/**
- * @todo
- * client_id를 활용한 카카오 로그인 페이지 이동
- */
-
 const LoginBottomSheet = ({ isOpen, onClose }: LoginBottomSheetProps) => {
   const handleClickKakaoLogin = () => {
     return (location.href = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`);
-    // return (location.href = `${process.env.NEXT_PUBLIC_KAKAO_LOGIN_URL}`);
   };
 
   return (
