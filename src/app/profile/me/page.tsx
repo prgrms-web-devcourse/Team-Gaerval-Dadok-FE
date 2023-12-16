@@ -72,7 +72,7 @@ const MyProfileForAuth = () => {
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
     removeAuth();
-    router.push('/');
+    router.refresh();
   };
 
   return (
