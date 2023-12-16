@@ -20,7 +20,7 @@ const useJoinBookGroup = (groupId: number) => {
     try {
       await groupAPI.joinGroup({ bookGroupId: groupId, password: answer });
       toast.show({ message: '🎉 모임에 가입되었어요! 🎉', type: 'success' });
-      onSuccess?.();
+      onSuccess && onSuccess();
     } catch (error) {
       if (!isAxiosErrorWithCustomCode(error)) {
         toast.show({ message: '잠시 후 다시 시도해주세요', type: 'error' });
