@@ -11,12 +11,18 @@ import Avatar from '@/v1/base/Avatar';
 import Link from 'next/link';
 import { IconArrowRight } from '@public/icons';
 import BookShelf from '@/v1/bookShelf/BookShelf';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import Loading from '@/v1/base/Loading';
 
 const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 const MyProfilePage = () => {
-  return isAuthed() ? <MyProfileForAuth /> : <MyProfileForUnAuth />;
+  return (
+    <SSRSafeSuspense fallback={<Loading />}>
+      {isAuthed() ? <MyProfileForAuth /> : <MyProfileForUnAuth />}
+    </SSRSafeSuspense>
+  );
 };
 
 const MyProfileForUnAuth = () => {
