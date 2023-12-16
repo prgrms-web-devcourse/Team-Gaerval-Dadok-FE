@@ -30,11 +30,11 @@ const MyProfileForUnAuth = () => {
     <>
       <TopHeader text="Profile" />
       <div className="flex flex-col gap-[2rem]">
-        <div className="flex items-center gap-[1rem]">
+        <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
           <div className="flex-grow">
             <h2 className="text-lg font-bold">로그인 / 회원가입</h2>
-            <p className="text-placeholder">
+            <p className="text-sm text-placeholder">
               카카오로 3초만에 가입할 수 있어요.
             </p>
           </div>
