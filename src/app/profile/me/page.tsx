@@ -30,39 +30,35 @@ const MyProfileForUnAuth = () => {
     <>
       <TopHeader text="Profile" />
       <div className="flex flex-col gap-[2rem]">
-        <div className="flex flex-col gap-[2rem]">
-          <div className="flex items-center gap-[1rem]">
-            <Avatar size="large" />
-            <div className="flex-grow">
-              <h2 className="text-lg font-bold">로그인 / 회원가입</h2>
-              <p className="text-placeholder">
-                카카오로 3초만에 가입할 수 있어요.
-              </p>
-            </div>
-            <Link href={KAKAO_LOGIN_URL}>
-              <IconArrowRight width="20px" />
-            </Link>
+        <div className="flex items-center gap-[1rem]">
+          <Avatar size="large" />
+          <div className="flex-grow">
+            <h2 className="text-lg font-bold">로그인 / 회원가입</h2>
+            <p className="text-placeholder">
+              카카오로 3초만에 가입할 수 있어요.
+            </p>
           </div>
-          <div className="flex flex-col gap-[0.6rem]">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">책장</h3>
-            </div>
-            <BookShelf>
-              <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
-                <BookShelf.Background />
-                <div className="pb-[5.5rem] pt-[3rem] text-center">
-                  <p className="text-sm text-placeholder">책장이 비었어요.</p>
-                </div>
+          <Link href={KAKAO_LOGIN_URL}>
+            <IconArrowRight width="20px" />
+          </Link>
+        </div>
+        <div className="flex flex-col gap-[0.6rem]">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-bold">책장</h3>
+          </div>
+          <BookShelf>
+            <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
+              <BookShelf.Background />
+              <div className="pb-[5.5rem] pt-[3rem] text-center">
+                <p className="text-sm text-placeholder">책장이 비었어요.</p>
               </div>
-            </BookShelf>
-          </div>
-          <div className="flex flex-col gap-[0.6rem]">
-            <h3 className="text-lg font-bold">참여한 모임</h3>
-            <div className="pb-[5.5rem] pt-[5.5rem] text-center">
-              <p className="text-sm text-placeholder">
-                참여 중인 모임이 없어요.
-              </p>
             </div>
+          </BookShelf>
+        </div>
+        <div className="flex flex-col gap-[0.6rem]">
+          <h3 className="text-lg font-bold">참여한 모임</h3>
+          <div className="pb-[5.5rem] pt-[5.5rem] text-center">
+            <p className="text-sm text-placeholder">참여 중인 모임이 없어요.</p>
           </div>
         </div>
       </div>
