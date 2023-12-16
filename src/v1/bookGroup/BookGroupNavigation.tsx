@@ -64,16 +64,21 @@ const BackButton = (props: BackButtonProps) => {
   const { routeOption } = props;
   const router = useRouter();
 
+  const handleClick = () => {
+    switch (routeOption) {
+      case 'push':
+        return router.push(props.href);
+      case 'replace':
+        return router.replace(props.href);
+      case 'back':
+        return router.back();
+      default:
+        return router.back();
+    }
+  };
+
   return (
-    <a
-      onClick={() =>
-        routeOption === 'push'
-          ? router.push(props.href)
-          : routeOption === 'replace'
-          ? router.replace(props.href)
-          : router.back()
-      }
-    >
+    <a onClick={handleClick}>
       <IconArrowLeft />
     </a>
   );
