@@ -1,6 +1,5 @@
 import useMounted from '@/hooks/useMounted';
 import { APIUser } from '@/types/user';
-import Loading from '@/v1/base/Loading';
 import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
@@ -36,8 +35,22 @@ export default ProfileGroup;
 
 const ProfileGroupSkeleton = () => {
   return (
-    <div className="flex min-h-[16.5rem] items-center justify-center">
-      <Loading />
+    <div className="flex flex-col gap-[0.6rem]">
+      <div className="flex h-[2.7rem] w-[6rem] animate-pulse bg-placeholder" />
+      <div className="flex gap-[1rem] overflow-scroll">
+        <div className="flex flex-col gap-[0.5rem]">
+          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
+          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+        </div>
+        <div className="flex flex-col gap-[0.5rem]">
+          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
+          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+        </div>
+        <div className="flex flex-col gap-[0.5rem]">
+          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
+          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+        </div>
+      </div>
     </div>
   );
 };
