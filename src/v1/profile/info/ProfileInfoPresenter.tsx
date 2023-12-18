@@ -11,7 +11,7 @@ const ProfileInfoPresenter = ({
   job: { jobGroupKoreanName, jobNameKoreanName },
 }: ProfileInfoProps) => {
   return (
-    <div className="flex flex-col gap-[2rem]">
+    <div className="flex flex-col gap-[2rem] mb-[2rem]">
       <div className="flex gap-[0.8rem]">
         <Badge
           colorScheme="main"
