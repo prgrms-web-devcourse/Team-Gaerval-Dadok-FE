@@ -1,24 +1,21 @@
 'use client';
 
-import { IconHeart, IconKakao } from '@public/icons';
-import useToast from '@/v1/base/Toast/useToast';
-import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
-import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
-import {
-  useBookshelfLike,
-  useBookshelfUnlike,
-} from '@/queries/bookshelf/useBookShelfLikeMutation';
-
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Button from '@/v1/base/Button';
+import Link from 'next/link';
+import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
+import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
+import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
+import useToast from '@/v1/base/Toast/useToast';
+import { isAuthed } from '@/utils/helpers';
+import { IconKakao } from '@public/icons';
 import TopNavigation from '@/v1/base/TopNavigation';
 import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
-import { isAuthed } from '@/utils/helpers';
-import Link from 'next/link';
-import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
+import Button from '@/v1/base/Button';
+import LikeButton from '@/v1/base/LikeButton';
 import BackButton from '@/v1/base/BackButton';
 import ShareButton from '@/v1/base/ShareButton';
+import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
 
 const KAKAO_OAUTH_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
@@ -30,8 +27,8 @@ export default function UserBookShelfPage({
   };
 }) {
   const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
-  const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
-  const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
+  const { mutate: mutateBookshelfLike } =
+    useMutateBookshelfLikeQuery(bookshelfId);
   const { show: showToast } = useToast();
 
   if (!isSuccess) return null;
@@ -42,7 +39,7 @@ export default function UserBookShelfPage({
       return;
     }
 
-    !data.isLiked ? likeBookshelf() : unlikeBookshelf();
+    mutateBookshelfLike(data.isLiked);
   };
 
   return (
@@ -64,24 +61,11 @@ export default function UserBookShelfPage({
           <span className="text-[1.4rem] text-[#939393]">
             {`${data.job.jobGroupKoreanName} • ${data.job.jobNameKoreanName}`}
           </span>
-          <Button
-            size="small"
-            colorScheme="warning"
-            fullRadius
-            fill={data.isLiked ? true : false}
+          <LikeButton
+            isLiked={data.isLiked}
+            likeCount={data.likeCount}
             onClick={handleClickLikeButton}
-          >
-            <div className="bold flex items-center gap-[0.3rem] text-xs">
-              <IconHeart
-                fill={data.isLiked ? '#F56565' : 'white'}
-                stroke={!data.isLiked ? '#F56565' : 'white'}
-                stroke-width={1.5}
-                height="1.3rem"
-                w="1.3rem"
-              />
-              {data.likeCount}
-            </div>
-          </Button>
+          />
         </div>
       </div>
 
