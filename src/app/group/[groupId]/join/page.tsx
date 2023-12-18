@@ -74,7 +74,11 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
           <Input
             {...register('answer', {
               required: '정답을 입력해주세요',
-              minLength: { value: 1, message: '2자 이상 입력해주세요.' },
+              pattern: {
+                value: /^\S*$/g,
+                message: '띄어쓰기 없이 정답을 입력해주세요.',
+              },
+              minLength: { value: 1, message: '1자 이상 입력해주세요.' },
               maxLength: { value: 10, message: '10자 이하 입력해주세요.' },
             })}
             placeholder="띄어쓰기 없이 정답을 입력해주세요"
