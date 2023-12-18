@@ -1,12 +1,12 @@
-import useMounted from '@/hooks/useMounted';
-import { APIUser } from '@/types/user';
-import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import ProfileGroupContainer from './ProfileGroupContainer';
+import useMounted from "@/hooks/useMounted";
+import { APIUser } from "@/types/user";
+import QueryErrorBoundaryFallback from "@/v1/base/QueryErrorBoundaryFallback";
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import ProfileGroupContainer from "./ProfileGroupContainer";
 
-const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
+const ProfileGroup = ({ userId }: { userId: "me" | APIUser["userId"] }) => {
   const mounted = useMounted();
 
   if (!mounted) return null;
@@ -35,20 +35,20 @@ export default ProfileGroup;
 
 const ProfileGroupSkeleton = () => {
   return (
-    <div className="flex flex-col gap-[0.6rem]">
-      <div className="flex h-[2.7rem] w-[6rem] animate-pulse bg-placeholder" />
+    <div className="flex flex-col gap-[0.6rem] animate-pulse">
+      <div className="flex h-[2.7rem] w-[6rem] bg-placeholder" />
       <div className="flex gap-[1rem] overflow-scroll">
         <div className="flex flex-col gap-[0.5rem]">
-          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
-          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+          <div className="h-[11.6rem] w-[10rem] bg-placeholder" />
+          <div className="h-[1.5rem] bg-placeholder" />
         </div>
         <div className="flex flex-col gap-[0.5rem]">
-          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
-          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+          <div className="h-[11.6rem] w-[10rem] bg-placeholder" />
+          <div className="h-[1.5rem]bg-placeholder" />
         </div>
         <div className="flex flex-col gap-[0.5rem]">
-          <div className="h-[11.6rem] w-[10rem] animate-pulse bg-placeholder" />
-          <div className="h-[1.5rem] animate-pulse bg-placeholder" />
+          <div className="h-[11.6rem] w-[10rem] bg-placeholder" />
+          <div className="h-[1.5rem] bg-placeholder" />
         </div>
       </div>
     </div>

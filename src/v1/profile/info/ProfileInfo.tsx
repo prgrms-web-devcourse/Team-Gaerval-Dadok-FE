@@ -46,14 +46,14 @@ export default ProfileInfo;
 
 const ProfileInfoSkelenton = () => {
   return (
-    <div className="mb-[2rem] flex flex-col gap-[2rem]">
+    <div className="mb-[2rem] flex flex-col gap-[2rem] animate-pulse">
       <div className="flex gap-[0.8rem]">
-        <div className="h-[2.1rem] w-[3.8rem] animate-pulse rounded-lg bg-placeholder" />
-        <div className="h-[2.1rem] w-[7.6rem] animate-pulse rounded-lg bg-placeholder" />
+        <div className="h-[2.1rem] w-[3.8rem] rounded-lg bg-placeholder" />
+        <div className="h-[2.1rem] w-[7.6rem] rounded-lg bg-placeholder" />
       </div>
       <div className="flex items-center gap-[1rem]">
-        <div className="h-[7rem] w-[7rem] animate-pulse rounded-full bg-placeholder" />
-        <div className="h-[2.7rem] w-[11rem] animate-pulse bg-placeholder text-lg" />
+        <div className="h-[7rem] w-[7rem] rounded-full bg-placeholder" />
+        <div className="h-[2.7rem] w-[11rem] bg-placeholder text-lg" />
       </div>
     </div>
   );
