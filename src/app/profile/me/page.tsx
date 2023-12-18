@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { isAuthed, removeAuth } from "@/utils/helpers";
-import userAPI from "@/apis/user";
-import TopHeader from "@/v1/base/TopHeader";
-import ProfileInfo from "@/v1/profile/info/ProfileInfo";
-import ProfileBookShelf from "@/v1/profile/bookShelf/ProfileBookShelf";
-import ProfileGroup from "@/v1/profile/group/ProfileGroup";
-import Avatar from "@/v1/base/Avatar";
-import Link from "next/link";
-import { IconArrowRight } from "@public/icons";
-import BookShelf from "@/v1/bookShelf/BookShelf";
-import SSRSafeSuspense from "@/components/SSRSafeSuspense";
-import Loading from "@/v1/base/Loading";
-import Button from "@/v1/base/Button";
+import { useRouter } from 'next/navigation';
+import { isAuthed, removeAuth } from '@/utils/helpers';
+import userAPI from '@/apis/user';
+import TopHeader from '@/v1/base/TopHeader';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
+import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
+import ProfileGroup from '@/v1/profile/group/ProfileGroup';
+import Avatar from '@/v1/base/Avatar';
+import Link from 'next/link';
+import { IconArrowRight } from '@public/icons';
+import BookShelf from '@/v1/bookShelf/BookShelf';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import Loading from '@/v1/base/Loading';
+import Button from '@/v1/base/Button';
 
-const USER_ID = "me";
+const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 const MyProfilePage = () => {

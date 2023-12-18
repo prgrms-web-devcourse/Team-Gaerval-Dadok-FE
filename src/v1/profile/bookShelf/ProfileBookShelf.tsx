@@ -41,7 +41,7 @@ export default ProfileBookShelf;
 
 const ProfileBookShelfSkelenton = () => {
   return (
-    <div className="flex flex-col gap-[2rem] animate-pulse">
+    <div className="flex animate-pulse flex-col gap-[2rem]">
       <div className="h-[2.7rem] w-[5rem] bg-placeholder" />
 
       <div className="flex h-[13.2rem] items-center justify-center">
