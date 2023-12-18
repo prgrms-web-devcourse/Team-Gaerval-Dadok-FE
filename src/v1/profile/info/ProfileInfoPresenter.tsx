@@ -4,14 +4,13 @@ import Badge from '@/v1/base/Badge';
 
 type ProfileInfoProps = Pick<APIUser, 'nickname' | 'profileImage' | 'job'>;
 
-// COMMENT: 프로필 정보 조회 API 스키마 변경으로 email, oauthnickname props 제거
 const ProfileInfoPresenter = ({
   nickname,
   profileImage,
   job: { jobGroupKoreanName, jobNameKoreanName },
 }: ProfileInfoProps) => {
   return (
-    <div className="flex flex-col gap-[2rem] mb-[2rem]">
+    <div className="mb-[2rem] flex flex-col gap-[2rem]">
       <div className="flex gap-[0.8rem]">
         <Badge
           colorScheme="main"

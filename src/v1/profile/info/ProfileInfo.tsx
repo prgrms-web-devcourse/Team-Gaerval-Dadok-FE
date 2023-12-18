@@ -6,7 +6,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
 import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
 import useMounted from '@/hooks/useMounted';
-import Loading from '@/v1/base/Loading';
 
 type ProfileInfoProps = {
   children?: ReactNode;
@@ -47,8 +46,15 @@ export default ProfileInfo;
 
 const ProfileInfoSkelenton = () => {
   return (
-    <div className="flex min-h-[11.1rem] items-center justify-center">
-      <Loading />
+    <div className="mb-[2rem] flex flex-col gap-[2rem]">
+      <div className="flex gap-[0.8rem]">
+        <div className="h-[2.1rem] w-[3.8rem] animate-pulse rounded-lg bg-placeholder" />
+        <div className="h-[2.1rem] w-[7.6rem] animate-pulse rounded-lg bg-placeholder" />
+      </div>
+      <div className="flex items-center gap-[1rem]">
+        <div className="h-[7rem] w-[7rem] animate-pulse rounded-full bg-placeholder" />
+        <div className="h-[2.7rem] w-[11rem] animate-pulse bg-placeholder text-lg" />
+      </div>
     </div>
   );
 };
