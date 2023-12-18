@@ -23,7 +23,7 @@ const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
             />
           )}
         >
-          <Suspense fallback={<ProfileBookShelfSkelenton />}>
+          <Suspense fallback={<ProfileGroupSkeleton />}>
             <ProfileGroupContainer userId={userId} />
           </Suspense>
         </ErrorBoundary>
@@ -34,7 +34,7 @@ const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
 
 export default ProfileGroup;
 
-const ProfileBookShelfSkelenton = () => {
+const ProfileGroupSkeleton = () => {
   return (
     <div className="flex min-h-[16.5rem] items-center justify-center">
       <Loading />
