@@ -13,6 +13,7 @@ import { IconArrowRight } from '@public/icons';
 import BookShelf from '@/v1/bookShelf/BookShelf';
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import Loading from '@/v1/base/Loading';
+import Button from '@/v1/base/Button';
 
 const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
@@ -82,6 +83,13 @@ const MyProfileForAuth = () => {
       </TopHeader>
       <div className="flex flex-col gap-[2rem]">
         <ProfileInfo userId={USER_ID} />
+        <Link href="/profile/me/edit" className="w-full">
+          <Button colorScheme="main-light" size="full">
+            <span className="mr-[0.5rem] text-sm font-bold text-black-700">
+              프로필 수정
+            </span>
+          </Button>
+        </Link>
         <ProfileBookShelf userId={USER_ID} />
         <ProfileGroup userId={USER_ID} />
       </div>
