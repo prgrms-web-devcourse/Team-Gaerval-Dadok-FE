@@ -32,6 +32,7 @@ export { default as IconComments } from './comments.svg';
 export { default as IconDelete } from './delete.svg';
 export { default as IconMembers } from './members.svg';
 export { default as IconPlus } from './plus.svg';
+export { default as IconBookPlus } from './book-plus.svg';
 
 // 카카오
 export { default as IconKakao } from './kakao.svg';

@@ -1,12 +1,9 @@
-import Link from 'next/link';
-
-import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
+import { IconCalendar, IconMembers } from '@public/icons';
 import Badge from '@/v1/base/Badge';
 import Avatar from '@/v1/base/Avatar';
-import BookCover from '@/v1/book/BookCover';
 import BookGroupStatus from '@/v1/bookGroup/BookGroupStatus';
+import BookInfoCard from '@/v1/bookGroup/BookInfoCard';
 
-import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
 import { useBookGroup } from '@/queries/group/useBookGroupQuery';
 import useUserProfileQuery from '@/queries/user/useUserProfileQuery';
 
@@ -72,28 +69,6 @@ const Owner = ({
 
 const Title = ({ title }: { title: string }) => {
   return <p className="text-xl font-bold">{title}</p>;
-};
-
-const BookInfoCard = ({ bookId }: { bookId: number }) => {
-  const { data: bookInfo } = useBookInfoQuery(bookId);
-
-  return (
-    <Link href={`/book/${bookId}`}>
-      <div className="flex min-h-[11rem] w-full cursor-pointer gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
-        <BookCover
-          size="xsmall"
-          src={bookInfo.imageUrl}
-          title={bookInfo.title}
-        />
-        <div className="flex min-w-0 flex-grow flex-col">
-          <span className="truncate text-sm font-bold">{bookInfo.title}</span>
-          <span className="text-xs text-placeholder">{bookInfo.author}</span>
-        </div>
-        {/** 왼쪽 방향의 화살표를 180도 회전하여 사용 */}
-        <IconArrowLeft className="h-[1.5rem] w-[1.5rem] flex-shrink-0 rotate-180" />
-      </div>
-    </Link>
-  );
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
