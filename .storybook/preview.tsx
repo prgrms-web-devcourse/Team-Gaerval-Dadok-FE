@@ -6,6 +6,8 @@ import '@/styles/global.css';
 import Layout from '../src/v1/layout/Layout';
 import ToastProvider from '../src/v1/base/Toast/ToastProvider';
 
+import ReactQueryProvider from '../src/components/ReactQueryProvider';
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -22,11 +24,13 @@ const preview: Preview = {
   },
   decorators: [
     Story => (
-      <ToastProvider>
-        <Layout>
-          <Story />
-        </Layout>
-      </ToastProvider>
+      <ReactQueryProvider>
+        <ToastProvider>
+          <Layout>
+            <Story />
+          </Layout>
+        </ToastProvider>
+      </ReactQueryProvider>
     ),
   ],
 };
