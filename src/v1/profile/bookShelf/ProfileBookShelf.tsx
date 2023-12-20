@@ -24,7 +24,7 @@ const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
             />
           )}
         >
-          <Suspense fallback={<ProfileBookShelfSkelenton />}>
+          <Suspense fallback={<ProfileBookShelfSkeleton />}>
             {userId === 'me' ? (
               <MyProfileBookshelfContainer />
             ) : (
@@ -39,7 +39,7 @@ const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
 
 export default ProfileBookShelf;
 
-const ProfileBookShelfSkelenton = () => {
+const ProfileBookShelfSkeleton = () => {
   return (
     <div className="flex animate-pulse flex-col gap-[2rem]">
       <div className="h-[2.7rem] w-[5rem] bg-placeholder" />

@@ -28,7 +28,7 @@ const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
             />
           )}
         >
-          <Suspense fallback={<ProfileInfoSkelenton />}>
+          <Suspense fallback={<ProfileInfoSkeleton />}>
             {userId === 'me' ? (
               <MyProfileContainer />
             ) : (
@@ -44,7 +44,7 @@ const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
 
 export default ProfileInfo;
 
-const ProfileInfoSkelenton = () => {
+const ProfileInfoSkeleton = () => {
   return (
     <div className="mb-[2rem] flex animate-pulse flex-col gap-[2rem]">
       <div className="flex gap-[0.8rem]">
