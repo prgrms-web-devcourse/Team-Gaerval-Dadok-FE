@@ -1,5 +1,5 @@
 import ProfileBookshelfPresenter from './ProfileBookshelfPresenter';
-import useUserSummaryBookshlefQuery from '@/queries/bookshelf/useUserSummaryBookshelfQuery';
+import useUserSummaryBookshlefQuery from '@/queries/bookshelf/useUserSummaryBookShelfQuery';
 import type { APIUser } from '@/types/user';
 
 const UserProfileBookshelfContainer = ({

@@ -6,6 +6,7 @@ const bookShelfKeys = {
     [...bookShelfKeys.all, bookshelfId] as const,
   books: (bookshelfId: APIBookshelf['bookshelfId']) =>
     [...bookShelfKeys.all, bookshelfId, 'books'] as const,
+  summary: (userId: string) => [...bookShelfKeys.all, 'summary', userId],
 };
 
 export default bookShelfKeys;

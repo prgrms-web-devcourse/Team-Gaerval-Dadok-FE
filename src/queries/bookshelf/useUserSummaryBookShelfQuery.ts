@@ -1,15 +1,16 @@
 import bookshelfAPI from '@/apis/bookshelf';
-import { useQuery } from '@tanstack/react-query';
 import type { QueryOptions } from '@/types/query';
 import type { APIUser } from '@/types/user';
 import type { APIBookshelf } from '@/types/bookshelf';
+import bookShelfKeys from './key';
+import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
 
 const useUserSummaryBookshlefQuery = (
   userId: APIUser['userId'],
   options?: QueryOptions<APIBookshelf>
 ) =>
-  useQuery(
-    ['summaryBookshlef', String(userId)],
+  useQueryWithSuspense(
+    bookShelfKeys.summary(String(userId)),
     () =>
       bookshelfAPI.getUserSummaryBookshelf({ userId }).then(({ data }) => data),
     options
