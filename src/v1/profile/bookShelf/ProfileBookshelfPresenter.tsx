@@ -16,13 +16,14 @@ const ProfileBookshelfPresenter = ({
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">책장</h3>
         <div className="flex gap-[2rem]">
-          <Badge colorScheme="red" fontWeight="bold" size="medium" isFilled={false}>
+          <Badge
+            colorScheme="red"
+            fontWeight="bold"
+            size="medium"
+            isFilled={false}
+          >
             <div className="flex items-center gap-[0.4rem]">
-              <IconHeart
-                fill="#F56565"
-                height="1.4rem"
-                width="1.4rem"
-              />
+              <IconHeart className="h-[1.4rem] w-[1.4rem] fill-[#F56565]" />
               <div className="bold text-xs">{likeCount}</div>
             </div>
           </Badge>
