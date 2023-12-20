@@ -1,10 +1,11 @@
 'use client';
 
 import { APIUser } from '@/types/user';
-import TopNavigation from '@/ui/common/TopNavigation';
-import ProfileBookShelf from '@/ui/Profile/ProfileBookshelf';
-import ProfileInfo from '@/ui/Profile/ProfileInfo';
-import { VStack } from '@chakra-ui/react';
+import BackButton from '@/v1/base/BackButton';
+import ShareButton from '@/v1/base/ShareButton';
+import TopNavigation from '@/v1/base/TopNavigation';
+import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
 
 const UserProfilePage = ({
   params: { userId },
@@ -12,13 +13,20 @@ const UserProfilePage = ({
   params: { userId: APIUser['userId'] };
 }) => {
   return (
-    <VStack justify="center" align="flex-start" w="100%">
-      <TopNavigation pageTitle="" />
-      <VStack justify="flex-start" gap="2rem" w="100%">
+    <>
+      <TopNavigation>
+        <TopNavigation.LeftItem>
+          <BackButton />
+        </TopNavigation.LeftItem>
+        <TopNavigation.RightItem>
+          <ShareButton />
+        </TopNavigation.RightItem>
+      </TopNavigation>
+      <div className="mt-[1.5rem] flex flex-col gap-[2rem]">
         <ProfileInfo userId={userId} />
         <ProfileBookShelf userId={userId} />
-      </VStack>
-    </VStack>
+      </div>
+    </>
   );
 };
 

@@ -13,12 +13,12 @@ export default meta;
 type Story = StoryObj<typeof TopHeader>;
 
 export const Default: Story = {
-  args: { pathname: '/bookarchive' },
+  args: { text: 'BookArchive' },
   render: args => <TopHeader {...args} />,
 };
 
 export const WithMenu: Story = {
-  args: { pathname: '/profile/me' },
+  args: { text: 'Profile' },
   render: args => (
     <TopHeader {...args}>
       <button
