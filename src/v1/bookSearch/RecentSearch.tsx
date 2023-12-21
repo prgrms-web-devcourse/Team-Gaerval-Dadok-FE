@@ -2,8 +2,8 @@ import Button from '@/v1/base/Button';
 
 const RecentSearch = () => {
   return (
-    <section>
-      <h2 className="mb-[1.7rem] h-[2.4rem] text-lg">최근 검색어</h2>
+    <section className="flex flex-col gap-[1.7rem]">
+      <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
       <div className="relative flex h-[3.5rem] w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap">
         <Button
           size="medium"
