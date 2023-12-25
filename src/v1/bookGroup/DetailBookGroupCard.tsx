@@ -75,6 +75,13 @@ const Description = ({ description }: { description: string }) => {
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
+  const formatDateTime = (dateString: string) =>
+    new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date(dateString));
+
   return (
     <div className="flex items-center gap-[0.5rem]">
       <div>
@@ -82,7 +89,7 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
       </div>
       <div className="text-xs text-placeholder">
         <span className="pt-[0.1rem]">
-          {start} - {end}
+          {formatDateTime(start)} - {formatDateTime(end)}
         </span>
       </div>
     </div>
