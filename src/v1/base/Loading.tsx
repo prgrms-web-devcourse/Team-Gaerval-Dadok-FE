@@ -50,6 +50,6 @@ const LoadingDot = ({
   animationStep?: AnimationStep;
 }) => (
   <span
-    className={`h-[1rem] w-[1rem] rounded-full ${schemes[color]} ${animations[animationStep]}`}
+    className={`h-[1rem] w-[1rem] rounded-full ${schemes[color]} ${animations[animationStep]} translate-y-[5px] opacity-20`}
   ></span>
 );
