@@ -29,7 +29,7 @@ const DetailBookGroupCard = ({
   bookGroupId,
 }: DetailBookGroupCardProps) => {
   return (
-    <Link className="w-full" href={`/group/${bookGroupId}`}>
+    <Link href={`/group/${bookGroupId}`}>
       <div className="w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
         <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
@@ -67,19 +67,11 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return (
-    <div>
-      <span className="text-md font-bold">{title}</span>
-    </div>
-  );
+  return <div className="w-[22rem] truncate text-md font-bold">{title}</div>;
 };
 
 const Description = ({ description }: { description: string }) => {
-  return (
-    <div className="w-[22rem] truncate text-sm">
-      <span>{description}</span>
-    </div>
-  );
+  return <div className="w-[22rem] truncate text-sm">{description}</div>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
