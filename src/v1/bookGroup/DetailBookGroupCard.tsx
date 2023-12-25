@@ -30,13 +30,13 @@ const DetailBookGroupCard = ({
 }: DetailBookGroupCardProps) => {
   return (
     <Link className="w-full" href={`/group/${bookGroupId}`}>
-      <div className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
-        <div className="mb-[1rem] flex gap-[0.5rem]">
+      <div className="w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+        <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
         </div>
-        <div className="flex justify-between gap-[1.5rem]">
-          <div className="flex flex-grow flex-col gap-[0.63rem]">
+        <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
+          <div className="flex flex-grow flex-col justify-between ">
             <Title title={title} />
             <Description description={description} />
             <Duration start={date.start} end={date.end} />
