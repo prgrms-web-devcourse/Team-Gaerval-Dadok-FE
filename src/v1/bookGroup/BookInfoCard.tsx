@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
@@ -14,11 +14,15 @@ const BookInfoCard = ({
   removable = false,
   onBookIdChange: _onBookIdChange,
 }: {
-  bookId?: number;
+  bookId: number;
   removable?: boolean;
   onBookIdChange?: (id: APIBook['bookId']) => void;
 }) => {
-  const [id, setId] = useState(bookId || null);
+  const [id, setId] = useState<typeof bookId | null>(bookId);
+
+  useEffect(() => {
+    setId(bookId);
+  }, [bookId]);
 
   const handleBookSelect = () => {
     // TODO: 도서 선택 UI 제공 후 선택된 도서로 id 변경
