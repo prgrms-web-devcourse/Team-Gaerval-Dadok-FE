@@ -17,8 +17,14 @@ const serviceApi = (path: string) =>
 
 initialize({}, [
   rest.get(nextApi('/service-api/*'), async (req, res, ctx) => {
-    const [_, path] = req.url.pathname.split('/service-api');
+    const { pathname } = req.url;
+    const match = /\/service-api(?<path>.*)/g.exec(pathname);
 
+    if (!match || !match.groups || !match.groups.path) {
+      return res(ctx.status(404, 'Invalid Request URL'));
+    }
+
+    const { path } = match.groups;
     const originResponse = await ctx.fetch(serviceApi(`/api${path}`));
     const originResponseData = await originResponse.json();
 
