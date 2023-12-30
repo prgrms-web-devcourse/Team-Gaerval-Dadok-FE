@@ -30,7 +30,7 @@ const DetailBookGroupCard = ({
 }: DetailBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
         <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
