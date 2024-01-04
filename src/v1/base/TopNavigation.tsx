@@ -16,7 +16,7 @@ const TopNavigation = ({ children }: TopNavigationProps) => {
 
 const LeftItem = ({ children }: ItemProps) => {
   return (
-    <div className="absolute left-[0rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
+    <div className="absolute left-[0rem] flex [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
       {children}
     </div>
   );
