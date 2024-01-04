@@ -29,14 +29,14 @@ const DetailBookGroupCard = ({
   bookGroupId,
 }: DetailBookGroupCardProps) => {
   return (
-    <Link className="w-full" href={`/group/${bookGroupId}`}>
-      <div className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
-        <div className="mb-[1rem] flex gap-[0.5rem]">
+    <Link href={`/group/${bookGroupId}`}>
+      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+        <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
         </div>
-        <div className="flex justify-between gap-[1.5rem]">
-          <div className="flex flex-grow flex-col gap-[0.63rem]">
+        <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
+          <div className="flex flex-grow flex-col justify-between ">
             <Title title={title} />
             <Description description={description} />
             <Duration start={date.start} end={date.end} />
@@ -67,22 +67,21 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return (
-    <div>
-      <span className="text-md font-bold">{title}</span>
-    </div>
-  );
+  return <div className="w-[22rem] truncate text-md font-bold">{title}</div>;
 };
 
 const Description = ({ description }: { description: string }) => {
-  return (
-    <div className="w-[22rem] truncate text-sm">
-      <span>{description}</span>
-    </div>
-  );
+  return <div className="w-[22rem] truncate text-sm">{description}</div>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
+  const formatDateTime = (dateString: string) =>
+    new Intl.DateTimeFormat('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).format(new Date(dateString));
+
   return (
     <div className="flex items-center gap-[0.5rem]">
       <div>
@@ -90,7 +89,7 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
       </div>
       <div className="text-xs text-placeholder">
         <span className="pt-[0.1rem]">
-          {start} - {end}
+          {formatDateTime(start)} - {formatDateTime(end)}
         </span>
       </div>
     </div>
