@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  PropsWithChildren,
   createContext,
   useCallback,
   useContext,
@@ -11,16 +12,16 @@ import { IconHamburger } from '@public/icons';
 import BottomSheet from './BottomSheet';
 
 type MenuContextValue = {
-  open: boolean;
+  isOpen: boolean;
   toggle: () => void;
 };
 
 const MenuContext = createContext({} as MenuContextValue);
 
 const Menu = ({ children }: { children?: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const toggle = useCallback(() => setOpen(prev => !prev), []);
-  const value = useMemo(() => ({ open, toggle }), [open, toggle]);
+  const value = useMemo(() => ({ isOpen, toggle }), [isOpen, toggle]);
 
   return (
     <div className="relative">
@@ -43,19 +44,19 @@ const Toggle = () => {
 };
 
 const BottomSheetList = ({ children }: { children?: React.ReactNode }) => {
-  const { open, toggle } = useContext(MenuContext);
+  const { isOpen, toggle } = useContext(MenuContext);
   return (
-    <BottomSheet isShow={open} onClose={toggle}>
+    <BottomSheet isShow={isOpen} onClose={toggle}>
       {children}
     </BottomSheet>
   );
 };
 
 const DropdownList = ({ children }: { children?: React.ReactNode }) => {
-  const { open } = useContext(MenuContext);
+  const { isOpen } = useContext(MenuContext);
   return (
     <>
-      {open && (
+      {isOpen && (
         <ul className="absolute right-0 top-[3rem] min-w-[10rem] rounded-[0.5rem] py-[0.5rem] shadow-[0_0_15px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.1)]">
           {children}
         </ul>
@@ -64,9 +65,22 @@ const DropdownList = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
-const Item = ({ children }: { children?: React.ReactNode }) => {
+const Item = ({
+  onSelect,
+  children,
+}: PropsWithChildren<{ onSelect?: () => void }>) => {
+  const { toggle } = useContext(MenuContext);
+
+  const handleItemClick = () => {
+    toggle();
+    onSelect && onSelect();
+  };
+
   return (
-    <li className="block cursor-pointer list-none truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] py-[0.7rem] text-sm hover:bg-black-100">
+    <li
+      className="block cursor-pointer list-none truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] py-[0.7rem] text-sm hover:bg-black-100"
+      onClick={handleItemClick}
+    >
       {children}
     </li>
   );
