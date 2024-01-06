@@ -38,7 +38,7 @@ const BottomSheet = ({
                 leaveFrom="translate-y-0"
                 leaveTo="translate-y-full"
               >
-                <Dialog.Panel className="pointer-events-auto relative max-h-[100dvh] w-[43rem] rounded-t-[1.5rem] bg-white p-[2rem]">
+                <Dialog.Panel className="pointer-events-auto relative max-h-[100dvh] w-[43rem] rounded-t-[1.5rem] bg-white px-[1rem] py-[1.5rem]">
                   {children}
                 </Dialog.Panel>
               </Transition.Child>
