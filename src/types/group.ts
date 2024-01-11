@@ -24,6 +24,7 @@ export interface APIGroup {
   hasJoinPasswd: boolean;
   isPublic: boolean;
   bookGroupId: number;
+  currentMemberCount: number;
   commentCount: number;
   book: APIGroupBook;
   owner: APIGroupOwner;

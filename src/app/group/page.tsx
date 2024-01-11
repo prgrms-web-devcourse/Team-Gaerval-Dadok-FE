@@ -46,7 +46,7 @@ const MyBookgroupList = () => {
   const {
     data: { bookGroups },
   } = useMyGroupsQuery({ enabled: isAuthed() });
-  const { data: myId } = useMyProfileId();
+  const { data: myId } = useMyProfileId({ enabled: isAuthed() });
 
   return (
     <div className="flex gap-[1rem] overflow-scroll">
