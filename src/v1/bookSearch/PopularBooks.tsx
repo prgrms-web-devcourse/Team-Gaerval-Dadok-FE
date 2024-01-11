@@ -15,14 +15,13 @@ const PopularBooks = () => {
   const [periodRange, setPeriodRange] = useState<PeriodRangeTypes>('주간');
 
   const periodRanges = Object.keys(PERIOD_RANGES) as PeriodRangeTypes[];
-
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">인기 도서</h2>
       <ul className="flex h-[2.5rem] w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
-        <button className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
+        <div className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
           <p className="text-sm font-normal text-white">종합</p>
-        </button>
+        </div>
       </ul>
       <ul className="flex h-[1.9rem] w-full flex-row items-center divide-x divide-black-900 text-sm">
         {periodRanges.map((value, idx) => (
