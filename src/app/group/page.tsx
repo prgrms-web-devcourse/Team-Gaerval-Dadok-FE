@@ -1,30 +1,88 @@
 'use client';
 
-import TopHeader from '@/v1/base/TopHeader';
-import SearchGroup from '@/v1/bookGroup/SearchGroup';
-import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
-import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
-
-import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
-import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
-import { Skeleton, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import TopHeader from '@/v1/base/TopHeader';
+import SearchGroupInput from '@/v1/bookGroup/SearchGroup';
+import SimpleBookGroupCard, {
+  SimpleBookGroupCardSkeleton,
+} from '@/v1/bookGroup/SimpleBookGroupCard';
+import DetailBookGroupCard, {
+  DetailBookGroupCardSkeleton,
+} from '@/v1/bookGroup/DetailBookGroupCard';
+
+import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
+import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
+import { isAuthed } from '@/utils/helpers';
+
 const GroupPage = () => {
+  const handleSearchInputClick = () => {
+    alert('아직 준비 중인 기능이에요.');
+  };
+
+  return (
+    <>
+      <TopHeader text="Group" />
+      <div className="flex w-full flex-col gap-[2rem]">
+        <SearchGroupInput onClick={handleSearchInputClick} />
+        <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
+          <MyBookgroupList />
+        </SSRSafeSuspense>
+        <EntireBookgroupList />
+      </div>
+      {/* <Link href={'/group/create'}>
+        <FloatingButton position="bottom-right" />
+      </Link> */}
+    </>
+  );
+};
+
+export default GroupPage;
+
+const MyBookgroupList = () => {
+  const {
+    data: { bookGroups },
+  } = useMyGroupsQuery({ enabled: isAuthed() });
+  const { data: myId } = useMyProfileId();
+
+  return (
+    <div className="flex gap-[1rem] overflow-scroll">
+      {bookGroups.map(({ title, book, bookGroupId, owner }) => (
+        <SimpleBookGroupCard
+          key={bookGroupId}
+          title={title}
+          imageSource={book.imageUrl}
+          isOwner={owner.id === myId}
+          bookGroupId={bookGroupId}
+        />
+      ))}
+    </div>
+  );
+};
+
+const MyBookGroupListSkeleton = () => (
+  <div className="flex min-h-[16.3rem] animate-pulse gap-[1rem] overflow-hidden">
+    <SimpleBookGroupCardSkeleton />
+    <SimpleBookGroupCardSkeleton />
+    <SimpleBookGroupCardSkeleton />
+    <SimpleBookGroupCardSkeleton />
+  </div>
+);
+
+const EntireBookgroupList = () => {
   const { ref, inView } = useInView();
 
   const {
-    isSuccess: entireGroupsIsSuccess,
-    data: entireGroupsData,
+    isSuccess,
+    data,
     isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
   } = useEntireGroupsQuery();
-
-  const { isSuccess: myGroupsIsSuccess, data: myGroupsData } =
-    useMyGroupsQuery();
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -34,83 +92,53 @@ const GroupPage = () => {
 
   if (isLoading)
     return (
-      <VStack gap="0.5rem" align="stretch" w="100%">
-        <Skeleton height="9rem" />
-        <Skeleton height="28rem" />
-        <Skeleton height="28rem" />
-        <Skeleton height="28rem" />
-      </VStack>
+      <div className="flex flex-col gap-[1rem]">
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+      </div>
     );
 
   return (
     <>
-      <TopHeader text="Group" />
-      <div className="mt-[2rem] flex w-full flex-col gap-[1.5rem]">
-        <SearchGroup
-          onClick={() => {
-            alert('추후 업데이트 될 예정입니다.');
-          }}
-        />
-        <div className="mt-[0.7rem] flex gap-[1rem] overflow-scroll">
-          {myGroupsIsSuccess &&
-            myGroupsData.bookGroups.map(group => {
-              const { title, book, bookGroupId } = group;
-              return (
-                //API isOwner 값이 존재하지 않아 비교하는 로직 추가 필요
-                <SimpleBookGroupCard
+      <div className="flex flex-col gap-[1rem]">
+        {isSuccess &&
+          data.pages.map(({ bookGroups }) =>
+            bookGroups.map(
+              ({
+                bookGroupId,
+                title,
+                introduce,
+                book,
+                startDate,
+                endDate,
+                owner,
+                memberCount,
+                commentCount,
+                isPublic,
+              }) => (
+                <DetailBookGroupCard
                   key={bookGroupId}
                   title={title}
-                  imageSource={book.imageUrl}
-                  isOwner={false}
+                  description={introduce}
+                  bookImageSrc={book.imageUrl}
+                  date={{ start: startDate, end: endDate }}
+                  owner={{
+                    name: owner.nickname,
+                    profileImageSrc: owner.profileUrl,
+                  }}
+                  memberCount={memberCount}
+                  commentCount={commentCount}
+                  isPublic={isPublic}
                   bookGroupId={bookGroupId}
                 />
-              );
-            })}
-        </div>
-        <div className="flex flex-col gap-[1rem]">
-          {entireGroupsIsSuccess &&
-            entireGroupsData.pages.map(groups => {
-              return groups.bookGroups.map(group => {
-                const {
-                  title,
-                  introduce,
-                  book,
-                  startDate,
-                  endDate,
-                  owner,
-                  currentMemberCount,
-                  commentCount,
-                  isPublic,
-                  bookGroupId,
-                } = group;
-                return (
-                  <DetailBookGroupCard
-                    key={bookGroupId}
-                    title={title}
-                    description={introduce}
-                    bookImageSrc={book.imageUrl}
-                    date={{ start: startDate, end: endDate }}
-                    owner={{
-                      name: owner.nickname,
-                      profileImageSrc: owner.profileUrl,
-                    }}
-                    memberCount={currentMemberCount}
-                    commentCount={commentCount}
-                    isPublic={isPublic}
-                    bookGroupId={bookGroupId}
-                  />
-                );
-              });
-            })}
-        </div>
+              )
+            )
+          )}
       </div>
       <div ref={ref} />
-      {isFetchingNextPage && <Skeleton w="100%" height="28rem" />}
-      {/* <Link href={'/group/create'}>
-        <FloatingButton position="bottom-right" />
-      </Link> */}
+      {isFetchingNextPage && <DetailBookGroupCardSkeleton />}
     </>
   );
 };
-
-export default GroupPage;
