@@ -4,7 +4,7 @@ const RecentSearch = () => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
-      <div className="relative flex h-[3.5rem] w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap">
+      <div className="relative flex h-[4.5rem] w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
         <Button
           size="medium"
           fill={true}
