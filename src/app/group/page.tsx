@@ -29,9 +29,9 @@ const GroupPage = () => {
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
-          <MyBookgroupList />
+          <MyBookGroupList />
         </SSRSafeSuspense>
-        <EntireBookgroupList />
+        <EntireBookGroupList />
       </div>
       {/* <Link href={'/group/create'}>
         <FloatingButton position="bottom-right" />
@@ -42,7 +42,7 @@ const GroupPage = () => {
 
 export default GroupPage;
 
-const MyBookgroupList = () => {
+const MyBookGroupList = () => {
   const {
     data: { bookGroups },
   } = useMyGroupsQuery({ enabled: isAuthed() });
@@ -72,7 +72,7 @@ const MyBookGroupListSkeleton = () => (
   </div>
 );
 
-const EntireBookgroupList = () => {
+const EntireBookGroupList = () => {
   const { ref, inView } = useInView();
 
   const {
