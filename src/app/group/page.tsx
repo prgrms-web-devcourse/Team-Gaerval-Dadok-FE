@@ -29,7 +29,7 @@ const GroupPage = () => {
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
-          <MyBookGroupList />
+          {isAuthed() ? <MyBookGroupList /> : <></>}
         </SSRSafeSuspense>
         <EntireBookGroupList />
       </div>
