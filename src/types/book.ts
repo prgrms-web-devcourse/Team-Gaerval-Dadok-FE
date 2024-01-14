@@ -21,7 +21,7 @@ export interface APISearchedBook
   apiProvider: string;
 }
 
-export interface APISearchedWordInfo {
+export interface APIBookRecentSearchResponse {
   keyword: string;
   modifiedAt: string;
 }
@@ -29,7 +29,7 @@ export interface APISearchedWordInfo {
 export interface APIRecentSearches {
   count: number;
   isEmpty: boolean;
-  bookRecentSearchResponses: APISearchedWordInfo[];
+  bookRecentSearchResponses: APIBookRecentSearchResponse[];
 }
 
 export interface APISearchedBookPagination {

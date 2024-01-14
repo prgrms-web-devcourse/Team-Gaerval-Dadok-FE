@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
+import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 import useDebounceValue from '@/hooks/useDebounce';
+import { isAuthed } from '@/utils/helpers/auth';
 
 import TopHeader from '@/v1/base/TopHeader';
 import BookSearchInput from '@/v1/bookSearch/BookSearchInput';
@@ -28,10 +30,14 @@ const BookSearch = () => {
     page: 1,
     pageSize: 12,
   });
+  const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
     : [];
+  const recentSearches = recentSearchesInfo.isSuccess
+    ? recentSearchesInfo.data.bookRecentSearchResponses
+    : undefined;
 
   const handleInputValueChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -47,12 +53,15 @@ const BookSearch = () => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
     }
+
+    isAuthed() && recentSearchesInfo.refetch();
   }, [
     bookSearchInfo.fetchNextPage,
     inView,
     bookSearchInfo.hasNextPage,
     queryKeyword,
     bookSearchInfo,
+    recentSearchesInfo,
   ]);
 
   return (
@@ -67,7 +76,7 @@ const BookSearch = () => {
           </>
         ) : (
           <>
-            <RecentSearch />
+            <RecentSearch recentSearches={recentSearches} />
             <PopularBooks />
           </>
         )}

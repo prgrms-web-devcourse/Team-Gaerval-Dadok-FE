@@ -1,58 +1,27 @@
+import type { APIBookRecentSearchResponse } from '@/types/book';
+
 import Button from '@/v1/base/Button';
 
-const RecentSearch = () => {
+type RecentSearchProps = {
+  recentSearches: APIBookRecentSearchResponse[] | undefined;
+};
+
+const RecentSearch = ({ recentSearches }: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
       <div className="relative flex h-[4.5rem] w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          스즈메의 문단속
-        </Button>
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          히가시노 게이고
-        </Button>
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          세이노의 가르침
-        </Button>
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          김길규 개새끼
-        </Button>
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          김길규 개새끼
-        </Button>
-        <Button
-          size="medium"
-          fill={true}
-          fullRadius={true}
-          colorScheme="main-light"
-        >
-          김길규 개새끼
-        </Button>
+        {recentSearches?.map(value => (
+          <Button
+            key={`${value.keyword}-${value.modifiedAt}`}
+            size="medium"
+            fill={true}
+            fullRadius={true}
+            colorScheme="main-light"
+          >
+            {value.keyword}
+          </Button>
+        ))}
       </div>
     </section>
   );
