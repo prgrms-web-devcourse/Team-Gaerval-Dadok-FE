@@ -4,9 +4,13 @@ import Button from '@/v1/base/Button';
 
 type RecentSearchProps = {
   recentSearches: APIBookRecentSearchResponse[] | undefined;
+  setInputSearchValue: (searchValue: string) => void;
 };
 
-const RecentSearch = ({ recentSearches }: RecentSearchProps) => {
+const RecentSearch = ({
+  recentSearches,
+  setInputSearchValue,
+}: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
@@ -19,6 +23,7 @@ const RecentSearch = ({ recentSearches }: RecentSearchProps) => {
               fill={true}
               fullRadius={true}
               colorScheme="main-light"
+              onClick={() => setInputSearchValue(value.keyword)}
             >
               {value.keyword}
             </Button>

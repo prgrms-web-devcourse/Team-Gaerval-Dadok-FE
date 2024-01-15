@@ -18,6 +18,7 @@ import BookSearchResults from '@/v1/bookSearch/SearchResult';
 /**
  * @todo
  * 유저 로그인 유무에 따른 최근 검색어, 인기 도서 visible
+ * recentSearchedInfo 계속해서 refetch되는 현상 고치기
  */
 
 const BookSearch = () => {
@@ -50,10 +51,6 @@ const BookSearch = () => {
     setInputSearchValue(inputValue.trim());
   };
 
-  /**
-   * @todo
-   * recentSearchedInfo 계속해서 refetch되는 현상 고치기
-   */
   useEffect(() => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
@@ -73,7 +70,10 @@ const BookSearch = () => {
     <>
       <TopHeader text={'Discover'} />
       <article className="flex h-full w-full flex-col gap-[3.8rem]">
-        <BookSearchInput onChange={handleInputValueChange} />
+        <BookSearchInput
+          value={inputSearchValue}
+          onChange={handleInputValueChange}
+        />
         {inputSearchValue ? (
           <>
             <BookSearchResults searchedBooks={searchedBooks} />
@@ -81,7 +81,10 @@ const BookSearch = () => {
           </>
         ) : (
           <>
-            <RecentSearch recentSearches={recentSearches} />
+            <RecentSearch
+              recentSearches={recentSearches}
+              setInputSearchValue={setInputSearchValue}
+            />
             <PopularBooks />
           </>
         )}
