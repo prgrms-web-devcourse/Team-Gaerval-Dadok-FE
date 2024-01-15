@@ -13,7 +13,7 @@ import TopHeader from '@/v1/base/TopHeader';
 import BookSearchInput from '@/v1/bookSearch/BookSearchInput';
 import PopularBooks from '@/v1/bookSearch/PopularBooks';
 import RecentSearch from '@/v1/bookSearch/RecentSearch';
-import SearchResult from '@/v1/bookSearch/SearchResult';
+import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
 /**
  * @todo
@@ -50,6 +50,10 @@ const BookSearch = () => {
     setInputSearchValue(inputValue.trim());
   };
 
+  /**
+   * @todo
+   * recentSearchedInfo 계속해서 refetch되는 현상 고치기
+   */
   useEffect(() => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
@@ -72,7 +76,7 @@ const BookSearch = () => {
         <BookSearchInput onChange={handleInputValueChange} />
         {inputSearchValue ? (
           <>
-            <SearchResult searchedBooks={searchedBooks} />
+            <BookSearchResults searchedBooks={searchedBooks} />
             <div ref={inViewRef} />
           </>
         ) : (

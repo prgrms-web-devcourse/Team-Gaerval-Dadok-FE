@@ -1,39 +1,61 @@
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
+import bookAPI from '@/apis/book';
 import type { APISearchedBook } from '@/types/book';
 
 import { DATA_URL } from '@/constants/dataUrl';
-import LogoSmallIcon from '@public/icons/logo.svg';
+import { LogoWithText } from '@public/icons';
 
-type SearchResultProps = {
+type BookSearchResultsProps = {
   searchedBooks: APISearchedBook[];
 };
 
-const SearchResult = ({ searchedBooks }: SearchResultProps) => {
+const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
+  const router = useRouter();
+
+  const handleClickBook = async (book: APISearchedBook) => {
+    try {
+      const {
+        data: { bookId },
+      } = await bookAPI.createBook({ book });
+
+      router.push(`/book/${bookId}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ul className="grid grid-cols-3 gap-[0.6rem]">
       {searchedBooks.map((searchedBook, idx) => (
-        <SearchResultItem
+        <SearchedBook
           key={`${searchedBook.isbn}-${idx}`}
           imageUrl={searchedBook.imageUrl}
           title={searchedBook.title}
+          onClick={() => handleClickBook(searchedBook)}
         />
       ))}
     </ul>
   );
 };
 
-export default SearchResult;
+export default BookSearchResults;
 
-const SearchResultItem = ({
+const SearchedBook = ({
   imageUrl,
   title,
+  onClick,
 }: {
   imageUrl: string;
   title: string;
+  onClick: () => Promise<void>;
 }) => {
   return (
-    <li className="flex max-h-[16.7rem] w-full min-w-[10.26rem] max-w-[11.5rem] flex-col justify-center gap-[0.5rem] rounded-[0.4rem] bg-white px-[1.25rem] py-[1rem] shadow-searchResultItem">
+    <li
+      onClick={onClick}
+      className="flex max-h-[17.2rem] w-full min-w-[10.26rem] max-w-[11.5rem] flex-col justify-center gap-[0.5rem] rounded-[0.4rem] bg-white px-[1.25rem] py-[1rem] shadow-searchResultItem"
+    >
       <div className="max-h-[12.6rem] max-w-[9rem]">
         {imageUrl ? (
           <Image
@@ -48,7 +70,7 @@ const SearchResultItem = ({
           />
         ) : (
           <div className="flex h-full max-h-[12.6rem] max-w-[9rem] justify-center">
-            <LogoSmallIcon />
+            <LogoWithText />
           </div>
         )}
       </div>
