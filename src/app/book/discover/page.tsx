@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
+
 import useDebounceValue from '@/hooks/useDebounce';
 import { isAuthed } from '@/utils/helpers/auth';
 
