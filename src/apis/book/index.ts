@@ -8,6 +8,8 @@ import type {
   APISearchedBook,
   APISearchedBookPagination,
   APIRecentSearches,
+  APIBestSellerPagination,
+  APIBestSellerSearchRangeTypes,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
@@ -94,6 +96,21 @@ const bookAPI = {
           `/service-api/bookshelves/${bookshelfId}/books/${bookId}`
         )
       ),
+
+  getBestSellers: ({
+    page,
+    pageSize,
+    categoryId,
+    searchRange,
+  }: {
+    page: number;
+    pageSize: number;
+    categoryId: number;
+    searchRange: APIBestSellerSearchRangeTypes;
+  }) =>
+    publicApi.get<APIBestSellerPagination>(
+      `/service-api/books/best-seller?page=${page}&pageSize=${pageSize}&categoryId=${categoryId}&bestSellerSearchRange=${searchRange}`
+    ),
 };
 
 export default bookAPI;
