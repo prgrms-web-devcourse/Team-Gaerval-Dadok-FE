@@ -42,6 +42,7 @@ const BookSearch = () => {
     pageSize: 10,
     categoryId: 0,
     searchRange: bestSellerSearchRange,
+    enabled: isAuthed(),
   });
 
   const searchedBooks = bookSearchInfo.isSuccess

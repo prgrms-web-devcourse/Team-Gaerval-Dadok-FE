@@ -53,17 +53,23 @@ const BestSellers = ({
           </li>
         ))}
       </ul>
-      <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
-        {bestSellers.map(data => (
-          <BestSeller
-            key={data.isbn}
-            title={data.title}
-            author={data.author}
-            imageUrl={data.imageUrl}
-            bestRank={data.bestRank}
-          />
-        ))}
-      </ul>
+      {bestSellers.length !== 0 ? (
+        <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
+          {bestSellers.map(data => (
+            <BestSeller
+              key={data.isbn}
+              title={data.title}
+              author={data.author}
+              imageUrl={data.imageUrl}
+              bestRank={data.bestRank}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p className="mb-[2.4rem] text-center text-sm text-placeholder">
+          로그인하면 기간별 인기도서를 확인할 수 있어요!
+        </p>
+      )}
     </section>
   );
 };
