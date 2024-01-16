@@ -1,4 +1,4 @@
-import { Pagination } from './common';
+import { BookSearchPagination, Pagination } from './common';
 import { APIJobGroup } from './job';
 import { APIUser } from './user';
 
@@ -13,11 +13,7 @@ export interface APIBook {
   publisher: string;
 }
 
-export interface APISearchedBook
-  extends Pick<
-    APIBook,
-    'title' | 'author' | 'isbn' | 'contents' | 'url' | 'imageUrl' | 'publisher'
-  > {
+export interface APISearchedBook extends Omit<APIBook, 'bookId'> {
   apiProvider: string;
 }
 
@@ -32,13 +28,8 @@ export interface APIRecentSearches {
   bookRecentSearchResponses: APIBookRecentSearchResponse[];
 }
 
-export interface APISearchedBookPagination {
+export interface APISearchedBookPagination extends BookSearchPagination {
   searchBookResponseList: APISearchedBook[];
-  requestedPageNumber: number;
-  requestedPageSize: number;
-  isLast: boolean;
-  pageableCount: number;
-  totalCount: number;
 }
 
 export interface APIBookDetail extends APIBook {
@@ -79,3 +70,13 @@ export interface APIPatchBookCommentRequest
 export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookComment[];
 }
+
+export interface APIBestSeller extends APISearchedBook {
+  bestRank: number;
+}
+
+export interface APIBestSellerPagination extends BookSearchPagination {
+  bestSellerBookResponseList: APIBestSeller[];
+}
+
+export type APIBestSellerSearchRangeTypes = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
