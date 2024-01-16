@@ -1,20 +1,35 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 
-const PERIOD_RANGES = {
+import type {
+  APIBestSeller,
+  APIBestSellerSearchRangeTypes,
+} from '@/types/book';
+
+const SEARCH_RANGES = {
   주간: 'WEEKLY',
   월간: 'MONTHLY',
   연간: 'YEARLY',
 } as const;
 
-type PeriodRangeTypes = keyof typeof PERIOD_RANGES;
+type BestSellersProps = {
+  bestSellers: APIBestSeller[];
+  searchRange: APIBestSellerSearchRangeTypes;
+  setSearchRange: React.Dispatch<
+    React.SetStateAction<APIBestSellerSearchRangeTypes>
+  >;
+};
 
-const PopularBooks = () => {
-  const [periodRange, setPeriodRange] = useState<PeriodRangeTypes>('주간');
+type SearchRangeTypes = keyof typeof SEARCH_RANGES;
 
-  const periodRanges = Object.keys(PERIOD_RANGES) as PeriodRangeTypes[];
+const BestSellers = ({
+  bestSellers,
+  searchRange,
+  setSearchRange,
+}: BestSellersProps) => {
+  const searchRanges = Object.keys(SEARCH_RANGES) as SearchRangeTypes[];
+
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">인기 도서</h2>
@@ -24,21 +39,23 @@ const PopularBooks = () => {
         </div>
       </ul>
       <ul className="flex h-[1.9rem] w-full flex-row items-center divide-x divide-black-900 text-sm">
-        {periodRanges.map((value, idx) => (
+        {searchRanges.map(keys => (
           <li
             className={`flex h-[1.1rem] cursor-pointer items-center px-[0.9rem] ${
-              periodRange === value ? 'text-black-700' : 'text-[#5c5c5c]'
+              SEARCH_RANGES[keys] === searchRange
+                ? 'text-black-700'
+                : 'text-[#5c5c5c]'
             }`}
-            key={`${idx}-${value}`}
-            onClick={() => setPeriodRange(value)}
+            key={keys}
+            onClick={() => setSearchRange(SEARCH_RANGES[keys])}
           >
-            {value}
+            {keys}
           </li>
         ))}
       </ul>
       <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
-        {BestSellers.map(data => (
-          <PopularBook
+        {bestSellers.map(data => (
+          <BestSeller
             key={data.isbn}
             title={data.title}
             author={data.author}
@@ -51,21 +68,20 @@ const PopularBooks = () => {
   );
 };
 
-export default PopularBooks;
+export default BestSellers;
 
-type PopularBookProps = {
+type BestSellerProps = {
   title: string;
   author: string;
   imageUrl: string;
   bestRank: number;
 };
 
-const PopularBook = ({
-  title,
-  author,
-  imageUrl,
-  bestRank,
-}: PopularBookProps) => {
+/**
+ * @todo
+ * BookCover로 대체할 것!!!
+ */
+const BestSeller = ({ title, author, imageUrl, bestRank }: BestSellerProps) => {
   return (
     <li className="flex h-[20.8rem] w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]">
       <div className="h-[15.4rem] w-[11rem]">
@@ -87,34 +103,3 @@ const PopularBook = ({
     </li>
   );
 };
-
-const BestSellers = [
-  {
-    title: '리팩터링 2판',
-    author: '마틴 파울러',
-    imageUrl: '/images/book-cover/book4.jpeg',
-    bestRank: 1,
-    isbn: '12387612874632',
-  },
-  {
-    title: '리팩터링 2판',
-    author: '마틴 파울러',
-    imageUrl: '/images/book-cover/book4.jpeg',
-    bestRank: 2,
-    isbn: '19797835733841',
-  },
-  {
-    title: '리팩터링 2판',
-    author: '마틴 파울러',
-    imageUrl: '/images/book-cover/book4.jpeg',
-    bestRank: 3,
-    isbn: '38785435924823',
-  },
-  {
-    title: '리팩터링 2판',
-    author: '마틴 파울러',
-    imageUrl: '/images/book-cover/book4.jpeg',
-    bestRank: 4,
-    isbn: '98878454353534',
-  },
-];

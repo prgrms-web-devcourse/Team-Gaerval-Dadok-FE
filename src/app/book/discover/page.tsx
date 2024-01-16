@@ -5,13 +5,15 @@ import { useInView } from 'react-intersection-observer';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
+import useBestSellersQuery from '@/queries/book/useBestSellersQuery';
+import type { APIBestSellerSearchRangeTypes } from '@/types/book';
 
 import useDebounceValue from '@/hooks/useDebounce';
 import { isAuthed } from '@/utils/helpers/auth';
 
 import TopHeader from '@/v1/base/TopHeader';
 import BookSearchInput from '@/v1/bookSearch/BookSearchInput';
-import PopularBooks from '@/v1/bookSearch/PopularBooks';
+import BestSellers from '@/v1/bookSearch/BestSellers';
 import RecentSearch from '@/v1/bookSearch/RecentSearch';
 import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
@@ -23,6 +25,8 @@ import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
 const BookSearch = () => {
   const [inputSearchValue, setInputSearchValue] = useState<string>('');
+  const [bestSellerSearchRange, setBestSellerSearchRange] =
+    useState<APIBestSellerSearchRangeTypes>('WEEKLY');
   const queryKeyword = useDebounceValue(inputSearchValue, 1000);
 
   const { ref: inViewRef, inView } = useInView();
@@ -33,6 +37,12 @@ const BookSearch = () => {
     pageSize: 12,
   });
   const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
+  const bestSellersInfo = useBestSellersQuery({
+    page: 1,
+    pageSize: 10,
+    categoryId: 0,
+    searchRange: bestSellerSearchRange,
+  });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
@@ -40,6 +50,11 @@ const BookSearch = () => {
   const recentSearches = recentSearchesInfo.isSuccess
     ? recentSearchesInfo.data.bookRecentSearchResponses
     : undefined;
+  const bestSellers = bestSellersInfo.isSuccess
+    ? bestSellersInfo.data.pages.flatMap(
+        page => page.bestSellerBookResponseList
+      )
+    : [];
 
   const handleInputValueChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -85,7 +100,11 @@ const BookSearch = () => {
               recentSearches={recentSearches}
               setInputSearchValue={setInputSearchValue}
             />
-            <PopularBooks />
+            <BestSellers
+              bestSellers={bestSellers}
+              searchRange={bestSellerSearchRange}
+              setSearchRange={setBestSellerSearchRange}
+            />
           </>
         )}
       </article>
