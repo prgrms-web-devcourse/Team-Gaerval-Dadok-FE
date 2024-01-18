@@ -71,12 +71,31 @@ export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookComment[];
 }
 
-export interface APIBestSeller extends APISearchedBook {
+export interface APIBestSeller {
+  isbn: string;
+  title: string;
+  author: string;
+  cover: string;
   bestRank: number;
 }
 
-export interface APIBestSellerPagination extends BookSearchPagination {
-  bestSellerBookResponseList: APIBestSeller[];
+export interface APIBestSellerRes {
+  item: APIBestSeller[];
+  itemsPerPage: number;
+  link: string;
+  logo: string;
+  pubDate: string;
+  query: string;
+  searchCategoryId: number;
+  searchCategoryName: string;
+  startIndex: number;
+  title: string;
+  totalResults: number;
+  version: string;
 }
+
+// export interface APIBestSellerPagination extends BookSearchPagination {
+//   bestSellerBookResponseList: APIBestSeller[];
+// }
 
 export type APIBestSellerSearchRangeTypes = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
