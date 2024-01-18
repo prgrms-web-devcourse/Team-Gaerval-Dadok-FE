@@ -1,4 +1,5 @@
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const aladinURL = process.env.ALADIN_OPEN_API_URI;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -14,6 +15,10 @@ const nextConfig = {
       {
         source: '/service-api/:url*',
         destination: `${baseURL}/api/:url*`,
+      },
+      {
+        source: '/aladin-api/:url*',
+        destination: `${aladinURL}/api/:url*`,
       },
     ];
   },
@@ -43,6 +48,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'blog.kakaocdn.net',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.aladin.co.kr',
         port: '',
         pathname: '/**',
       },
