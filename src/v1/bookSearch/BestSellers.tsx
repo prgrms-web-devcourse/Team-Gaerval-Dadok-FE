@@ -53,21 +53,21 @@ const BestSellers = ({
           </li>
         ))}
       </ul>
-      {bestSellers.length !== 0 ? (
+      {searchRange === 'WEEKLY' ? (
         <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
-          {bestSellers.map(data => (
+          {bestSellers.map(book => (
             <BestSeller
-              key={data.isbn}
-              title={data.title}
-              author={data.author}
-              imageUrl={data.imageUrl}
-              bestRank={data.bestRank}
+              key={book.isbn}
+              title={book.title}
+              author={book.author}
+              imageUrl={book.cover}
+              bestRank={book.bestRank}
             />
           ))}
         </ul>
       ) : (
         <p className="mb-[2.4rem] text-center text-sm text-placeholder">
-          로그인하면 기간별 인기도서를 확인할 수 있어요!
+          아직 준비중인 기능이에요 🔨
         </p>
       )}
     </section>
@@ -101,7 +101,7 @@ const BestSeller = ({ title, author, imageUrl, bestRank }: BestSellerProps) => {
       </div>
       <div className="flex h-[4.1rem] w-full flex-row gap-[1.3rem]">
         <p className="text-xl font-bold text-black-900">{bestRank}</p>
-        <div className="flex flex-col gap-[0.3rem]">
+        <div className="flex flex-col gap-[0.3rem] truncate">
           <p className="text-sm text-black-900">{title}</p>
           <p className="text-sm text-[#5c5c5c]">{author}</p>
         </div>

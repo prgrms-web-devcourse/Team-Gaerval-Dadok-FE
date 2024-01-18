@@ -37,13 +37,7 @@ const BookSearch = () => {
     pageSize: 12,
   });
   const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
-  const bestSellersInfo = useBestSellersQuery({
-    page: 1,
-    pageSize: 10,
-    categoryId: 0,
-    searchRange: bestSellerSearchRange,
-    enabled: isAuthed(),
-  });
+  const bestSellersInfo = useBestSellersQuery();
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
@@ -52,9 +46,7 @@ const BookSearch = () => {
     ? recentSearchesInfo.data.bookRecentSearchResponses
     : undefined;
   const bestSellers = bestSellersInfo.isSuccess
-    ? bestSellersInfo.data.pages.flatMap(
-        page => page.bestSellerBookResponseList
-      )
+    ? bestSellersInfo.data.item
     : [];
 
   const handleInputValueChange = (
@@ -71,15 +63,12 @@ const BookSearch = () => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
     }
-
-    isAuthed() && recentSearchesInfo.refetch();
   }, [
     bookSearchInfo.fetchNextPage,
     inView,
     bookSearchInfo.hasNextPage,
     queryKeyword,
     bookSearchInfo,
-    recentSearchesInfo,
   ]);
 
   return (
