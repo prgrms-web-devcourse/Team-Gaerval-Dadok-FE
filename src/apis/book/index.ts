@@ -8,8 +8,7 @@ import type {
   APISearchedBook,
   APISearchedBookPagination,
   APIRecentSearches,
-  APIBestSellerPagination,
-  APIBestSellerSearchRangeTypes,
+  APIBestSellerRes,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
@@ -97,19 +96,9 @@ const bookAPI = {
         )
       ),
 
-  getBestSellers: ({
-    page,
-    pageSize,
-    categoryId,
-    searchRange,
-  }: {
-    page: number;
-    pageSize: number;
-    categoryId: number;
-    searchRange: APIBestSellerSearchRangeTypes;
-  }) =>
-    publicApi.get<APIBestSellerPagination>(
-      `/service-api/books/best-seller?page=${page}&pageSize=${pageSize}&categoryId=${categoryId}&bestSellerSearchRange=${searchRange}`
+  getBestSellers: () =>
+    publicApi.get<APIBestSellerRes>(
+      `/aladin-api/ItemList.aspx?ttbkey=ttbhanyugeon0226001&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=JS&Version=20131101`
     ),
 };
 
