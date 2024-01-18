@@ -77,6 +77,7 @@ export interface APIBestSeller {
   author: string;
   cover: string;
   bestRank: number;
+  link: string;
 }
 
 export interface APIBestSellerRes {

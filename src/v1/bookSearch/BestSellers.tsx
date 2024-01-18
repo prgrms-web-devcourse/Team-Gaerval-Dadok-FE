@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import type {
   APIBestSeller,
   APIBestSellerSearchRangeTypes,
@@ -60,6 +62,7 @@ const BestSellers = ({
               author={book.author}
               imageUrl={book.cover}
               bestRank={book.bestRank}
+              link={book.link}
             />
           ))}
         </ul>
@@ -79,11 +82,22 @@ type BestSellerProps = {
   author: string;
   imageUrl: string;
   bestRank: number;
+  link: string;
 };
 
-const BestSeller = ({ title, author, imageUrl, bestRank }: BestSellerProps) => {
+const BestSeller = ({
+  title,
+  author,
+  imageUrl,
+  bestRank,
+  link,
+}: BestSellerProps) => {
   return (
-    <li className="flex h-[20.8rem] w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]">
+    <Link
+      href={link}
+      target="_blank"
+      className="flex h-[20.8rem] w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]"
+    >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex h-[4.1rem] w-full flex-row gap-[1.3rem]">
         <p className="text-xl font-bold text-black-900">{bestRank}</p>
@@ -92,6 +106,6 @@ const BestSeller = ({ title, author, imageUrl, bestRank }: BestSellerProps) => {
           <p className="text-sm text-[#5c5c5c]">{author}</p>
         </div>
       </div>
-    </li>
+    </Link>
   );
 };
