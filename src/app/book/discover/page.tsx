@@ -19,7 +19,6 @@ import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
 /**
  * @todo
- * 유저 로그인 유무에 따른 최근 검색어, 인기 도서 visible
  * recentSearchedInfo 계속해서 refetch되는 현상 고치기
  */
 

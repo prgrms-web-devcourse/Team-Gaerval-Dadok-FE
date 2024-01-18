@@ -1,11 +1,9 @@
-'use client';
-
-import Image from 'next/image';
-
 import type {
   APIBestSeller,
   APIBestSellerSearchRangeTypes,
 } from '@/types/book';
+
+import BookCover from '@/v1/book/BookCover';
 
 const SEARCH_RANGES = {
   주간: 'WEEKLY',
@@ -83,22 +81,10 @@ type BestSellerProps = {
   bestRank: number;
 };
 
-/**
- * @todo
- * BookCover로 대체할 것!!!
- */
 const BestSeller = ({ title, author, imageUrl, bestRank }: BestSellerProps) => {
   return (
     <li className="flex h-[20.8rem] w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]">
-      <div className="h-[15.4rem] w-[11rem]">
-        <Image
-          className="h-[15.4rem] w-[11rem] rounded-[0.6rem]"
-          src={imageUrl}
-          alt={title}
-          width={110}
-          height={154}
-        />
-      </div>
+      <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex h-[4.1rem] w-full flex-row gap-[1.3rem]">
         <p className="text-xl font-bold text-black-900">{bestRank}</p>
         <div className="flex flex-col gap-[0.3rem] truncate">
