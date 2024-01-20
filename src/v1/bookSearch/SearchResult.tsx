@@ -54,7 +54,7 @@ const SearchedBook = ({
   return (
     <li
       onClick={onClick}
-      className="flex max-h-[17.2rem] w-full min-w-[10.26rem] max-w-[11.5rem] flex-col justify-center gap-[0.5rem] rounded-[0.4rem] bg-white px-[1.25rem] py-[1rem] shadow-searchResultItem"
+      className="flex max-h-[17.2rem] w-full min-w-[10.26rem] max-w-[11.5rem] cursor-pointer flex-col justify-center gap-[0.5rem] rounded-[0.4rem] bg-white px-[1.25rem] py-[1rem] shadow-searchResultItem"
     >
       <div className="max-h-[12.6rem] max-w-[9rem]">
         {imageUrl ? (
