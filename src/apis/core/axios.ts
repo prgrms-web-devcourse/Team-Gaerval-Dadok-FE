@@ -5,8 +5,6 @@ import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
-  setAxiosAuthHeader,
-  updateToken,
 } from '@/utils/helpers';
 import isClient from '@/utils/isClient';
 import webStorage from '@/utils/storage';
@@ -53,10 +51,7 @@ const responseHandler = async (error: unknown) => {
     }
 
     if (isAuthFailedError(code)) {
-      storage.remove();
-      if (isClient()) {
-        history.pushState('', '', '/');
-      }
+      removeToken();
     }
   } else {
     console.error('예상하지 못한 오류가 발생했어요.\n', error);
@@ -65,12 +60,45 @@ const responseHandler = async (error: unknown) => {
   return Promise.reject(error);
 };
 
-const silentRefresh = (originRequest: InternalAxiosRequestConfig) => {
-  return updateToken().then(newToken => {
+const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
+  try {
+    const newToken = await updateToken();
     storage.set(newToken);
     setAxiosAuthHeader(originRequest, newToken);
-    return publicApi(originRequest);
-  });
+    return await publicApi(originRequest);
+  } catch {
+    removeToken();
+  }
+};
+
+const updateToken = async () => {
+  try {
+    const {
+      data: { accessToken },
+    } = await axios.post<{ accessToken: string }>('/service-api/auth/token');
+
+    if (!accessToken) {
+      throw new Error('새로운 accessToken을 받아오지 못했어요.');
+    }
+
+    return accessToken;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const removeToken = () => {
+  storage.remove();
+  if (isClient()) {
+    history.pushState('', '', '/');
+  }
+};
+
+const setAxiosAuthHeader = (
+  config: InternalAxiosRequestConfig,
+  token: string
+) => {
+  config.headers['Authorization'] = `Bearers ${token}`;
 };
 
 publicApi.interceptors.request.use(requestHandler);
