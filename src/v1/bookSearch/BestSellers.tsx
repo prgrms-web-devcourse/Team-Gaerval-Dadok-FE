@@ -38,6 +38,7 @@ const BestSellers = ({
           <p className="text-sm font-normal text-white">종합</p>
         </div>
       </ul>
+
       <ul className="flex h-[1.9rem] w-full flex-row items-center divide-x divide-black-900 text-sm">
         {searchRanges.map(keys => (
           <li
@@ -53,6 +54,7 @@ const BestSellers = ({
           </li>
         ))}
       </ul>
+
       {searchRange === 'WEEKLY' ? (
         <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
           {bestSellers.map(book => (
