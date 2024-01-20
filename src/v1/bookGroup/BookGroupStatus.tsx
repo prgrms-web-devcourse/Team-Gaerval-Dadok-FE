@@ -51,7 +51,11 @@ const BookGroupStatus = ({ start, end }: { start: string; end: string }) => {
 
   const { text, ...badgeProps } = getBadgeProps(ddayStatus, ddayByStart);
 
-  return <Badge {...badgeProps}>{text}</Badge>;
+  return (
+    <Badge fontWeight="bold" {...badgeProps}>
+      {text}
+    </Badge>
+  );
 };
 
 export default BookGroupStatus;
