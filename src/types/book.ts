@@ -46,6 +46,17 @@ export interface APIBookDetail extends APIBook {
   imageKey: string;
 }
 
+export interface BookDetail {
+  bookId: APIBookDetail['bookId'];
+  title: APIBookDetail['title'];
+  author: APIBookDetail['author'];
+  isbn: APIBookDetail['isbn'];
+  summary: APIBookDetail['contents'];
+  bookUrl: APIBookDetail['url'];
+  imageUrl: APIBookDetail['imageUrl'];
+  publisher: APIBookDetail['publisher'];
+}
+
 export interface APIBookmarkedUserList {
   bookId: APIBook['bookId'];
   totalCount: number;
