@@ -7,7 +7,7 @@ import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuer
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
 import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
 import useToast from '@/v1/base/Toast/useToast';
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
 import TopNavigation from '@/v1/base/TopNavigation';
 import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
@@ -26,6 +26,7 @@ export default function UserBookShelfPage({
     bookshelfId: APIBookshelf['bookshelfId'];
   };
 }) {
+  const isAuthenticated = checkAuthentication();
   const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
   const { mutate: mutateBookshelfLike } =
     useMutateBookshelfLikeQuery(bookshelfId);
@@ -34,7 +35,7 @@ export default function UserBookShelfPage({
   if (!isSuccess) return null;
 
   const handleClickLikeButton = () => {
-    if (!isAuthed()) {
+    if (!isAuthenticated) {
       showToast({ message: '로그인 후 이용해주세요.', type: 'normal' });
       return;
     }
@@ -84,6 +85,7 @@ const BookShelfContent = ({
   bookshelfId: APIBookshelf['bookshelfId'];
   userNickname: APIBookshelfInfo['userNickname'];
 }) => {
+  const isAuthenticated = checkAuthentication();
   const { ref, inView } = useInView();
 
   const {
@@ -104,7 +106,7 @@ const BookShelfContent = ({
   // TODO: Suspense 적용
   if (!isSuccess) return null;
 
-  return isAuthed() ? (
+  return isAuthenticated ? (
     <>
       {booksData.pages.map(page =>
         page.books.map((rowBooks, idx) => (

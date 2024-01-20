@@ -18,13 +18,14 @@ import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
 import RecentSearches from './RecentSearches';
 import SearchIcon from '@public/icons/legacy/search-legacy.svg';
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 
 interface BookSearchProps {
   onBookClick?: (bookId: APIBook) => void;
 }
 
 const BookSearch = ({ onBookClick }: BookSearchProps) => {
+  const isAuthenticated = checkAuthentication();
   const [inputValue, setInputValue] = useState('');
   const queryKeyword = useDebounceValue(inputValue, 1000);
 
@@ -36,7 +37,9 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     pageSize: 12,
   });
 
-  const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
+  const recentSearchesInfo = useRecentSearchesQuery({
+    enabled: isAuthenticated,
+  });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
@@ -56,7 +59,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
     }
-    isAuthed() && recentSearchesInfo.refetch();
+    isAuthenticated && recentSearchesInfo.refetch();
   }, [
     bookSearchInfo.fetchNextPage,
     inView,
@@ -64,6 +67,7 @@ const BookSearch = ({ onBookClick }: BookSearchProps) => {
     queryKeyword,
     bookSearchInfo,
     recentSearchesInfo,
+    isAuthenticated,
   ]);
 
   return (

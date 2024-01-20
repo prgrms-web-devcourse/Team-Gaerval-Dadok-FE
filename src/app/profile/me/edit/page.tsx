@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 import AuthRequired from '@/ui/AuthRequired';
 
 import EditProfile from '@/v1/profile/EditProfile';
@@ -25,7 +25,8 @@ const EditProfilePage = () => {
 };
 
 const Contents = () => {
-  const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
+  const isAuthenticated = checkAuthentication();
+  const allJobQuery = useAllJobQuery({ enabled: isAuthenticated });
   const { data: profileData } = useMyProfileQuery();
 
   return allJobQuery.isSuccess ? (

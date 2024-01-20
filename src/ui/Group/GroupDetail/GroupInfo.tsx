@@ -23,7 +23,7 @@ import { useToast } from '@/hooks/toast';
 import TopNavigation from '@/ui/common/TopNavigation';
 import { Menu, MenuItem } from '@/ui/common/Menu';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 
 interface GroupInfoProps {
   groupInfoData: APIGroupDetail;
@@ -40,6 +40,7 @@ const GroupInfo = ({
   handleParticipateBtnClick,
   handleDeleteGroupBtnClick,
 }: GroupInfoProps) => {
+  const isAuthenticated = checkAuthentication();
   const [password, setPassword] = useState('');
   const cancelRef = useRef(null);
   const {
@@ -97,7 +98,7 @@ const GroupInfo = ({
   };
 
   const onPartInButtonClick = () => {
-    if (!isAuthed()) {
+    if (!isAuthenticated) {
       onLoginModalOpen();
       return;
     }

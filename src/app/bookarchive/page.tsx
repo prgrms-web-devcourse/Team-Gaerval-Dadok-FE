@@ -1,7 +1,7 @@
 'use client';
 
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 import { Suspense } from 'react';
 import useMounted from '@/hooks/useMounted';
 import BookArchiveForAuth from '@/v1/bookArchive/BookArchiveForAuth';
@@ -21,13 +21,14 @@ export default function BookArchivePage() {
 }
 
 const Contents = () => {
+  const isAuthenticated = checkAuthentication();
   const { data: userData } = useMyProfileQuery({
-    enabled: isAuthed(),
+    enabled: isAuthenticated,
   });
   const mounted = useMounted();
   if (!mounted) return null;
 
-  return isAuthed() ? (
+  return isAuthenticated ? (
     <BookArchiveForAuth userJobGroup={userData.job.jobGroupName} />
   ) : (
     <BookArchiveForUnAuth />
