@@ -4,11 +4,11 @@ import type { QueryOptions } from '@/types/query';
 import type { APIBookshelf } from '@/types/bookshelf';
 import bookShelfKeys from './key';
 
-const useMySummaryBookshlefQuery = (options?: QueryOptions<APIBookshelf>) =>
+const useMySummaryBookshelfQuery = (options?: QueryOptions<APIBookshelf>) =>
   useQuery(
     bookShelfKeys.summary('me'),
     () => bookshelfAPI.getMySummaryBookshelf().then(({ data }) => data),
     options
   );
 
-export default useMySummaryBookshlefQuery;
+export default useMySummaryBookshelfQuery;
