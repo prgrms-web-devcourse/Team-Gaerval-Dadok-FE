@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
-import { DATA_URL } from '@/constants/dataUrl';
+import { DATA_URL } from '@/constants/url';
 
 type BookCoverSize =
   | 'xsmall'
