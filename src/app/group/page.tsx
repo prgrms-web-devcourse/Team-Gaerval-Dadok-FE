@@ -28,11 +28,9 @@ const GroupPage = () => {
       <TopHeader text="Group" />
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
-        {isAuthed() && (
-          <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
-            <MyBookGroupList />
-          </SSRSafeSuspense>
-        )}
+        <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
+          {isAuthed() && <MyBookGroupList />}
+        </SSRSafeSuspense>
         <EntireBookGroupList />
       </div>
       {/* <Link href={'/group/create'}>
