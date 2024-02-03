@@ -95,8 +95,4 @@ export interface APIBestSellerRes {
   version: string;
 }
 
-// export interface APIBestSellerPagination extends BookSearchPagination {
-//   bestSellerBookResponseList: APIBestSeller[];
-// }
-
 export type APIBestSellerSearchRangeTypes = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
