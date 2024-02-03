@@ -137,8 +137,8 @@ const EntireBookGroupList = () => {
             )
           )}
       </div>
-      <div ref={ref} />
       {isFetchingNextPage && <DetailBookGroupCardSkeleton />}
+      <div ref={ref} />
     </>
   );
 };
