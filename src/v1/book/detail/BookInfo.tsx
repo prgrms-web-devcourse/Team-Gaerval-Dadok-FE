@@ -1,13 +1,13 @@
 import { APIBook } from '@/types/book';
 import { IconBookmark } from '@public/icons';
-import { useBook } from '@/queries/book/useBookInfoQuery';
+import { useBookInfo } from '@/queries/book/useBookInfoQuery';
 
 import Avatar, { AvatarGroup } from '@/v1/base/Avatar';
 import BookCover from '@/v1/book/BookCover';
 import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const { data } = useBook(bookId);
+  const { data } = useBookInfo(bookId);
   const { title, author, imageUrl, summary, bookUrl } = data;
 
   return (
@@ -31,7 +31,7 @@ const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
 export default BookInfo;
 
 const BookTitle = ({ title }: { title: string }) => (
-  <p className=" text-lg font-bold">{title}</p>
+  <p className="text-lg font-bold">{title}</p>
 );
 
 const BookAuthor = ({ author }: { author: string }) => (
@@ -58,7 +58,7 @@ const BookSummary = ({
     {summary}&nbsp;...&nbsp;
     {bookUrl && (
       <a target="_blank" href={bookUrl}>
-        <span className=" cursor-pointer text-main-900">더보기</span>
+        <span className="cursor-pointer text-main-900">더보기</span>
       </a>
     )}
   </p>

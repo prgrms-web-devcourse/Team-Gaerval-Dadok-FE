@@ -30,7 +30,7 @@ const transformBookData = (data: APIBookDetail) =>
     publisher: data.publisher,
   } as BookDetail);
 
-export const useBook = (bookId: APIBook['bookId']) =>
+export const useBookInfo = (bookId: APIBook['bookId']) =>
   useBookInfoQuery(bookId, {
     select: transformBookData,
   });
