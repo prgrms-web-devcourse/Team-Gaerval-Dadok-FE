@@ -17,6 +17,8 @@ import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { isAuthed } from '@/utils/helpers';
+import useMounted from '@/hooks/useMounted';
+import Loading from '@/v1/base/Loading';
 
 const GroupPage = () => {
   const handleSearchInputClick = () => {
@@ -28,10 +30,10 @@ const GroupPage = () => {
       <TopHeader text="Group" />
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
-        <SSRSafeSuspense fallback={<MyBookGroupListSkeleton />}>
+        <SSRSafeSuspense fallback={<PageSkeleton />}>
           {isAuthed() && <MyBookGroupList />}
+          <EntireBookGroupList />
         </SSRSafeSuspense>
-        <EntireBookGroupList />
       </div>
       {/* <Link href={'/group/create'}>
         <FloatingButton position="bottom-right" />
@@ -60,6 +62,26 @@ const MyBookGroupList = () => {
         />
       ))}
     </div>
+  );
+};
+
+const PageSkeleton = () => {
+  const isMounted = useMounted();
+
+  if (!isMounted) {
+    return <Loading fullpage />;
+  }
+
+  return (
+    <>
+      <MyBookGroupListSkeleton />
+      <div className="flex flex-col gap-[1rem]">
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+        <DetailBookGroupCardSkeleton />
+      </div>
+    </>
   );
 };
 
