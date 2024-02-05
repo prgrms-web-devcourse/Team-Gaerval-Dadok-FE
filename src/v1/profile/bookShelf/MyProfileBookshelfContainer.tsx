@@ -1,8 +1,8 @@
 import ProfileBookshelfPresenter from './ProfileBookshelfPresenter';
-import useMySummaryBookshlefQuery from '@/queries/bookshelf/useMySummaryBookShelfQuery';
+import useMySummaryBookshelfQuery from '@/queries/bookshelf/useMySummaryBookShelfQuery';
 
 const MyProfileBookshelfContainer = () => {
-  const { isSuccess, data } = useMySummaryBookshlefQuery({
+  const { isSuccess, data } = useMySummaryBookshelfQuery({
     suspense: true,
   });
 
