@@ -18,3 +18,9 @@ export interface APIMyProfile extends Omit<APIUserProfile, 'nickname'> {
 }
 
 export type APIUser = APIUserProfile & { name: string | null };
+
+export type Writer = {
+  id: APIUser['userId'];
+  profileImageSrc: APIUser['profileImage'];
+  name: APIUser['nickname'];
+};
