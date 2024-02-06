@@ -1,6 +1,8 @@
 'use client';
 
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
+import { isAuthed } from '@/utils/helpers';
+
 import BackButton from '@/v1/base/BackButton';
 import TopNavigation from '@/v1/base/TopNavigation';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
@@ -20,7 +22,7 @@ const UserGroupPage = () => {
 };
 
 const UserGroupContent = () => {
-  const { data, isSuccess } = useMyGroupsQuery();
+  const { data, isSuccess } = useMyGroupsQuery({ enabled: isAuthed() });
 
   if (!isSuccess) {
     return (
@@ -58,7 +60,7 @@ const UserGroupContent = () => {
           startDate,
           endDate,
           owner,
-          currentMemberCount,
+          memberCount,
           commentCount,
           isPublic,
           bookGroupId,
@@ -73,7 +75,7 @@ const UserGroupContent = () => {
                 name: owner.nickname,
                 profileImageSrc: owner.profileUrl,
               }}
-              memberCount={currentMemberCount}
+              memberCount={memberCount}
               commentCount={commentCount}
               isPublic={isPublic}
               bookGroupId={bookGroupId}
