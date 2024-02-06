@@ -7,6 +7,7 @@ import type {
 } from '@/types/book';
 import bookAPI from '@/apis/book';
 import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+import bookKeys from './key';
 
 const useBookCommentsQuery = <TData = APIBookCommentPagination>(
   bookId: APIBook['bookId'],
@@ -17,7 +18,7 @@ const useBookCommentsQuery = <TData = APIBookCommentPagination>(
   >
 ) =>
   useQueryWithSuspense(
-    ['bookComments', bookId],
+    bookKeys.comments(bookId),
     () => bookAPI.getComments(bookId).then(({ data }) => data),
     options
   );
