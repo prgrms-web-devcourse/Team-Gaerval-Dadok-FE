@@ -1,17 +1,15 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { UseQueryOptions } from '@tanstack/react-query';
+import { APIBookmarkedUserList } from '@/types/book';
 import bookAPI from '@/apis/book';
+import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+import bookKeys from './key';
 
-const useBookUserInfoQuery = (
+const useBookUserInfoQuery = <TData = APIBookmarkedUserList>(
   bookId: number,
-  options?: Pick<
-    UseQueryOptions<
-      Awaited<ReturnType<typeof bookAPI.getBookUserInfo>>['data']
-    >,
-    'enabled'
-  >
+  options?: UseQueryOptions<APIBookmarkedUserList, unknown, TData>
 ) =>
-  useQuery(
-    ['bookUserInfo', bookId],
+  useQueryWithSuspense(
+    bookKeys.bookmark(bookId),
     () => bookAPI.getBookUserInfo(bookId).then(({ data }) => data),
     options
   );
