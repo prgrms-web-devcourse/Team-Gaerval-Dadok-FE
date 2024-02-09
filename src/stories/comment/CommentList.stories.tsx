@@ -37,7 +37,7 @@ const comments = [
 export const Default: Story = {
   args: {
     comments,
-    editableComment: id => id === 3,
+    isEditableComment: ({ writer }) => writer.id === 3,
   },
 };
 

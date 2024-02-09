@@ -15,7 +15,9 @@ interface CommentListProps {
   hidden?: boolean;
   hiddenText?: string;
   emptyText?: string;
-  editableComment?: (writerId: Writer['id']) => boolean;
+  isEditableComment?: (comment: Comment) => boolean;
+  onCommentEdit?: (commentId: Comment['id']) => void;
+  onCommentRemove?: (commentId: Comment['id']) => void;
 }
 
 const CommentList = ({
@@ -23,8 +25,18 @@ const CommentList = ({
   hidden,
   hiddenText,
   emptyText,
-  editableComment,
+  isEditableComment,
+  onCommentEdit,
+  onCommentRemove,
 }: CommentListProps) => {
+  const handleCommentEdit = (id: Comment['id']) => {
+    onCommentEdit && onCommentEdit(id);
+  };
+
+  const handleCommentRemove = (id: Comment['id']) => {
+    onCommentRemove && onCommentRemove(id);
+  };
+
   if (hidden) {
     return <p className="py-[2rem] text-center text-sm">{hiddenText}</p>;
   }
@@ -39,23 +51,31 @@ const CommentList = ({
 
   return (
     <div className="flex flex-col gap-[1rem]">
-      {comments.map(({ id, writer, createdAt, content }) => (
-        <div className="flex flex-col gap-[1rem] py-[1rem]" key={id}>
-          <div className="flex gap-[1rem]">
-            <Avatar
-              src={writer.profileImageSrc}
-              name={writer.name}
-              size="medium"
-            />
-            <div className="flex flex-grow flex-col">
-              <Name name={writer.name} />
-              <Date date={createdAt} />
+      {comments.map(comment => {
+        const { id, writer, createdAt, content } = comment;
+        return (
+          <div className="flex flex-col gap-[1rem] py-[1rem]" key={id}>
+            <div className="flex gap-[1rem]">
+              <Avatar
+                src={writer.profileImageSrc}
+                name={writer.name}
+                size="medium"
+              />
+              <div className="flex flex-grow flex-col">
+                <Name name={writer.name} />
+                <Date date={createdAt} />
+              </div>
+              {isEditableComment && isEditableComment(comment) && (
+                <EditCommentMenu
+                  onEditSelect={() => handleCommentEdit(id)}
+                  onRemoveSelect={() => handleCommentRemove(id)}
+                />
+              )}
             </div>
-            {editableComment && editableComment(writer.id) && <MenuButton />}
+            <CommentContent content={content} />
           </div>
-          <CommentContent content={content} />
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -70,13 +90,19 @@ const Date = ({ date }: { date: string }) => (
   <p className="text-xs text-placeholder">{date}</p>
 );
 
-const MenuButton = () => {
+const EditCommentMenu = ({
+  onEditSelect,
+  onRemoveSelect,
+}: {
+  onEditSelect?: () => void;
+  onRemoveSelect?: () => void;
+}) => {
   return (
     <Menu>
       <Menu.Toggle />
       <Menu.DropdownList>
-        <Menu.Item>수정하기</Menu.Item>
-        <Menu.Item>삭제하기</Menu.Item>
+        <Menu.Item onSelect={onEditSelect}>수정하기</Menu.Item>
+        <Menu.Item onSelect={onRemoveSelect}>삭제하기</Menu.Item>
       </Menu.DropdownList>
     </Menu>
   );

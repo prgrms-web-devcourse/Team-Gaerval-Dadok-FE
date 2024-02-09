@@ -11,7 +11,7 @@ const BookCommentList = ({ bookId }: { bookId: number }) => {
   return (
     <CommentList
       comments={comments}
-      editableComment={writerId => writerId === myId}
+      isEditableComment={({ writer }) => writer.id === myId}
       emptyText={`아직 코멘트가 없어요.
                   가장 먼저 코멘트를 남겨보세요!`}
     />
