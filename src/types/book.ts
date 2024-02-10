@@ -95,4 +95,4 @@ export interface APIBestSellerRes {
   version: string;
 }
 
-export type APIBestSellerSearchRangeTypes = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
+export type APIBestSellerSearchRange = 'WEEKLY' | 'MONTHLY' | 'YEARLY';

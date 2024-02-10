@@ -1,9 +1,8 @@
+import { useState } from 'react';
 import Link from 'next/link';
 
-import type {
-  APIBestSeller,
-  APIBestSellerSearchRangeTypes,
-} from '@/types/book';
+import type { APIBestSellerSearchRange } from '@/types/book';
+import useBestSellersQuery from '@/queries/book/useBestSellersQuery';
 
 import BookCover from '@/v1/book/BookCover';
 
@@ -13,22 +12,19 @@ const SEARCH_RANGES = {
   연간: 'YEARLY',
 } as const;
 
-type BestSellersProps = {
-  bestSellers: APIBestSeller[];
-  searchRange: APIBestSellerSearchRangeTypes;
-  setSearchRange: React.Dispatch<
-    React.SetStateAction<APIBestSellerSearchRangeTypes>
-  >;
-};
-
 type SearchRangeTypes = keyof typeof SEARCH_RANGES;
 
-const BestSellers = ({
-  bestSellers,
-  searchRange,
-  setSearchRange,
-}: BestSellersProps) => {
+const BestSellers = () => {
+  const [bestSellerSearchRange, setBestSellerSearchRange] =
+    useState<APIBestSellerSearchRange>('WEEKLY');
+
+  const bestSellersInfo = useBestSellersQuery();
+
   const searchRanges = Object.keys(SEARCH_RANGES) as SearchRangeTypes[];
+
+  const bestSellers = bestSellersInfo.isSuccess
+    ? bestSellersInfo.data.item
+    : [];
 
   return (
     <section className="flex flex-col gap-[1.7rem]">
@@ -43,19 +39,19 @@ const BestSellers = ({
         {searchRanges.map(keys => (
           <li
             className={`flex h-[1.1rem] cursor-pointer items-center px-[0.9rem] ${
-              SEARCH_RANGES[keys] === searchRange
+              SEARCH_RANGES[keys] === bestSellerSearchRange
                 ? 'text-black-700'
                 : 'text-[#5c5c5c]'
             }`}
             key={keys}
-            onClick={() => setSearchRange(SEARCH_RANGES[keys])}
+            onClick={() => setBestSellerSearchRange(SEARCH_RANGES[keys])}
           >
             {keys}
           </li>
         ))}
       </ul>
 
-      {searchRange === 'WEEKLY' ? (
+      {bestSellerSearchRange === 'WEEKLY' ? (
         <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
           {bestSellers.map(book => (
             <BestSeller
