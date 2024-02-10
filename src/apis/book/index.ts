@@ -97,9 +97,7 @@ const bookAPI = {
       ),
 
   getBestSellers: () =>
-    publicApi.get<APIBestSellerRes>(
-      `/aladin-api/ItemList.aspx?ttbkey=ttbhanyugeon0226001&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=JS&Version=20131101`
-    ),
+    publicApi.get<APIBestSellerRes>(`/aladin-api?QueryType=Bestseller`),
 };
 
 export default bookAPI;

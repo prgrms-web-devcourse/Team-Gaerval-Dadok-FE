@@ -1,5 +1,6 @@
 const baseURL = process.env.NEXT_PUBLIC_API_URL;
 const aladinURL = process.env.ALADIN_OPEN_API_URI;
+const ALADIN_API_KEY = process.env.ALADIN_OPEN_API_TTBKEY;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,8 +18,9 @@ const nextConfig = {
         destination: `${baseURL}/api/:url*`,
       },
       {
-        source: '/aladin-api/:url*',
-        destination: `${aladinURL}/api/:url*`,
+        source: '/aladin-api',
+        has: [{ type: 'query', key: 'QueryType', value: '(?<QueryType>.*)' }],
+        destination: `${aladinURL}/api/ItemList.aspx?ttbkey=${ALADIN_API_KEY}&QueryType=:QueryType&MaxResults=10&start=1&SearchTarget=Book&output=JS&Version=20131101`,
       },
     ];
   },
