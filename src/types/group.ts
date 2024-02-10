@@ -38,7 +38,7 @@ export interface APIGroupDetail extends APIGroup {
 }
 
 export interface APIGroupPagination extends Pagination {
-  bookGroups: APIGroup[];
+  bookGroups: (APIGroup & { memberCount: number })[];
 }
 
 export interface APICreateGroup
@@ -76,16 +76,16 @@ export interface APIGroupCommentPagination extends Pagination {
 }
 
 export type BookGroupDetail = {
-  title: APIGroup['title'];
-  description: APIGroup['introduce'];
+  title: APIGroupDetail['title'];
+  description: APIGroupDetail['introduce'];
   bookId: APIBook['bookId'];
   owner: { isMe: boolean; id: APIUser['userId'] };
-  date: { start: APIGroup['startDate']; end: APIGroup['endDate'] };
+  date: { start: APIGroupDetail['startDate']; end: APIGroupDetail['endDate'] };
   memberCount: {
-    current: APIGroup['currentMemberCount'];
-    max: APIGroup['maxMemberCount'];
+    current: APIGroupDetail['currentMemberCount'];
+    max: APIGroupDetail['maxMemberCount'];
   };
-  isPublic: APIGroup['isPublic'];
+  isPublic: APIGroupDetail['isPublic'];
   isMember: APIGroupDetail['isGroupMember'];
 };
 

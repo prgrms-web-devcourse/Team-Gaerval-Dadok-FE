@@ -6,6 +6,8 @@ const bookKeys = {
   detail: (bookId: APIBook['bookId']) =>
     [...bookKeys.details(), bookId] as const,
   bestSeller: () => [...bookKeys.all, 'bestSeller'],
+  bookmark: (bookId: APIBook['bookId']) =>
+    [...bookKeys.detail(bookId), 'bookmark'] as const,
 };
 
 export default bookKeys;

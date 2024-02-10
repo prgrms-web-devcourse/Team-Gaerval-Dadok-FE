@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
-import { DATA_URL } from '@/constants/dataUrl';
+import { DATA_URL } from '@/constants/url';
 
 type BookCoverSize =
   | 'xsmall'
@@ -52,8 +52,8 @@ const getCoverSize = (size: BookCoverSize) => {
     }
     case '2xlarge': {
       return {
-        sizeClasses: 'w-[18.0rem] h-[25.2rem]',
-        sizeProps: { width: 180, height: 252 },
+        sizeClasses: 'w-[14.0rem] h-[19.6rem]',
+        sizeProps: { width: 140, height: 196 },
       } as const;
     }
   }
