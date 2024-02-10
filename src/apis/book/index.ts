@@ -97,7 +97,9 @@ const bookAPI = {
       ),
 
   getBestSellers: () =>
-    publicApi.get<APIBestSellerRes>(`/aladin-api?QueryType=Bestseller`),
+    publicApi.get<APIBestSellerRes>(
+      `/aladin-api?QueryType=Bestseller&Cover=Big`
+    ),
 };
 
 export default bookAPI;
