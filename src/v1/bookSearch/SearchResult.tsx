@@ -5,7 +5,7 @@ import bookAPI from '@/apis/book';
 import type { APISearchedBook } from '@/types/book';
 
 import useToast from '@/v1/base/Toast/useToast';
-import { DATA_URL } from '@/constants/dataUrl';
+import { DATA_URL } from '@/constants/url';
 
 import { LogoWithText } from '@public/icons';
 
