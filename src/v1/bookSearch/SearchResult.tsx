@@ -4,7 +4,9 @@ import { useRouter } from 'next/navigation';
 import bookAPI from '@/apis/book';
 import type { APISearchedBook } from '@/types/book';
 
+import useToast from '@/v1/base/Toast/useToast';
 import { DATA_URL } from '@/constants/dataUrl';
+
 import { LogoWithText } from '@public/icons';
 
 type BookSearchResultsProps = {
@@ -13,6 +15,7 @@ type BookSearchResultsProps = {
 
 const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
   const router = useRouter();
+  const toast = useToast();
 
   const handleClickBook = async (book: APISearchedBook) => {
     try {
@@ -22,6 +25,10 @@ const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
 
       router.push(`/book/${bookId}`);
     } catch (error) {
+      toast.show({
+        type: 'error',
+        message: '잠시 후 다시 시도해주세요',
+      });
       console.error(error);
     }
   };
