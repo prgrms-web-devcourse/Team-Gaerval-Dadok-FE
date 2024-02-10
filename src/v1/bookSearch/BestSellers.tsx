@@ -29,13 +29,13 @@ const BestSellers = () => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">인기 도서</h2>
-      <ul className="flex h-[2.5rem] w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
+      <ul className="flex w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
         <div className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
           <p className="text-sm font-normal text-white">종합</p>
         </div>
       </ul>
 
-      <ul className="flex h-[1.9rem] w-full flex-row items-center divide-x divide-black-900 text-sm">
+      <ul className="flex w-full flex-row items-center divide-x divide-black-900 text-sm">
         {searchRanges.map(keys => (
           <li
             className={`flex h-[1.1rem] cursor-pointer items-center px-[0.9rem] ${
@@ -52,7 +52,7 @@ const BestSellers = () => {
       </ul>
 
       {bestSellerSearchRange === 'WEEKLY' ? (
-        <ul className="flex w-[calc(100%+2rem)] gap-[1.5rem] overflow-x-scroll whitespace-nowrap">
+        <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll">
           {bestSellers.map(book => (
             <BestSeller
               key={book.isbn}
@@ -94,14 +94,14 @@ const BestSeller = ({
     <Link
       href={link}
       target="_blank"
-      className="flex h-[20.8rem] w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]"
+      className="flex w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]"
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
-      <div className="flex h-[4.1rem] w-full flex-row gap-[1.3rem]">
+      <div className="flex flex-row gap-[1.3rem]">
         <p className="text-xl font-bold text-black-900">{bestRank}</p>
-        <div className="flex flex-col gap-[0.3rem] truncate">
-          <p className="text-sm text-black-900">{title}</p>
-          <p className="text-sm text-[#5c5c5c]">{author}</p>
+        <div className="flex flex-col gap-[0.3rem]">
+          <p className="line-clamp-2 text-sm text-black-900">{title}</p>
+          <p className="line-clamp-1 text-sm text-[#5c5c5c]">{author}</p>
         </div>
       </div>
     </Link>
