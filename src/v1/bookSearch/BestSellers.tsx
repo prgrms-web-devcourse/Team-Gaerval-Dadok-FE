@@ -97,10 +97,14 @@ const BestSeller = ({
       className="flex w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]"
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
-      <div className="flex flex-row gap-[1.3rem]">
-        <p className="text-xl font-bold text-black-900">{bestRank}</p>
-        <div className="flex flex-col gap-[0.3rem]">
-          <p className="line-clamp-2 text-sm text-black-900">{title}</p>
+      <div className="flex flex-row gap-[1rem]">
+        <p className="text-xl font-bold leading-tight text-black-900">
+          {bestRank}
+        </p>
+        <div className="flex min-w-0 flex-col gap-[0.3rem]">
+          <p className="line-clamp-2 text-sm leading-tight text-black-900">
+            {title}
+          </p>
           <p className="line-clamp-1 text-sm text-[#5c5c5c]">{author}</p>
         </div>
       </div>
