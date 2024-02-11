@@ -15,6 +15,7 @@ const BookGroupCommentList = ({ groupId }: { groupId: number }) => {
 
   return (
     <CommentList
+      name={'게시글'}
       comments={comments}
       isEditableComment={({ writer }) => writer.id === myId}
       hidden={hidden}

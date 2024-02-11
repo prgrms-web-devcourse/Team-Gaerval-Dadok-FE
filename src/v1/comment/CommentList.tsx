@@ -1,7 +1,13 @@
+import { useMemo } from 'react';
+
 import type { Writer } from '@/types/user';
+import useDisclosure from '@/hooks/useDisclosure';
 
 import Avatar from '@/v1/base/Avatar';
 import Menu from '@/v1/base/Menu';
+import Button from '@/v1/base/Button';
+import Drawer from '@/v1/base/Drawer';
+import Modal from '@/v1/base/Modal';
 
 type Comment = {
   id: number;
@@ -12,30 +18,29 @@ type Comment = {
 
 interface CommentListProps {
   comments: Comment[];
+  name?: string;
   hidden?: boolean;
   hiddenText?: string;
   emptyText?: string;
   isEditableComment?: (comment: Comment) => boolean;
-  onCommentEdit?: (commentId: Comment['id']) => void;
-  onCommentRemove?: (commentId: Comment['id']) => void;
+  onChangeConfirm?: (commentId: Comment['id']) => void;
+  onDeleteConfirm?: (commentId: Comment['id']) => void;
 }
 
 const CommentList = ({
+  name = '코멘트',
   comments,
   hidden,
   hiddenText,
   emptyText,
   isEditableComment,
-  onCommentEdit,
-  onCommentRemove,
+  onChangeConfirm,
+  onDeleteConfirm,
 }: CommentListProps) => {
-  const handleCommentEdit = (id: Comment['id']) => {
-    onCommentEdit && onCommentEdit(id);
-  };
-
-  const handleCommentRemove = (id: Comment['id']) => {
-    onCommentRemove && onCommentRemove(id);
-  };
+  const titleOnCommentChange = useMemo(
+    () => [name, '수정하기'].join(' '),
+    [name]
+  );
 
   if (hidden) {
     return <p className="py-[2rem] text-center text-sm">{hiddenText}</p>;
@@ -67,8 +72,10 @@ const CommentList = ({
               </div>
               {isEditableComment && isEditableComment(comment) && (
                 <EditCommentMenu
-                  onEditSelect={() => handleCommentEdit(id)}
-                  onRemoveSelect={() => handleCommentRemove(id)}
+                  comment={comment}
+                  titleOnCommentChange={titleOnCommentChange}
+                  onChangeConfirm={onChangeConfirm}
+                  onDeleteConfirm={onDeleteConfirm}
                 />
               )}
             </div>
@@ -90,24 +97,141 @@ const Date = ({ date }: { date: string }) => (
   <p className="text-xs text-placeholder">{date}</p>
 );
 
-const EditCommentMenu = ({
-  onEditSelect,
-  onRemoveSelect,
-}: {
-  onEditSelect?: () => void;
-  onRemoveSelect?: () => void;
-}) => {
-  return (
-    <Menu>
-      <Menu.Toggle />
-      <Menu.DropdownList>
-        <Menu.Item onSelect={onEditSelect}>수정하기</Menu.Item>
-        <Menu.Item onSelect={onRemoveSelect}>삭제하기</Menu.Item>
-      </Menu.DropdownList>
-    </Menu>
-  );
-};
-
 const CommentContent = ({ content }: { content: string }) => (
   <p className="text-justify text-md">{content}</p>
 );
+
+const EditCommentMenu = ({
+  comment,
+  titleOnCommentChange,
+  onChangeConfirm,
+  onDeleteConfirm,
+}: {
+  comment: Comment;
+  titleOnCommentChange?: string;
+  onChangeConfirm?: (commentId: Comment['id']) => void;
+  onDeleteConfirm?: (commentId: Comment['id']) => void;
+}) => {
+  const { id: commentId, content } = comment;
+
+  const {
+    isOpen: isDrawerOpen,
+    onOpen: onDrawerOpen,
+    onClose: onDrawerClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
+
+  const handleChangeConfirm = () => {
+    onChangeConfirm && onChangeConfirm(commentId);
+  };
+
+  const handleDeleteConfirm = () => {
+    onDeleteConfirm && onDeleteConfirm(commentId);
+  };
+
+  return (
+    <>
+      <Menu>
+        <Menu.Toggle />
+        <Menu.DropdownList>
+          <Menu.Item onSelect={onDrawerOpen}>수정하기</Menu.Item>
+          <Menu.Item onSelect={onModalOpen}>삭제하기</Menu.Item>
+        </Menu.DropdownList>
+      </Menu>
+      <ChangeCommentDrawer
+        isOpen={isDrawerOpen}
+        onClose={onDrawerClose}
+        onConfirm={handleChangeConfirm}
+        drawerTitle={titleOnCommentChange}
+        defaultComment={content}
+      />
+      <DeleteCommentModal
+        isOpen={isModalOpen}
+        onClose={onModalClose}
+        onConfirm={handleDeleteConfirm}
+      />
+    </>
+  );
+};
+
+const ChangeCommentDrawer = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  defaultComment,
+  drawerTitle = '수정하기',
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+  drawerTitle?: string;
+  defaultComment?: string;
+}) => {
+  const handleConfirm = () => {
+    onConfirm && onConfirm();
+    onClose();
+  };
+
+  return (
+    <Drawer isOpen={isOpen} onClose={onClose}>
+      <Drawer.Header>
+        <Drawer.CloseButton position="top-left" />
+        <Drawer.Title text={drawerTitle} />
+        <Button
+          colorScheme="main"
+          fill={false}
+          size="medium"
+          className="flex-shrink-0 border-none !p-0"
+          onClick={handleConfirm}
+        >
+          완료
+        </Button>
+      </Drawer.Header>
+      <Drawer.Content>
+        <textarea
+          className="h-[60vh] w-full resize-none border-none text-md focus:outline-none"
+          defaultValue={defaultComment}
+        />
+      </Drawer.Content>
+    </Drawer>
+  );
+};
+
+const DeleteCommentModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+}) => {
+  const handleConfirm = () => {
+    onConfirm && onConfirm();
+    onClose();
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className="text-lg font-bold">
+        정말 삭제할까요?
+        <p className="text-xs font-normal text-black-500">
+          한번 삭제하면 되돌릴 수 없어요.
+        </p>
+      </div>
+      <div className="flex justify-end gap-[1rem]">
+        <Button onClick={onClose} fill={false} colorScheme="grey" size="small">
+          취소
+        </Button>
+        <Button onClick={handleConfirm} size="small">
+          확인
+        </Button>
+      </div>
+    </Modal>
+  );
+};

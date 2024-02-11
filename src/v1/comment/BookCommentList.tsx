@@ -10,6 +10,7 @@ const BookCommentList = ({ bookId }: { bookId: number }) => {
 
   return (
     <CommentList
+      name={'코멘트'}
       comments={comments}
       isEditableComment={({ writer }) => writer.id === myId}
       emptyText={`아직 코멘트가 없어요.
