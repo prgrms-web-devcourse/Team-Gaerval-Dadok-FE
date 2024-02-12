@@ -3,7 +3,7 @@ import type { APIBookRecentSearchResponse } from '@/types/book';
 import Button from '@/v1/base/Button';
 
 type RecentSearchProps = {
-  recentSearches: APIBookRecentSearchResponse[] | undefined;
+  recentSearches?: APIBookRecentSearchResponse[];
   setInputSearchValue: (searchValue: string) => void;
 };
 
