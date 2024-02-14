@@ -8,6 +8,7 @@ import type {
   APISearchedBook,
   APISearchedBookPagination,
   APIRecentSearches,
+  APIBestSellerRes,
 } from '@/types/book';
 import bookshelfAPI from '../bookshelf';
 import { publicApi } from '../core/axios';
@@ -94,6 +95,11 @@ const bookAPI = {
           `/service-api/bookshelves/${bookshelfId}/books/${bookId}`
         )
       ),
+
+  getBestSellers: () =>
+    publicApi.get<APIBestSellerRes>(
+      `/aladin-api?QueryType=Bestseller&Cover=Big`
+    ),
 };
 
 export default bookAPI;
