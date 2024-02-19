@@ -11,14 +11,14 @@ const BookGroupCommentList = ({ groupId }: { groupId: number }) => {
   const { data: myId } = useMyProfileId({ enabled: isAuthed() });
   const { isPublic, isMember } = bookGroupInfo;
 
-  const hidden = !isPublic && !isMember;
+  const isHidden = !isPublic && !isMember;
 
   return (
     <CommentList
       name={'게시글'}
       comments={comments}
       isEditableComment={({ writer }) => writer.id === myId}
-      hidden={hidden}
+      isHidden={isHidden}
       hiddenText={`멤버만 볼 수 있어요 🥲`}
       emptyText={`아직 게시글이 없어요.
                   가장 먼저 게시글을 남겨보세요!`}

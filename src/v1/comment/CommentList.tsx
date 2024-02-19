@@ -19,30 +19,30 @@ type Comment = {
 interface CommentListProps {
   comments: Comment[];
   name?: string;
-  hidden?: boolean;
+  isHidden?: boolean;
   hiddenText?: string;
   emptyText?: string;
   isEditableComment?: (comment: Comment) => boolean;
-  onChangeConfirm?: (commentId: Comment['id']) => void;
+  onEditConfirm?: (commentId: Comment['id']) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }
 
 const CommentList = ({
   name = '코멘트',
   comments,
-  hidden,
+  isHidden,
   hiddenText,
   emptyText,
   isEditableComment,
-  onChangeConfirm,
+  onEditConfirm,
   onDeleteConfirm,
 }: CommentListProps) => {
-  const titleOnCommentChange = useMemo(
+  const titleOnCommentEdit = useMemo(
     () => [name, '수정하기'].join(' '),
     [name]
   );
 
-  if (hidden) {
+  if (isHidden) {
     return <p className="py-[2rem] text-center text-sm">{hiddenText}</p>;
   }
 
@@ -55,11 +55,11 @@ const CommentList = ({
   }
 
   return (
-    <div className="flex flex-col gap-[1rem]">
+    <ul className="flex flex-col gap-[1rem]">
       {comments.map(comment => {
         const { id, writer, createdAt, content } = comment;
         return (
-          <div className="flex flex-col gap-[1rem] py-[1rem]" key={id}>
+          <li className="flex flex-col gap-[1rem] py-[1rem]" key={id}>
             <div className="flex gap-[1rem]">
               <Avatar
                 src={writer.profileImageSrc}
@@ -71,19 +71,19 @@ const CommentList = ({
                 <Date date={createdAt} />
               </div>
               {isEditableComment && isEditableComment(comment) && (
-                <EditCommentMenu
+                <CommentActionMenu
                   comment={comment}
-                  titleOnCommentChange={titleOnCommentChange}
-                  onChangeConfirm={onChangeConfirm}
+                  titleOnCommentEdit={titleOnCommentEdit}
+                  onEditConfirm={onEditConfirm}
                   onDeleteConfirm={onDeleteConfirm}
                 />
               )}
             </div>
             <CommentContent content={content} />
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
@@ -101,15 +101,15 @@ const CommentContent = ({ content }: { content: string }) => (
   <p className="text-justify text-md">{content}</p>
 );
 
-const EditCommentMenu = ({
+const CommentActionMenu = ({
   comment,
-  titleOnCommentChange,
-  onChangeConfirm,
+  titleOnCommentEdit,
+  onEditConfirm,
   onDeleteConfirm,
 }: {
   comment: Comment;
-  titleOnCommentChange?: string;
-  onChangeConfirm?: (commentId: Comment['id']) => void;
+  titleOnCommentEdit?: string;
+  onEditConfirm?: (commentId: Comment['id']) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }) => {
   const { id: commentId, content } = comment;
@@ -127,7 +127,7 @@ const EditCommentMenu = ({
   } = useDisclosure();
 
   const handleChangeConfirm = () => {
-    onChangeConfirm && onChangeConfirm(commentId);
+    onEditConfirm && onEditConfirm(commentId);
   };
 
   const handleDeleteConfirm = () => {
@@ -143,11 +143,11 @@ const EditCommentMenu = ({
           <Menu.Item onSelect={onModalOpen}>삭제하기</Menu.Item>
         </Menu.DropdownList>
       </Menu>
-      <ChangeCommentDrawer
+      <EditCommentDrawer
         isOpen={isDrawerOpen}
         onClose={onDrawerClose}
         onConfirm={handleChangeConfirm}
-        drawerTitle={titleOnCommentChange}
+        drawerTitle={titleOnCommentEdit}
         defaultComment={content}
       />
       <DeleteCommentModal
@@ -159,7 +159,7 @@ const EditCommentMenu = ({
   );
 };
 
-const ChangeCommentDrawer = ({
+const EditCommentDrawer = ({
   isOpen,
   onClose,
   onConfirm,
