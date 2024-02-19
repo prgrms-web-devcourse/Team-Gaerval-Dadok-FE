@@ -44,7 +44,7 @@ export const Default: Story = {
 export const Hidden: Story = {
   args: {
     comments,
-    hidden: true,
+    isHidden: true,
     hiddenText: '멤버만 볼 수 있어요 🥲',
   },
 };
