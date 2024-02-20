@@ -1,25 +1,23 @@
 'use client';
 
-import { Suspense } from 'react';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 
-import { isAuthed } from '@/utils/helpers';
-import AuthRequired from '@/ui/AuthRequired';
+import { checkAuthentication } from '@/utils/helpers';
 
 import AddJobProfile from '@/v1/profile/AddJobProfile';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 const AddJobProfilePage = () => {
   return (
-    <AuthRequired>
-      <Suspense fallback={null}>
-        <Contents />
-      </Suspense>
-    </AuthRequired>
+    <SSRSafeSuspense fallback={null}>
+      <Contents />
+    </SSRSafeSuspense>
   );
 };
 
 const Contents = () => {
-  const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
+  const isAuthenticated = checkAuthentication();
+  const allJobQuery = useAllJobQuery({ enabled: isAuthenticated });
 
   return allJobQuery.isSuccess ? (
     <AddJobProfile jobCategories={allJobQuery.data.jobGroups} />
