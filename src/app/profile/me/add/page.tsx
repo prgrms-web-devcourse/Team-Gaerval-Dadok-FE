@@ -1,17 +1,17 @@
 'use client';
 
-import { Suspense } from 'react';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
 import AddJobProfile from '@/v1/profile/AddJobProfile';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 const AddJobProfilePage = () => {
   return (
-    <Suspense fallback={null}>
+    <SSRSafeSuspense fallback={null}>
       <Contents />
-    </Suspense>
+    </SSRSafeSuspense>
   );
 };
 
