@@ -1,5 +1,5 @@
 import { APIBook } from './book';
-import { APIUser } from './user';
+import { APIUser, Writer } from './user';
 import { Pagination } from './common';
 
 type APIGroupOwner = {
@@ -91,11 +91,7 @@ export type BookGroupDetail = {
 
 export type BookGroupComment = {
   id: APIGroup['bookGroupId'];
-  writer: {
-    id: APIUser['userId'];
-    profileImageSrc: APIUser['profileImage'];
-    name: APIUser['nickname'];
-  };
+  writer: Writer;
   createdAt: APIGroupComment['createdAt'];
   content: APIGroupComment['contents'];
 };
