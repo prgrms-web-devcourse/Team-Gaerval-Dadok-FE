@@ -14,7 +14,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       </head>
       <body className="app-layout">
         <ContextProvider>
-          <main className={`${LineSeedKR.variable} font-lineseed `}>
+          <main className={`${LineSeedKR.variable} font-lineseed`}>
             {children}
           </main>
         </ContextProvider>
