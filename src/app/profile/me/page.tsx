@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { isAuthed, removeAuth } from '@/utils/helpers';
+import { checkAuthentication, removeAuth } from '@/utils/helpers';
 import userAPI from '@/apis/user';
 import TopHeader from '@/v1/base/TopHeader';
 import ProfileInfo from '@/v1/profile/info/ProfileInfo';
@@ -19,9 +19,10 @@ const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 const MyProfilePage = () => {
+  const isAuthenticated = checkAuthentication();
   return (
     <SSRSafeSuspense fallback={<Loading fullpage />}>
-      {isAuthed() ? <MyProfileForAuth /> : <MyProfileForUnAuth />}
+      {isAuthenticated ? <MyProfileForAuth /> : <MyProfileForUnAuth />}
     </SSRSafeSuspense>
   );
 };

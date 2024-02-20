@@ -7,7 +7,7 @@ import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 
 import useDebounceValue from '@/hooks/useDebounce';
-import { isAuthed } from '@/utils/helpers/auth';
+import { checkAuthentication } from '@/utils/helpers';
 
 import TopHeader from '@/v1/base/TopHeader';
 import BookSearchInput from '@/v1/bookSearch/BookSearchInput';
@@ -21,6 +21,7 @@ import BookSearchResults from '@/v1/bookSearch/SearchResult';
  */
 
 const BookSearch = () => {
+  const isAuthenticated = checkAuthentication();
   const [inputSearchValue, setInputSearchValue] = useState<string>('');
 
   const queryKeyword = useDebounceValue(inputSearchValue, 1000);
@@ -32,7 +33,9 @@ const BookSearch = () => {
     page: 1,
     pageSize: 12,
   });
-  const recentSearchesInfo = useRecentSearchesQuery({ enabled: isAuthed() });
+  const recentSearchesInfo = useRecentSearchesQuery({
+    enabled: isAuthenticated,
+  });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
