@@ -5,7 +5,6 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
-import AuthRequired from '@/ui/AuthRequired';
 
 import EditProfile from '@/v1/profile/EditProfile';
 
@@ -16,11 +15,9 @@ import EditProfile from '@/v1/profile/EditProfile';
 
 const EditProfilePage = () => {
   return (
-    <AuthRequired>
-      <Suspense fallback={null}>
-        <Contents />
-      </Suspense>
-    </AuthRequired>
+    <Suspense fallback={null}>
+      <Contents />
+    </Suspense>
   );
 };
 
