@@ -7,14 +7,17 @@ import { useForm } from 'react-hook-form';
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import { checkAuthentication } from '@/utils/helpers';
 
 import { IconSearch } from '@public/icons';
 import TopHeader from '@/v1/base/TopHeader';
 import Input from '@/v1/base/Input';
-import RecentSearch from '@/v1/bookSearch/RecentSearch';
-import BestSellers from '@/v1/bookSearch/BestSellers';
+import RecentSearch, {
+  RecentSearchSkeleton,
+} from '@/v1/bookSearch/RecentSearch';
+import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
 import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
 type FormValues = {
@@ -81,15 +84,24 @@ const BookSearch = () => {
             <div ref={inViewRef} />
           </>
         ) : (
-          <>
+          <SSRSafeSuspense fallback={<ContentsSkelton />}>
             <RecentSearch
               recentSearches={recentSearches}
               setSearchValue={setValue}
             />
             <BestSellers />
-          </>
+          </SSRSafeSuspense>
         )}
       </article>
+    </>
+  );
+};
+
+const ContentsSkelton = () => {
+  return (
+    <>
+      <RecentSearchSkeleton />
+      <BestSellersSkeleton />
     </>
   );
 };
