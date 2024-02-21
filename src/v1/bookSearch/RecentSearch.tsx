@@ -1,15 +1,16 @@
 import type { APIBookRecentSearchResponse } from '@/types/book';
+import type { UseFormSetValue } from 'react-hook-form';
 
 import Button from '@/v1/base/Button';
 
 type RecentSearchProps = {
   recentSearches?: APIBookRecentSearchResponse[];
-  setInputSearchValue: (searchValue: string) => void;
+  setSearchValue: UseFormSetValue<{ searchValue: string }>;
 };
 
 const RecentSearch = ({
   recentSearches,
-  setInputSearchValue,
+  setSearchValue,
 }: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
@@ -23,7 +24,7 @@ const RecentSearch = ({
               fill={true}
               fullRadius={true}
               colorScheme="main-light"
-              onClick={() => setInputSearchValue(value.keyword)}
+              onClick={() => setSearchValue('searchValue', value.keyword)}
             >
               {value.keyword}
             </Button>
