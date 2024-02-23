@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import type { APIBestSellerSearchRange } from '@/types/book';
+import type { APIBestSellerSearchRange, APISearchedBook } from '@/types/book';
 import useBestSellersQuery from '@/queries/book/useBestSellersQuery';
+import bookAPI from '@/apis/book';
 
 import BookCover from '@/v1/book/BookCover';
+import useToast from '@/v1/base/Toast/useToast';
 
 const SEARCH_RANGES = {
   주간: 'WEEKLY',
@@ -17,14 +19,31 @@ type SearchRangeTypes = keyof typeof SEARCH_RANGES;
 const BestSellers = () => {
   const [bestSellerSearchRange, setBestSellerSearchRange] =
     useState<APIBestSellerSearchRange>('WEEKLY');
-
-  const bestSellersInfo = useBestSellersQuery();
-
   const searchRanges = Object.keys(SEARCH_RANGES) as SearchRangeTypes[];
 
+  const bestSellersInfo = useBestSellersQuery();
   const bestSellers = bestSellersInfo.isSuccess
     ? bestSellersInfo.data.item
     : [];
+
+  const router = useRouter();
+  const toast = useToast();
+
+  const handleClickBook = async (book: APISearchedBook) => {
+    try {
+      const {
+        data: { bookId },
+      } = await bookAPI.createBook({ book });
+
+      router.push(`/book/${bookId}`);
+    } catch (error) {
+      toast.show({
+        type: 'error',
+        message: '잠시 후 다시 시도해주세요',
+      });
+      console.error(error);
+    }
+  };
 
   return (
     <section className="flex flex-col gap-[1.7rem]">
@@ -58,9 +77,13 @@ const BestSellers = () => {
               key={book.isbn}
               title={book.title}
               author={book.author}
+              isbn={book.isbn}
+              contents={book.description}
+              url={book.link}
               imageUrl={book.cover}
+              publisher={book.publisher}
               bestRank={book.bestRank}
-              link={book.link}
+              handleClickBook={handleClickBook}
             />
           ))}
         </ul>
@@ -78,23 +101,41 @@ export default BestSellers;
 type BestSellerProps = {
   title: string;
   author: string;
+  isbn: string;
+  contents: string;
+  url: string;
   imageUrl: string;
+  publisher: string;
   bestRank: number;
-  link: string;
+  handleClickBook: (book: APISearchedBook) => Promise<void>;
 };
 
 const BestSeller = ({
   title,
   author,
+  isbn,
+  contents,
+  url,
   imageUrl,
+  publisher,
   bestRank,
-  link,
+  handleClickBook,
 }: BestSellerProps) => {
+  const createBookReqBody = {
+    title: title,
+    author: author,
+    isbn: isbn,
+    contents: contents,
+    url: url,
+    imageUrl: imageUrl,
+    publisher: publisher,
+    apiProvider: 'ALADIN',
+  };
+
   return (
-    <Link
-      href={link}
-      target="_blank"
-      className="flex w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]"
+    <div
+      className="flex w-[12.7rem] cursor-pointer flex-col gap-[1.3rem] px-[0.7rem]"
+      onClick={() => handleClickBook(createBookReqBody)}
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex flex-row gap-[1rem]">
@@ -108,6 +149,6 @@ const BestSeller = ({
           <p className="line-clamp-1 text-sm text-[#5c5c5c]">{author}</p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
