@@ -56,7 +56,7 @@ const BookTopNavigation = ({ bookId }: { bookId: APIBook['bookId'] }) => (
 
 const BookTitle = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const { data: title } = useBookTitle(bookId);
-  return <p>{title}</p>;
+  return <p className="w-full truncate">{title}</p>;
 };
 
 const Heading = ({ text }: { text: string }) => (

@@ -16,7 +16,7 @@ const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
       <div className="flex items-end gap-[2rem]">
         <BookCover size="2xlarge" src={imageUrl} />
 
-        <div className="flex flex-col gap-[0.5rem]">
+        <div className="flex min-w-0 flex-col gap-[0.5rem]">
           <BookmarkButton />
           <BookTitle title={title} />
           <BookAuthor author={author} />
@@ -107,8 +107,10 @@ export const BookInfoSkeleton = () => (
   <Skeleton>
     <div className="flex flex-col gap-[2rem] rounded-l-[1.5rem] bg-white p-[2rem] shadow-bookcard">
       <div className="flex items-end gap-[2rem]">
-        <Skeleton.Rect width="14rem" height="19.6rem" rounded="medium" />
-        <div className="flex flex-col gap-[1rem]">
+        <div className="flex-shrink-0">
+          <Skeleton.Rect width="14rem" height="19.6rem" rounded="medium" />
+        </div>
+        <div className="flex flex-col gap-[1rem] overflow-x-clip">
           <Skeleton.Text fontSize="xlarge" width="16rem" />
           <Skeleton.Text fontSize="small" width="7rem" />
         </div>
