@@ -1,10 +1,11 @@
 import { APIBook } from '@/types/book';
 import { IconBookmark } from '@public/icons';
 import { useBookInfo } from '@/queries/book/useBookInfoQuery';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 import Avatar, { AvatarGroup } from '@/v1/base/Avatar';
+import Skeleton from '@/v1/base/Skeleton';
 import BookCover from '@/v1/book/BookCover';
-import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const { data } = useBookInfo(bookId);
@@ -101,3 +102,24 @@ const getBookmarkedUserCountText = (
 
   return `외 ${otherCount}명이 이 책을 책장에 꽂았어요.`;
 };
+
+export const BookInfoSkeleton = () => (
+  <Skeleton>
+    <div className="flex flex-col gap-[2rem] rounded-l-[1.5rem] bg-white p-[2rem] shadow-bookcard">
+      <div className="flex items-end gap-[2rem]">
+        <Skeleton.Rect width="14rem" height="19.6rem" rounded="medium" />
+        <div className="flex flex-col gap-[1rem]">
+          <Skeleton.Text fontSize="xlarge" width="16rem" />
+          <Skeleton.Text fontSize="small" width="7rem" />
+        </div>
+      </div>
+      <div className="flex flex-col gap-[0.7rem]">
+        <Skeleton.Text width="100%" fontSize="medium" />
+        <Skeleton.Text width="100%" fontSize="medium" />
+        <Skeleton.Text width="100%" fontSize="medium" />
+        <Skeleton.Text width="60%" fontSize="medium" />
+      </div>
+      <Skeleton.Text width="75%" fontSize="large" />
+    </div>
+  </Skeleton>
+);
