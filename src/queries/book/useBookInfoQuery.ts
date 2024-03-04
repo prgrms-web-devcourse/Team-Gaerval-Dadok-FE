@@ -34,3 +34,8 @@ export const useBookInfo = (bookId: APIBook['bookId']) =>
   useBookInfoQuery(bookId, {
     select: transformBookData,
   });
+
+export const useBookTitle = (bookId: APIBook['bookId']) =>
+  useBookInfoQuery(bookId, {
+    select: data => data.title,
+  });
