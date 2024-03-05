@@ -83,7 +83,7 @@ const BestSellers = () => {
               imageUrl={book.cover}
               publisher={book.publisher}
               bestRank={book.bestRank}
-              handleClickBook={handleClickBook}
+              onClick={handleClickBook}
             />
           ))}
         </ul>
@@ -107,7 +107,7 @@ type BestSellerProps = {
   imageUrl: string;
   publisher: string;
   bestRank: number;
-  handleClickBook: (book: APISearchedBook) => Promise<void>;
+  onClick: (book: APISearchedBook) => Promise<void>;
 };
 
 const BestSeller = ({
@@ -119,7 +119,7 @@ const BestSeller = ({
   imageUrl,
   publisher,
   bestRank,
-  handleClickBook,
+  onClick,
 }: BestSellerProps) => {
   const createBookReqBody = {
     title: title,
@@ -135,7 +135,7 @@ const BestSeller = ({
   return (
     <div
       className="flex w-[12.7rem] cursor-pointer flex-col gap-[1.3rem] px-[0.7rem]"
-      onClick={() => handleClickBook(createBookReqBody)}
+      onClick={() => onClick(createBookReqBody)}
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex flex-row gap-[1rem]">
