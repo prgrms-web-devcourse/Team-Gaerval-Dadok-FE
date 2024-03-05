@@ -121,21 +121,21 @@ const BestSeller = ({
   bestRank,
   onClick,
 }: BestSellerProps) => {
-  const createBookReqBody = {
-    title: title,
-    author: author,
-    isbn: isbn,
-    contents: contents,
-    url: url,
-    imageUrl: imageUrl,
-    publisher: publisher,
+  const bookReqBody = {
+    title,
+    author,
+    isbn,
+    contents,
+    url,
+    imageUrl,
+    publisher,
     apiProvider: 'ALADIN',
   };
 
   return (
     <div
       className="flex w-[12.7rem] cursor-pointer flex-col gap-[1.3rem] px-[0.7rem]"
-      onClick={() => onClick(createBookReqBody)}
+      onClick={() => onClick(bookReqBody)}
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex flex-row gap-[1rem]">
