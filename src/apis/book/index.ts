@@ -37,7 +37,7 @@ const bookAPI = {
   getBookInfo: (bookId: APIBook['bookId']) =>
     publicApi.get<APIBookDetail>(`/service-api/books/${bookId}`),
 
-  getBookUserInfo: (bookId: APIBook['bookId']) =>
+  getBookmarkUserInfo: (bookId: APIBook['bookId']) =>
     publicApi.get<APIBookmarkedUserList>(`/service-api/books/${bookId}/users`),
 
   createBook: ({ book }: { book: APISearchedBook }) =>
@@ -80,14 +80,14 @@ const bookAPI = {
     commentId: APIBookComment['commentId']
   ) => publicApi.delete(`/service-api/books/${bookId}/comments/${commentId}`),
 
-  setBookMarked: (bookId: APIBook['bookId']) =>
+  addBookmark: (bookId: APIBook['bookId']) =>
     bookshelfAPI.getMySummaryBookshelf().then(({ data: { bookshelfId } }) =>
       publicApi.post(`/service-api/bookshelves/${bookshelfId}/books`, {
         bookId,
       })
     ),
 
-  unsetBookMarked: (bookId: APIBook['bookId']) =>
+  removeBookmark: (bookId: APIBook['bookId']) =>
     bookshelfAPI
       .getMySummaryBookshelf()
       .then(({ data: { bookshelfId } }) =>
