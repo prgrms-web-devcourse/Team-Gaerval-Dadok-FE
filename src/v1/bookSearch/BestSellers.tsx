@@ -130,23 +130,25 @@ const BestSellerSkeleton = () => {
 
 export const BestSellersSkeleton = () => {
   return (
-    <section className="flex animate-pulse flex-col gap-[1.7rem]">
-      <Skeleton.Text width="7rem" fontSize="2xlarge" />
-      <ul className="flex w-full gap-[1rem] pb-[1rem]">
-        <Skeleton.Rect width="5.5rem" height="2.7rem" rounded="large" />
-      </ul>
-      <ul className="flex w-[12.8rem] flex-row justify-around">
-        <Skeleton.Text width="2.5rem" fontSize="xsmall" />
-        <Skeleton.Text width="2.5rem" fontSize="xsmall" />
-        <Skeleton.Text width="2.5rem" fontSize="xsmall" />
-      </ul>
-      <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll">
-        <BestSellerSkeleton />
-        <BestSellerSkeleton />
-        <BestSellerSkeleton />
-        <BestSellerSkeleton />
-      </ul>
-    </section>
+    <Skeleton>
+      <section className="flex flex-col gap-[1.7rem]">
+        <Skeleton.Text width="7rem" fontSize="2xlarge" />
+        <ul className="flex w-full gap-[1rem] pb-[1rem]">
+          <Skeleton.Rect width="5.5rem" height="2.7rem" rounded="large" />
+        </ul>
+        <ul className="flex w-[12.8rem] flex-row justify-around">
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+        </ul>
+        <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll">
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+        </ul>
+      </section>
+    </Skeleton>
   );
 };
 
