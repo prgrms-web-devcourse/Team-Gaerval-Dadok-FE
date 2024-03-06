@@ -19,16 +19,17 @@ const RecentSearch = ({
       {recentSearches ? (
         <ul className="relative flex w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
           {recentSearches.map(value => (
-            <Button
-              key={`${value.keyword}-${value.modifiedAt}`}
-              size="small"
-              fill={true}
-              fullRadius={true}
-              colorScheme="main-light"
-              onClick={() => setSearchValue('searchValue', value.keyword)}
-            >
-              {value.keyword}
-            </Button>
+            <li key={`${value.keyword}-${value.modifiedAt}`}>
+              <Button
+                size="small"
+                fill={true}
+                fullRadius={true}
+                colorScheme="main-light"
+                onClick={() => setSearchValue('searchValue', value.keyword)}
+              >
+                {value.keyword}
+              </Button>
+            </li>
           ))}
         </ul>
       ) : (
