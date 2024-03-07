@@ -1,33 +1,29 @@
 import type { APIBookRecentSearchResponse } from '@/types/book';
-import type { UseFormSetValue } from 'react-hook-form';
 
 import Button from '@/v1/base/Button';
 import Skeleton from '@/v1/base/Skeleton';
 
 type RecentSearchProps = {
   recentSearches?: APIBookRecentSearchResponse[];
-  setSearchValue: UseFormSetValue<{ searchValue: string }>;
+  onClick: (keyword: string) => void;
 };
 
-const RecentSearch = ({
-  recentSearches,
-  setSearchValue,
-}: RecentSearchProps) => {
+const RecentSearch = ({ recentSearches, onClick }: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
       {recentSearches ? (
         <ul className="relative flex w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
-          {recentSearches.map(value => (
-            <li key={`${value.keyword}-${value.modifiedAt}`}>
+          {recentSearches.map(item => (
+            <li key={`${item.keyword}-${item.modifiedAt}`}>
               <Button
                 size="small"
                 fill={true}
                 fullRadius={true}
                 colorScheme="main-light"
-                onClick={() => setSearchValue('searchValue', value.keyword)}
+                onClick={() => onClick(item.keyword)}
               >
-                {value.keyword}
+                {item.keyword}
               </Button>
             </li>
           ))}

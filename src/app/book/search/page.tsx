@@ -87,7 +87,7 @@ const BookSearch = () => {
           <SSRSafeSuspense fallback={<ContentsSkelton />}>
             <RecentSearch
               recentSearches={recentSearches}
-              setSearchValue={setValue}
+              onClick={(keyword: string) => setValue('searchValue', keyword)}
             />
             <BestSellers />
           </SSRSafeSuspense>
