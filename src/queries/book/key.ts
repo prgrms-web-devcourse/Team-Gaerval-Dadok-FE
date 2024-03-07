@@ -1,7 +1,7 @@
 import { APIBook } from '@/types/book';
 
 const bookKeys = {
-  all: ['book'],
+  all: ['book'] as const,
   details: () => [...bookKeys.all, 'detail'] as const,
   detail: (bookId: APIBook['bookId']) =>
     [...bookKeys.details(), bookId] as const,
@@ -11,8 +11,8 @@ const bookKeys = {
     [...bookKeys.detail(bookId), 'comments'] as const,
   bookSearch: (query: string) =>
     [...bookKeys.all, 'bookSearch', query] as const,
-  recentSearch: () => [...bookKeys.all, 'recentSearch'],
-  bestSeller: () => [...bookKeys.all, 'bestSeller'],
+  recentSearch: () => [...bookKeys.all, 'recentSearch'] as const,
+  bestSeller: () => [...bookKeys.all, 'bestSeller'] as const,
 };
 
 export default bookKeys;
