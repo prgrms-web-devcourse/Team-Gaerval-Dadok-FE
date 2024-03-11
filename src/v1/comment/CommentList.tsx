@@ -6,8 +6,8 @@ import useDisclosure from '@/hooks/useDisclosure';
 import Avatar from '@/v1/base/Avatar';
 import Menu from '@/v1/base/Menu';
 import Button from '@/v1/base/Button';
-import Drawer from '@/v1/base/Drawer';
 import Modal from '@/v1/base/Modal';
+import EditCommentDrawer from './CommentDrawer';
 
 type Comment = {
   id: number;
@@ -147,8 +147,9 @@ const CommentActionMenu = ({
         isOpen={isDrawerOpen}
         onClose={onDrawerClose}
         onConfirm={handleChangeConfirm}
-        drawerTitle={titleOnCommentEdit}
+        title={titleOnCommentEdit}
         defaultComment={content}
+        placeholder={'더 멋진 코멘트를 작성해주세요!'}
       />
       <DeleteCommentModal
         isOpen={isModalOpen}
@@ -156,49 +157,6 @@ const CommentActionMenu = ({
         onConfirm={handleDeleteConfirm}
       />
     </>
-  );
-};
-
-const EditCommentDrawer = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  defaultComment,
-  drawerTitle = '수정하기',
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm?: () => void;
-  drawerTitle?: string;
-  defaultComment?: string;
-}) => {
-  const handleConfirm = () => {
-    onConfirm && onConfirm();
-    onClose();
-  };
-
-  return (
-    <Drawer isOpen={isOpen} onClose={onClose}>
-      <Drawer.Header>
-        <Drawer.CloseButton position="top-left" />
-        <Drawer.Title text={drawerTitle} />
-        <Button
-          colorScheme="main"
-          fill={false}
-          size="medium"
-          className="flex-shrink-0 border-none !p-0"
-          onClick={handleConfirm}
-        >
-          완료
-        </Button>
-      </Drawer.Header>
-      <Drawer.Content>
-        <textarea
-          className="h-[60vh] w-full resize-none border-none text-md focus:outline-none"
-          defaultValue={defaultComment}
-        />
-      </Drawer.Content>
-    </Drawer>
   );
 };
 
