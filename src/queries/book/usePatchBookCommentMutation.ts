@@ -1,15 +1,18 @@
-import bookAPI from '@/apis/book';
-
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { APIBook, APIBookComment } from '@/types/book';
+import bookAPI from '@/apis/book';
 import bookKeys from './key';
 
-const usePatchBookCommentMutation = () => {
+const usePatchBookCommentMutation = (bookId: APIBook['bookId']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: Parameters<typeof bookAPI.patchComment>[0]) =>
-      bookAPI.patchComment(data).then(({ data }) => data),
-    onSettled: (_data, _err, { bookId }) => {
+    mutationFn: (data: {
+      commentId: APIBookComment['commentId'];
+      comment: string;
+    }) => bookAPI.patchComment({ bookId, data }).then(({ data }) => data),
+    onSettled: () => {
       queryClient.invalidateQueries(bookKeys.comments(bookId));
     },
   });

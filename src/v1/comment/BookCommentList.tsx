@@ -15,14 +15,14 @@ const BookCommentList = ({ bookId }: { bookId: number }) => {
   const { data: comments } = useBookComments(bookId);
   const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
 
-  const editComment = usePatchBookCommentMutation();
+  const editComment = usePatchBookCommentMutation(bookId);
 
   const handleBookCommentEdit = (
     commentId: APIBookComment['commentId'],
     comment: string
   ) => {
     editComment.mutate(
-      { bookId, data: { commentId, comment } },
+      { commentId, comment },
       {
         onSuccess: () =>
           showToast({ type: 'success', message: '코멘트를 수정했어요' }),
