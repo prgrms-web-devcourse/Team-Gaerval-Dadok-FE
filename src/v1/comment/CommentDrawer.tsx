@@ -14,6 +14,11 @@ interface CommentDrawerProps {
 
 const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
   ({ isOpen, onClose, onConfirm, title, defaultComment, placeholder }, ref) => {
+    const handleConfirm = () => {
+      onConfirm && onConfirm();
+      onClose();
+    };
+
     return (
       <Drawer isOpen={isOpen} onClose={onClose}>
         <Drawer.Header>
@@ -24,7 +29,7 @@ const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
             fill={false}
             size="medium"
             className="flex-shrink-0 border-none !p-0 disabled:cursor-default disabled:text-placeholder"
-            onClick={onConfirm}
+            onClick={handleConfirm}
           >
             완료
           </Button>

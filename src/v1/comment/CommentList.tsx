@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import type { Writer } from '@/types/user';
 import useDisclosure from '@/hooks/useDisclosure';
@@ -23,7 +23,7 @@ interface CommentListProps {
   hiddenText?: string;
   emptyText?: string;
   isEditableComment?: (comment: Comment) => boolean;
-  onEditConfirm?: (commentId: Comment['id']) => void;
+  onEditConfirm?: (commentId: Comment['id'], comment: string) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }
 
@@ -109,10 +109,11 @@ const CommentActionMenu = ({
 }: {
   comment: Comment;
   titleOnCommentEdit?: string;
-  onEditConfirm?: (commentId: Comment['id']) => void;
+  onEditConfirm?: (commentId: Comment['id'], newComment: string) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }) => {
   const { id: commentId, content } = comment;
+  const commentRef = useRef<HTMLTextAreaElement>(null);
 
   const {
     isOpen: isDrawerOpen,
@@ -126,8 +127,14 @@ const CommentActionMenu = ({
     onClose: onModalClose,
   } = useDisclosure();
 
-  const handleChangeConfirm = () => {
-    onEditConfirm && onEditConfirm(commentId);
+  const handleEditConfirm = () => {
+    const comment = commentRef.current?.value;
+
+    if (!comment) {
+      return;
+    }
+
+    onEditConfirm && onEditConfirm(commentId, comment);
   };
 
   const handleDeleteConfirm = () => {
@@ -146,10 +153,11 @@ const CommentActionMenu = ({
       <EditCommentDrawer
         isOpen={isDrawerOpen}
         onClose={onDrawerClose}
-        onConfirm={handleChangeConfirm}
+        onConfirm={handleEditConfirm}
         title={titleOnCommentEdit}
         defaultComment={content}
         placeholder={'더 멋진 코멘트를 작성해주세요!'}
+        ref={commentRef}
       />
       <DeleteCommentModal
         isOpen={isModalOpen}
