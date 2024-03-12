@@ -89,12 +89,14 @@ export type BookComment = {
   content: APIBookComment['contents'];
 };
 export interface APIBestSeller {
-  isbn: string;
   title: string;
   author: string;
-  cover: string;
-  bestRank: number;
+  isbn: string;
+  description: string;
   link: string;
+  cover: string;
+  publisher: string;
+  bestRank: number;
 }
 
 export interface APIBestSellerRes {
