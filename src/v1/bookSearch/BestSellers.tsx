@@ -5,8 +5,10 @@ import type { APIBestSellerSearchRange, APISearchedBook } from '@/types/book';
 import useBestSellersQuery from '@/queries/book/useBestSellersQuery';
 import bookAPI from '@/apis/book';
 
-import BookCover from '@/v1/book/BookCover';
 import useToast from '@/v1/base/Toast/useToast';
+
+import BookCover from '@/v1/book/BookCover';
+import Skeleton from '@/v1/base/Skeleton';
 
 const SEARCH_RANGES = {
   주간: 'WEEKLY',
@@ -49,9 +51,9 @@ const BestSellers = () => {
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">인기 도서</h2>
       <ul className="flex w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
-        <div className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
+        <li className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
           <p className="text-sm font-normal text-white">종합</p>
-        </div>
+        </li>
       </ul>
 
       <ul className="flex w-full flex-row items-center divide-x divide-black-900 text-sm">
@@ -152,3 +154,44 @@ const BestSeller = ({
     </div>
   );
 };
+
+const BestSellerSkeleton = () => {
+  return (
+    <div className="flex w-[12.7rem] flex-col gap-[1.3rem] px-[0.7rem]">
+      <Skeleton.Rect width="11rem" height="15.4rem" rounded="medium" />
+      <div className="flex flex-row gap-[1rem]">
+        <Skeleton.Text width="1.25rem" fontSize="2xlarge" />
+        <div className="flex min-w-0 flex-col gap-[0.3rem]">
+          <Skeleton.Text width="8.75rem" fontSize="2xlarge" />
+          <Skeleton.Text width="7.25rem" fontSize="xlarge" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const BestSellersSkeleton = () => {
+  return (
+    <Skeleton>
+      <section className="flex flex-col gap-[1.7rem]">
+        <Skeleton.Text width="7rem" fontSize="2xlarge" />
+        <ul className="flex w-full gap-[1rem] pb-[1rem]">
+          <Skeleton.Rect width="5.5rem" height="2.7rem" rounded="large" />
+        </ul>
+        <ul className="flex w-[12.8rem] flex-row justify-around">
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+          <Skeleton.Text width="2.5rem" fontSize="xsmall" />
+        </ul>
+        <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll">
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+          <BestSellerSkeleton />
+        </ul>
+      </section>
+    </Skeleton>
+  );
+};
+
+// 'w-[11.0rem] h-[15.4rem]'
