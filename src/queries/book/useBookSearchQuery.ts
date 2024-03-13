@@ -1,5 +1,7 @@
-import bookAPI from '@/apis/book';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
+import bookAPI from '@/apis/book';
+import bookKeys from './key';
 
 const useBookSearchQuery = ({
   query,
@@ -11,7 +13,7 @@ const useBookSearchQuery = ({
   pageSize: number;
 }) =>
   useInfiniteQuery(
-    ['booksearch', query],
+    bookKeys.bookSearch(query),
     ({ pageParam = page }) =>
       bookAPI
         .searchBooks({ query, page: pageParam, pageSize })
