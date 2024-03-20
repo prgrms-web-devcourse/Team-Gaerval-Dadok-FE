@@ -1,15 +1,17 @@
-import userAPI from '@/apis/user';
+import type { APIUser, APIUserProfile } from '@/types/user';
 import useQueryWithSuspense, {
-  useQueryOptionWithOutSuspense,
+  UseQueryOptionWithoutSuspense,
 } from '@/hooks/useQueryWithSuspense';
-import type { APIUser } from '@/types/user';
+
+import userAPI from '@/apis/user';
+import userKeys from './key';
 
 const useUserProfileQuery = (
   userId: APIUser['userId'],
-  options?: useQueryOptionWithOutSuspense<APIUser>
+  options?: UseQueryOptionWithoutSuspense<APIUserProfile>
 ) =>
   useQueryWithSuspense(
-    ['user', String(userId)],
+    userKeys.detail(userId),
     () => userAPI.getUserProfile({ userId }).then(({ data }) => data),
     options
   );

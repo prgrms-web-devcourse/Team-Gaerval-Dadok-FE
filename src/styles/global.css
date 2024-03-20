@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'LineSeedKR';
+  font-weight: 100;
+  src: url('font/LINESeedKR-Th.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'LineSeedKR';
+  font-weight: 400;
+  src: url('font/LINESeedKR-Rg.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'LineSeedKR';
+  font-weight: 700;
+  src: url('font/LINESeedKR-Bd.woff2') format('woff2');
+}
+@layer base {
+  html {
+    @apply w-full bg-background font-[LineSeedKR] text-[62.5%] text-black-700;
+  }
+  .app-layout {
+    /* TODO: Chakra UI 걷어내면 제거 */
+    max-width: 43rem;
+    margin: 0 auto !important;
+  }
+}
+
+@layer utilities {
+  .w-app {
+    @apply relative -left-[2rem] w-[calc(100%+4rem)];
+  }
+}

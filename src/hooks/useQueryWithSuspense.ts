@@ -7,7 +7,7 @@ import {
   UseQueryResult,
 } from '@tanstack/react-query';
 
-export type useQueryOptionWithOutSuspense<
+export type UseQueryOptionWithoutSuspense<
   TQueryFnData = unknown,
   TError = unknown,
   TData = TQueryFnData,
@@ -22,7 +22,7 @@ const useQueryWithSuspense = <
 >(
   queryKey: TQueryKey,
   queryFunction?: QueryFunction<TQueryFnData, TQueryKey>,
-  queryOptions?: useQueryOptionWithOutSuspense<
+  queryOptions?: UseQueryOptionWithoutSuspense<
     TQueryFnData,
     TError,
     TData,

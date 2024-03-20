@@ -1,0 +1,24 @@
+{
+  "create a story for react component": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "!story",
+    "body": [
+      "import { Meta, StoryObj } from '@storybook/react';",
+      "",
+      "const meta: Meta<typeof ${1:${TM_FILENAME_BASE/(.*)\\..+$/$1/}}> = {",
+      "  title: 'Base/${1}',",
+      "  component: ${1},",
+      "  tags: ['autodocs'],",
+      "};",
+      "",
+      "export default meta;",
+      "",
+      "type Story = StoryObj<typeof ${1}>;",
+      "",
+      "export const Default: Story = {",
+      "  args: {$2},",
+      "};",
+      ""
+    ]
+  }
+}

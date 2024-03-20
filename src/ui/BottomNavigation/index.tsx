@@ -1,4 +1,4 @@
-import { isAuthed } from '@/utils/helpers';
+import { checkAuthentication } from '@/utils/helpers';
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { usePathname } from 'next/navigation';
 import { MouseEvent } from 'react';
@@ -6,6 +6,7 @@ import LoginBottomSheet from '../LoginBottomSheet';
 import NavigationItem from './NavigationItem';
 
 const BottomNavigation = () => {
+  const isAuthenticated = checkAuthentication();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const pathname = usePathname();
@@ -31,7 +32,7 @@ const BottomNavigation = () => {
       label: '내 프로필',
       href: '/profile/me',
       onClick: (event: MouseEvent<HTMLAnchorElement>) => {
-        if (isAuthed()) return;
+        if (isAuthenticated) return;
         onOpen();
         event.preventDefault();
       },
