@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import type { FunnelProps, StepProps } from '@/v1/base/Funnel/Funnel';
 import { assert } from '@/utils/assert';
@@ -9,13 +9,6 @@ import { Funnel, Step } from '@/v1/base/Funnel/Funnel';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export type NonEmptyArray<T> = readonly [T, ...T[]];
-
-type SetStepOptions = {
-  stepChangeType?: 'push' | 'replace';
-  preserveQuery?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query?: Record<string, any>;
-};
 
 type RouteFunnelProps<Steps extends NonEmptyArray<string>> = Omit<
   FunnelProps<Steps>,
@@ -30,6 +23,10 @@ type FunnelComponent<Steps extends NonEmptyArray<string>> = ((
 
 const DEFAULT_STEP_QUERY_KEY = 'funnel-step';
 
+/**
+ * 사용자에게 초기 step을 강제하고 싶을 땐
+ * option의 initialStep을 작성해 주세요.
+ */
 export const useFunnel = <Steps extends NonEmptyArray<string>>(
   steps: Steps,
   options?: {
@@ -37,23 +34,22 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     initialStep?: Steps[number];
     onStepChange?: (name: Steps[number]) => void;
   }
-): readonly [
-  FunnelComponent<Steps>,
-  (step: Steps[number], options?: SetStepOptions) => void
-] => {
+): readonly [FunnelComponent<Steps>, (step: Steps[number]) => void] => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const step = searchParams.get('funnel-step') as unknown as string;
+  const hasRunOnce = useRef(false);
+
+  const step = searchParams.get('funnel-step') as string;
   const stepQueryKey = options?.stepQueryKey ?? DEFAULT_STEP_QUERY_KEY;
 
   useEffect(() => {
-    if (options?.initialStep) {
-      router.push(pathname);
+    if (options?.initialStep && !hasRunOnce.current) {
+      hasRunOnce.current = true;
+      router.replace(pathname);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [options?.initialStep, router, pathname]);
 
   assert(steps.length > 0, 'steps가 비어있습니다.');
 
@@ -61,16 +57,14 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     () =>
       Object.assign(
         function RouteFunnel(props: RouteFunnelProps<Steps>) {
-          const step =
-            (searchParams.get('funnel-step') as unknown as string) ??
-            options?.initialStep;
+          const currentStep = step ?? options?.initialStep;
 
           assert(
-            step != null,
+            currentStep != null,
             `표시할 스텝을 ${stepQueryKey} 쿼리 파라미터에 지정해주세요. 쿼리 파라미터가 없을 때 초기 스텝을 렌더하려면 useFunnel의 두 번째 파라미터 options에 initialStep을 지정해주세요.`
           );
 
-          return <Funnel<Steps> steps={steps} step={step} {...props} />;
+          return <Funnel<Steps> steps={steps} step={currentStep} {...props} />;
         },
         {
           Step,
@@ -80,19 +74,15 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     [step]
   );
 
-  /**
-   * @todo
-   * 관련 queryString create 함수 작성을 통한 setStepOptions 구현하기
-   */
   const setStep = (step: Steps[number]) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('funnel-step', `${step}`);
 
-    return router.push(pathname + '?' + params.toString());
+    return router.replace(`?${params.toString()}`);
   };
 
   return [FunnelComponent, setStep] as unknown as readonly [
     FunnelComponent<Steps>,
-    (step: Steps[number], options?: SetStepOptions) => Promise<void>
+    (step: Steps[number]) => Promise<void>
   ];
 };
