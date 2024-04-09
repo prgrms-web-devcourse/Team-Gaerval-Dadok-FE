@@ -87,7 +87,7 @@ const BookCommentList = ({ bookId, isInMyBookshelf }: Props) => {
     }
 
     bookAPI
-      .creaetComment(bookId, { comment })
+      .creaetComment(bookId, comment)
       .then(() => bookCommentsQueryInfo.refetch())
       .catch(handleCommentError)
       .finally(onCreateDrawerClose);

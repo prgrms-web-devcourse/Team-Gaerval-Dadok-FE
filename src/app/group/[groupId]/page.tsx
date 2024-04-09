@@ -1,16 +1,13 @@
 'use client';
 
-import Link from 'next/link';
-
 import { checkAuthentication } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
 import BookGroupCommentList from '@/v1/comment/BookGroupCommentList';
 import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
 import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
-import BottomActionButton from '@/v1/base/BottomActionButton';
+import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -65,9 +62,3 @@ const PageSkeleton = () => (
 );
 
 const Divider = () => <p className="w-app h-[0.5rem] bg-background"></p>;
-
-const LoginBottomActionButton = () => (
-  <Link href={KAKAO_LOGIN_URL}>
-    <BottomActionButton>로그인 및 회원가입</BottomActionButton>
-  </Link>
-);
