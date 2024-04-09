@@ -13,7 +13,7 @@ const usePatchBookCommentMutation = (bookId: APIBook['bookId']) => {
       comment: string;
     }) => bookAPI.patchComment({ bookId, data }).then(({ data }) => data),
     onSettled: () => {
-      queryClient.invalidateQueries(bookKeys.comments(bookId));
+      queryClient.invalidateQueries({ queryKey: bookKeys.comments(bookId) });
     },
   });
 };
