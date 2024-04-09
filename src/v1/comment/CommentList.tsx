@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 
 import type { Writer } from '@/types/user';
 import useDisclosure from '@/hooks/useDisclosure';
@@ -6,8 +6,8 @@ import useDisclosure from '@/hooks/useDisclosure';
 import Avatar from '@/v1/base/Avatar';
 import Menu from '@/v1/base/Menu';
 import Button from '@/v1/base/Button';
-import Drawer from '@/v1/base/Drawer';
 import Modal from '@/v1/base/Modal';
+import EditCommentDrawer from './CommentDrawer';
 
 type Comment = {
   id: number;
@@ -23,7 +23,7 @@ interface CommentListProps {
   hiddenText?: string;
   emptyText?: string;
   isEditableComment?: (comment: Comment) => boolean;
-  onEditConfirm?: (commentId: Comment['id']) => void;
+  onEditConfirm?: (commentId: Comment['id'], comment: string) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }
 
@@ -109,10 +109,11 @@ const CommentActionMenu = ({
 }: {
   comment: Comment;
   titleOnCommentEdit?: string;
-  onEditConfirm?: (commentId: Comment['id']) => void;
+  onEditConfirm?: (commentId: Comment['id'], newComment: string) => void;
   onDeleteConfirm?: (commentId: Comment['id']) => void;
 }) => {
   const { id: commentId, content } = comment;
+  const commentRef = useRef<HTMLTextAreaElement>(null);
 
   const {
     isOpen: isDrawerOpen,
@@ -126,8 +127,14 @@ const CommentActionMenu = ({
     onClose: onModalClose,
   } = useDisclosure();
 
-  const handleChangeConfirm = () => {
-    onEditConfirm && onEditConfirm(commentId);
+  const handleEditConfirm = () => {
+    const comment = commentRef.current?.value;
+
+    if (!comment) {
+      return;
+    }
+
+    onEditConfirm && onEditConfirm(commentId, comment);
   };
 
   const handleDeleteConfirm = () => {
@@ -146,9 +153,11 @@ const CommentActionMenu = ({
       <EditCommentDrawer
         isOpen={isDrawerOpen}
         onClose={onDrawerClose}
-        onConfirm={handleChangeConfirm}
-        drawerTitle={titleOnCommentEdit}
+        onConfirm={handleEditConfirm}
+        title={titleOnCommentEdit}
         defaultComment={content}
+        placeholder={'더 멋진 코멘트를 작성해주세요!'}
+        ref={commentRef}
       />
       <DeleteCommentModal
         isOpen={isModalOpen}
@@ -156,49 +165,6 @@ const CommentActionMenu = ({
         onConfirm={handleDeleteConfirm}
       />
     </>
-  );
-};
-
-const EditCommentDrawer = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  defaultComment,
-  drawerTitle = '수정하기',
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm?: () => void;
-  drawerTitle?: string;
-  defaultComment?: string;
-}) => {
-  const handleConfirm = () => {
-    onConfirm && onConfirm();
-    onClose();
-  };
-
-  return (
-    <Drawer isOpen={isOpen} onClose={onClose}>
-      <Drawer.Header>
-        <Drawer.CloseButton position="top-left" />
-        <Drawer.Title text={drawerTitle} />
-        <Button
-          colorScheme="main"
-          fill={false}
-          size="medium"
-          className="flex-shrink-0 border-none !p-0"
-          onClick={handleConfirm}
-        >
-          완료
-        </Button>
-      </Drawer.Header>
-      <Drawer.Content>
-        <textarea
-          className="h-[60vh] w-full resize-none border-none text-md focus:outline-none"
-          defaultValue={defaultComment}
-        />
-      </Drawer.Content>
-    </Drawer>
   );
 };
 
