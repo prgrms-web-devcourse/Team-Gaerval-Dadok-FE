@@ -1,19 +1,25 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { checkAuthentication, removeAuth } from '@/utils/helpers';
+
 import userAPI from '@/apis/user';
+
+import { checkAuthentication, removeAuth } from '@/utils/helpers';
+
+import { IconArrowRight } from '@public/icons';
+
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+
+import Avatar from '@/v1/base/Avatar';
+import Button from '@/v1/base/Button';
+import Loading from '@/v1/base/Loading';
+import Menu from '@/v1/base/Menu';
 import TopHeader from '@/v1/base/TopHeader';
-import ProfileInfo from '@/v1/profile/info/ProfileInfo';
+import BookShelf from '@/v1/bookShelf/BookShelf';
 import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
 import ProfileGroup from '@/v1/profile/group/ProfileGroup';
-import Avatar from '@/v1/base/Avatar';
-import Link from 'next/link';
-import { IconArrowRight } from '@public/icons';
-import BookShelf from '@/v1/bookShelf/BookShelf';
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import Loading from '@/v1/base/Loading';
-import Button from '@/v1/base/Button';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
 
 const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
@@ -80,7 +86,12 @@ const MyProfileForAuth = () => {
   return (
     <>
       <TopHeader text="Profile">
-        <button onClick={handleLogoutButtonClick}>로그아웃</button>
+        <Menu>
+          <Menu.Toggle />
+          <Menu.DropdownList>
+            <Menu.Item onSelect={handleLogoutButtonClick}>로그아웃</Menu.Item>
+          </Menu.DropdownList>
+        </Menu>
       </TopHeader>
       <div className="flex flex-col gap-[2rem]">
         <ProfileInfo userId={USER_ID} />
