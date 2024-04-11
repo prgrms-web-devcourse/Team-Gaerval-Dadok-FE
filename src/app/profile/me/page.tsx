@@ -20,6 +20,8 @@ import BookShelf from '@/v1/bookShelf/BookShelf';
 import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
 import ProfileGroup from '@/v1/profile/group/ProfileGroup';
 import ProfileInfo from '@/v1/profile/info/ProfileInfo';
+import userKeys from '@/queries/user/key';
+import { useQueryClient } from '@tanstack/react-query';
 
 const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
@@ -75,11 +77,13 @@ const MyProfileForUnAuth = () => {
 };
 
 const MyProfileForAuth = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
     removeAuth();
+    queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
     router.refresh();
   };
 
