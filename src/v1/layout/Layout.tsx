@@ -25,11 +25,11 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <div
-        className={`h-screen w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
+      <main
+        className={`h-app w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
       >
         {children}
-      </div>
+      </main>
       {isRootPath && <BottomNavigation pathname={pathname} />}
     </>
   );
