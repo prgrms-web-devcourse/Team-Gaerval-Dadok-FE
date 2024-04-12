@@ -78,6 +78,7 @@ module.exports = {
           '0px 0px 2px rgba(0, 0, 0, 0.2), 2px 2px 6px rgba(0, 0, 0, 0.1)',
         bookcard: '0px 0px 7px 0px rgba(207, 207, 207, 0.5)',
         searchResultItem: '0px 0px 6px 1px rgba(114, 114, 114, 0.10);',
+        bottomNav: 'rgba(0, 0, 0, 0.05) 0px 0px 10px 1px',
       },
       keyframes: {
         'page-transition': {
