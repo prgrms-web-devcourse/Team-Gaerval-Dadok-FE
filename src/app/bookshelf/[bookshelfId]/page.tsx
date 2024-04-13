@@ -16,8 +16,7 @@ import LikeButton from '@/v1/base/LikeButton';
 import BackButton from '@/v1/base/BackButton';
 import ShareButton from '@/v1/base/ShareButton';
 import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
-
-const KAKAO_OAUTH_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -134,7 +133,7 @@ const BookShelfContent = ({
           <br />
           인사이트를 얻을 수 있어요.
         </p>
-        <Link href={KAKAO_OAUTH_LOGIN_URL}>
+        <Link href={KAKAO_LOGIN_URL}>
           <Button colorScheme="kakao" size="full">
             <div className="flex justify-center gap-[1rem]">
               <IconKakao width={16} height={'auto'} />

@@ -14,9 +14,9 @@ import BookShelf from '@/v1/bookShelf/BookShelf';
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import Loading from '@/v1/base/Loading';
 import Button from '@/v1/base/Button';
+import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 const USER_ID = 'me';
-const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 const MyProfilePage = () => {
   const isAuthenticated = checkAuthentication();
