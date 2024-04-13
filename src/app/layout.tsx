@@ -1,10 +1,10 @@
 import ContextProvider from '@/components/ContextProvider';
-import { ReactNode } from 'react';
+import Layout from '@/v1/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
       <head>
@@ -12,12 +12,11 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="app-layout">
-        <ContextProvider>
-          <main className={`${LineSeedKR.variable} font-lineseed`}>
-            {children}
-          </main>
-        </ContextProvider>
+      {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
+      <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
+        <Layout>
+          <ContextProvider>{children}</ContextProvider>
+        </Layout>
       </body>
     </html>
   );
