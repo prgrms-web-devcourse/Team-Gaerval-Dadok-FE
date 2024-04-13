@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H local.dev.dadok.site",
+    "dev": "next dev -H dadok.app.local",
     "build": "next build",
-    "start": "next start -H local.dev.dadok.site",
+    "start": "next start -H dadok.app.local",
     "lint": "next lint",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "update-host": "node ./updateDevHost.js dadok.app.local"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
