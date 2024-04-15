@@ -19,7 +19,7 @@ const getInputStyleClasses = (inputStyle: InputStyle) => {
       return 'border-b-[0.1rem] border-black-400 bg-transparent';
     case 'default':
     default:
-      return 'rounded-[0.5rem] border-[0.05rem]';
+      return 'rounded-[0.5rem] border-[0.05rem] px-[1rem]';
   }
 };
 
@@ -42,7 +42,7 @@ const Input = (
   return (
     <div className={fontSizeClass}>
       <input
-        className={`w-full px-[1rem] py-[1.3rem] outline-none ${inputStyleClass} ${borderColorClass}`}
+        className={`w-full py-[1.3rem] outline-none ${inputStyleClass} ${borderColorClass}`}
         {...props}
         ref={ref}
       />
