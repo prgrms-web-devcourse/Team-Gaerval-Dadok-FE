@@ -1,15 +1,75 @@
-import { ForwardedRef, forwardRef, TextareaHTMLAttributes } from 'react';
+import {
+  ChangeEventHandler,
+  ForwardedRef,
+  forwardRef,
+  TextareaHTMLAttributes,
+  useCallback,
+  useState,
+} from 'react';
+import ErrorMessage from './ErrorMessage';
+import InputLength from './InputLength';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  isError?: boolean;
-  isCount?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+  // count?: boolean;
 }
 
-const Textarea = (
-  { placeholder, isError, ...props }: TextareaProps,
+const CountTextArea = (
+  {
+    error = false,
+    onChange,
+    maxLength = 500,
+    errorMessage,
+    ...props
+  }: TextareaProps,
   ref: ForwardedRef<HTMLTextAreaElement>
 ) => {
-  const borderColor = isError
+  const [value, setValue] = useState('');
+
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
+    e => {
+      setValue(e.target.value);
+      onChange?.(e);
+    },
+    [setValue, onChange]
+  );
+
+  return (
+    <div>
+      <Textarea
+        onChange={handleChange}
+        maxLength={maxLength}
+        error={error}
+        ref={ref}
+        {...props}
+      />
+      <div className="flex flex-row-reverse justify-between gap-[0.4rem]">
+        <InputLength
+          currentLength={value.length}
+          isError={error}
+          maxLength={10}
+        />
+        {error && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </div>
+      {/* <p>
+        {value.length} / {maxLength}
+      </p> */}
+    </div>
+  );
+};
+
+export default forwardRef(CountTextArea);
+
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  error?: boolean;
+}
+
+const _Textarea = (
+  { placeholder, error, ...props }: TextareaProps,
+  ref: ForwardedRef<HTMLTextAreaElement>
+) => {
+  const borderColor = error
     ? 'border-warning-800 focus:border-warning-800'
     : 'border-black-400 focus:border-main-900';
 
@@ -23,4 +83,4 @@ const Textarea = (
   );
 };
 
-export default forwardRef(Textarea);
+export const Textarea = forwardRef(_Textarea);
