@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import TextArea from '@/v1/base/TextAreas';
+import TextArea from '@/v1/base/TextArea';
 import Button from '@/v1/base/Button';
 
 const meta: Meta<typeof TextArea> = {
