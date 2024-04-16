@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
-import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
+import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import { checkAuthentication } from '@/utils/helpers';
 
+import Loading from '@/v1/base/Loading';
 import Input from '@/v1/base/Input';
 import TopHeader from '@/v1/base/TopHeader';
 import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
@@ -37,7 +38,7 @@ const BookSearchPage = () => {
   return (
     <>
       <TopHeader text={'Discover'} />
-      <article className="flex w-full flex-col gap-[3.8rem]">
+      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3.8rem]">
         <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
           <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
           <Input
@@ -47,14 +48,24 @@ const BookSearchPage = () => {
           />
         </div>
         {watch('searchValue') ? (
-          <BookSearchList queryKeyword={queryKeyword} />
+          <section className="flex-grow overflow-y-scroll pb-[1rem]">
+            <Suspense fallback={<Loading fullpage />}>
+              {watch('searchValue') === queryKeyword ? (
+                <BookSearchList queryKeyword={queryKeyword} />
+              ) : (
+                <Loading fullpage />
+              )}
+            </Suspense>
+          </section>
         ) : (
-          <SSRSafeSuspense fallback={<ContentsSkelton />}>
-            <RecentSearchList
-              onItemClick={keyword => setValue('searchValue', keyword)}
-            />
-            <BestSellers />
-          </SSRSafeSuspense>
+          <section>
+            <SSRSafeSuspense fallback={<ContentsSkelton />}>
+              <RecentSearchList
+                onItemClick={keyword => setValue('searchValue', keyword)}
+              />
+              <BestSellers />
+            </SSRSafeSuspense>
+          </section>
         )}
       </article>
     </>
@@ -101,13 +112,11 @@ const RecentSearchList = ({
 }) => {
   const isAuthenticated = checkAuthentication();
 
-  const { data } = useRecentSearchesQuery({
+  const { data: recentSearchBooks } = useRecentSearchListQuery({
     enabled: isAuthenticated,
   });
 
-  const { bookRecentSearchResponses: books } = data;
-
-  return <RecentSearch books={books} onClick={onItemClick} />;
+  return <RecentSearch books={recentSearchBooks} onClick={onItemClick} />;
 };
 
 const ContentsSkelton = () => {

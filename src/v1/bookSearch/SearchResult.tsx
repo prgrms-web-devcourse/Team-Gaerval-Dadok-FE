@@ -33,6 +33,14 @@ const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
     }
   };
 
+  if (!searchedBooks.length) {
+    return (
+      <p className="mb-[2.4rem] text-center text-sm text-placeholder">
+        검색된 도서가 없어요 🥲
+      </p>
+    );
+  }
+
   return (
     <ul className="grid grid-cols-3 gap-[0.6rem]">
       {searchedBooks.map((searchedBook, idx) => (

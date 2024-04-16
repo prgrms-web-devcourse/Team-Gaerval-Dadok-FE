@@ -24,6 +24,7 @@ const useBookSearchQuery = ({
       },
       staleTime: 3000,
       enabled: !!query,
+      suspense: true,
     }
   );
 
