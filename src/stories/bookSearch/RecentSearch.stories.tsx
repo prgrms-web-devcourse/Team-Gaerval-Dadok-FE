@@ -13,14 +13,14 @@ type Story = StoryObj<typeof RecentSearch>;
 
 export const Default: Story = {
   args: {
-    recentSearches: undefined,
+    books: undefined,
     onClick: () => alert('선택한 검색어 검색!'),
   },
 };
 
 export const RecentSearches: Story = {
   args: {
-    recentSearches: [
+    books: [
       { keyword: '21', modifiedAt: 'now' },
       { keyword: 'I Love It', modifiedAt: 'now' },
       { keyword: 'D (Half Moon)', modifiedAt: 'now' },
