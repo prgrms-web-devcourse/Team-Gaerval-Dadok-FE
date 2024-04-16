@@ -38,7 +38,7 @@ const BookSearchPage = () => {
   return (
     <>
       <TopHeader text={'Discover'} />
-      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[2.4rem]">
+      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
         <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
           <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
           <Input
@@ -61,7 +61,7 @@ const BookSearchPage = () => {
           </section>
         ) : (
           /** 최근 검색어 + 베스트 셀러 */
-          <section>
+          <section className="flex flex-col gap-[1.6rem]">
             <SSRSafeSuspense fallback={<ContentsSkelton />}>
               <RecentSearchList
                 onItemClick={keyword => setValue('searchValue', keyword)}
