@@ -48,16 +48,19 @@ const BookSearchPage = () => {
           />
         </div>
         {watch('searchValue') ? (
+          /** 도서 검색 결과 */
           <section className="flex-grow overflow-y-scroll pb-[1rem]">
             <Suspense fallback={<Loading fullpage />}>
               {watch('searchValue') === queryKeyword ? (
                 <BookSearchList queryKeyword={queryKeyword} />
               ) : (
+                /* 타이핑 중 debounce가 적용되어 queryKeyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
                 <Loading fullpage />
               )}
             </Suspense>
           </section>
         ) : (
+          /** 최근 검색어 + 베스트 셀러 */
           <section>
             <SSRSafeSuspense fallback={<ContentsSkelton />}>
               <RecentSearchList
