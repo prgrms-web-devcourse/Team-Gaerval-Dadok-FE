@@ -64,6 +64,7 @@ export const useBookGroupEditCurrentInfo = (
     select: data => ({
       title: data.title,
       description: data.introduce,
+      maxMemberCount: data.maxMemberCount,
       startDate: data.startDate,
       endDate: data.endDate,
     }),
