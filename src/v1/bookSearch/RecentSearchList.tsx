@@ -3,21 +3,18 @@ import type { APIBookRecentSearchResponse } from '@/types/book';
 import Button from '@/v1/base/Button';
 import Skeleton from '@/v1/base/Skeleton';
 
-type RecentSearchProps = {
-  books?: APIBookRecentSearchResponse[];
+type RecentSearchListProps = {
+  keywords?: APIBookRecentSearchResponse[];
   onClick?: (keyword: string) => void;
 };
 
-const RecentSearch = ({
-  books: recentSearches,
-  onClick,
-}: RecentSearchProps) => {
+const RecentSearchList = ({ keywords, onClick }: RecentSearchListProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
-      {recentSearches ? (
+      {keywords ? (
         <ul className="relative flex w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
-          {recentSearches.map(item => (
+          {keywords.map(item => (
             <li key={`${item.keyword}-${item.modifiedAt}`}>
               <Button
                 size="small"
@@ -40,9 +37,9 @@ const RecentSearch = ({
   );
 };
 
-export default RecentSearch;
+export default RecentSearchList;
 
-export const RecentSearchSkeleton = () => {
+export const RecentSearchListSkeleton = () => {
   return (
     <Skeleton>
       <section className="flex animate-pulse flex-col gap-[1.7rem] rounded-[0.5rem]">

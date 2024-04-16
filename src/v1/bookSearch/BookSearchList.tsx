@@ -7,11 +7,12 @@ import useToast from '@/v1/base/Toast/useToast';
 
 import BookCover from '../book/BookCover';
 
-type BookSearchResultsProps = {
-  searchedBooks: APISearchedBook[];
+type BookSearchListProps = {
+  books: APISearchedBook[];
+  totalCount?: number;
 };
 
-const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
+const BookSearchList = ({ books, totalCount }: BookSearchListProps) => {
   const router = useRouter();
   const toast = useToast();
 
@@ -31,7 +32,7 @@ const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
     }
   };
 
-  if (!searchedBooks.length) {
+  if (!books.length) {
     return (
       <p className="mb-[2.4rem] text-center text-sm text-placeholder">
         검색된 도서가 없어요 🥲
@@ -43,15 +44,15 @@ const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
     <>
       <h3 className="mb-[1rem] font-bold">
         <span className="">검색 결과 </span>
-        <span className="text-black-500">{300}</span>
+        <span className="text-black-500">{totalCount}</span>
       </h3>
       <ul className="grid w-full grid-cols-3 gap-[1.6rem]">
-        {searchedBooks.map((searchedBook, idx) => (
+        {books.map((book, idx) => (
           <BookSearchItem
-            key={`${searchedBook.isbn}-${idx}`}
-            imageUrl={searchedBook.imageUrl}
-            title={searchedBook.title}
-            onClick={() => handleClickBook(searchedBook)}
+            key={`${book.isbn}-${idx}`}
+            imageUrl={book.imageUrl}
+            title={book.title}
+            onClick={() => handleClickBook(book)}
           />
         ))}
       </ul>
@@ -59,7 +60,7 @@ const BookSearchResults = ({ searchedBooks }: BookSearchResultsProps) => {
   );
 };
 
-export default BookSearchResults;
+export default BookSearchList;
 
 const BookSearchItem = ({
   imageUrl,

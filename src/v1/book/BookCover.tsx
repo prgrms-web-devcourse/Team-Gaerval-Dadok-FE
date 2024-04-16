@@ -60,7 +60,7 @@ const getCoverSize = (size: BookCoverSize) => {
     case 'fill':
       return {
         sizeClasses: 'w-full aspect-[5/7]',
-        sizeProps: { fill: true },
+        sizeProps: { fill: true, sizes: '100%' },
       };
   }
 };
