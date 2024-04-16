@@ -107,24 +107,6 @@ const theme: ThemeOverride = extendTheme({
   buttonSizes,
   colors,
   scheme,
-  styles: {
-    global: {
-      'input[type="date"]': {
-        position: 'relative',
-      },
-      'input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-calendar-picker-indicator':
-        {
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          width: '100%',
-          height: '100%',
-          background: 'transparent',
-          color: 'transparent',
-          cursor: 'pointer',
-        },
-    },
-  },
   shadows,
 });
 
