@@ -7,7 +7,7 @@ import { getTodayDate } from '@/utils/date';
 import BookGroupEditDateForm from './BookGroupEditDateForm';
 import BookGroupEditTopNavigation from './BookGroupEditTopNavigation';
 import BookGroupIntroduceForm from './BookGroupIntroduceForm';
-import BookGroupTitleForm from './BookGroupTitleForm';
+import BookGroupEditTitleForm from './BookGroupEditTitleForm';
 
 export type GroupEditFormValues = {
   groupTitle: string;
@@ -46,7 +46,7 @@ const BookGroupEditPage = () => {
           className="mt-[2.5rem] flex flex-col gap-[3.2rem]"
           onSubmit={methods.handleSubmit(handleFormSubmit)}
         >
-          <BookGroupTitleForm />
+          <BookGroupEditTitleForm />
           <BookGroupIntroduceForm />
           <BookGroupEditDateForm />
         </form>

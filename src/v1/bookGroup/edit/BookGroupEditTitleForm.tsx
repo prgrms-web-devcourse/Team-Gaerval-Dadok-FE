@@ -4,7 +4,7 @@ import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
 import ErrorMessage from '@/v1/base/ErrorMessage';
 
-const BookGroupTitleForm = () => {
+const BookGroupEditTitleForm = () => {
   const {
     register,
     watch,
@@ -42,4 +42,4 @@ const BookGroupTitleForm = () => {
   );
 };
 
-export default BookGroupTitleForm;
+export default BookGroupEditTitleForm;
