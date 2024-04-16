@@ -4,11 +4,14 @@ import Button from '@/v1/base/Button';
 import Skeleton from '@/v1/base/Skeleton';
 
 type RecentSearchProps = {
-  recentSearches?: APIBookRecentSearchResponse[];
-  onClick: (keyword: string) => void;
+  books?: APIBookRecentSearchResponse[];
+  onClick?: (keyword: string) => void;
 };
 
-const RecentSearch = ({ recentSearches, onClick }: RecentSearchProps) => {
+const RecentSearch = ({
+  books: recentSearches,
+  onClick,
+}: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
@@ -21,7 +24,7 @@ const RecentSearch = ({ recentSearches, onClick }: RecentSearchProps) => {
                 fill={true}
                 fullRadius={true}
                 colorScheme="main-light"
-                onClick={() => onClick(item.keyword)}
+                onClick={() => onClick && onClick(item.keyword)}
               >
                 {item.keyword}
               </Button>
