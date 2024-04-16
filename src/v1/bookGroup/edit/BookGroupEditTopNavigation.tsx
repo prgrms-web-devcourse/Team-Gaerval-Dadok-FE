@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import type { GroupEditFormValues } from './BookGroupEditPage';
+import { GroupEditFormValues } from '@/app/group/[groupId]/edit/page';
 
 import BackButton from '@/v1/base/BackButton';
 import TopNavigation from '@/v1/base/TopNavigation';
