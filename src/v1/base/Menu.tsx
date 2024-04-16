@@ -8,7 +8,10 @@ import {
   useMemo,
   useState,
 } from 'react';
+
 import { IconHamburger } from '@public/icons';
+import useOutsideClickRef from '@/hooks/useOutsideClickRef';
+
 import BottomSheet from './BottomSheet';
 
 type MenuContextValue = {
@@ -23,8 +26,10 @@ const Menu = ({ children }: { children?: React.ReactNode }) => {
   const toggle = useCallback(() => setOpen(prev => !prev), []);
   const value = useMemo(() => ({ isOpen, toggle }), [isOpen, toggle]);
 
+  const ref = useOutsideClickRef<HTMLDivElement>(() => setOpen(false));
+
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
     </div>
   );
@@ -57,7 +62,7 @@ const DropdownList = ({ children }: { children?: React.ReactNode }) => {
   return (
     <>
       {isOpen && (
-        <ul className="absolute right-0 top-[3rem] min-w-[10rem] rounded-[0.5rem] py-[0.5rem] shadow-[0_0_15px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.1)]">
+        <ul className="absolute right-0 top-[3rem] z-50 min-w-[10rem] rounded-[0.5rem] bg-white py-[0.5rem] shadow-[0_0_15px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.1)]">
           {children}
         </ul>
       )}
