@@ -38,7 +38,7 @@ const BookSearchPage = () => {
   return (
     <>
       <TopHeader text={'Discover'} />
-      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3.8rem]">
+      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[2.4rem]">
         <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
           <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
           <Input
