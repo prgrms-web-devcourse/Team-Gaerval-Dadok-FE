@@ -56,3 +56,15 @@ export const useBookGroupJoinInfo = (groupId: APIGroupDetail['bookGroupId']) =>
       question: data.joinQuestion,
     }),
   });
+
+export const useBookGroupEditCurrentInfo = (
+  groupId: APIGroupDetail['bookGroupId']
+) =>
+  useBookGroupQuery(groupId, {
+    select: data => ({
+      title: data.title,
+      description: data.introduce,
+      startDate: data.startDate,
+      endDate: data.endDate,
+    }),
+  });

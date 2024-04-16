@@ -1,43 +1,66 @@
 'use client';
 
-import GroupAPI from '@/apis/group';
-import { APIGroupDetail } from '@/types/group';
-import AuthRequired from '@/ui/AuthRequired';
-import TopNavigation from '@/ui/common/TopNavigation';
-import EditGroupForm from '@/ui/Group/EditGroupForm';
-import { VStack } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-const GroupEditPage = ({
+import type { APIGroupDetail } from '@/types/group';
+import { useBookGroupEditCurrentInfo } from '@/queries/group/useBookGroupQuery';
+
+import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
+import BookGroupEditTopNavigation from '@/v1/bookGroup/edit/BookGroupEditTopNavigation';
+import BookGroupIntroduceForm from '@/v1/bookGroup/edit/BookGroupIntroduceForm';
+import BookGroupEditTitleForm from '@/v1/bookGroup/edit/BookGroupEditTitleForm';
+
+export type GroupEditFormValues = {
+  groupTitle: string;
+  groupIntroduce: string;
+  startDate: string;
+  endDate: string;
+};
+
+const BookGroupEditPage = ({
   params: { groupId },
 }: {
-  params: { groupId: number };
+  params: { groupId: APIGroupDetail['bookGroupId'] };
 }) => {
-  const [group, setGroup] = useState<APIGroupDetail>();
+  const { data: bookGroupData } = useBookGroupEditCurrentInfo(groupId);
+  const { title, description, startDate, endDate } = bookGroupData;
 
-  const getGroup = useCallback(async () => {
-    try {
-      const { data } = await GroupAPI.getGroupDetailInfo({
-        bookGroupId: groupId,
-      });
-      setGroup(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [groupId]);
+  const methods = useForm<GroupEditFormValues>({
+    mode: 'all',
+    defaultValues: {
+      groupTitle: title,
+      groupIntroduce: description,
+      startDate: startDate,
+      endDate: endDate,
+    },
+  });
 
-  useEffect(() => {
-    getGroup();
-  }, [getGroup]);
+  const handleFormSubmit: SubmitHandler<GroupEditFormValues> = ({
+    groupTitle,
+    groupIntroduce,
+    endDate,
+  }) => {
+    alert(
+      `groupTitle: ${groupTitle}, groupIntroduce: ${groupIntroduce}, startDate: ${startDate}, endDate: ${endDate}`
+    );
+  };
 
   return (
-    <AuthRequired>
-      <VStack justify="center" align="center">
-        <TopNavigation pageTitle="모임 수정" />
-        {group && <EditGroupForm group={group} />}
-      </VStack>
-    </AuthRequired>
+    <>
+      <FormProvider {...methods}>
+        <BookGroupEditTopNavigation onSubmit={handleFormSubmit} />
+
+        <form
+          className="mt-[2.5rem] flex flex-col gap-[3.2rem]"
+          onSubmit={methods.handleSubmit(handleFormSubmit)}
+        >
+          <BookGroupEditTitleForm />
+          <BookGroupIntroduceForm />
+          <BookGroupEditDateForm />
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
-export default GroupEditPage;
+export default BookGroupEditPage;
