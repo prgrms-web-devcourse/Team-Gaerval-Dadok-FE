@@ -6,7 +6,7 @@ import TextArea from '@/v1/base/TextArea';
 const BookGroupIntroduceForm = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, defaultValues },
   } = useFormContext<{ groupIntroduce: string }>();
 
   return (
@@ -15,6 +15,7 @@ const BookGroupIntroduceForm = () => {
       <TextArea
         count={true}
         maxLength={500}
+        defaultValue={defaultValues?.groupIntroduce}
         {...register('groupIntroduce', {
           required: '모임 설명을 입력해주세요',
           minLength: {
