@@ -3,22 +3,14 @@
 import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import type { APIGroupDetail } from '@/types/group';
+import type { APIGroupDetail, BookGroupEdit } from '@/types/group';
 import { useBookGroupEditCurrentInfo } from '@/queries/group/useBookGroupQuery';
 import groupAPI from '@/apis/group';
 
-import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
 import BookGroupEditTopNavigation from '@/v1/bookGroup/edit/BookGroupEditTopNavigation';
-import BookGroupIntroduceForm from '@/v1/bookGroup/edit/BookGroupIntroduceForm';
 import BookGroupEditTitleForm from '@/v1/bookGroup/edit/BookGroupEditTitleForm';
-
-export type GroupEditFormValues = {
-  groupTitle: string;
-  groupIntroduce: string;
-  maxMemberCount: number;
-  startDate: string;
-  endDate: string;
-};
+import BookGroupEditIntroduceForm from '@/v1/bookGroup/edit/BookGroupEditIntroduceForm';
+import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
 
 const BookGroupEditPage = ({
   params: { groupId },
@@ -31,20 +23,20 @@ const BookGroupEditPage = ({
   const { title, description, maxMemberCount, startDate, endDate } =
     bookGroupData;
 
-  const methods = useForm<GroupEditFormValues>({
+  const methods = useForm<BookGroupEdit>({
     mode: 'all',
     defaultValues: {
-      groupTitle: title,
-      groupIntroduce: description,
+      title: title,
+      introduce: description,
       maxMemberCount: maxMemberCount ? maxMemberCount : 9999,
       startDate: startDate,
       endDate: endDate,
     },
   });
 
-  const handleFormSubmit: SubmitHandler<GroupEditFormValues> = async ({
-    groupTitle,
-    groupIntroduce,
+  const handleFormSubmit: SubmitHandler<BookGroupEdit> = async ({
+    title,
+    introduce,
     maxMemberCount,
     endDate,
   }) => {
@@ -52,9 +44,9 @@ const BookGroupEditPage = ({
       await groupAPI.updateGroupInfo({
         bookGroupId: groupId,
         group: {
-          title: groupTitle,
-          introduce: groupIntroduce,
-          maxMemberCount: maxMemberCount,
+          title,
+          introduce,
+          maxMemberCount,
           endDate,
         },
       });
@@ -75,7 +67,7 @@ const BookGroupEditPage = ({
           onSubmit={methods.handleSubmit(handleFormSubmit)}
         >
           <BookGroupEditTitleForm />
-          <BookGroupIntroduceForm />
+          <BookGroupEditIntroduceForm />
           <BookGroupEditDateForm />
         </form>
       </FormProvider>

@@ -2,12 +2,15 @@ import { useFormContext } from 'react-hook-form';
 
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import TextArea from '@/v1/base/TextArea';
+import { BookGroupEdit } from '@/types/group';
 
-const BookGroupIntroduceForm = () => {
+type EditIntroduceFormTypes = Pick<BookGroupEdit, 'introduce'>;
+
+const BookGroupEditIntroduceForm = () => {
   const {
     register,
     formState: { errors, defaultValues },
-  } = useFormContext<{ groupIntroduce: string }>();
+  } = useFormContext<EditIntroduceFormTypes>();
 
   return (
     <section className="flex flex-col gap-[0.6rem]">
@@ -15,8 +18,8 @@ const BookGroupIntroduceForm = () => {
       <TextArea
         count={true}
         maxLength={500}
-        defaultValue={defaultValues?.groupIntroduce}
-        {...register('groupIntroduce', {
+        defaultValue={defaultValues?.introduce}
+        {...register('introduce', {
           required: '모임 설명을 입력해주세요',
           minLength: {
             value: 10,
@@ -28,10 +31,10 @@ const BookGroupIntroduceForm = () => {
           },
         })}
       >
-        <ErrorMessage>{errors.groupIntroduce?.message}</ErrorMessage>
+        <ErrorMessage>{errors.introduce?.message}</ErrorMessage>
       </TextArea>
     </section>
   );
 };
 
-export default BookGroupIntroduceForm;
+export default BookGroupEditIntroduceForm;

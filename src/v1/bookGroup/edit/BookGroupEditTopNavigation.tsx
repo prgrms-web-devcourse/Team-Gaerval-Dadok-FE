@@ -2,17 +2,17 @@
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import { GroupEditFormValues } from '@/app/group/[groupId]/edit/page';
+import type { BookGroupEdit } from '@/types/group';
 
-import BackButton from '@/v1/base/BackButton';
 import TopNavigation from '@/v1/base/TopNavigation';
+import BackButton from '@/v1/base/BackButton';
 
 const BookGroupEditTopNavigation = ({
   onSubmit,
 }: {
-  onSubmit: SubmitHandler<GroupEditFormValues>;
+  onSubmit: SubmitHandler<BookGroupEdit>;
 }) => {
-  const { handleSubmit } = useFormContext<GroupEditFormValues>();
+  const { handleSubmit } = useFormContext<BookGroupEdit>();
 
   return (
     <TopNavigation>
