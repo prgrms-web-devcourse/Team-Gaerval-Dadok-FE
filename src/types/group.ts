@@ -95,3 +95,11 @@ export type BookGroupComment = {
   createdAt: APIGroupComment['createdAt'];
   content: APIGroupComment['contents'];
 };
+
+export type BookGroupEdit = {
+  title: APIGroupDetail['title'];
+  introduce: APIGroupDetail['introduce'];
+  maxMemberCount: APIGroupDetail['maxMemberCount'];
+  startDate: APIGroupDetail['startDate'];
+  endDate: APIGroupDetail['endDate'];
+};
