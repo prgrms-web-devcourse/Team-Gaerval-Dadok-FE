@@ -33,7 +33,8 @@ const BookSearchPage = () => {
     },
   });
 
-  const queryKeyword = useDebounceValue(watch('searchValue'), 1000);
+  const watchedKeyword = watch('searchValue');
+  const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
   return (
     <>
@@ -47,27 +48,30 @@ const BookSearchPage = () => {
             {...register('searchValue')}
           />
         </div>
-        {watch('searchValue') ? (
-          /** 도서 검색 결과 */
+
+        {/** 최근 검색어 + 베스트 셀러 */}
+        <section
+          className={`flex flex-col gap-[1.6rem] ${watchedKeyword && 'hidden'}`}
+        >
+          <SSRSafeSuspense fallback={<ContentsSkelton />}>
+            <RecentSearchResult
+              onItemClick={keyword => setValue('searchValue', keyword)}
+            />
+            <BestSellers />
+          </SSRSafeSuspense>
+        </section>
+
+        {/** 도서 검색 결과 */}
+        {watchedKeyword && (
           <section className="flex-grow overflow-y-scroll pb-[1rem]">
             <Suspense fallback={<Loading fullpage />}>
-              {watch('searchValue') === queryKeyword ? (
-                <BookSearchResult queryKeyword={queryKeyword} />
+              {watchedKeyword === debouncedKeyword ? (
+                <BookSearchResult queryKeyword={debouncedKeyword} />
               ) : (
-                /* 타이핑 중 debounce가 적용되어 queryKeyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
+                /* 타이핑 중 debounce가 적용되어 keyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
                 <Loading fullpage />
               )}
             </Suspense>
-          </section>
-        ) : (
-          /** 최근 검색어 + 베스트 셀러 */
-          <section className="flex flex-col gap-[1.6rem]">
-            <SSRSafeSuspense fallback={<ContentsSkelton />}>
-              <RecentSearchResult
-                onItemClick={keyword => setValue('searchValue', keyword)}
-              />
-              <BestSellers />
-            </SSRSafeSuspense>
           </section>
         )}
       </article>
