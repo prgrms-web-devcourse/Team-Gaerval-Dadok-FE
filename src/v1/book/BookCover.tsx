@@ -1,4 +1,6 @@
-import { ComponentPropsWithoutRef } from 'react';
+'use client';
+
+import { ComponentPropsWithoutRef, useState } from 'react';
 import Image from 'next/image';
 
 import { DATA_URL } from '@/constants/url';
@@ -66,6 +68,8 @@ const getCoverSize = (size: BookCoverSize) => {
 };
 
 const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
+  const [isError, setIsError] = useState(false);
+
   const { sizeClasses, sizeProps } = getCoverSize(size);
   const defaultCoverClass = src ? '' : 'shadow-bookcover';
 
@@ -73,13 +77,15 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
     <div
       className={`relative flex-shrink-0 ${sizeClasses} rounded-[0.5rem] bg-black-300 ${defaultCoverClass}`}
     >
-      {src ? (
+      {src && !isError ? (
         <Image
+          unoptimized
           src={src}
           alt={title || 'book-cover'}
           placeholder="blur"
           blurDataURL={DATA_URL['placeholder']}
           className={`object-fit h-full w-full rounded-[0.5rem] shadow-bookcover`}
+          onError={() => setIsError(true)}
           {...sizeProps}
         />
       ) : (
