@@ -1,9 +1,17 @@
-import { UseQueryOptions } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
-import { APIGroupDetail, BookGroupDetail } from '@/types/group';
-import { isExpired } from '@/utils/date';
-import GroupAPI from '@/apis/group';
+import type {
+  APIGroupDetail,
+  BookGroupDetail,
+  APIEditBookGroup,
+} from '@/types/group';
 import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+import groupAPI from '@/apis/group';
+import { isExpired } from '@/utils/date';
 
 import bookGroupKeys from './key';
 
@@ -26,9 +34,9 @@ export const useBookGroupQuery = <TData = APIGroupDetail>(
   useQueryWithSuspense(
     bookGroupKeys.detail(groupId),
     () =>
-      GroupAPI.getGroupDetailInfo({ bookGroupId: groupId }).then(
-        ({ data }) => data
-      ),
+      groupAPI
+        .getGroupDetailInfo({ bookGroupId: groupId })
+        .then(({ data }) => data),
     options
   );
 
@@ -56,3 +64,32 @@ export const useBookGroupJoinInfo = (groupId: APIGroupDetail['bookGroupId']) =>
       question: data.joinQuestion,
     }),
   });
+
+export const useBookGroupEditCurrentInfo = (
+  groupId: APIGroupDetail['bookGroupId']
+) =>
+  useBookGroupQuery(groupId, {
+    select: data => ({
+      isOwner: data.isOwner,
+      title: data.title,
+      description: data.introduce,
+      maxMemberCount: data.maxMemberCount,
+      startDate: data.startDate,
+      endDate: data.endDate,
+    }),
+  });
+
+export const useBookGroupInfoMutation = (
+  bookGroupId: APIGroupDetail['bookGroupId']
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (group: Omit<APIEditBookGroup, 'isOwner' | 'startDate'>) =>
+      groupAPI.updateGroupInfo({ bookGroupId, group }).then(({ data }) => data),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: bookGroupKeys.detail(bookGroupId),
+      }),
+  });
+};

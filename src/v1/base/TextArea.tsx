@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ChangeEventHandler,
   ForwardedRef,
@@ -16,6 +18,7 @@ import InputLength from './InputLength';
 interface BaseTextAreaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: boolean;
+  defaultValue?: string;
 }
 interface TextAreaProps extends BaseTextAreaProps {
   count?: boolean;
@@ -24,6 +27,7 @@ interface TextAreaProps extends BaseTextAreaProps {
 const _TextArea = (
   {
     maxLength = 500,
+    defaultValue,
     count = false,
     error = false,
     onChange,
@@ -32,7 +36,7 @@ const _TextArea = (
   }: PropsWithChildren<TextAreaProps>,
   ref: ForwardedRef<HTMLTextAreaElement>
 ) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(defaultValue || '');
 
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = e => {
     setValue(e.target.value);
@@ -68,13 +72,13 @@ const TextArea = Object.assign(forwardRef(_TextArea), {
   Error: ErrorMessage,
 });
 
-const ErrorMeesageType = (<ErrorMessage />).type;
+const ErrorMessageType = (<ErrorMessage />).type;
 
 const getErrorChildren = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
 
   return childrenArray.find(
-    child => isValidElement(child) && child.type === ErrorMeesageType
+    child => isValidElement(child) && child.type === ErrorMessageType
   );
 };
 
