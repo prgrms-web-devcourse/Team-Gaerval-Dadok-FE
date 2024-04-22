@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ChangeEventHandler,
   forwardRef,
@@ -51,7 +53,7 @@ const DatePicker = (
 
   return (
     <label
-      className={`relative flex h-[3rem] max-w-[14rem] items-center justify-between bg-transparent ${disabledClasses}`}
+      className={`relative flex h-[3rem] max-w-[14rem] items-center justify-between gap-[0.5rem] bg-transparent ${disabledClasses}`}
       htmlFor={name}
     >
       <div className="flex h-full min-w-0 flex-grow items-center">
