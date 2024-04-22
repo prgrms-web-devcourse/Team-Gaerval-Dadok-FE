@@ -1,10 +1,12 @@
 'use client';
 
-import { Flex, Spinner } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
+
 import { setAuth } from '@/utils/helpers';
 import userAPI from '@/apis/user';
+
+import Loading from '@/v1/base/Loading';
 
 const RedirectPage = () => {
   const router = useRouter();
@@ -38,11 +40,7 @@ const RedirectPage = () => {
     }
   }, [accessToken, checkSavedAdditionalInfo]);
 
-  return (
-    <Flex align="center" justify="center" height="95vh">
-      <Spinner />
-    </Flex>
-  );
+  return <Loading fullpage />;
 };
 
 export default RedirectPage;
