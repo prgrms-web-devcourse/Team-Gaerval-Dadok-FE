@@ -1,16 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react';
 import type { APISearchedBook } from '@/types/book';
-import SearchResult from '@/v1/bookSearch/SearchResult';
+import BookSearchList from '@/v1/bookSearch/BookSearchList';
 
-const meta: Meta<typeof SearchResult> = {
-  title: 'bookSearch/SearchResult',
-  component: SearchResult,
+const meta: Meta<typeof BookSearchList> = {
+  title: 'bookSearch/BookSearchList',
+  component: BookSearchList,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof SearchResult>;
+type Story = StoryObj<typeof BookSearchList>;
 
 const SEARCHED_BOOK: APISearchedBook = {
   title: '리팩터링',
@@ -27,6 +27,6 @@ const SEARCHED_BOOK: APISearchedBook = {
 
 export const Default: Story = {
   args: {
-    searchedBooks: [SEARCHED_BOOK, SEARCHED_BOOK, SEARCHED_BOOK, SEARCHED_BOOK],
+    books: [SEARCHED_BOOK, SEARCHED_BOOK, SEARCHED_BOOK, SEARCHED_BOOK],
   },
 };

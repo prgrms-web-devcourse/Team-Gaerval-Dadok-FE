@@ -15,13 +15,13 @@ const Layout = ({ children }: LayoutProps) => {
   const isRootPath = pathname && rootPaths.includes(pathname);
 
   const dynamicClass = isRootPath
-    ? 'pb-[9rem] pt-[2rem]'
+    ? 'pb-[7rem] pt-[2rem]'
     : 'pt-[5.4rem] pb-[2rem]';
 
   return (
     <>
       <main
-        className={`h-app w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
+        className={`h-[100dvh] w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
       >
         {children}
       </main>
