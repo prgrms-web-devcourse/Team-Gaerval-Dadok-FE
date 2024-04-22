@@ -2,9 +2,9 @@ import { useFormContext } from 'react-hook-form';
 
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import TextArea from '@/v1/base/TextArea';
-import { BookGroupEdit } from '@/types/group';
+import { APIEditBookGroup } from '@/types/group';
 
-type EditIntroduceFormTypes = Pick<BookGroupEdit, 'introduce'>;
+type EditIntroduceFormTypes = Pick<APIEditBookGroup, 'introduce'>;
 
 const BookGroupEditIntroduceForm = () => {
   const {

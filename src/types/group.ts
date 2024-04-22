@@ -96,7 +96,8 @@ export type BookGroupComment = {
   content: APIGroupComment['contents'];
 };
 
-export type BookGroupEdit = {
+export type APIEditBookGroup = {
+  isOwner: APIGroupDetail['isOwner'];
   title: APIGroupDetail['title'];
   introduce: APIGroupDetail['introduce'];
   maxMemberCount: APIGroupDetail['maxMemberCount'];

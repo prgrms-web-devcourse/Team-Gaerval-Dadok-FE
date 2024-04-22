@@ -7,7 +7,7 @@ import {
 import type {
   APIGroupDetail,
   BookGroupDetail,
-  BookGroupEdit,
+  APIEditBookGroup,
 } from '@/types/group';
 import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
 import groupAPI from '@/apis/group';
@@ -70,6 +70,7 @@ export const useBookGroupEditCurrentInfo = (
 ) =>
   useBookGroupQuery(groupId, {
     select: data => ({
+      isOwner: data.isOwner,
       title: data.title,
       description: data.introduce,
       maxMemberCount: data.maxMemberCount,
@@ -84,7 +85,7 @@ export const useBookGroupInfoMutation = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (group: Omit<BookGroupEdit, 'startDate'>) =>
+    mutationFn: (group: Omit<APIEditBookGroup, 'isOwner' | 'startDate'>) =>
       groupAPI.updateGroupInfo({ bookGroupId, group }).then(({ data }) => data),
     onSuccess: () =>
       queryClient.invalidateQueries({

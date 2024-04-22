@@ -1,12 +1,12 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { BookGroupEdit } from '@/types/group';
+import type { APIEditBookGroup } from '@/types/group';
 
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
 import ErrorMessage from '@/v1/base/ErrorMessage';
 
-type EditTitleFormTypes = Pick<BookGroupEdit, 'title'>;
+type EditTitleFormTypes = Pick<APIEditBookGroup, 'title'>;
 
 const BookGroupEditTitleForm = () => {
   const {

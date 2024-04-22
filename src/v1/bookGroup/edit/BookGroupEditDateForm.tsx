@@ -1,11 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { BookGroupEdit } from '@/types/group';
+import type { APIEditBookGroup } from '@/types/group';
 
 import DatePicker from '@/v1/base/DatePicker';
 import ErrorMessage from '@/v1/base/ErrorMessage';
 
-type EditDateFormTypes = Pick<BookGroupEdit, 'startDate' | 'endDate'>;
+type EditDateFormTypes = Pick<APIEditBookGroup, 'startDate' | 'endDate'>;
 
 const BookGroupEditDateForm = () => {
   const {

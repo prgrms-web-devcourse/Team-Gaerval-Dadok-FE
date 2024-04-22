@@ -2,7 +2,7 @@
 
 import { SubmitHandler, useFormContext } from 'react-hook-form';
 
-import type { BookGroupEdit } from '@/types/group';
+import type { APIEditBookGroup } from '@/types/group';
 
 import TopNavigation from '@/v1/base/TopNavigation';
 import BackButton from '@/v1/base/BackButton';
@@ -10,9 +10,9 @@ import BackButton from '@/v1/base/BackButton';
 const BookGroupEditTopNavigation = ({
   onSubmit,
 }: {
-  onSubmit: SubmitHandler<BookGroupEdit>;
+  onSubmit: SubmitHandler<APIEditBookGroup>;
 }) => {
-  const { handleSubmit } = useFormContext<BookGroupEdit>();
+  const { handleSubmit } = useFormContext<APIEditBookGroup>();
 
   return (
     <TopNavigation>
