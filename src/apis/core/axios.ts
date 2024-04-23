@@ -38,6 +38,10 @@ const requestHandler = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
+/** api 요청이 병렬적으로 이뤄질 때,
+ *  토큰 업데이트는 한번만 요청하기 위해 사용되는 flag 변수 */
+let isRefreshing = false;
+
 const responseHandler = async (error: unknown) => {
   if (isAxiosErrorWithCustomCode(error)) {
     const { config: originRequest, response } = error;
@@ -46,7 +50,7 @@ const responseHandler = async (error: unknown) => {
 
     console.warn(code, message);
 
-    if (originRequest && isAuthRefreshError(code)) {
+    if (originRequest && isAuthRefreshError(code) && !isRefreshing) {
       return silentRefresh(originRequest);
     }
 
@@ -62,12 +66,20 @@ const responseHandler = async (error: unknown) => {
 
 const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
   try {
+    isRefreshing = true;
+
     const newToken = await updateToken();
     storage.set(newToken);
     setAxiosAuthHeader(originRequest, newToken);
+
+    isRefreshing = false;
+
     return await publicApi(originRequest);
-  } catch {
+  } catch (error) {
     removeToken();
+    isRefreshing = false;
+
+    return Promise.reject(error);
   }
 };
 
@@ -89,8 +101,9 @@ const updateToken = async () => {
 
 const removeToken = () => {
   storage.remove();
+
   if (isClient()) {
-    history.pushState('', '', '/');
+    window.location.reload();
   }
 };
 
