@@ -66,8 +66,14 @@ const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
     storage.set(newToken);
     setAxiosAuthHeader(originRequest, newToken);
     return await publicApi(originRequest);
-  } catch {
+  } catch (error) {
     removeToken();
+
+    if (isClient()) {
+      window.location.reload();
+    }
+
+    return Promise.reject(error);
   }
 };
 
@@ -89,9 +95,6 @@ const updateToken = async () => {
 
 const removeToken = () => {
   storage.remove();
-  if (isClient()) {
-    history.pushState('', '', '/');
-  }
 };
 
 const setAxiosAuthHeader = (

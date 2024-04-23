@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 
 import { setAuth } from '@/utils/helpers';
@@ -14,21 +14,29 @@ const RedirectPage = () => {
 
   const accessToken = searchParams.get('access_token');
 
+  if (!accessToken) {
+    notFound();
+  }
+
   const checkSavedAdditionalInfo = useCallback(async () => {
-    const isSavedAdditionalInfo = await userAPI.getMyProfile().then(
-      ({
-        data: {
-          job: { jobName, jobGroupName },
-          nickname,
-        },
-      }) => !!(nickname && jobGroupName && jobName)
-    );
+    try {
+      const isSavedAdditionalInfo = await userAPI.getMyProfile().then(
+        ({
+          data: {
+            job: { jobName, jobGroupName },
+            nickname,
+          },
+        }) => !!(nickname && jobGroupName && jobName)
+      );
 
-    if (!isSavedAdditionalInfo) {
-      router.replace('/profile/me/add');
+      if (!isSavedAdditionalInfo) {
+        router.replace('/profile/me/add');
+      }
+
+      router.replace('/bookarchive');
+    } catch {
+      router.replace('/not-found');
     }
-
-    router.replace('/bookarchive');
   }, [router]);
 
   useEffect(() => {
