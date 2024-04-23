@@ -40,7 +40,7 @@ const FloatingButton = ({
         onClick={onClick}
         {...props}
       >
-        <IconPlus className="fill-black" />
+        <IconPlus className="fill-white" />
       </button>
     </Portal>
   );
