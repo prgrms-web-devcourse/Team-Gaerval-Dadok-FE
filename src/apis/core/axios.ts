@@ -50,7 +50,7 @@ const responseHandler = async (error: unknown) => {
 
     console.warn(code, message);
 
-    if (originRequest && isAuthRefreshError(code)) {
+    if (originRequest && isAuthRefreshError(code) && !isRefreshing) {
       return silentRefresh(originRequest);
     }
 
@@ -66,10 +66,6 @@ const responseHandler = async (error: unknown) => {
 
 const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
   try {
-    if (isRefreshing) {
-      return;
-    }
-
     isRefreshing = true;
 
     const newToken = await updateToken();
@@ -82,10 +78,6 @@ const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
   } catch (error) {
     removeToken();
     isRefreshing = false;
-
-    if (isClient()) {
-      window.location.reload();
-    }
 
     return Promise.reject(error);
   }
@@ -109,6 +101,10 @@ const updateToken = async () => {
 
 const removeToken = () => {
   storage.remove();
+
+  if (isClient()) {
+    window.location.reload();
+  }
 };
 
 const setAxiosAuthHeader = (
