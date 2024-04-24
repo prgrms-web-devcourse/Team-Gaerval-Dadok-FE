@@ -36,7 +36,7 @@ const FloatingButton = ({
   return (
     <Portal id="floating-button-portal">
       <button
-        className={`${positionClasses} absolute flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900`}
+        className={`${positionClasses} absolute flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 shadow-floatingButton`}
         onClick={onClick}
         {...props}
       >
