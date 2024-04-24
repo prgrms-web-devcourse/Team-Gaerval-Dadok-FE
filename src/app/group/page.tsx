@@ -35,9 +35,11 @@ const GroupPage = () => {
   };
 
   const handleCreateGroupClick = () => {
-    isAuthenticated
-      ? router.push('/group/create')
-      : showToast({ message: '로그인 후에 이용할 수 있어요!', type: 'normal' });
+    if (isAuthenticated) {
+      router.push('/group/create');
+    } else {
+      showToast({ message: '로그인 후에 이용할 수 있어요!', type: 'normal' });
+    }
 
     return;
   };
