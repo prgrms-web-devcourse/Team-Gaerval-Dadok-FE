@@ -30,7 +30,7 @@ const DetailBookGroupCard = ({
 }: DetailBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-bookgroup-card">
+      <article className="w-full rounded-[0.4rem] p-[1.5rem] shadow-bookgroup-card">
         <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
@@ -53,7 +53,7 @@ const DetailBookGroupCard = ({
           </div>
           <BookCover src={bookImageSrc} size="medium" />
         </div>
-      </div>
+      </article>
     </Link>
   );
 };
@@ -84,14 +84,10 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
 
   return (
     <div className="flex items-center gap-[0.5rem]">
-      <div>
-        <IconCalendar className="h-[1.161rem] w-[1.1rem] fill-placeholder" />
-      </div>
-      <div className="text-xs text-placeholder">
-        <span className="pt-[0.1rem]">
-          {formatDateTime(start)} - {formatDateTime(end)}
-        </span>
-      </div>
+      <IconCalendar className="w-[1.2rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">
+        {formatDateTime(start)} - {formatDateTime(end)}
+      </p>
     </div>
   );
 };
@@ -107,7 +103,7 @@ const Owner = ({
     <div className="flex h-[2rem] gap-[0.5rem]">
       <Avatar name={name} src={profileImageSrc} size="small" />
       <div className="flex items-center text-xs">
-        <span>{name}</span>
+        <p>{name}</p>
       </div>
     </div>
   );
@@ -116,12 +112,8 @@ const Owner = ({
 const MemberCount = ({ memberCount }: { memberCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
-      <span className="h-auto w-[1.3rem] fill-placeholder">
-        <IconMembers className="h-[0.9rem] w-[1.3rem] fill-placeholder" />
-      </span>
-      <span className="text-xs text-placeholder">
-        <span className="text-placeholder">{memberCount}</span>
-      </span>
+      <IconMembers className="h-[0.9rem] w-[1.3rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">{memberCount}</p>
     </div>
   );
 };
@@ -129,12 +121,8 @@ const MemberCount = ({ memberCount }: { memberCount: number }) => {
 const CommentCount = ({ commentCount }: { commentCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
-      <div className="h-auto w-[1.3rem] fill-placeholder">
-        <IconComments className="h-[1.2rem] w-[1.2rem] fill-placeholder" />
-      </div>
-      <span className="text-xs text-placeholder">
-        <span className="text-placeholder">{commentCount}</span>
-      </span>
+      <IconComments className="h-[1.2rem] w-[1.2rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">{commentCount}</p>
     </div>
   );
 };

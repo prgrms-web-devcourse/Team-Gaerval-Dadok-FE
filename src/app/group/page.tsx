@@ -72,7 +72,7 @@ const MyBookGroupList = () => {
   const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
 
   return (
-    <div className="flex gap-[1rem] overflow-scroll">
+    <section className="flex gap-[1rem] overflow-scroll">
       {bookGroups.map(({ title, book, bookGroupId, owner }) => (
         <SimpleBookGroupCard
           key={bookGroupId}
@@ -82,7 +82,7 @@ const MyBookGroupList = () => {
           bookGroupId={bookGroupId}
         />
       ))}
-    </div>
+    </section>
   );
 };
 
@@ -145,7 +145,7 @@ const EntireBookGroupList = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-[1rem]">
+      <section className="flex flex-col gap-[1rem]">
         {isSuccess &&
           data.pages.map(({ bookGroups }) =>
             bookGroups.map(
@@ -179,7 +179,7 @@ const EntireBookGroupList = () => {
               )
             )
           )}
-      </div>
+      </section>
       {isFetchingNextPage && <DetailBookGroupCardSkeleton />}
       <div ref={ref} />
     </>
