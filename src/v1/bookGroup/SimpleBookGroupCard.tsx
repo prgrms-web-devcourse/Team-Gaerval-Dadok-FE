@@ -16,14 +16,14 @@ const SimpleBookGroupCard = ({
 }: SimpleBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="flex w-[10rem] flex-col gap-[1rem]">
+      <article className="flex w-[10rem] flex-col gap-[1rem]">
         <div className="bg-orange-100 px-[1.8rem] py-[1.6rem]">
           <BookCover size="xsmall" src={imageSource} />
         </div>
         <p className="break-keep text-center text-xs leading-tight">
           {isOwner ? `👑 ${title}` : title}
         </p>
-      </div>
+      </article>
     </Link>
   );
 };

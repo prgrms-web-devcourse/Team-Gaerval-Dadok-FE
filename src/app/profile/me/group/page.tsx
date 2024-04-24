@@ -31,7 +31,7 @@ const UserGroupContent = () => {
         {Array.from({ length: 4 }).map((_, index) => (
           <li
             key={index}
-            className="border-placeholder px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]"
+            className="border-placeholder px-[1.6rem] py-[0.9rem] shadow-bookgroup-card"
           >
             <div className="flex gap-[0.5rem] [&>*]:rounded-[0.5rem]">
               <div className="h-[1.9rem] w-[4.34rem] bg-placeholder" />

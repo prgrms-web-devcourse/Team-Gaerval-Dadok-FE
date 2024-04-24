@@ -30,13 +30,13 @@ const DetailBookGroupCard = ({
 }: DetailBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+      <article className="w-full rounded-[0.4rem] p-[1.5rem] shadow-bookgroup-card">
         <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
         </div>
         <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
-          <div className="flex flex-grow flex-col justify-between ">
+          <div className="flex min-w-0 flex-grow flex-col justify-between ">
             <Title title={title} />
             <Description description={description} />
             <Duration start={date.start} end={date.end} />
@@ -53,7 +53,7 @@ const DetailBookGroupCard = ({
           </div>
           <BookCover src={bookImageSrc} size="medium" />
         </div>
-      </div>
+      </article>
     </Link>
   );
 };
@@ -67,11 +67,11 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return <div className="w-[22rem] truncate text-md font-bold">{title}</div>;
+  return <p className="min-w-0 truncate text-md font-bold">{title}</p>;
 };
 
 const Description = ({ description }: { description: string }) => {
-  return <div className="w-[22rem] truncate text-sm">{description}</div>;
+  return <p className="min-w-0 truncate text-sm">{description}</p>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
@@ -84,14 +84,10 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
 
   return (
     <div className="flex items-center gap-[0.5rem]">
-      <div>
-        <IconCalendar className="h-[1.161rem] w-[1.1rem] fill-placeholder" />
-      </div>
-      <div className="text-xs text-placeholder">
-        <span className="pt-[0.1rem]">
-          {formatDateTime(start)} - {formatDateTime(end)}
-        </span>
-      </div>
+      <IconCalendar className="w-[1.2rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">
+        {formatDateTime(start)} - {formatDateTime(end)}
+      </p>
     </div>
   );
 };
@@ -107,7 +103,7 @@ const Owner = ({
     <div className="flex h-[2rem] gap-[0.5rem]">
       <Avatar name={name} src={profileImageSrc} size="small" />
       <div className="flex items-center text-xs">
-        <span>{name}</span>
+        <p>{name}</p>
       </div>
     </div>
   );
@@ -116,12 +112,8 @@ const Owner = ({
 const MemberCount = ({ memberCount }: { memberCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
-      <span className="h-auto w-[1.3rem] fill-placeholder">
-        <IconMembers className="h-[0.9rem] w-[1.3rem] fill-placeholder" />
-      </span>
-      <span className="text-xs text-placeholder">
-        <span className="text-placeholder">{memberCount}</span>
-      </span>
+      <IconMembers className="h-[0.9rem] w-[1.3rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">{memberCount}</p>
     </div>
   );
 };
@@ -129,18 +121,14 @@ const MemberCount = ({ memberCount }: { memberCount: number }) => {
 const CommentCount = ({ commentCount }: { commentCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
-      <div className="h-auto w-[1.3rem] fill-placeholder">
-        <IconComments className="h-[1.2rem] w-[1.2rem] fill-placeholder" />
-      </div>
-      <span className="text-xs text-placeholder">
-        <span className="text-placeholder">{commentCount}</span>
-      </span>
+      <IconComments className="h-[1.2rem] w-[1.2rem] fill-placeholder" />
+      <p className="text-xs text-placeholder">{commentCount}</p>
     </div>
   );
 };
 
 export const DetailBookGroupCardSkeleton = () => (
-  <div className="w-full animate-pulse rounded-[0.5rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+  <div className="w-full animate-pulse rounded-[0.5rem] p-[1.5rem] shadow-bookgroup-card">
     <div className="flex gap-[0.5rem]">
       <div className="h-[1.9rem] w-[4.8rem] rounded-[0.5rem] bg-black-400" />
       <div className="h-[2rem] w-[3.8rem] rounded-[0.5rem] bg-black-400" />
