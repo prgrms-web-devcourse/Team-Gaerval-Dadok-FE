@@ -21,7 +21,7 @@ const ToastProvider = ({ children }: { children?: ReactNode }) => {
 
   const controller = useMemo<ToastController>(
     () => ({
-      show: ({ type, message, duration = 1000 }) => {
+      show: ({ type, message, duration = 2000 }) => {
         setToast({ type, message, duration });
 
         setAnimation('slide-init');
