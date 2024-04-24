@@ -7,7 +7,7 @@ import Switch from '@/v1/base/Switch';
 import TextArea from '@/v1/base/TextArea';
 import BookInfoCard from '../../BookInfoCard';
 
-const BookGroupDetailsFunnel = () => {
+const SetUpDetailStep = () => {
   return (
     <div className="flex flex-col gap-[3.2rem]">
       <section className="flex flex-col gap-[0.5rem]">
@@ -68,4 +68,4 @@ const BookGroupDetailsFunnel = () => {
   );
 };
 
-export default BookGroupDetailsFunnel;
+export default SetUpDetailStep;

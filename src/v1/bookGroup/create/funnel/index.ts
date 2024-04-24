@@ -1,2 +1,2 @@
-// export { default as SelectBook } from './SelectBook';
-export { default as SetUpDetails } from './SetUpDetails';
+// export { default as SelectBookStep } from './SelectBookStep';
+export { default as SetUpDetailStep } from './SetUpDetailStep';
