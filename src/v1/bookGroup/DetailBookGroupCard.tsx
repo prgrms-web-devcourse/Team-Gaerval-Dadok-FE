@@ -36,7 +36,7 @@ const DetailBookGroupCard = ({
           <Public isPublic={isPublic} />
         </div>
         <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
-          <div className="flex flex-grow flex-col justify-between ">
+          <div className="flex min-w-0 flex-grow flex-col justify-between ">
             <Title title={title} />
             <Description description={description} />
             <Duration start={date.start} end={date.end} />
@@ -67,11 +67,11 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return <div className="w-[22rem] truncate text-md font-bold">{title}</div>;
+  return <p className="min-w-0 truncate text-md font-bold">{title}</p>;
 };
 
 const Description = ({ description }: { description: string }) => {
-  return <div className="w-[22rem] truncate text-sm">{description}</div>;
+  return <p className="min-w-0 truncate text-sm">{description}</p>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
