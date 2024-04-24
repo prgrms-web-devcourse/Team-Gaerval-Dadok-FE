@@ -30,7 +30,7 @@ const DetailBookGroupCard = ({
 }: DetailBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+      <div className="w-full rounded-[0.4rem] p-[1.5rem] shadow-bookgroup-card">
         <div className="flex gap-[0.5rem]">
           <BookGroupStatus start={date.start} end={date.end} />
           <Public isPublic={isPublic} />
@@ -140,7 +140,7 @@ const CommentCount = ({ commentCount }: { commentCount: number }) => {
 };
 
 export const DetailBookGroupCardSkeleton = () => (
-  <div className="w-full animate-pulse rounded-[0.5rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
+  <div className="w-full animate-pulse rounded-[0.5rem] p-[1.5rem] shadow-bookgroup-card">
     <div className="flex gap-[0.5rem]">
       <div className="h-[1.9rem] w-[4.8rem] rounded-[0.5rem] bg-black-400" />
       <div className="h-[2rem] w-[3.8rem] rounded-[0.5rem] bg-black-400" />
