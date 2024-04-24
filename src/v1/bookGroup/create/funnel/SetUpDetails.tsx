@@ -17,9 +17,11 @@ const BookGroupDetailsFunnel = () => {
           {true && <ErrorMessage>{'마크업용 에러 표시'}</ErrorMessage>}
         </div>
       </section>
+
       <section>
         <BookInfoCard removable={true} />
       </section>
+
       <section className="flex flex-col gap-[1.6rem]">
         <h2>활동 내용</h2>
         <>
@@ -29,6 +31,7 @@ const BookGroupDetailsFunnel = () => {
           />
         </>
       </section>
+
       <section className="flex flex-col gap-[1.6rem]">
         <h2>최대 인원</h2>
         <div className="inline-flex w-[23rem] flex-wrap gap-[1rem]">
@@ -41,14 +44,17 @@ const BookGroupDetailsFunnel = () => {
         </div>
         {false && <Input />}
       </section>
+
       <section className="flex items-center justify-between">
         <h2>모임 시작일</h2>
         <DatePicker />
       </section>
+
       <section className="flex items-center justify-between">
         <h2>모임 종료일</h2>
         <DatePicker />
       </section>
+
       <section className="flex items-start justify-between">
         <div className="flex min-w-0 flex-col gap-[0.3rem]">
           <h2>댓글 공개 여부</h2>
