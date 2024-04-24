@@ -13,7 +13,8 @@ const ReactQueryProvider: NextPage<PropTypes> = ({ children }) => {
       new QueryClient({
         defaultOptions: {
           queries: {
-            retry: 0,
+            refetchOnWindowFocus: false,
+            retry: false,
           },
         },
       })
