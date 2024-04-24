@@ -31,7 +31,7 @@ const GroupPage = () => {
   const isAuthenticated = checkAuthentication();
 
   const handleSearchInputClick = () => {
-    alert('아직 준비 중인 기능이에요.');
+    showToast({ message: '아직 준비 중인 기능이에요 🥹', type: 'normal' });
   };
 
   const handleCreateGroupClick = () => {
