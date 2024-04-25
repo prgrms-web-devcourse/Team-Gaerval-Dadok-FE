@@ -1,16 +1,18 @@
 {
-  "name": "team08-boilerplate",
+  "name": "dadok",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H dadok.app.local",
+    "dev": "next dev -H local.dev.dadok.app",
+    "ssl-dev": "node scripts/server.js local.dev.dadok.app",
     "build": "next build",
-    "start": "next start -H dadok.app.local",
+    "start": "next start -H local.dev.dadok.app",
     "lint": "next lint",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "update-host": "node ./updateDevHost.js dadok.app.local"
+    "update-host": "node scripts/updateDevHost.js local.dev.dadok.app",
+    "init-https": "sh scripts/init-mkcert.sh local.dev.dadok.app"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
