@@ -2,6 +2,7 @@
 const fs = require('fs');
 const https = require('https');
 const { parse } = require('url');
+const { execSync } = require('child_process');
 const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -13,6 +14,7 @@ const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 const SELF_CERTIFICATES_PATH = {
+  ca: `${execSync('mkcert -CAROOT').toString().replace(/\s/g, '')}/rootCA.pem`,
   key: './.certificates/localhost-key.pem',
   cert: './.certificates/localhost.pem',
 };
@@ -21,6 +23,9 @@ const option = {
   key: fs.readFileSync(SELF_CERTIFICATES_PATH.key),
   cert: fs.readFileSync(SELF_CERTIFICATES_PATH.cert),
 };
+
+// To resolve the 'unable to verify first certificate' error
+process.env.NODE_EXTRA_CA_CERTS = SELF_CERTIFICATES_PATH.ca;
 
 app.prepare().then(() => {
   https
@@ -38,6 +43,6 @@ app.prepare().then(() => {
     })
     .listen(port, error => {
       if (error) throw error;
-      console.log(`> Ready on https://${hostname}:${port}`);
+      console.log('\x1b[32m%s', `> ready on https://${hostname}:${port}\n`);
     });
 });
