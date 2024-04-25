@@ -12,7 +12,7 @@ const InputLength = ({
   const textColor = isError ? 'text-warning-800 ' : 'text-main-900';
 
   return (
-    <p>
+    <p className="text-xs">
       <span className={textColor}>{currentLength ? currentLength : 0}</span>/
       {maxLength}
     </p>
