@@ -14,7 +14,7 @@ const BookInfoCard = ({
   removable = false,
   onBookIdChange: _onBookIdChange,
 }: {
-  bookId: number;
+  bookId?: number;
   removable?: boolean;
   onBookIdChange?: (id: APIBook['bookId']) => void;
 }) => {
@@ -89,7 +89,7 @@ const EmptyBookInfoCard = ({ onBookSelect }: { onBookSelect?: () => void }) => {
       className="flex min-h-[12.8rem] w-full cursor-pointer flex-col items-center justify-center gap-[1rem] rounded-[0.5rem] border-[0.05rem] border-cancel shadow-bookcard"
       onClick={onBookSelect}
     >
-      <IconBookPlus className="h-[2rem] w-[2rem]" />
+      <IconBookPlus className="h-[2rem] w-[2rem] fill-placeholder" />
       <p className="text-xs text-placeholder">
         독서모임에 사용할 책을 선택해주세요
       </p>
