@@ -56,7 +56,7 @@ const SetUpDetailStep = ({
       <SelectedBookInfoField bookId={getValues('bookId')} />
       <IntroduceField errors={errors} register={register} />
       <MaxMemberCountField
-        isMaxMemberCountCustom={watch('maxMemberCount') === 'custom'}
+        isCustomMemberCount={watch('maxMemberCount') === 'custom'}
         errors={errors}
         register={register}
       />
@@ -144,11 +144,11 @@ const IntroduceField = ({ errors, register }: _DefaultFieldProps) => {
 };
 
 const MaxMemberCountField = ({
-  isMaxMemberCountCustom,
+  isCustomMemberCount,
   errors,
   register,
 }: {
-  isMaxMemberCountCustom: boolean;
+  isCustomMemberCount: boolean;
 } & _DefaultFieldProps) => {
   return (
     <section className="flex flex-col gap-[1.6rem]">
@@ -168,14 +168,14 @@ const MaxMemberCountField = ({
         </div>
         <ErrorMessage>{errors?.maxMemberCount?.message}</ErrorMessage>
       </div>
-      {isMaxMemberCountCustom && (
+      {isCustomMemberCount && (
         <div className="flex flex-col gap-[0.5rem]">
           <Input
             type="number"
             placeholder="1000명 이상의 인원은 제한 없음을 선택해주세요"
             {...register?.('customMemberCount', {
               required: {
-                value: isMaxMemberCountCustom,
+                value: isCustomMemberCount,
                 message: '모임 최대 인원을 입력해주세요',
               },
               min: { value: 2, message: '모임 인원은 최소 2명부터 가능해요' },
