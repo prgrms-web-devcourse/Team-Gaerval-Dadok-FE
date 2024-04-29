@@ -1,8 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Suspense, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
+
+import { APIBook } from '@/types/book';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
@@ -19,7 +22,6 @@ import RecentSearchList, {
   RecentSearchListSkeleton,
 } from '@/v1/bookSearch/RecentSearchList';
 import BookSearchList from '@/v1/bookSearch/BookSearchList';
-import { IconSearch } from '@public/icons';
 
 type FormValues = {
   searchValue: string;
@@ -40,14 +42,12 @@ const BookSearchPage = () => {
     <>
       <TopHeader text={'Discover'} />
       <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
-        <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
-          <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
-          <Input
-            className="w-full appearance-none text-sm font-normal focus:outline-none"
-            placeholder="책 제목, 작가를 검색해보세요"
-            {...register('searchValue')}
-          />
-        </div>
+        <Input
+          inputStyle="line"
+          leftIconType="search"
+          placeholder="책 제목, 작가를 검색해보세요"
+          {...register('searchValue')}
+        />
 
         {/** 최근 검색어 + 베스트 셀러 */}
         <section
@@ -80,6 +80,7 @@ const BookSearchPage = () => {
 };
 
 const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
+  const router = useRouter();
   const { ref: inViewRef, inView } = useInView();
 
   const bookSearchInfo = useBookSearchQuery({
@@ -95,6 +96,10 @@ const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
     ? bookSearchInfo.data.pages[0].totalCount
     : 0;
 
+  const handleBookClick = ({ bookId }: { bookId: APIBook['bookId'] }) => {
+    router.push(`/book/${bookId}`);
+  };
+
   useEffect(() => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
@@ -109,7 +114,11 @@ const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
 
   return (
     <>
-      <BookSearchList books={searchedBooks} totalCount={totalResultCount} />
+      <BookSearchList
+        books={searchedBooks}
+        totalCount={totalResultCount}
+        onBookClick={handleBookClick}
+      />
       <div ref={inViewRef} />
     </>
   );
