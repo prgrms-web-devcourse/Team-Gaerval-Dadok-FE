@@ -59,7 +59,7 @@ const Input = (
       className={`flex w-full items-center bg-transparent ${inputStyleClass} ${borderColorClass} ${fontSizeClass} ${leftIconClass} ${className}`}
     >
       <input
-        className={`h-[4.4rem] w-full bg-transparent outline-none ${fontSizeClass}`}
+        className={`h-[4.4rem] w-full bg-transparent outline-none autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,255)] ${fontSizeClass}`}
         {...props}
         ref={ref}
       />
