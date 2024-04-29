@@ -31,8 +31,8 @@ const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const debouncedSetKeyword = debounce(setKeyword, 500);
 
   return (
-    <article className="group relative flex w-full flex-col gap-[1rem]">
-      <h2 className="gtext-lg font-bold">어떤 책으로 독서모임을 시작할까요?</h2>
+    <article className="relative flex w-full flex-col gap-[1rem]">
+      <h2 className="text-lg font-bold">어떤 책으로 독서모임을 시작할까요?</h2>
 
       <Input
         placeholder="책 제목, 작가를 검색해보세요"
