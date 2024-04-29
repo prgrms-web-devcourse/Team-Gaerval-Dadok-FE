@@ -35,7 +35,7 @@ interface SetUpDetailStepValues
 }
 
 const SetUpDetailStep = ({
-  // FIXME: goToEnterTitleStep,
+  // FIXME: goToSelectBookStep,
   onNextStep,
 }: MoveFunnelStepProps) => {
   const {
