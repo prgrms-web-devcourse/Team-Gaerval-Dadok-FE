@@ -47,7 +47,8 @@ const SetUpDetailForm = () => {
       endDate,
       isPublic,
     } = methods.getValues();
-    alert(`bookId: ${book.bookId},
+    alert(`
+      bookId: ${book.bookId},
       title: ${title},
       introduce: ${introduce},
       maxMemberCount: ${maxMemberCount},

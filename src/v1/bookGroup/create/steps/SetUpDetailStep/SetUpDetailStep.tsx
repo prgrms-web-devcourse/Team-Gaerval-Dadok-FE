@@ -34,7 +34,6 @@ export interface SetUpDetailStepValues
     'bookId' | 'title' | 'introduce' | 'startDate' | 'endDate' | 'isPublic'
   > {
   book: SearchedBookWithId;
-  queryKeyword: string;
   maxMemberCount: string;
   customMemberCount: string;
 }
@@ -235,7 +234,7 @@ const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
               message: '모임 시작일은 오늘 혹은 그 이후로 선택해주세요',
             },
             max: {
-              value: endDate || '9999-12-31',
+              value: endDate,
               message: '모임 시작일은 종료일 보다 빨라야해요',
             },
           })}
