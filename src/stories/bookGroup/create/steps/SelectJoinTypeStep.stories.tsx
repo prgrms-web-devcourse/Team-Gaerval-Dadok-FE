@@ -4,7 +4,7 @@ import { appLayoutMeta } from '@/stories/meta';
 
 import {
   SelectJoinTypeStep,
-  SelectJoinFormValue,
+  SelectJoinTypeStepFormValues,
 } from '@/v1/bookGroup/create/steps/SelectJoinTypeStep';
 
 const meta: Meta<typeof SelectJoinTypeStep> = {
@@ -17,8 +17,8 @@ export default meta;
 
 type Story = StoryObj<typeof SelectJoinTypeStep>;
 
-const RenderSelectBookStep = () => {
-  const methods = useForm<SelectJoinFormValue>({
+const RenderSelectJoinTypeStep = () => {
+  const methods = useForm<SelectJoinTypeStepFormValues>({
     defaultValues: {
       hasJoinPasswd: 'false',
     },
@@ -42,5 +42,5 @@ const RenderSelectBookStep = () => {
 };
 
 export const Default: Story = {
-  render: () => <RenderSelectBookStep />,
+  render: () => <RenderSelectJoinTypeStep />,
 };

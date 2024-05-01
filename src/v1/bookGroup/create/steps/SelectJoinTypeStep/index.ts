@@ -1,2 +1,2 @@
-export type { JoinTypeStepFormValues as SelectJoinFormValue } from './SelectJoinTypeStep';
+export type { JoinTypeStepFormValues as SelectJoinTypeStepFormValues } from './SelectJoinTypeStep';
 export { default as SelectJoinTypeStep } from './SelectJoinTypeStep';
