@@ -1,13 +1,16 @@
+import { appLayoutMeta } from '@/stories/meta';
+import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
-import type { APICreateGroup } from '@/types/group';
+
 import { getTodayDate } from '@/utils/date';
 
-import { SetUpDetailStep } from '@/v1/bookGroup/create/funnel';
-import { Meta, StoryObj } from '@storybook/react';
-import { appLayoutMeta } from '@/stories/meta';
+import {
+  SetUpDetailStep,
+  type SetUpDetailStepValues,
+} from '@/v1/bookGroup/create/steps/SetUpDetailStep';
 
 const meta: Meta<typeof SetUpDetailStep> = {
-  title: 'bookGroup/funnel/SetUpDetailStep',
+  title: 'bookGroup/create/steps/SetUpDetailStep',
   component: SetUpDetailStep,
   ...appLayoutMeta,
 };
@@ -15,24 +18,20 @@ const meta: Meta<typeof SetUpDetailStep> = {
 export default meta;
 
 type Story = StoryObj<typeof SetUpDetailStep>;
-interface FunnelFormValues extends APICreateGroup {
-  customMemberCount: string | number;
-}
 
 const SetUpDetailForm = () => {
-  const methods = useForm<FunnelFormValues>({
+  const methods = useForm<SetUpDetailStepValues>({
     mode: 'all',
     defaultValues: {
-      bookId: 23,
+      book: {
+        bookId: 23,
+      },
       title: '',
       introduce: '',
-      maxMemberCount: 9999,
+      maxMemberCount: '',
       startDate: getTodayDate(),
       endDate: '',
       isPublic: false,
-      hasJoinPasswd: false,
-      joinQuestion: '',
-      joinPasswd: '',
     },
   });
 
