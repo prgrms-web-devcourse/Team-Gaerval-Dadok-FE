@@ -1,10 +1,10 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { APICreateGroup } from '@/types/group';
 import type { SearchedBookWithId } from '@/types/book';
+import type { APICreateGroup } from '@/types/group';
 
-import { getTodayDate } from '@/utils/date';
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
+import { getTodayDate } from '@/utils/date';
 
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import DatePicker from '@/v1/base/DatePicker';
@@ -14,7 +14,7 @@ import InputLength from '@/v1/base/InputLength';
 import RadioButton from '@/v1/base/RadioButton';
 import Switch from '@/v1/base/Switch';
 import TextArea from '@/v1/base/TextArea';
-import BookInfoCard from '../../BookInfoCard';
+import BookInfoCard from '@/v1/bookGroup/BookInfoCard';
 
 interface MoveFunnelStepProps {
   onPrevStep?: () => void;
@@ -28,7 +28,7 @@ interface MoveFunnelStepProps {
  * goToSelectBookStep 받도록 수정
  */
 
-interface SetUpDetailStepValues
+export interface SetUpDetailStepValues
   extends Pick<
     APICreateGroup,
     'bookId' | 'title' | 'introduce' | 'startDate' | 'endDate' | 'isPublic'
