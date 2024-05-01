@@ -23,22 +23,44 @@ const SetUpDetailForm = () => {
   const methods = useForm<SetUpDetailStepValues>({
     mode: 'all',
     defaultValues: {
+      title: '',
       book: {
         bookId: 23,
       },
-      title: '',
       introduce: '',
       maxMemberCount: '',
+      customMemberCount: '',
       startDate: getTodayDate(),
       endDate: '',
       isPublic: false,
     },
   });
 
+  const onNextStep = () => {
+    const {
+      book,
+      title,
+      introduce,
+      maxMemberCount,
+      customMemberCount,
+      startDate,
+      endDate,
+      isPublic,
+    } = methods.getValues();
+    alert(`bookId: ${book.bookId},
+      title: ${title},
+      introduce: ${introduce},
+      maxMemberCount: ${maxMemberCount},
+      customMemberCount: ${customMemberCount},
+      startDate: ${startDate},
+      endDate: ${endDate},
+      isPublic: ${isPublic}`);
+  };
+
   return (
     <FormProvider {...methods}>
       <form>
-        <SetUpDetailStep />
+        <SetUpDetailStep onNextStep={onNextStep} />
       </form>
     </FormProvider>
   );
