@@ -27,11 +27,13 @@ const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
       <h2 className="mb-[3rem] text-lg font-bold">가입은 어떻게 받을까요?</h2>
 
       <section className="flex flex-col gap-[2rem]">
-        <JoinTypeFieldset name="hasJoinPasswd" />
+        <JoinTypeFieldset>
+          <JoinTypeFieldset.RadioCardField name="hasJoinPasswd" />
+        </JoinTypeFieldset>
 
         <JoinPasswordFieldset joinTypeFieldName="hasJoinPasswd">
-          <JoinPasswordFieldset.Question name="joinQuestion" />
-          <JoinPasswordFieldset.Answer name="joinPasswd" />
+          <JoinPasswordFieldset.QuestionField name="joinQuestion" />
+          <JoinPasswordFieldset.AnswerField name="joinPasswd" />
         </JoinPasswordFieldset>
       </section>
 

@@ -7,11 +7,15 @@ import {
 
 import JoinTypeRadioCard from './JoinTypeRadioCard';
 
-const JoinTypeFieldset = ({ name }: JoinTypeStepFieldProp) => {
+const JoinTypeFieldset = ({ children }: { children?: React.ReactNode }) => {
+  return <fieldset className="flex flex-col gap-[1rem]">{children}</fieldset>;
+};
+
+const RadioCardField = ({ name }: JoinTypeStepFieldProp) => {
   const { register } = useFormContext<JoinTypeStepFormValues>();
 
   return (
-    <fieldset className="flex flex-col gap-[1rem]">
+    <>
       <JoinTypeRadioCard
         {...register(name)}
         id="no-password"
@@ -24,8 +28,10 @@ const JoinTypeFieldset = ({ name }: JoinTypeStepFieldProp) => {
         value="true"
         label="문제를 맞춰야 모임에 가입할 수 있어요"
       />
-    </fieldset>
+    </>
   );
 };
+
+JoinTypeFieldset.RadioCardField = RadioCardField;
 
 export default JoinTypeFieldset;
