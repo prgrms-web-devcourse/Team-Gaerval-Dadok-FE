@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import ErrorMessage from '@/v1/base/ErrorMessage';
@@ -12,13 +13,12 @@ import {
 
 type JoinPasswordFieldsetProps = {
   joinTypeFieldName: JoinTypeStepFieldName;
-  children?: React.ReactNode;
 };
 
 const JoinPasswordFieldset = ({
   joinTypeFieldName,
   children,
-}: JoinPasswordFieldsetProps) => {
+}: PropsWithChildren<JoinPasswordFieldsetProps>) => {
   const { control } = useFormContext<JoinTypeStepFormValues>();
   const hasJoinPassword = useWatch({ control, name: joinTypeFieldName });
 
@@ -89,10 +89,10 @@ const JoinAnswerField = ({ name }: JoinTypeStepFieldProp) => {
       <Input
         placeholder="띄어쓰기 없이 정답을 작성해주세요"
         {...register(name, {
-          required: '띄어쓰기 없이 10자 이하의 정답이 필요해요',
+          required: '띄어쓰기 없이 10글자 이하의 정답이 필요해요',
           maxLength: {
             value: 10,
-            message: '띄어쓰기 없이 10자 이하의 정답을 작성해주세요,',
+            message: '띄어쓰기 없이 10글자 이하의 정답을 작성해주세요,',
           },
           pattern: {
             value: /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]+$/,
@@ -113,7 +113,7 @@ const JoinAnswerField = ({ name }: JoinTypeStepFieldProp) => {
   );
 };
 
-JoinPasswordFieldset.Question = JoinQuestionField;
-JoinPasswordFieldset.Answer = JoinAnswerField;
+JoinPasswordFieldset.QuestionField = JoinQuestionField;
+JoinPasswordFieldset.AnswerField = JoinAnswerField;
 
 export default JoinPasswordFieldset;
