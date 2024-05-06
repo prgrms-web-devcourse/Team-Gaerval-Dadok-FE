@@ -31,6 +31,8 @@
     max-width: 43rem;
     margin: 0 auto !important;
   }
+
+  /* DatePicker Calendar 스타일링 */
   input[type='date']::-webkit-calendar-picker-indicator {
     background-image: none;
     position: absolute;
@@ -41,6 +43,17 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
+  }
+
+  /* Input type=number 버튼 제거 */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* FireFox */
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 }
 
