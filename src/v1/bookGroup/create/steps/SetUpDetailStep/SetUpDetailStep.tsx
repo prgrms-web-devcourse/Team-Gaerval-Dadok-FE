@@ -1,9 +1,10 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 
+import type { SearchedBookWithId } from '@/types/book';
 import type { APICreateGroup } from '@/types/group';
 
-import { getTodayDate } from '@/utils/date';
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
+import { getTodayDate } from '@/utils/date';
 
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import DatePicker from '@/v1/base/DatePicker';
@@ -13,7 +14,7 @@ import InputLength from '@/v1/base/InputLength';
 import RadioButton from '@/v1/base/RadioButton';
 import Switch from '@/v1/base/Switch';
 import TextArea from '@/v1/base/TextArea';
-import BookInfoCard from '../../BookInfoCard';
+import BookInfoCard from '@/v1/bookGroup/BookInfoCard';
 
 interface MoveFunnelStepProps {
   onPrevStep?: () => void;
@@ -21,17 +22,24 @@ interface MoveFunnelStepProps {
   onSubmit?: () => void;
 }
 
-interface SetUpDetailStepValues
+/**
+ * @todo
+ * Field 컴포넌트 분리
+ * goToSelectBookStep 받도록 수정
+ */
+
+export interface SetUpDetailStepValues
   extends Pick<
     APICreateGroup,
     'bookId' | 'title' | 'introduce' | 'startDate' | 'endDate' | 'isPublic'
   > {
+  book: SearchedBookWithId;
   maxMemberCount: string;
   customMemberCount: string;
 }
 
 const SetUpDetailStep = ({
-  // FIXME: goToSelectBookStep,
+  // goToSelectBookStep,
   onNextStep,
 }: MoveFunnelStepProps) => {
   const { handleSubmit, getValues } = useFormContext<SetUpDetailStepValues>();
@@ -39,9 +47,9 @@ const SetUpDetailStep = ({
   return (
     <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
       <TitleField name={'title'} />
-      <SelectedBookInfoField bookId={getValues('bookId')} />
-
+      <SelectedBookInfoField bookId={getValues('book')?.bookId} />
       <IntroduceField name={'introduce'} />
+
       <section className="flex flex-col gap-[1.6rem]">
         <MaxMemberCountField name={'maxMemberCount'} />
         <CustomMemberCountField name={'customMemberCount'} />
@@ -71,14 +79,13 @@ type SetUpDetailFieldProps = {
 const TitleField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
-    watch,
+    control,
     formState: { errors },
   } = useFormContext<SetUpDetailStepValues>();
 
-  const watchedName = watch(name);
-  const currentLength =
-    typeof watchedName === 'string' ? watchedName.length : 0;
-
+  const titleValue = useWatch({ control, name: name });
+  const titleValueLength =
+    typeof titleValue === 'string' ? titleValue.length : 0;
   const titleErrors = errors[name];
 
   return (
@@ -95,7 +102,7 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
       />
       <div className="flex flex-row-reverse justify-between gap-[0.4rem]">
         <InputLength
-          currentLength={currentLength}
+          currentLength={titleValueLength}
           maxLength={20}
           isError={!!titleErrors}
         />
@@ -151,7 +158,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   return (
     <>
       <h2>최대 인원</h2>
-      <div className="inline-flex w-[23rem] flex-wrap gap-[1rem]">
+      <fieldset className="inline-flex w-[70%] flex-wrap gap-[1rem]">
         {MAX_MEMBER_COUNT_OPTIONS.map(option => (
           <RadioButton
             key={option.value}
@@ -162,7 +169,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
             })}
           />
         ))}
-      </div>
+      </fieldset>
       <ErrorMessage>{maxMemberCountErrors?.message}</ErrorMessage>
     </>
   );
@@ -171,12 +178,13 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
 const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
-    watch,
+    control,
     formState: { errors },
   } = useFormContext<SetUpDetailStepValues>();
 
+  const maxMemberCount = useWatch({ control, name: 'maxMemberCount' });
+  const isCustomInputCount = maxMemberCount === 'custom';
   const customMemberCountErrors = errors[name];
-  const isCustomInputCount = watch('maxMemberCount') === 'custom';
 
   return (
     <>
@@ -185,6 +193,8 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
           <Input
             type="number"
             placeholder="1000명 이상의 인원은 제한 없음을 선택해주세요"
+            className="after:content-['명']"
+            error={!!customMemberCountErrors}
             {...register(name, {
               required: {
                 value: isCustomInputCount,
@@ -204,10 +214,13 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
 const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
+    control,
     formState: { errors },
   } = useFormContext<SetUpDetailStepValues>();
 
   const startDateErrors = errors[name];
+  const endDate = useWatch({ control, name: 'endDate' });
+  const todayDate = getTodayDate();
 
   return (
     <section className="flex flex-col gap-[0.5rem]">
@@ -217,8 +230,12 @@ const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
           {...register(name, {
             required: '모임 시작일을 선택해주세요',
             min: {
-              value: getTodayDate(),
+              value: todayDate,
               message: '모임 시작일은 오늘 혹은 그 이후로 선택해주세요',
+            },
+            max: {
+              value: endDate,
+              message: '모임 시작일은 종료일 보다 빨라야해요',
             },
           })}
         />
@@ -231,9 +248,12 @@ const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
 const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
-    watch,
+    control,
     formState: { errors },
   } = useFormContext<SetUpDetailStepValues>();
+
+  const startDate = useWatch({ control, name: 'startDate' });
+  const todayDate = getTodayDate();
 
   const endDateErrors = errors[name];
 
@@ -245,8 +265,8 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
           {...register(name, {
             required: '모임 종료일을 선택해주세요',
             min: {
-              value: watch('startDate'),
-              message: '모임 종료일은 시작일보다 늦어야해요',
+              value: startDate || todayDate,
+              message: '모임 종료일은 시작일과 오늘 이후여야 해요',
             },
           })}
         />
