@@ -3,20 +3,22 @@
 import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import type { APIBook } from '@/types/book';
 import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
 
-import { IconArrowLeft, IconBookPlus, IconDelete } from '@public/icons';
+import { IconArrowLeft, IconDelete } from '@public/icons';
 import BookCover from '@/v1/book/BookCover';
-import { APIBook } from '@/types/book';
 
 const BookInfoCard = ({
   bookId,
   removable = false,
   onBookIdChange: _onBookIdChange,
+  onBookIdRemove,
 }: {
   bookId?: number;
   removable?: boolean;
   onBookIdChange?: (id: APIBook['bookId']) => void;
+  onBookIdRemove?: () => void;
 }) => {
   const [id, setId] = useState<typeof bookId | null>(bookId);
 
@@ -24,18 +26,20 @@ const BookInfoCard = ({
     setId(bookId);
   }, [bookId]);
 
-  const handleBookSelect = () => {
-    // TODO: 도서 선택 UI 제공 후 선택된 도서로 id 변경
-    // setId(23);
-    // onBookIdChange?.(23);
-  };
+  // TODO: 추후 EmptyBookInfoCard 컴포넌트를 쓰게되면 활용
+  // const handleBookSelect = () => {
+  //   TODO: 도서 선택 UI 제공 후 선택된 도서로 id 변경
+  //   setId(23);
+  //   onBookIdChange?.(23);
+  // };
 
   const handleBookInfoRemove = () => {
+    onBookIdRemove?.();
     setId(null);
   };
 
   if (!id) {
-    return <EmptyBookInfoCard onBookSelect={handleBookSelect} />;
+    return <BookInfoCardSkeleton />;
   }
 
   return (
@@ -83,19 +87,20 @@ const BookInfoContent = ({
   );
 };
 
-const EmptyBookInfoCard = ({ onBookSelect }: { onBookSelect?: () => void }) => {
-  return (
-    <div
-      className="flex min-h-[12.8rem] w-full cursor-pointer flex-col items-center justify-center gap-[1rem] rounded-[0.5rem] border-[0.05rem] border-cancel shadow-bookcard"
-      onClick={onBookSelect}
-    >
-      <IconBookPlus className="h-[2rem] w-[2rem] fill-placeholder" />
-      <p className="text-xs text-placeholder">
-        독서모임에 사용할 책을 선택해주세요
-      </p>
-    </div>
-  );
-};
+// TODO: 이후 퍼널 Step의 이동 로직이 변경되면 활용될 컴포넌트
+// const EmptyBookInfoCard = ({ onBookSelect }: { onBookSelect?: () => void }) => {
+//   return (
+//     <div
+//       className="flex min-h-[12.8rem] w-full cursor-pointer flex-col items-center justify-center gap-[1rem] rounded-[0.5rem] border-[0.05rem] border-cancel shadow-bookcard"
+//       onClick={onBookSelect}
+//     >
+//       <IconBookPlus className="h-[2rem] w-[2rem] fill-placeholder" />
+//       <p className="text-xs text-placeholder">
+//         독서모임에 사용할 책을 선택해주세요
+//       </p>
+//     </div>
+//   );
+// };
 
 const BookInfoCardSkeleton = () => {
   return (
