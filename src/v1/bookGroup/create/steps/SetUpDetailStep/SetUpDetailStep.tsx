@@ -29,7 +29,6 @@ interface SetUpDetailStepProps extends MoveFunnelStepProps {
 /**
  * @todo
  * Field 컴포넌트 분리
- * goToSelectBookStep 받도록 수정
  */
 
 export interface SetUpDetailStepValues
@@ -128,7 +127,7 @@ const SelectedBookInfoField = ({
 }) => {
   const { reset } = useFormContext<SetUpDetailStepValues>();
 
-  const handleBookIdRemove = () => {
+  const handleBookRemove = () => {
     onClickRemove?.();
     reset({ book: undefined });
 
@@ -139,7 +138,7 @@ const SelectedBookInfoField = ({
     <section>
       <BookInfoCard
         bookId={bookId}
-        onBookIdRemove={handleBookIdRemove}
+        onBookRemove={handleBookRemove}
         removable={true}
       />
     </section>

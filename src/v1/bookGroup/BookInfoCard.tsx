@@ -13,12 +13,12 @@ const BookInfoCard = ({
   bookId,
   removable = false,
   onBookIdChange: _onBookIdChange,
-  onBookIdRemove,
+  onBookRemove,
 }: {
   bookId?: number;
   removable?: boolean;
   onBookIdChange?: (id: APIBook['bookId']) => void;
-  onBookIdRemove?: () => void;
+  onBookRemove?: () => void;
 }) => {
   const [id, setId] = useState<typeof bookId | null>(bookId);
 
@@ -34,7 +34,7 @@ const BookInfoCard = ({
   // };
 
   const handleBookInfoRemove = () => {
-    onBookIdRemove?.();
+    onBookRemove?.();
     setId(null);
   };
 
