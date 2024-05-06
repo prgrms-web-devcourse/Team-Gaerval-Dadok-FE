@@ -30,6 +30,12 @@ const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const [keyword, setKeyword] = useState(keywordValue || '');
   const debouncedSetKeyword = debounce(setKeyword, 500);
 
+  const handleEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') e.preventDefault();
+
+    return;
+  };
+
   return (
     <article className="relative flex w-full flex-col gap-[1rem]">
       <h2 className="text-lg font-bold">어떤 책으로 독서모임을 시작할까요?</h2>
@@ -41,6 +47,7 @@ const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
         className="mb-[1rem]"
         defaultValue={keyword}
         onChange={event => debouncedSetKeyword(event.target.value)}
+        onKeyDown={event => handleEnterKeyDown(event)}
       />
 
       <Suspense fallback={<Loading fullpage />}>
