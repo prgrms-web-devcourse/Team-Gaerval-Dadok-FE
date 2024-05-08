@@ -1,13 +1,36 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-export function useBodyScrollLock({ enabled = true }: { enabled?: boolean }) {
+type Options = {
+  enabled?: boolean;
+};
+
+export function useBodyScrollLock(options?: Options) {
+  const enabled = options?.enabled;
+  const scrollRef = useRef(0);
+
+  const lockScroll = useCallback(() => {
+    scrollRef.current = window.scrollY;
+    document.body.style.overflow = 'hidden';
+    document.body.style.marginTop = `-${scrollRef.current}px`;
+  }, []);
+
+  const openScroll = useCallback(() => {
+    document.body.style.removeProperty('overflow');
+    document.body.style.removeProperty('margin-top');
+    window.scrollTo(0, scrollRef.current);
+  }, []);
+
   useEffect(() => {
-    if (enabled) {
-      document.body.style.overflow = 'hidden';
+    if (enabled === undefined) {
+      return;
     }
 
-    return () => {
-      document.body.style.removeProperty('overflow');
-    };
-  }, [enabled]);
+    if (enabled) {
+      lockScroll();
+    } else {
+      openScroll();
+    }
+  }, [enabled, lockScroll, openScroll]);
+
+  return { lockScroll, openScroll };
 }

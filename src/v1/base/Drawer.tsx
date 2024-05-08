@@ -1,8 +1,9 @@
 import { createContext, PropsWithChildren, ReactNode, useContext } from 'react';
 
 import { IconClose } from '@public/icons';
-import Portal from './Portal';
 import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+
+import Portal from '@/v1/base/Portal';
 
 interface DrawerProps {
   isOpen: boolean;
