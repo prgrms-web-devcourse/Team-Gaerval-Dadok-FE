@@ -29,7 +29,7 @@
   .app-layout {
     /* TODO: Chakra UI 걷어내면 제거 */
     max-width: 43rem;
-    margin: 0 auto !important;
+    margin: 0 auto;
   }
 
   /* DatePicker Calendar 스타일링 */
