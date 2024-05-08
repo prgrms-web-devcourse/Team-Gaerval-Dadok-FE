@@ -36,7 +36,8 @@ const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
         </Drawer.Header>
         <Drawer.Content>
           <textarea
-            className="h-[60vh] w-full resize-none border-none text-md focus:outline-none"
+            className="h-full w-full resize-none border-none text-md focus:outline-none"
+            rows={15}
             defaultValue={defaultComment}
             placeholder={placeholder}
             ref={ref}
