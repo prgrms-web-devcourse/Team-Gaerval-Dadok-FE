@@ -52,7 +52,7 @@ const SetUpDetailStep = ({
       <TitleField name={'title'} />
       <SelectedBookInfoField
         bookId={getValues('book.bookId')}
-        onClickRemove={goToSelectBookStep}
+        onRemoveButtonClick={goToSelectBookStep}
       />
       <IntroduceField name={'introduce'} />
 
@@ -120,15 +120,15 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
 
 const SelectedBookInfoField = ({
   bookId,
-  onClickRemove,
+  onRemoveButtonClick,
 }: {
   bookId?: number;
-  onClickRemove?: () => void;
+  onRemoveButtonClick?: () => void;
 }) => {
   const { reset } = useFormContext<SetUpDetailStepValues>();
 
   const handleBookRemove = () => {
-    onClickRemove?.();
+    onRemoveButtonClick?.();
     reset({ book: undefined });
 
     return;

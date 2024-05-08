@@ -47,7 +47,7 @@ const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
         className="mb-[1rem]"
         defaultValue={keyword}
         onChange={event => debouncedSetKeyword(event.target.value)}
-        onKeyDown={event => handleEnterKeyDown(event)}
+        onKeyDown={handleEnterKeyDown}
       />
 
       <Suspense fallback={<Loading fullpage />}>
