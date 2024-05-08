@@ -22,10 +22,13 @@ interface MoveFunnelStepProps {
   onSubmit?: () => void;
 }
 
+interface SetUpDetailStepProps extends MoveFunnelStepProps {
+  goToSelectBookStep?: () => void;
+}
+
 /**
  * @todo
  * Field 컴포넌트 분리
- * goToSelectBookStep 받도록 수정
  */
 
 export interface SetUpDetailStepValues
@@ -39,15 +42,18 @@ export interface SetUpDetailStepValues
 }
 
 const SetUpDetailStep = ({
-  // goToSelectBookStep,
+  goToSelectBookStep,
   onNextStep,
-}: MoveFunnelStepProps) => {
+}: SetUpDetailStepProps) => {
   const { handleSubmit, getValues } = useFormContext<SetUpDetailStepValues>();
 
   return (
     <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
       <TitleField name={'title'} />
-      <SelectedBookInfoField bookId={getValues('book')?.bookId} />
+      <SelectedBookInfoField
+        bookId={getValues('book.bookId')}
+        onRemoveButtonClick={goToSelectBookStep}
+      />
       <IntroduceField name={'introduce'} />
 
       <section className="flex flex-col gap-[1.6rem]">
@@ -112,10 +118,29 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
   );
 };
 
-const SelectedBookInfoField = ({ bookId }: { bookId?: number }) => {
+const SelectedBookInfoField = ({
+  bookId,
+  onRemoveButtonClick,
+}: {
+  bookId?: number;
+  onRemoveButtonClick?: () => void;
+}) => {
+  const { reset } = useFormContext<SetUpDetailStepValues>();
+
+  const handleBookRemove = () => {
+    onRemoveButtonClick?.();
+    reset({ book: undefined });
+
+    return;
+  };
+
   return (
     <section>
-      <BookInfoCard bookId={bookId} removable={true} />
+      <BookInfoCard
+        bookId={bookId}
+        onBookRemove={handleBookRemove}
+        removable={true}
+      />
     </section>
   );
 };
