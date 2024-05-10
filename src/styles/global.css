@@ -34,7 +34,6 @@
 
   /* DatePicker Calendar 스타일링 */
   input[type='date']::-webkit-calendar-picker-indicator {
-    -webkit-appearance: none;
     background-image: none;
     position: absolute;
     left: 0;
@@ -44,6 +43,10 @@
     margin: 0;
     padding: 0;
     cursor: pointer;
+  }
+
+  input[type='date'] {
+    -webkit-appearance: none;
   }
 
   /* Input type=number 버튼 제거 */
