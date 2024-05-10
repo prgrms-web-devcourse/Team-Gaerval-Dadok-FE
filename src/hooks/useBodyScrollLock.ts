@@ -22,7 +22,12 @@ export function useBodyScrollLock(options?: Options) {
   }, []);
 
   const shouldLock = (event: TouchEvent) => {
-    if (event.target && (event.target as any).type !== 'textarea') {
+    if (!event.target) return;
+
+    const node = event.target as HTMLElement;
+    const hasScrollBar = node.scrollHeight < node.clientHeight;
+
+    if ((node as any).type !== 'textarea' && !hasScrollBar) {
       event.preventDefault();
     }
   };
