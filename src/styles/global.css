@@ -45,6 +45,10 @@
     cursor: pointer;
   }
 
+  input::-webkit-date-and-time-value {
+    display: none;
+  }
+
   input[type='date'] {
     -webkit-appearance: none;
   }
