@@ -84,10 +84,6 @@ module.exports = {
         'bookgroup-card': '0 0 6px rgba(180,180,180,0.25)',
       },
       keyframes: {
-        blink: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
         'page-transition': {
           from: { opacity: 0 },
           to: { opacity: 1 },
@@ -123,7 +119,6 @@ module.exports = {
         'dot-flash': '2s infinite dot-flash linear',
         'dot-flash-delay-0.5': '2s 0.5s infinite dot-flash linear',
         'dot-flash-delay-1': '2s 1s infinite dot-flash linear',
-        'prevent-ios-input-focus-scroll': 'blink 0.001s',
       },
       content: {
         search: 'url("/icons/search.svg")',

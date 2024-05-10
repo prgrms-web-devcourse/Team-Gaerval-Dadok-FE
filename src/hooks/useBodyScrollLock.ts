@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useRef } from 'react';
 
 type Options = {
@@ -20,17 +21,37 @@ export function useBodyScrollLock(options?: Options) {
     window.scrollTo(0, scrollRef.current);
   }, []);
 
+  const shouldLock = (event: TouchEvent) => {
+    if (event.target && (event.target as any).type !== 'textarea') {
+      event.preventDefault();
+    }
+  };
+
   useEffect(() => {
-    if (enabled === undefined) {
+    if (!enabled) {
       return;
     }
 
-    if (enabled) {
-      lockScroll();
-    } else {
-      openScroll();
-    }
-  }, [enabled, lockScroll, openScroll]);
+    document.addEventListener('touchmove', shouldLock, { passive: false });
+
+    return () => {
+      document.removeEventListener('touchmove', shouldLock, {
+        passive: false,
+      } as any);
+    };
+  }, [enabled]);
+
+  // useEffect(() => {
+  //   if (enabled === undefined) {
+  //     return;
+  //   }
+
+  //   if (enabled) {
+  //     lockScroll();
+  //   } else {
+  //     openScroll();
+  //   }
+  // }, [enabled, lockScroll, openScroll]);
 
   return { lockScroll, openScroll };
 }
