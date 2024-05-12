@@ -1,13 +1,10 @@
 import { useFormContext } from 'react-hook-form';
 
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
+import type { EnterTitleStepValues } from '../../types';
 
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import { TitleField } from './fields';
-
-export interface EnterTitleStepValues {
-  title: string;
-}
 
 const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const { handleSubmit } = useFormContext<EnterTitleStepValues>();

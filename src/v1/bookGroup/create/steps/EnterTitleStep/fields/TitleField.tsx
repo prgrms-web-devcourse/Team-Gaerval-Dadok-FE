@@ -1,6 +1,6 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { EnterTitleStepValues } from '../EnterTitleStep';
+import type { EnterTitleStepValues } from '../../../types';
 
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import Input from '@/v1/base/Input';

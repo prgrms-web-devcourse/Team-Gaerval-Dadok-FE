@@ -1,8 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { SearchedBookWithId } from '@/types/book';
-import type { APICreateGroup } from '@/types/group';
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
+import type { SetUpDetailStepValues } from '../../types';
 
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
@@ -25,16 +24,6 @@ interface SetUpDetailStepProps extends MoveFunnelStepProps {
  * @todo
  * Field 컴포넌트 분리
  */
-
-export interface SetUpDetailStepValues
-  extends Pick<
-    APICreateGroup,
-    'bookId' | 'title' | 'introduce' | 'startDate' | 'endDate' | 'isPublic'
-  > {
-  book: SearchedBookWithId;
-  maxMemberCount: string;
-  customMemberCount: string;
-}
 
 const SetUpDetailStep = ({
   goToSelectBookStep,
