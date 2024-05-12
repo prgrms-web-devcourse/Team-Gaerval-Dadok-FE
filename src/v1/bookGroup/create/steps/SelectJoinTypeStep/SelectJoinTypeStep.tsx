@@ -1,14 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
+import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
+
 import BottomActionButton from '@/v1/base/BottomActionButton';
-
 import { JoinPasswordFieldset, JoinTypeFieldset } from './fields';
-
-interface MoveFunnelStepProps {
-  onPrevStep?: () => void;
-  onNextStep?: () => void;
-  onSubmit?: () => void;
-}
 
 export type JoinTypeStepFormValues = {
   hasJoinPasswd: 'true' | 'false';

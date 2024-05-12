@@ -2,6 +2,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 
 import type { SearchedBookWithId } from '@/types/book';
 import type { APICreateGroup } from '@/types/group';
+import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
 
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
@@ -15,12 +16,6 @@ import RadioButton from '@/v1/base/RadioButton';
 import Switch from '@/v1/base/Switch';
 import TextArea from '@/v1/base/TextArea';
 import BookInfoCard from '@/v1/bookGroup/BookInfoCard';
-
-interface MoveFunnelStepProps {
-  onPrevStep?: () => void;
-  onNextStep?: () => void;
-  onSubmit?: () => void;
-}
 
 interface SetUpDetailStepProps extends MoveFunnelStepProps {
   goToSelectBookStep?: () => void;
