@@ -44,6 +44,9 @@ const GroupPage = () => {
     return;
   };
 
+  const FLOATING_BUTTON_POSITION =
+    'bottom-[8.3rem] right-[1.7rem] desktop:right-1/2 desktop:translate-x-[19.8rem]';
+
   return (
     <>
       <TopHeader text="Group" />
@@ -56,7 +59,7 @@ const GroupPage = () => {
       </div>
       <FloatingButton
         onClick={handleCreateGroupClick}
-        position="bottom-right"
+        position={FLOATING_BUTTON_POSITION}
       />
     </>
   );
