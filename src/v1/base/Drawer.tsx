@@ -8,7 +8,7 @@ import {
 import { Dialog, Transition } from '@headlessui/react';
 
 import { IconClose } from '@public/icons';
-import useRemoveScroll from '@/hooks/useRemoveScroll';
+import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
 interface DrawerProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ const Drawer = ({
   onClose,
   children,
 }: PropsWithChildren<DrawerProps>) => {
-  useRemoveScroll({ enabled: isOpen });
+  useRemoveVerticalScroll({ enabled: isOpen });
 
   return (
     <DrawerContext.Provider value={{ isOpen, onClose }}>
