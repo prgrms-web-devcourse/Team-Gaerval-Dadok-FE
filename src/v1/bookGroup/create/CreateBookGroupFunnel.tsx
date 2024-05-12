@@ -9,6 +9,8 @@ import useCreateBookGroupMutation from '@/queries/group/useCreateBookGroupMutati
 import { useFunnel } from '@/hooks/useFunnel';
 import useToast from '@/v1/base/Toast/useToast';
 import { getTodayDate } from '@/utils/date';
+import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
+import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
 import { IconArrowLeft } from '@public/icons';
 import TopNavigation from '@/v1/base/TopNavigation';
@@ -18,8 +20,6 @@ import {
   SelectJoinTypeStep,
   SetUpDetailStep,
 } from './steps';
-import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
-import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
 const FUNNEL_STEPS = [
   'SelectBook',
