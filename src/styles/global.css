@@ -45,6 +45,14 @@
     cursor: pointer;
   }
 
+  input::-webkit-date-and-time-value {
+    display: none;
+  }
+
+  input[type='date'] {
+    -webkit-appearance: none;
+  }
+
   /* Input type=number 버튼 제거 */
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-inner-spin-button {
