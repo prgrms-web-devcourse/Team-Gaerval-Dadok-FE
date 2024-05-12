@@ -4,10 +4,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { appLayoutMeta } from '@/stories/meta';
 import SelectBookStep, {
   SelectBookFormValue,
-} from '@/v1/bookGroup/create/funnel/SelectBookStep';
+} from '@/v1/bookGroup/create/steps/SelectBookStep/SelectBookStep';
 
 const meta: Meta<typeof SelectBookStep> = {
-  title: 'bookGroup/funnel/SelectBookStep',
+  title: 'bookGroup/create/steps/SelectBookStep',
   component: SelectBookStep,
   ...appLayoutMeta,
 };
