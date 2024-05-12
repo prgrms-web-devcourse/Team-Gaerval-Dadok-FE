@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { nonPassive } from '@/utils/eventListener';
 
 type Options = {
@@ -15,7 +15,7 @@ const useRemoveVerticalScroll = (options?: Options) => {
 
   const touchStartRef = useRef([0, 0]);
 
-  const shouldHeightLock = (event: TouchEvent | WheelEvent) => {
+  const shouldLock = useCallback((event: TouchEvent | WheelEvent) => {
     if (!event.target) return;
 
     const node = event.target as HTMLElement;
@@ -36,31 +36,31 @@ const useRemoveVerticalScroll = (options?: Options) => {
       isScrollToTopEnd ||
       isScrollToBottomEnd
     ) {
-      isScrollToTopEnd && console.log('top end');
-      isScrollToBottomEnd && console.log('bottom end');
-      event.preventDefault();
+      if (event.cancelable) {
+        event.preventDefault();
+      }
     }
-  };
+  }, []);
 
-  const scrollTouchStart = (event: TouchEvent) => {
+  const scrollTouchStart = useCallback((event: TouchEvent) => {
     touchStartRef.current = getTouchXY(event);
-  };
+  }, []);
 
   useEffect(() => {
     if (!enabled) {
       return;
     }
 
-    document.addEventListener('wheel', shouldHeightLock, nonPassive);
-    document.addEventListener('touchmove', shouldHeightLock, nonPassive);
+    document.addEventListener('wheel', shouldLock, nonPassive);
+    document.addEventListener('touchmove', shouldLock, nonPassive);
     document.addEventListener('touchstart', scrollTouchStart, nonPassive);
 
     return () => {
-      document.removeEventListener('wheel', shouldHeightLock, nonPassive);
-      document.removeEventListener('touchmove', shouldHeightLock, nonPassive);
+      document.removeEventListener('wheel', shouldLock, nonPassive);
+      document.removeEventListener('touchmove', shouldLock, nonPassive);
       document.removeEventListener('touchstart', scrollTouchStart, nonPassive);
     };
-  }, [enabled]);
+  }, [enabled, shouldLock, scrollTouchStart]);
 };
 
 export default useRemoveVerticalScroll;
