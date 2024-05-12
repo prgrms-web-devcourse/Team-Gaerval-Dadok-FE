@@ -15,6 +15,10 @@ const useRemoveVerticalScroll = (options?: Options) => {
 
   const touchStartRef = useRef([0, 0]);
 
+  const scrollTouchStart = useCallback((event: TouchEvent) => {
+    touchStartRef.current = getTouchXY(event);
+  }, []);
+
   const shouldLock = useCallback((event: TouchEvent | WheelEvent) => {
     if (!event.target) return;
 
@@ -40,10 +44,6 @@ const useRemoveVerticalScroll = (options?: Options) => {
         event.preventDefault();
       }
     }
-  }, []);
-
-  const scrollTouchStart = useCallback((event: TouchEvent) => {
-    touchStartRef.current = getTouchXY(event);
   }, []);
 
   useEffect(() => {
