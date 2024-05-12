@@ -1,11 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { appLayoutMeta } from '@/stories/meta';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-  EnterTitleStep,
-  type EnterTitleStepValues,
-} from '@/v1/bookGroup/create/steps/EnterTitleStep';
+import type { EnterTitleStepValues } from '@/v1/bookGroup/create/types';
+
+import { appLayoutMeta } from '@/stories/meta';
+import { EnterTitleStep } from '@/v1/bookGroup/create/steps';
 
 const meta: Meta<typeof EnterTitleStep> = {
   title: 'bookGroup/create/steps/EnterTitleStep',
