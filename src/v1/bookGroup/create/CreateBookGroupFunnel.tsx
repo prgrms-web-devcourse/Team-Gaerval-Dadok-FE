@@ -1,20 +1,25 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import type { SearchedBookWithId } from '@/types/book';
-import type { APICreateGroup } from '@/types/group';
+import type { CreateBookGroupFormValues } from './types';
+import useCreateBookGroupMutation from '@/queries/group/useCreateBookGroupMutation';
 
 import { useFunnel } from '@/hooks/useFunnel';
+import useToast from '@/v1/base/Toast/useToast';
 import { getTodayDate } from '@/utils/date';
 
 import { IconArrowLeft } from '@public/icons';
 import TopNavigation from '@/v1/base/TopNavigation';
-import { SelectBookStep } from '@/v1/bookGroup/create/steps/SelectBookStep';
-import { EnterTitleStep } from '@/v1/bookGroup/create/steps/EnterTitleStep';
-import { SetUpDetailStep } from '@/v1/bookGroup/create/steps/SetUpDetailStep';
-import { SelectJoinTypeStep } from '@/v1/bookGroup/create/steps/SelectJoinTypeStep';
+import {
+  EnterTitleStep,
+  SelectBookStep,
+  SelectJoinTypeStep,
+  SetUpDetailStep,
+} from './steps';
+import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
+import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
 const FUNNEL_STEPS = [
   'SelectBook',
@@ -23,30 +28,22 @@ const FUNNEL_STEPS = [
   'SelectJoinType',
 ] as const;
 
-interface FunnelValues extends APICreateGroup {
-  book: SearchedBookWithId;
-  queryKeyword: string;
-  customMemberCount: string;
-}
-
 const GroupCreateFunnel = () => {
   const router = useRouter();
   const [Funnel, setStep, currentStep] = useFunnel(FUNNEL_STEPS, {
     initialStep: 'SelectBook',
   });
+  const { show: showToast } = useToast();
+  const { mutate } = useCreateBookGroupMutation();
 
-  const methods = useForm<FunnelValues>({
+  const methods = useForm<CreateBookGroupFormValues>({
     mode: 'all',
     defaultValues: {
       title: '',
-      introduce: '',
       maxMemberCount: 9999,
       startDate: getTodayDate(),
-      endDate: '',
       isPublic: false,
-      hasJoinPasswd: false,
-      joinQuestion: '',
-      joinPasswd: '',
+      hasJoinPassword: 'false',
     },
   });
 
@@ -60,6 +57,50 @@ const GroupCreateFunnel = () => {
     }
 
     return;
+  };
+
+  const handleCreateGroupSubmit: SubmitHandler<
+    CreateBookGroupFormValues
+  > = formValues => {
+    const requestBody = {
+      bookId: formValues.book.bookId,
+      title: formValues.title,
+      introduce: formValues.introduce,
+      maxMemberCount:
+        formValues.maxMemberCount !== 'custom'
+          ? formValues.maxMemberCount
+          : formValues.customMemberCount,
+      startDate: formValues.startDate,
+      endDate: formValues.endDate,
+      isPublic: formValues.isPublic,
+      hasJoinPasswd: formValues.hasJoinPassword === 'true' ? true : false,
+      joinQuestion: formValues.joinQuestion,
+      joinPasswd: formValues.joinPassword,
+    };
+
+    mutate(requestBody, {
+      onSuccess: () => {
+        router.replace('/group');
+        showToast({ type: 'success', message: '독서모임을 생성했어요! 🎉' });
+
+        return;
+      },
+      onError: error => {
+        if (isAxiosErrorWithCustomCode(error)) {
+          const { code } = error.response.data;
+          const message = SERVICE_ERROR_MESSAGE[code];
+
+          showToast({ type: 'error', message });
+
+          return;
+        }
+
+        showToast({
+          type: 'error',
+          message: '독서 모임을 생성하지 못했어요 🥲',
+        });
+      },
+    });
   };
 
   return (
@@ -85,7 +126,9 @@ const GroupCreateFunnel = () => {
             />
           </Funnel.Step>
           <Funnel.Step name="SelectJoinType">
-            <SelectJoinTypeStep onSubmit={() => console.log} />
+            <SelectJoinTypeStep
+              onSubmit={methods.handleSubmit(handleCreateGroupSubmit)}
+            />
           </Funnel.Step>
         </Funnel>
       </form>
