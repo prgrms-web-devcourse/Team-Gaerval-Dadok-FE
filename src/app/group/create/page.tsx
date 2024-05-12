@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import type { SearchedBookWithId } from '@/types/book';
@@ -29,7 +30,8 @@ interface FunnelValues extends APICreateGroup {
 }
 
 const GroupCreateFunnel = () => {
-  const [Funnel, setStep] = useFunnel(FUNNEL_STEPS, {
+  const router = useRouter();
+  const [Funnel, setStep, currentStep] = useFunnel(FUNNEL_STEPS, {
     initialStep: 'SelectBook',
   });
 
@@ -48,11 +50,23 @@ const GroupCreateFunnel = () => {
     },
   });
 
+  const handleBackButtonClick = () => {
+    const currentStepIndex = FUNNEL_STEPS.indexOf(currentStep);
+
+    if (currentStepIndex === 0 || currentStepIndex === -1) {
+      router.back();
+    } else {
+      setStep(FUNNEL_STEPS[currentStepIndex - 1]);
+    }
+
+    return;
+  };
+
   return (
     <FormProvider {...methods}>
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <IconArrowLeft onClick={() => console.log('<')} />
+          <IconArrowLeft onClick={handleBackButtonClick} />
         </TopNavigation.LeftItem>
       </TopNavigation>
 
