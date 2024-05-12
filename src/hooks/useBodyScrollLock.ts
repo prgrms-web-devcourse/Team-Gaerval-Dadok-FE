@@ -26,6 +26,7 @@ export function useBodyScrollLock(options?: Options) {
 
     const node = event.target as HTMLElement;
     const hasScrollBar = node.clientHeight < node.scrollHeight;
+
     if (
       (node as any).type !== 'textarea' ||
       ((node as any).type === 'textarea' && !hasScrollBar)
