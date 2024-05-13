@@ -79,8 +79,8 @@ const CreateBookGroupFunnel = () => {
     };
 
     mutate(requestBody, {
-      onSuccess: () => {
-        router.replace('/group');
+      onSuccess: data => {
+        router.replace(`/group/${data.bookGroupId}`);
         showToast({ type: 'success', message: '독서모임을 생성했어요! 🎉' });
 
         return;
