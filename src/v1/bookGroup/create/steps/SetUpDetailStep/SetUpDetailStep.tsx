@@ -287,14 +287,18 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
 };
 
 const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
-  const { register } = useFormContext<SetUpDetailStepFormValues>();
+  const { register, control } = useFormContext<SetUpDetailStepFormValues>();
+
+  const isCommentPublic = useWatch({ control, name });
 
   return (
     <section className="flex items-start justify-between">
       <div className="flex min-w-0 flex-col gap-[0.3rem]">
         <h2>댓글 공개 여부</h2>
         <p className="text-xs text-placeholder">
-          모임에 가입하지 않은 사람도 댓글을 볼 수 있어요.
+          {isCommentPublic
+            ? '모임에 가입하지 않아도 댓글을 볼 수 있어요'
+            : '모임에 가입해야 댓글을 볼 수 있어요'}
         </p>
       </div>
       <Switch {...register(name)} />
