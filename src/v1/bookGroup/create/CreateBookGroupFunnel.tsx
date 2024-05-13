@@ -28,7 +28,7 @@ const FUNNEL_STEPS = [
   'SelectJoinType',
 ] as const;
 
-const GroupCreateFunnel = () => {
+const CreateBookGroupFunnel = () => {
   const router = useRouter();
   const [Funnel, setStep, currentStep] = useFunnel(FUNNEL_STEPS, {
     initialStep: 'SelectBook',
@@ -136,4 +136,4 @@ const GroupCreateFunnel = () => {
   );
 };
 
-export default GroupCreateFunnel;
+export default CreateBookGroupFunnel;
