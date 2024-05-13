@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { SelectBookFormValues } from '../../types';
+import type { SelectBookStepFormValues } from '../../types';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import debounce from '@/utils/debounce';
@@ -14,7 +14,7 @@ import BookSearchList from '@/v1/bookSearch/BookSearchList';
 
 const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const { control, getValues, setValue } =
-    useFormContext<SelectBookFormValues>();
+    useFormContext<SelectBookStepFormValues>();
 
   const keywordValue = getValues('queryKeyword');
   const [keyword, setKeyword] = useState(keywordValue || '');

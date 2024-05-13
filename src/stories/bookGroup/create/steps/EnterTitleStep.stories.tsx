@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { EnterTitleStepValues } from '@/v1/bookGroup/create/types';
+import type { EnterTitleStepFormValues } from '@/v1/bookGroup/create/types';
 
 import { appLayoutMeta } from '@/stories/meta';
 import { EnterTitleStep } from '@/v1/bookGroup/create/steps';
@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof EnterTitleStep>;
 
 const EnterTitleForm = () => {
-  const methods = useForm<EnterTitleStepValues>({
+  const methods = useForm<EnterTitleStepFormValues>({
     mode: 'all',
     defaultValues: {
       title: '',

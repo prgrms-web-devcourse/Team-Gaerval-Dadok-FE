@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { SelectBookFormValues } from '@/v1/bookGroup/create/types';
+import type { SelectBookStepFormValues } from '@/v1/bookGroup/create/types';
 
 import { appLayoutMeta } from '@/stories/meta';
 import { SelectBookStep } from '@/v1/bookGroup/create/steps';
@@ -17,7 +17,7 @@ export default meta;
 type Story = StoryObj<typeof SelectBookStep>;
 
 const RenderSelectBookStep = () => {
-  const methods = useForm<SelectBookFormValues>();
+  const methods = useForm<SelectBookStepFormValues>();
 
   const goNextStep = () => {
     const book = methods.getValues('book');

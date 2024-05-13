@@ -15,14 +15,14 @@ export type CreateBookGroupFormValues = {
   joinPassword: string;
 };
 
-export type SelectBookFormValues = Pick<
+export type SelectBookStepFormValues = Pick<
   CreateBookGroupFormValues,
   'book' | 'queryKeyword'
 >;
 
-export type EnterTitleStepValues = Pick<CreateBookGroupFormValues, 'title'>;
+export type EnterTitleStepFormValues = Pick<CreateBookGroupFormValues, 'title'>;
 
-export type SetUpDetailStepValues = Pick<
+export type SetUpDetailStepFormValues = Pick<
   CreateBookGroupFormValues,
   | 'book'
   | 'title'

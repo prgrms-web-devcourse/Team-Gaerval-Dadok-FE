@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { SetUpDetailStepValues } from '@/v1/bookGroup/create/types';
+import type { SetUpDetailStepFormValues } from '@/v1/bookGroup/create/types';
 
 import { getTodayDate } from '@/utils/date';
 
@@ -19,7 +19,7 @@ export default meta;
 type Story = StoryObj<typeof SetUpDetailStep>;
 
 const SetUpDetailForm = () => {
-  const methods = useForm<SetUpDetailStepValues>({
+  const methods = useForm<SetUpDetailStepFormValues>({
     mode: 'all',
     defaultValues: {
       title: '',

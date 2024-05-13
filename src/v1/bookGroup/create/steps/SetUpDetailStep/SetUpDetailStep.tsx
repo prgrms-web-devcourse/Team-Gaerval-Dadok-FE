@@ -1,7 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { SetUpDetailStepValues } from '../../types';
+import type { SetUpDetailStepFormValues } from '../../types';
 
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
@@ -29,7 +29,8 @@ const SetUpDetailStep = ({
   goToSelectBookStep,
   onNextStep,
 }: SetUpDetailStepProps) => {
-  const { handleSubmit, getValues } = useFormContext<SetUpDetailStepValues>();
+  const { handleSubmit, getValues } =
+    useFormContext<SetUpDetailStepFormValues>();
 
   return (
     <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
@@ -63,7 +64,7 @@ const SetUpDetailStep = ({
 export default SetUpDetailStep;
 
 type SetUpDetailFieldProps = {
-  name: keyof SetUpDetailStepValues;
+  name: keyof SetUpDetailStepFormValues;
 };
 
 const TitleField = ({ name }: SetUpDetailFieldProps) => {
@@ -71,7 +72,7 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const titleValue = useWatch({ control, name: name });
   const titleValueLength =
@@ -109,7 +110,7 @@ const SelectedBookInfoField = ({
   bookId?: number;
   onRemoveButtonClick?: () => void;
 }) => {
-  const { reset } = useFormContext<SetUpDetailStepValues>();
+  const { reset } = useFormContext<SetUpDetailStepFormValues>();
 
   const handleBookRemove = () => {
     onRemoveButtonClick?.();
@@ -133,7 +134,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const introduceErrors = errors[name];
 
@@ -160,7 +161,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const maxMemberCountErrors = errors[name];
 
@@ -189,7 +190,7 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const maxMemberCount = useWatch({ control, name: 'maxMemberCount' });
   const isCustomInputCount = maxMemberCount === 'custom';
@@ -225,7 +226,7 @@ const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const startDateErrors = errors[name];
   const endDate = useWatch({ control, name: 'endDate' });
@@ -259,7 +260,7 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepValues>();
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   const startDate = useWatch({ control, name: 'startDate' });
   const todayDate = getTodayDate();
@@ -286,7 +287,7 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
 };
 
 const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
-  const { register } = useFormContext<SetUpDetailStepValues>();
+  const { register } = useFormContext<SetUpDetailStepFormValues>();
 
   return (
     <section className="flex items-start justify-between">
