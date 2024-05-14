@@ -10,6 +10,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { IconClose } from '@public/icons';
 import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
+import Button from './Button';
+
 interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -100,10 +102,10 @@ type Position = 'top-left' | 'top-right';
 const getPositionClasses = (postion: Position) => {
   switch (postion) {
     case 'top-right':
-      return 'top-[2.7rem] right-[2rem]';
+      return 'top-[2.4rem] right-[1.8rem]';
     case 'top-left':
     default:
-      return 'top-[2.7rem] left-[2rem]';
+      return 'top-[2.4rem] left-[1.8rem]';
   }
 };
 
@@ -112,10 +114,13 @@ const CloseButton = ({ position = 'top-left' }: { position?: Position }) => {
   const positionClasses = getPositionClasses(position);
 
   return (
-    <IconClose
-      className={`absolute h-[2rem] w-[2rem] cursor-pointer fill-black-900 ${positionClasses}`}
+    <Button
       onClick={onClose}
-    />
+      fill={false}
+      className={`absolute border-none !p-0 ${positionClasses}`}
+    >
+      <IconClose className={`h-[2rem] w-[2rem] fill-black-900 `} />
+    </Button>
   );
 };
 
