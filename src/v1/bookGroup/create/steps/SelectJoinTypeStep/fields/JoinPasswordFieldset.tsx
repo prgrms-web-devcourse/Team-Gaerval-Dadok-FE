@@ -1,15 +1,15 @@
 import { PropsWithChildren } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
+import type { SelectJoinTypeStepFormValues } from '../../../types';
+import type {
+  JoinTypeStepFieldName,
+  JoinTypeStepFieldProp,
+} from '../SelectJoinTypeStep';
+
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
-
-import {
-  JoinTypeStepFieldName,
-  JoinTypeStepFormValues,
-  JoinTypeStepFieldProp,
-} from '../SelectJoinTypeStep';
 
 type JoinPasswordFieldsetProps = {
   joinTypeFieldName: JoinTypeStepFieldName;
@@ -19,7 +19,7 @@ const JoinPasswordFieldset = ({
   joinTypeFieldName,
   children,
 }: PropsWithChildren<JoinPasswordFieldsetProps>) => {
-  const { control } = useFormContext<JoinTypeStepFormValues>();
+  const { control } = useFormContext<SelectJoinTypeStepFormValues>();
   const hasJoinPassword = useWatch({ control, name: joinTypeFieldName });
 
   const shouldRender = hasJoinPassword === 'true';
@@ -38,7 +38,7 @@ const JoinQuestionField = ({ name }: JoinTypeStepFieldProp) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<JoinTypeStepFormValues>();
+  } = useFormContext<SelectJoinTypeStepFormValues>();
 
   const joinQuestion = useWatch({ control, name });
 
@@ -76,7 +76,7 @@ const JoinAnswerField = ({ name }: JoinTypeStepFieldProp) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<JoinTypeStepFormValues>();
+  } = useFormContext<SelectJoinTypeStepFormValues>();
 
   const joinPasswd = useWatch({ control, name });
 
