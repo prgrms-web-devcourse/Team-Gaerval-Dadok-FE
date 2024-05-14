@@ -1,13 +1,13 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { EnterTitleStepValues } from '../EnterTitleStep';
+import type { EnterTitleStepFormValues } from '../../../types';
 
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
 
 type DefaultFieldNameProps = {
-  name: keyof EnterTitleStepValues;
+  name: keyof EnterTitleStepFormValues;
 };
 
 const TitleField = ({ name }: DefaultFieldNameProps) => {
@@ -15,7 +15,7 @@ const TitleField = ({ name }: DefaultFieldNameProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<EnterTitleStepValues>();
+  } = useFormContext<EnterTitleStepFormValues>();
 
   const titleValue = useWatch({ control, name: name });
   const titleErrors = errors[name];
