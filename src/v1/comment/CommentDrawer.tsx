@@ -24,15 +24,16 @@ const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
     useEffect(() => {
       if (!isOpen) return;
 
-      // drawer가 열릴 때 textarea 끝에 focus
+      // Drawer가 열릴 때 textarea의 끝에 focus
       setTimeout(() => {
         const textarea = document.querySelector('textarea');
 
         if (textarea) {
+          textarea.focus();
           textarea.select();
           window.getSelection()?.collapseToEnd();
         }
-      }, 1);
+      }, 100);
     }, [isOpen]);
 
     return (
