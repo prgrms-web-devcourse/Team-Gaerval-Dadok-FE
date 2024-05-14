@@ -2,7 +2,8 @@ import { ComponentPropsWithoutRef, Suspense, useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 
-import { SearchedBookWithId } from '@/types/book';
+import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
+import type { SelectBookStepFormValues } from '../../types';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import debounce from '@/utils/debounce';
@@ -11,20 +12,9 @@ import Input from '@/v1/base/Input';
 import Loading from '@/v1/base/Loading';
 import BookSearchList from '@/v1/bookSearch/BookSearchList';
 
-// TODO: Funnel 파일 내부로 이동
-interface MoveFunnelStepProps {
-  onPrevStep?: () => void;
-  onNextStep?: () => void;
-}
-
-export type SelectBookFormValue = {
-  book: SearchedBookWithId;
-  queryKeyword: string;
-};
-
 const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const { control, getValues, setValue } =
-    useFormContext<SelectBookFormValue>();
+    useFormContext<SelectBookStepFormValues>();
 
   const keywordValue = getValues('queryKeyword');
   const [keyword, setKeyword] = useState(keywordValue || '');

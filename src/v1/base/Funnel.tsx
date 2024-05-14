@@ -4,6 +4,12 @@ import type { NonEmptyArray } from '@/hooks/useFunnel';
 
 import { assert } from '@/utils/assert';
 
+export interface MoveFunnelStepProps {
+  onPrevStep?: () => void;
+  onNextStep?: () => void;
+  onSubmit?: () => void;
+}
+
 export interface FunnelProps<Steps extends NonEmptyArray<string>> {
   steps: Steps;
   step: Steps[number];
