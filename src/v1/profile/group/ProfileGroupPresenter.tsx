@@ -7,11 +7,13 @@ import Link from 'next/link';
 interface ProfileGroupPresenterProps {
   userId: 'me' | APIUser['userId'];
   bookGroups: APIGroup[];
+  isGroupOwner?: (ownerId: number) => boolean;
 }
 
 const ProfileGroupPresenter = ({
   userId,
   bookGroups,
+  isGroupOwner,
 }: ProfileGroupPresenterProps) => {
   return (
     <div className="flex flex-col gap-[0.6rem]">
@@ -23,12 +25,12 @@ const ProfileGroupPresenter = ({
       </div>
 
       <ul className="flex gap-[1rem] overflow-scroll">
-        {bookGroups.map(({ bookGroupId, title, book: { imageUrl } }) => (
+        {bookGroups.map(({ bookGroupId, title, owner, book: { imageUrl } }) => (
           <li key={bookGroupId}>
             <SimpleBookGroupCard
               title={title}
               imageSource={imageUrl}
-              isOwner={false}
+              isOwner={!!isGroupOwner && isGroupOwner(owner.id)}
               bookGroupId={bookGroupId}
             />
           </li>
