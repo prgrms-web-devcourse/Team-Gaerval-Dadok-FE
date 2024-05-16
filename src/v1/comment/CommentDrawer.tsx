@@ -1,4 +1,6 @@
-import { forwardRef } from 'react';
+'use client';
+
+import { forwardRef, useEffect } from 'react';
 
 import Button from '@/v1/base/Button';
 import Drawer from '@/v1/base/Drawer';
@@ -19,6 +21,21 @@ const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
       onClose();
     };
 
+    useEffect(() => {
+      if (!isOpen) return;
+
+      // Drawer가 열릴 때 textarea의 끝에 focus
+      setTimeout(() => {
+        const textarea = document.querySelector('textarea');
+
+        if (textarea) {
+          textarea.focus();
+          textarea.select();
+          window.getSelection()?.collapseToEnd();
+        }
+      }, 100);
+    }, [isOpen]);
+
     return (
       <Drawer isOpen={isOpen} onClose={onClose}>
         <Drawer.Header>
@@ -36,7 +53,7 @@ const CommentDrawer = forwardRef<HTMLTextAreaElement, CommentDrawerProps>(
         </Drawer.Header>
         <Drawer.Content>
           <textarea
-            className="h-full w-full resize-none border-none text-md focus:outline-none"
+            className="w-full resize-none border-none text-md focus:outline-none"
             rows={15}
             defaultValue={defaultComment}
             placeholder={placeholder}
