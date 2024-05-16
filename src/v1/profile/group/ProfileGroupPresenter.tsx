@@ -16,7 +16,7 @@ const ProfileGroupPresenter = ({
   isGroupOwner,
 }: ProfileGroupPresenterProps) => {
   return (
-    <div className="flex flex-col gap-[0.6rem]">
+    <div className="mt-[0.5rem] flex flex-col gap-[1.5rem]">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">참여한 모임</h3>
         <Link href={`/profile/${userId}/group`}>

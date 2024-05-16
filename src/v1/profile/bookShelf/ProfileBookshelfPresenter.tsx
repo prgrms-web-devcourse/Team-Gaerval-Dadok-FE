@@ -12,7 +12,7 @@ const ProfileBookshelfPresenter = ({
   likeCount,
 }: APIBookshelf) => {
   return (
-    <div className="flex flex-col gap-[2rem]">
+    <div className="flex flex-col gap-[1rem]">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">책장</h3>
         <div className="flex gap-[2rem]">
