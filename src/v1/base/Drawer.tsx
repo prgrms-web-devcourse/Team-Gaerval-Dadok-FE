@@ -1,13 +1,20 @@
-import { createContext, PropsWithChildren, ReactNode, useContext } from 'react';
+import {
+  createContext,
+  Fragment,
+  PropsWithChildren,
+  ReactNode,
+  useContext,
+} from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
 import { IconClose } from '@public/icons';
-import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
+import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
-import Portal from '@/v1/base/Portal';
+import Button from './Button';
 
 interface DrawerProps {
   isOpen: boolean;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 type DrawerContextValue = DrawerProps;
@@ -20,44 +27,66 @@ const Drawer = ({
   onClose,
   children,
 }: PropsWithChildren<DrawerProps>) => {
-  useBodyScrollLock({ enabled: isOpen });
+  useRemoveVerticalScroll({ enabled: isOpen });
 
   return (
     <DrawerContext.Provider value={{ isOpen, onClose }}>
-      <Portal id="drawer-root">
-        <div
-          className={`fixed inset-0 z-10 flex w-screen transform justify-center overflow-hidden ease-in-out ${
-            isOpen
-              ? 'translate-x-0 scale-x-100 opacity-100 transition-opacity duration-500'
-              : 'translate-x-full scale-x-0 opacity-0 transition-all delay-100 duration-500'
-          }`}
-        >
+      <Transition.Root show={isOpen} as={Fragment}>
+        <Dialog className="relative z-10" onClose={onClose}>
           {/** overlay */}
-          <div className="absolute h-full w-full" onClick={onClose} />
-          {/** drawer section */}
-          <section
-            className={`duration-400 ease-out-in relative flex h-full w-full max-w-[43rem] transform flex-col gap-[2rem] overflow-hidden bg-white p-[2rem] shadow-bookcard transition-all ${
-              isOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            {isOpen && children}
-          </section>
-        </div>
-      </Portal>
+            <div className=" fixed inset-0 bg-black-900/50 transition-opacity" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden">
+              <div
+                className={`pointer-events-none fixed inset-y-0 right-0 flex w-full max-w-full justify-center`}
+              >
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500 sm:duration-600"
+                  enterFrom="translate-x-full opacity-0"
+                  enterTo="translate-x-0 opacity-1"
+                  leave="transform transition ease-in-out duration-500 sm:duration-600"
+                  leaveFrom="translate-x-0 opacity-1"
+                  leaveTo="translate-x-full opacity-0"
+                >
+                  <Dialog.Panel className="pointer-events-auto relative w-screen max-w-[43rem]">
+                    <div
+                      className={`flex h-full flex-col overflow-y-scroll bg-white pt-6 shadow-xl`}
+                    >
+                      {children}
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition.Root>
     </DrawerContext.Provider>
   );
 };
 
 const DrawerHeader = ({ children }: { children?: ReactNode }) => {
   return (
-    <div className="flex items-center justify-between py-[0.5rem]">
+    <div className="flex items-center justify-between px-6 py-[0.5rem] sm:px-8">
       {children}
     </div>
   );
 };
 
 const DrawerContent = ({ children }: { children?: ReactNode }) => {
-  return <div className="w-full text-md">{children}</div>;
+  return <div className="w-full px-6 pt-6 text-md sm:px-8">{children}</div>;
 };
 
 const Title = ({ text }: { text?: string }) => {
@@ -73,10 +102,10 @@ type Position = 'top-left' | 'top-right';
 const getPositionClasses = (postion: Position) => {
   switch (postion) {
     case 'top-right':
-      return 'top-[2.7rem] right-[2rem]';
+      return 'top-[2.4rem] right-[1.8rem]';
     case 'top-left':
     default:
-      return 'top-[2.7rem] left-[2rem]';
+      return 'top-[2.4rem] left-[1.8rem]';
   }
 };
 
@@ -85,10 +114,13 @@ const CloseButton = ({ position = 'top-left' }: { position?: Position }) => {
   const positionClasses = getPositionClasses(position);
 
   return (
-    <IconClose
-      className={`absolute h-[2rem] w-[2rem] cursor-pointer fill-black-900 ${positionClasses}`}
+    <Button
       onClick={onClose}
-    />
+      fill={false}
+      className={`absolute border-none !p-0 ${positionClasses}`}
+    >
+      <IconClose className={`h-[2rem] w-[2rem] fill-black-900 `} />
+    </Button>
   );
 };
 
