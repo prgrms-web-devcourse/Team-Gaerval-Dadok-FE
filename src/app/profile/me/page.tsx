@@ -97,7 +97,7 @@ const MyProfileForAuth = () => {
           </Menu.DropdownList>
         </Menu>
       </TopHeader>
-      <div className="flex flex-col gap-[2rem]">
+      <div className="flex flex-col gap-[1rem]">
         <ProfileInfo userId={USER_ID} />
         <Link href="/profile/me/edit" className="w-full">
           <Button colorScheme="main-light" size="full">
@@ -106,8 +106,10 @@ const MyProfileForAuth = () => {
             </span>
           </Button>
         </Link>
-        <ProfileBookShelf userId={USER_ID} />
-        <ProfileGroup userId={USER_ID} />
+        <div className="mt-[3rem] flex flex-col gap-[3rem]">
+          <ProfileBookShelf userId={USER_ID} />
+          <ProfileGroup userId={USER_ID} />
+        </div>
       </div>
     </>
   );

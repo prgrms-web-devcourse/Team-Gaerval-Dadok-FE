@@ -7,14 +7,16 @@ import Link from 'next/link';
 interface ProfileGroupPresenterProps {
   userId: 'me' | APIUser['userId'];
   bookGroups: APIGroup[];
+  isGroupOwner?: (ownerId: number) => boolean;
 }
 
 const ProfileGroupPresenter = ({
   userId,
   bookGroups,
+  isGroupOwner,
 }: ProfileGroupPresenterProps) => {
   return (
-    <div className="flex flex-col gap-[0.6rem]">
+    <div className="mt-[0.5rem] flex flex-col gap-[1.5rem]">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-bold">참여한 모임</h3>
         <Link href={`/profile/${userId}/group`}>
@@ -22,13 +24,13 @@ const ProfileGroupPresenter = ({
         </Link>
       </div>
 
-      <ul className="flex gap-[1rem] overflow-scroll">
-        {bookGroups.map(({ bookGroupId, title, book: { imageUrl } }) => (
+      <ul className="w-app flex gap-[1rem] overflow-y-hidden overflow-x-scroll px-[2rem]">
+        {bookGroups.map(({ bookGroupId, title, owner, book: { imageUrl } }) => (
           <li key={bookGroupId}>
             <SimpleBookGroupCard
               title={title}
               imageSource={imageUrl}
-              isOwner={false}
+              isOwner={!!isGroupOwner && isGroupOwner(owner.id)}
               bookGroupId={bookGroupId}
             />
           </li>
