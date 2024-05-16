@@ -24,7 +24,7 @@ const ProfileGroupPresenter = ({
         </Link>
       </div>
 
-      <ul className="flex gap-[1rem] overflow-scroll">
+      <ul className="w-app flex gap-[1rem] overflow-y-hidden overflow-x-scroll px-[2rem]">
         {bookGroups.map(({ bookGroupId, title, owner, book: { imageUrl } }) => (
           <li key={bookGroupId}>
             <SimpleBookGroupCard
