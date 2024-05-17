@@ -48,15 +48,15 @@ const BestSellers = () => {
   };
 
   return (
-    <section className="flex flex-col gap-[1.7rem]">
-      <h2 className="h-[2.4rem] text-lg">인기 도서</h2>
+    <section className="flex flex-col gap-[1.5rem]">
+      <h2 className="font-body1-bold">인기 도서</h2>
       <ul className="flex w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
         <li className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
           <p className="text-sm font-normal text-white">종합</p>
         </li>
       </ul>
 
-      <ul className="flex w-full flex-row items-center divide-x divide-black-900 text-sm">
+      <ul className="flex w-full flex-row items-center divide-x divide-black-900 font-body2-regular">
         {searchRanges.map(keys => (
           <li
             className={`flex h-[1.1rem] cursor-pointer items-center px-[0.9rem] ${
@@ -73,7 +73,7 @@ const BestSellers = () => {
       </ul>
 
       {bestSellerSearchRange === 'WEEKLY' ? (
-        <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll">
+        <ul className="flex w-[calc(100%+2rem)] overflow-x-scroll pb-[1rem]">
           {bestSellers.map(book => (
             <BestSeller
               key={book.isbn}
@@ -141,14 +141,10 @@ const BestSeller = ({
     >
       <BookCover src={imageUrl} title={title} size={'xlarge'} />
       <div className="flex flex-row gap-[1rem]">
-        <p className="text-xl font-bold leading-tight text-black-900">
-          {bestRank}
-        </p>
-        <div className="flex min-w-0 flex-col gap-[0.3rem]">
-          <p className="line-clamp-2 text-sm leading-tight text-black-900">
-            {title}
-          </p>
-          <p className="line-clamp-1 text-sm text-[#5c5c5c]">{author}</p>
+        <p className="text-black-900 font-heading">{bestRank}</p>
+        <div className="flex min-w-0 flex-col gap-[0.3rem] font-body2-regular">
+          <p className="line-clamp-2 !leading-tight text-black-900 ">{title}</p>
+          <p className="line-clamp-1 text-[#5c5c5c] ">{author}</p>
         </div>
       </div>
     </div>
