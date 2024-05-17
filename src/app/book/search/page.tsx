@@ -39,6 +39,8 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
+  const inputPositionClasses = debouncedKeyword && 'sticky top-0 z-10 bg-white';
+
   return (
     <>
       <TopHeader text={'Discover'} />
@@ -47,6 +49,7 @@ const BookSearchPage = () => {
           inputStyle="line"
           leftIconType="search"
           placeholder="책 제목, 작가를 검색해보세요"
+          className={inputPositionClasses}
           {...register('searchValue')}
         />
 
