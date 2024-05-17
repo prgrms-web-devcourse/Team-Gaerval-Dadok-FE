@@ -53,7 +53,7 @@ const DatePicker = (
 
   return (
     <label
-      className={`relative flex h-[3rem] max-w-[14rem] items-center justify-between gap-[0.5rem] bg-transparent ${disabledClasses}`}
+      className={`relative flex h-[3rem] max-w-[16rem] items-center justify-between gap-[0.5rem] bg-transparent ${disabledClasses}`}
       htmlFor={name}
     >
       <div className="flex h-full min-w-0 flex-grow items-center">
@@ -69,8 +69,8 @@ const DatePicker = (
           {...props}
         />
         <p
-          className={`truncate font-body2-regular ${
-            currentDate ? 'text-inherit' : 'text-placeholder'
+          className={`truncate font-body1-regular ${
+            currentDate ? 'text-black-700' : 'text-placeholder'
           }`}
         >
           {currentDate

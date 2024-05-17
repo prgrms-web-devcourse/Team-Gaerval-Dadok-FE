@@ -168,7 +168,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   return (
     <>
       <h2>최대 인원</h2>
-      <fieldset className="inline-flex w-[70%] flex-wrap gap-[1rem]">
+      <fieldset className="inline-flex w-[80%] flex-wrap gap-[1.5rem]">
         {MAX_MEMBER_COUNT_OPTIONS.map(option => (
           <RadioButton
             key={option.value}
@@ -202,7 +202,8 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
         <div className="flex flex-col gap-[0.5rem]">
           <Input
             type="number"
-            placeholder="1000명 이상의 인원은 제한 없음을 선택해주세요"
+            min={0}
+            placeholder="최대인원을 입력해주세요"
             className="after:content-['명']"
             error={!!customMemberCountErrors}
             {...register(name, {
@@ -211,7 +212,10 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
                 message: '모임 최대 인원을 입력해주세요',
               },
               min: { value: 2, message: '모임 인원은 최소 2명부터 가능해요' },
-              max: { value: 1000, message: '1000 이하의 값을 입력해주세요' },
+              max: {
+                value: 1000,
+                message: '1000명 이상의 인원은 제한 없음을 선택해주세요',
+              },
             })}
           />
           <ErrorMessage>{customMemberCountErrors?.message}</ErrorMessage>
