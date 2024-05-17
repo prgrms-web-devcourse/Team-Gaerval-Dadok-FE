@@ -43,7 +43,7 @@ const MyProfileForUnAuth = () => {
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
           <div className="flex-grow">
-            <h2 className="text-lg font-bold">로그인 / 회원가입</h2>
+            <h2 className="font-subheading-bold">로그인 / 회원가입</h2>
             <p className="text-sm text-placeholder">
               카카오로 3초만에 가입할 수 있어요.
             </p>
@@ -54,7 +54,7 @@ const MyProfileForUnAuth = () => {
         </div>
         <div className="flex flex-col gap-[0.6rem]">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold">책장</h3>
+            <h3 className="font-body1-bold">책장</h3>
           </div>
           <BookShelf>
             <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
@@ -66,7 +66,7 @@ const MyProfileForUnAuth = () => {
           </BookShelf>
         </div>
         <div className="flex flex-col gap-[0.6rem]">
-          <h3 className="text-lg font-bold">참여한 모임</h3>
+          <h3 className="font-body1-bold">참여한 모임</h3>
           <div className="pb-[5.5rem] pt-[5.5rem] text-center">
             <p className="text-sm text-placeholder">참여 중인 모임이 없어요.</p>
           </div>
@@ -101,7 +101,7 @@ const MyProfileForAuth = () => {
         <ProfileInfo userId={USER_ID} />
         <Link href="/profile/me/edit" className="w-full">
           <Button colorScheme="main-light" size="full">
-            <span className="mr-[0.5rem] text-sm font-bold text-black-700">
+            <span className="mr-[0.5rem] text-black-700 font-body2-bold">
               프로필 수정
             </span>
           </Button>
