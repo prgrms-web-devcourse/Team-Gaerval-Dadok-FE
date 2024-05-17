@@ -9,6 +9,7 @@ import { APIBook } from '@/types/book';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
+import bookAPI from '@/apis/book';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
@@ -96,8 +97,13 @@ const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
     ? bookSearchInfo.data.pages[0].totalCount
     : 0;
 
-  const handleBookClick = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-    router.push(`/book/${bookId}`);
+  const handleBookClick = async ({ bookId }: { bookId: APIBook['bookId'] }) => {
+    try {
+      await bookAPI.storeRecentSearch(queryKeyword);
+      router.push(`/book/${bookId}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
