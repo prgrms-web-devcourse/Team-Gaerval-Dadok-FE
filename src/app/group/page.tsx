@@ -75,7 +75,7 @@ const MyBookGroupList = () => {
   const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
 
   return (
-    <section className="flex gap-[1rem] overflow-scroll">
+    <section className="flex gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem]">
       {bookGroups.map(({ title, book, bookGroupId, owner }) => (
         <SimpleBookGroupCard
           key={bookGroupId}

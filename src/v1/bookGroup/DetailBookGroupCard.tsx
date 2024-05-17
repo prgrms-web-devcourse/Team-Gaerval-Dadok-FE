@@ -67,11 +67,11 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return <p className="min-w-0 truncate text-md font-bold">{title}</p>;
+  return <p className="min-w-0 truncate font-body1-bold">{title}</p>;
 };
 
 const Description = ({ description }: { description: string }) => {
-  return <p className="min-w-0 truncate text-sm">{description}</p>;
+  return <p className="min-w-0 truncate font-body2-regular">{description}</p>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
@@ -85,7 +85,7 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
   return (
     <div className="flex items-center gap-[0.5rem]">
       <IconCalendar className="w-[1.2rem] fill-placeholder" />
-      <p className="text-xs text-placeholder">
+      <p className="text-placeholder font-caption1-regular">
         {formatDateTime(start)} - {formatDateTime(end)}
       </p>
     </div>
@@ -102,7 +102,7 @@ const Owner = ({
   return (
     <div className="flex h-[2rem] gap-[0.5rem]">
       <Avatar name={name} src={profileImageSrc} size="small" />
-      <div className="flex items-center text-xs">
+      <div className="flex items-center font-caption1-regular">
         <p>{name}</p>
       </div>
     </div>
@@ -113,7 +113,7 @@ const MemberCount = ({ memberCount }: { memberCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
       <IconMembers className="h-[0.9rem] w-[1.3rem] fill-placeholder" />
-      <p className="text-xs text-placeholder">{memberCount}</p>
+      <p className="text-placeholder font-caption1-regular">{memberCount}</p>
     </div>
   );
 };
@@ -122,7 +122,7 @@ const CommentCount = ({ commentCount }: { commentCount: number }) => {
   return (
     <div className="flex items-center gap-[0.3rem]">
       <IconComments className="h-[1.2rem] w-[1.2rem] fill-placeholder" />
-      <p className="text-xs text-placeholder">{commentCount}</p>
+      <p className="text-placeholder font-caption1-regular">{commentCount}</p>
     </div>
   );
 };
