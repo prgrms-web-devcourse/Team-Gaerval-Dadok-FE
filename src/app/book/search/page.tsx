@@ -43,7 +43,7 @@ const BookSearchPage = () => {
 
   return (
     <>
-      <TopHeader text={'Discover'} />
+      {!watchedKeyword && <TopHeader text={'Discover'} />}
       <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
         <Input
           inputStyle="line"
