@@ -295,7 +295,7 @@ const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
     <section className="flex items-start justify-between">
       <div className="flex min-w-0 flex-col gap-[0.3rem]">
         <h2>댓글 공개 여부</h2>
-        <p className="text-xs text-placeholder">
+        <p className="text-placeholder font-caption1-regular">
           {isCommentPublic
             ? '모임에 가입하지 않아도 댓글을 볼 수 있어요'
             : '모임에 가입해야 댓글을 볼 수 있어요'}

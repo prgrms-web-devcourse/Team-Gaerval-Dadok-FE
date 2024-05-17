@@ -83,7 +83,7 @@ const Item = ({
 
   return (
     <li
-      className="block cursor-pointer list-none truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] py-[0.7rem] text-sm hover:bg-black-100"
+      className="block cursor-pointer list-none truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] py-[0.7rem] font-body2-regular hover:bg-black-100"
       onClick={handleItemClick}
     >
       {children}
