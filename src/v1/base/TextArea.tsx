@@ -92,7 +92,7 @@ const BaseTextArea = forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(
 
     return (
       <textarea
-        className={`min-h-[8rem] w-full resize-none rounded-[0.5rem] border-[0.05rem] p-[1rem] text-sm outline-none placeholder:text-placeholder ${borderColor}`}
+        className={`min-h-[8rem] w-full resize-none rounded-[0.5rem] border-[0.05rem] p-[1rem] outline-none font-body2-regular placeholder:text-placeholder ${borderColor}`}
         placeholder={placeholder || '내용을 입력해주세요'}
         ref={ref}
         {...props}

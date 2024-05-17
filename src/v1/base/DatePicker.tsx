@@ -69,7 +69,7 @@ const DatePicker = (
           {...props}
         />
         <p
-          className={`truncate text-sm ${
+          className={`truncate font-body2-regular ${
             currentDate ? 'text-inherit' : 'text-placeholder'
           }`}
         >

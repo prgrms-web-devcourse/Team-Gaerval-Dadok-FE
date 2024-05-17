@@ -35,8 +35,8 @@ const BookArchiveForAuth = ({
   if (!bookshelfData || !booksData) return null;
 
   return (
-    <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
-      <h2 className="font-body1-bold">👀 이런 책들이 많이 꽂혔어요</h2>
+    <div className="flex w-full flex-col gap-[1.5rem] font-body1-bold">
+      <h2>👀 이런 책들이 많이 꽂혔어요</h2>
       <ul className="flex gap-[1.5rem] overflow-auto pb-[1.5rem]">
         {booksData.books.map(({ bookId, imageUrl, title }) => (
           <li key={bookId} className="max-w-[9rem]">

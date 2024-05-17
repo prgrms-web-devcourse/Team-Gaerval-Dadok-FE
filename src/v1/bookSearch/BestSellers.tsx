@@ -52,7 +52,7 @@ const BestSellers = () => {
       <h2 className="font-body1-bold">인기 도서</h2>
       <ul className="flex w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
         <li className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
-          <p className="text-sm font-normal text-white">종합</p>
+          <p className="font-normal text-white font-body2-regular">종합</p>
         </li>
       </ul>
 
@@ -90,7 +90,7 @@ const BestSellers = () => {
           ))}
         </ul>
       ) : (
-        <p className="mb-[2.4rem] text-center text-sm text-placeholder">
+        <p className="mb-[2.4rem] text-center text-placeholder font-body2-regular">
           아직 준비중인 기능이에요 🔨
         </p>
       )}

@@ -43,8 +43,10 @@ const MyProfileForUnAuth = () => {
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
           <div className="flex-grow">
-            <h2 className="font-subheading-bold">로그인 / 회원가입</h2>
-            <p className="text-sm text-placeholder">
+            <h2 className="pb-[0.2rem] font-subheading-bold">
+              로그인 / 회원가입
+            </h2>
+            <p className="text-placeholder font-body2-regular">
               카카오로 3초만에 가입할 수 있어요.
             </p>
           </div>
@@ -60,7 +62,9 @@ const MyProfileForUnAuth = () => {
             <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
               <BookShelf.Background />
               <div className="pb-[5.5rem] pt-[3rem] text-center">
-                <p className="text-sm text-placeholder">책장이 비었어요.</p>
+                <p className="text-placeholder font-body2-regular">
+                  책장이 비었어요.
+                </p>
               </div>
             </div>
           </BookShelf>
@@ -68,7 +72,9 @@ const MyProfileForUnAuth = () => {
         <div className="flex flex-col gap-[0.6rem]">
           <h3 className="font-body1-bold">참여한 모임</h3>
           <div className="pb-[5.5rem] pt-[5.5rem] text-center">
-            <p className="text-sm text-placeholder">참여 중인 모임이 없어요.</p>
+            <p className="text-placeholder font-body2-regular">
+              참여 중인 모임이 없어요.
+            </p>
           </div>
         </div>
       </div>

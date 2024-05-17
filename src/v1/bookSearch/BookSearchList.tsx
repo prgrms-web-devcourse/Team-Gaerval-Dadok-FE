@@ -32,7 +32,7 @@ const BookSearchList = ({
 
   if (!books.length) {
     return (
-      <p className="mb-[2.4rem] text-center text-sm text-placeholder">
+      <p className="mb-[2.4rem] text-center text-placeholder font-body2-regular">
         검색된 도서가 없어요 🥲
       </p>
     );

@@ -53,7 +53,7 @@ const ProfileInfoSkeleton = () => {
       </div>
       <div className="flex items-center gap-[1rem]">
         <div className="h-[7rem] w-[7rem] rounded-full bg-placeholder" />
-        <div className="h-[2.7rem] w-[11rem] bg-placeholder text-lg" />
+        <div className="h-[2.7rem] w-[11rem] bg-placeholder" />
       </div>
     </div>
   );
