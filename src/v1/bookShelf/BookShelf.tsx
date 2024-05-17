@@ -26,7 +26,7 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
   return (
     <div className="flex flex-col gap-[1rem]">
       <div className="flex items-center justify-between">
-        <div className="text-md font-bold">{bookshelfName}</div>
+        <div className="font-body2-bold">{bookshelfName}</div>
         <Link href={`/bookshelf/${bookshelfId}`}>
           <IconArrowRight width="1.8rem" height="1.8rem" />
         </Link>
