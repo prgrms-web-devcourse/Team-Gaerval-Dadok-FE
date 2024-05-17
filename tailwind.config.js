@@ -129,5 +129,65 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    ({ addUtilities }) => {
+      addUtilities({
+        '.font-heading': {
+          fontSize: '2.1rem',
+          lineHeight: '2.6rem',
+          fontWeight: 700,
+        },
+        '.font-subheading-bold': {
+          fontSize: '1.8rem',
+          lineHeight: '2.3rem',
+          fontWeight: 700,
+        },
+        '.font-subheading-regular': {
+          fontSize: '1.8rem',
+          lineHeight: '2.3rem',
+          fontWeight: 400,
+        },
+        '.font-body1-bold': {
+          fontSize: '1.6rem',
+          lineHeight: '2.1rem',
+          fontWeight: 700,
+        },
+        '.font-body1-regular': {
+          fontSize: '1.6rem',
+          lineHeight: '2.1rem',
+          fontWeight: 400,
+        },
+        '.font-body2-bold': {
+          fontSize: '1.4rem',
+          lineHeight: '1.9rem',
+          fontWeight: 700,
+        },
+        '.font-body2-regular': {
+          fontSize: '1.4rem',
+          lineHeight: '1.9rem',
+          fontWeight: 400,
+        },
+        '.font-caption1-bold': {
+          fontSize: '1.2rem',
+          lineHeight: '1.6rem',
+          fontWeight: 700,
+        },
+        '.font-caption1-regular': {
+          fontSize: '1.2rem',
+          lineHeight: '1.6rem',
+          fontWeight: 400,
+        },
+        '.font-caption2-bold': {
+          fontSize: '1.1rem',
+          lineHeight: '1.3rem',
+          fontWeight: 700,
+        },
+        '.font-caption2-regular': {
+          fontSize: '1.1rem',
+          lineHeight: '1.3rem',
+          fontWeight: 400,
+        },
+      });
+    },
+  ],
 };
