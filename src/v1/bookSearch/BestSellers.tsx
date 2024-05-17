@@ -49,7 +49,7 @@ const BestSellers = () => {
 
   return (
     <section className="flex flex-col gap-[1.5rem]">
-      <h2 className="font-body1-bold">인기 도서</h2>
+      <h2 className="font-body1-regular">인기 도서</h2>
       <ul className="flex w-[calc(100%+2rem)] gap-[0.8rem] overflow-x-scroll whitespace-nowrap">
         <li className="rounded-[1.5rem] bg-[#5C5C5C] px-[1.5rem] py-[0.3rem]">
           <p className="font-normal text-white font-body2-regular">종합</p>
