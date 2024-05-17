@@ -43,12 +43,14 @@ const CommentList = ({
   );
 
   if (isHidden) {
-    return <p className="py-[2rem] text-center text-sm">{hiddenText}</p>;
+    return (
+      <p className="py-[2rem] text-center font-body2-regular">{hiddenText}</p>
+    );
   }
 
   if (comments.length === 0) {
     return (
-      <p className="self-center whitespace-pre-line py-[2rem] text-center text-sm">
+      <p className="self-center whitespace-pre-line py-[2rem] text-center font-body2-regular">
         {emptyText}
       </p>
     );
@@ -90,15 +92,15 @@ const CommentList = ({
 export default CommentList;
 
 const Name = ({ name }: { name: string }) => (
-  <p className="text-sm font-bold">{name}</p>
+  <p className="font-body2-bold">{name}</p>
 );
 
 const Date = ({ date }: { date: string }) => (
-  <p className="text-xs text-placeholder">{date}</p>
+  <p className="text-placeholder font-caption1-regular">{date}</p>
 );
 
 const CommentContent = ({ content }: { content: string }) => (
-  <p className="text-justify text-md">{content}</p>
+  <p className="text-justify font-body1-regular">{content}</p>
 );
 
 const CommentActionMenu = ({
@@ -184,9 +186,9 @@ const DeleteCommentModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="text-lg font-bold">
+      <div className="font-subheading-bold">
         정말 삭제할까요?
-        <p className="text-xs font-normal text-black-500">
+        <p className="text-black-500 font-body2-regular">
           한번 삭제하면 되돌릴 수 없어요.
         </p>
       </div>

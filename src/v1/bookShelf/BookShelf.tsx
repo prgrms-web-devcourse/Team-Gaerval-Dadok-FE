@@ -34,7 +34,7 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
       <Badge colorScheme="red" fontWeight="bold" size="small">
         <div className="flex items-center gap-[0.4rem]">
           <IconHeart className="h-[1.3rem] w-[1.3rem] fill-warning-800 stroke-white stroke-[0.15rem]" />
-          <div className="bold text-xs">{likeCount}</div>
+          <div className="font-caption1-bold">{likeCount}</div>
         </div>
       </Badge>
     </div>
