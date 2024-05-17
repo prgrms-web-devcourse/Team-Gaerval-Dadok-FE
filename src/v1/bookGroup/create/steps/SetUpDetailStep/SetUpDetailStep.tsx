@@ -33,7 +33,7 @@ const SetUpDetailStep = ({
     useFormContext<SetUpDetailStepFormValues>();
 
   return (
-    <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
+    <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
       <TitleField name={'title'} />
       <SelectedBookInfoField
         bookId={getValues('book.bookId')}
@@ -41,7 +41,7 @@ const SetUpDetailStep = ({
       />
       <IntroduceField name={'introduce'} />
 
-      <section className="flex flex-col gap-[1.6rem]">
+      <section className="flex flex-col gap-[1.5rem] pb-[1rem]">
         <MaxMemberCountField name={'maxMemberCount'} />
         <CustomMemberCountField name={'customMemberCount'} />
       </section>
@@ -139,7 +139,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   const introduceErrors = errors[name];
 
   return (
-    <section className="flex flex-col gap-[1.6rem]">
+    <section className="flex flex-col gap-[1.2rem]">
       <h2>활동 내용</h2>
       <TextArea
         count={true}
@@ -168,7 +168,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   return (
     <>
       <h2>최대 인원</h2>
-      <fieldset className="inline-flex w-[80%] flex-wrap gap-[1.5rem]">
+      <fieldset className="inline-flex w-[80%] flex-wrap gap-[1.2rem]">
         {MAX_MEMBER_COUNT_OPTIONS.map(option => (
           <RadioButton
             key={option.value}
@@ -296,7 +296,7 @@ const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
   const isCommentPublic = useWatch({ control, name });
 
   return (
-    <section className="flex items-start justify-between">
+    <section className="flex items-center justify-between">
       <div className="flex min-w-0 flex-col gap-[0.3rem]">
         <h2>댓글 공개 여부</h2>
         <p className="text-placeholder font-caption1-regular">
