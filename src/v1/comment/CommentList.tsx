@@ -186,8 +186,8 @@ const DeleteCommentModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="font-subheading-bold">
-        정말 삭제할까요?
+      <div className="flex flex-col gap-[0.5rem] leading-loose font-subheading-bold">
+        <p>정말 삭제할까요?</p>
         <p className="text-black-500 font-body2-regular">
           한번 삭제하면 되돌릴 수 없어요.
         </p>

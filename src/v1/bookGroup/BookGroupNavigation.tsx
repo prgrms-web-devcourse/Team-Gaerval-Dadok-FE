@@ -245,8 +245,8 @@ const DeleteBookGroupModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="leading-loose font-subheading-bold">
-        모임을 정말 삭제할까요?
+      <div className="flex flex-col gap-[0.5rem] leading-loose font-subheading-bold">
+        <p>모임을 정말 삭제할까요?</p>
         <p className="leading-tight text-black-500 font-body2-regular">
           참여 중인 모임원이 있는 경우, 모임을 삭제할 수 없어요.
         </p>
