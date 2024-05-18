@@ -39,17 +39,29 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
-  const inputPositionClasses = debouncedKeyword && 'sticky top-0 z-10 bg-white';
+  const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
 
   return (
     <>
-      {!watchedKeyword && <TopHeader text={'Discover'} />}
-      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
+      <div
+        className={`transition duration-500 ${
+          watchedKeyword
+            ? '-translate-y-[5.8rem] opacity-0'
+            : 'translate-y-0 opacity-100'
+        }`}
+      >
+        <TopHeader text={'Discover'} />
+      </div>
+      <article
+        className={`flex max-h-[calc(100%-14.8rem)] w-full flex-col gap-[3rem] transition duration-500 ${
+          watchedKeyword ? '-translate-y-[5.8rem]' : 'translate-y-0'
+        }`}
+      >
         <Input
           inputStyle="line"
           leftIconType="search"
           placeholder="책 제목, 작가를 검색해보세요"
-          className={inputPositionClasses}
+          className={`z-10 bg-white ${inputPositionClasses}`}
           {...register('searchValue')}
         />
 
@@ -67,13 +79,13 @@ const BookSearchPage = () => {
 
         {/** 도서 검색 결과 */}
         {watchedKeyword && (
-          <section className="flex-grow overflow-y-scroll pb-[1rem]">
-            <Suspense fallback={<Loading fullpage />}>
+          <section className="flex-grow pb-[1rem]">
+            <Suspense fallback={<BookSearchLoading />}>
               {watchedKeyword === debouncedKeyword ? (
                 <BookSearchResult queryKeyword={debouncedKeyword} />
               ) : (
                 /* 타이핑 중 debounce가 적용되어 keyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
-                <Loading fullpage />
+                <BookSearchLoading />
               )}
             </Suspense>
           </section>
@@ -145,6 +157,14 @@ const RecentSearchResult = ({
   });
 
   return <RecentSearchList keywords={keywords} onClick={onItemClick} />;
+};
+
+const BookSearchLoading = () => {
+  return (
+    <div className="relative flex h-[calc(100dvh-23.3rem)]">
+      <Loading fullpage />
+    </div>
+  );
 };
 
 const ContentsSkelton = () => {
