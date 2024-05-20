@@ -97,28 +97,24 @@ const EditProfile = ({ profile, jobGroups }: UserProfileProps) => {
           </Link>
         </TopNavigation.LeftItem>
         <TopNavigation.CenterItem textAlign="center">
-          <span className="text-md font-normal text-black-900">
-            프로필 수정
-          </span>
+          <p className="text-black-900">프로필 수정</p>
         </TopNavigation.CenterItem>
         <TopNavigation.RightItem>
-          <span
+          <button
             onClick={handleSubmit(handleSubmitForm)}
-            className="cursor-pointer text-md font-bold text-main-900"
+            className="text-main-900 font-body1-bold"
           >
             완료
-          </span>
+          </button>
         </TopNavigation.RightItem>
       </TopNavigation>
 
       <form
         onSubmit={handleSubmit(handleSubmitForm)}
-        className="mt-[9.2rem] flex w-full flex-col gap-[3.2rem]"
+        className="mt-[3.8rem] flex w-full flex-col gap-[3.2rem]"
       >
         <div className="flex flex-col gap-[1rem]">
-          <span className="h-[2.1rem] text-md font-normal text-black-700">
-            닉네임
-          </span>
+          <p className=" text-black-700">닉네임</p>
           <div className="flex flex-col gap-[0.5rem]">
             <Input
               placeholder="닉네임을 입력해주세요."
@@ -143,9 +139,7 @@ const EditProfile = ({ profile, jobGroups }: UserProfileProps) => {
         </div>
 
         <div className="flex flex-col gap-[1rem]">
-          <span className="h-[2.1rem] text-md font-normal text-black-700">
-            직업/직군
-          </span>
+          <p className="text-black-700">직업/직군</p>
 
           <div className="flex flex-col gap-[0.5rem]">
             <Select

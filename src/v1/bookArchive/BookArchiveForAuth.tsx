@@ -35,21 +35,21 @@ const BookArchiveForAuth = ({
   if (!bookshelfData || !booksData) return null;
 
   return (
-    <div className="flex w-full flex-col gap-[1.5rem] text-md font-bold">
+    <div className="flex w-full flex-col gap-[1.5rem] font-body1-bold">
       <h2>👀 이런 책들이 많이 꽂혔어요</h2>
-      <ul className="flex gap-[1.5rem] overflow-auto">
+      <ul className="flex gap-[1.5rem] overflow-auto pb-[1.5rem]">
         {booksData.books.map(({ bookId, imageUrl, title }) => (
           <li key={bookId} className="max-w-[9rem]">
             <Link href={`/book/${bookId}`} className="flex flex-col gap-[1rem]">
               <BookCover src={imageUrl} title={title} size="large" />
-              <span className="line-clamp-2 break-keep text-center text-xs font-normal leading-tight">
+              <span className="line-clamp-2 break-keep text-center font-caption1-regular ">
                 {title}
               </span>
             </Link>
           </li>
         ))}
       </ul>
-      <h2>🔥 인기 책장</h2>
+      <h2 className="font-body1-bold">🔥 인기 책장</h2>
       {...bookshelfData.bookshelfResponses.map(bookShelf => (
         <BookShelfCard key={bookShelf.bookshelfId} {...bookShelf} />
       ))}

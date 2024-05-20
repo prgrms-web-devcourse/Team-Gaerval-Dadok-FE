@@ -8,7 +8,7 @@ type ItemProps = TopNavigationProps;
 
 const TopNavigation = ({ children }: TopNavigationProps) => {
   return (
-    <div className="fixed left-0 right-0 top-0 z-50 mx-auto flex h-[2.4rem] w-full max-w-[43rem] items-center justify-center bg-white px-[4rem] py-[2.7rem] text-md">
+    <div className="fixed left-0 right-0 top-0 z-50 mx-auto flex h-[2.4rem] w-full max-w-[43rem] items-center justify-center bg-white px-[4rem] py-[2.7rem] font-body1-regular">
       {children}
     </div>
   );

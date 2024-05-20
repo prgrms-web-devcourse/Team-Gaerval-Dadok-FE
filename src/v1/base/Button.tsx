@@ -15,20 +15,20 @@ type ButtonProps = PropsWithChildren<{
 const getSizeClasses = (size: Size) => {
   switch (size) {
     case 'small': {
-      return 'text-sm px-[1.2rem] py-[0.6rem]';
+      return 'font-body2-bold px-[1.2rem] py-[0.6rem]';
     }
     case 'medium': {
-      return 'text-md px-[1.6rem] py-[0.8rem]';
+      return 'font-body1-bold px-[1.6rem] py-[0.8rem]';
     }
     case 'large': {
-      return 'text-lg px-[2.4rem] py-[1rem]';
+      return 'font-body1-bold px-[2.4rem] py-[1rem]';
     }
     case 'full': {
-      return 'text-lg px-[2.4rem] py-[1rem] w-full';
+      return 'font-body1-bold px-[2.4rem] py-[1rem] w-full';
     }
     default: {
       // medium
-      return 'text-md px-[1.6rem] py-[0.8rem]';
+      return 'font-body1-bold px-[1.6rem] py-[0.8rem]';
     }
   }
 };
@@ -41,7 +41,7 @@ const getSchemeClasses = (theme: ColorScheme, isFill: boolean) => {
         : 'border-main-900 text-main-900';
     }
     case 'main-light': {
-      return 'border-transparent bg-main-600/[.18] text-main-900 font-normal';
+      return 'border-transparent bg-main-600/[.18] text-main-900 !font-normal';
     }
     case 'warning': {
       return isFill
@@ -60,7 +60,7 @@ const getSchemeClasses = (theme: ColorScheme, isFill: boolean) => {
 };
 
 const BASE_BUTTON_CLASSES =
-  'cursor-pointer border-[0.1rem] leading-none inline-block font-bold focus:outline-none focus:ring-2';
+  'cursor-pointer border-[0.1rem] leading-none inline-block focus:outline-none focus:ring-2';
 
 const Button = ({
   size = 'medium',

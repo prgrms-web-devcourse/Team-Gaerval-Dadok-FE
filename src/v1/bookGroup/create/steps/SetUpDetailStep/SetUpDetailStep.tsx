@@ -33,7 +33,7 @@ const SetUpDetailStep = ({
     useFormContext<SetUpDetailStepFormValues>();
 
   return (
-    <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
+    <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
       <TitleField name={'title'} />
       <SelectedBookInfoField
         bookId={getValues('book.bookId')}
@@ -41,7 +41,7 @@ const SetUpDetailStep = ({
       />
       <IntroduceField name={'introduce'} />
 
-      <section className="flex flex-col gap-[1.6rem]">
+      <section className="flex flex-col gap-[1.5rem] pb-[1rem]">
         <MaxMemberCountField name={'maxMemberCount'} />
         <CustomMemberCountField name={'customMemberCount'} />
       </section>
@@ -139,7 +139,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   const introduceErrors = errors[name];
 
   return (
-    <section className="flex flex-col gap-[1.6rem]">
+    <section className="flex flex-col gap-[1.2rem]">
       <h2>활동 내용</h2>
       <TextArea
         count={true}
@@ -168,7 +168,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   return (
     <>
       <h2>최대 인원</h2>
-      <fieldset className="inline-flex w-[70%] flex-wrap gap-[1rem]">
+      <fieldset className="inline-flex w-[80%] flex-wrap gap-[1.2rem]">
         {MAX_MEMBER_COUNT_OPTIONS.map(option => (
           <RadioButton
             key={option.value}
@@ -202,7 +202,8 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
         <div className="flex flex-col gap-[0.5rem]">
           <Input
             type="number"
-            placeholder="1000명 이상의 인원은 제한 없음을 선택해주세요"
+            min={0}
+            placeholder="최대인원을 입력해주세요"
             className="after:content-['명']"
             error={!!customMemberCountErrors}
             {...register(name, {
@@ -211,7 +212,10 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
                 message: '모임 최대 인원을 입력해주세요',
               },
               min: { value: 2, message: '모임 인원은 최소 2명부터 가능해요' },
-              max: { value: 1000, message: '1000 이하의 값을 입력해주세요' },
+              max: {
+                value: 1000,
+                message: '1000명 이상의 인원은 제한 없음을 선택해주세요',
+              },
             })}
           />
           <ErrorMessage>{customMemberCountErrors?.message}</ErrorMessage>
@@ -292,10 +296,10 @@ const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
   const isCommentPublic = useWatch({ control, name });
 
   return (
-    <section className="flex items-start justify-between">
+    <section className="flex items-center justify-between">
       <div className="flex min-w-0 flex-col gap-[0.3rem]">
         <h2>댓글 공개 여부</h2>
-        <p className="text-xs text-placeholder">
+        <p className="text-placeholder font-caption1-regular">
           {isCommentPublic
             ? '모임에 가입하지 않아도 댓글을 볼 수 있어요'
             : '모임에 가입해야 댓글을 볼 수 있어요'}
