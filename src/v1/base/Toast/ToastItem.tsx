@@ -34,7 +34,9 @@ const ToastItem = ({ type = 'normal', message }: ToastOption) => {
           {scheme.icon}
         </div>
       )}
-      <p className={`text-sm leading-tight ${scheme.textColor}`}>{message}</p>
+      <p className={`!leading-tight font-body2-regular ${scheme.textColor}`}>
+        {message}
+      </p>
     </div>
   );
 };

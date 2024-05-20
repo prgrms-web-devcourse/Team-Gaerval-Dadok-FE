@@ -70,8 +70,10 @@ const BookInfoContent = ({
     <div className="flex min-h-[12.8rem] w-full gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
       <BookCover size="xsmall" src={bookInfo.imageUrl} title={bookInfo.title} />
       <div className="flex min-w-0 flex-grow flex-col">
-        <span className="truncate text-sm font-bold">{bookInfo.title}</span>
-        <span className="text-xs text-placeholder">{bookInfo.author}</span>
+        <span className="truncate font-body2-bold">{bookInfo.title}</span>
+        <span className="text-placeholder font-caption1-regular">
+          {bookInfo.author}
+        </span>
       </div>
       {removable ? (
         <IconDelete
@@ -95,7 +97,7 @@ const BookInfoContent = ({
 //       onClick={onBookSelect}
 //     >
 //       <IconBookPlus className="h-[2rem] w-[2rem] fill-placeholder" />
-//       <p className="text-xs text-placeholder">
+//       <p className="font-caption2-regular text-placeholder">
 //         독서모임에 사용할 책을 선택해주세요
 //       </p>
 //     </div>

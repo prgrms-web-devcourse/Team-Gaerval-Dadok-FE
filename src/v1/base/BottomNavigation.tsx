@@ -50,7 +50,7 @@ const BottomNavigation = ({ pathname }: BottomNavigationProps) => {
             }`}
           >
             <div className="h-[2.6rem] w-[2.6rem]">{icon}</div>
-            <p className="text-xs font-bold">{label}</p>
+            <p className="font-caption1-bold">{label}</p>
           </button>
         </Link>
       ))}
