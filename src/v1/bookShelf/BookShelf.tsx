@@ -1,11 +1,16 @@
+'use client';
+
+import { ReactNode, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+import ColorThief from 'colorthief';
+
+import { APIBook } from '@/types/book';
 import { APIBookshelf } from '@/types/bookshelf';
 import { IconArrowRight, IconHeart } from '@public/icons';
-import Link from 'next/link';
+
 import Badge from '@/v1/base/Badge';
-import Image from 'next/image';
-import { APIBook } from '@/types/book';
-import { ReactNode, useState } from 'react';
-import ColorThief from 'colorthief';
 
 const BookShelf = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
@@ -58,8 +63,10 @@ const Books = ({ books }: BooksProps) => {
 const Book = ({
   imageUrl,
   bookId,
+  title,
 }: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>) => {
   const [bookSpineColor, setBookSpineColor] = useState<string>();
+  const placeholderClassName = bookSpineColor ? '' : 'bg-blur';
 
   const handleOnLoadImage = (image: HTMLImageElement) => {
     const colorThief = new ColorThief();
@@ -71,44 +78,55 @@ const Book = ({
   };
 
   return (
-    <div
+    <Link
+      href={`/book/${bookId}`}
       className="relative flex"
       style={{
-        visibility: bookSpineColor ? 'visible' : 'hidden',
         transformStyle: 'preserve-3d',
         transform: 'perspective(140px)',
       }}
     >
+      {/** 책 옆면 (책등) */}
       <div
-        className="h-full w-[1.5rem]"
+        className={`h-full w-[1.5rem] ${placeholderClassName}`}
         style={{
           backgroundColor: bookSpineColor,
           transform: 'rotateY(320deg) translateX(1rem) translateZ(0.4rem)',
         }}
-      />
+      >
+        {/** 옆면과 표지 사이 여백을 메꾸기 위해 추가 */}
+        <div
+          className={`absolute -right-[0.5px] h-full w-[2px] ${placeholderClassName}`}
+          style={{ backgroundColor: bookSpineColor }}
+        />
+      </div>
+
+      {/** 책 하단 그림자 */}
       <div
         className="absolute bottom-0 h-2 w-[calc(100%-1.5rem)] shadow-[1px_4px_10px_4px_#b1b1b1]"
         style={{
           transform: 'rotateY(20deg) translateX(1.25rem) translateZ(-0.5rem)',
         }}
       />
-      <Link
-        className="relative"
-        href={`/book/${bookId}`}
+
+      {/** 책 표지 */}
+      <div
+        className="bg-blur relative h-[9.1rem] w-[6.5rem] rounded-[2px] after:absolute after:inset-0 after:border-[1px] after:border-black-900/[.06]"
         style={{
           transform: 'rotateY(22deg) translateZ(0.3rem)',
         }}
       >
         <Image
           src={imageUrl}
-          width={60}
-          height={90}
-          alt="book cover"
+          alt={title}
           onLoadingComplete={handleOnLoadImage}
-          quality={100}
+          className=" rounded-[1px] object-cover"
+          sizes="9.1rem"
+          fill
+          style={{ visibility: bookSpineColor ? 'visible' : 'hidden' }}
         />
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
