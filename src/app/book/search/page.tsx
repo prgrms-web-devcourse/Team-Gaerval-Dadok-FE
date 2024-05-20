@@ -39,6 +39,7 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
+  /* TopHeader가 사라졌을 때 input의 위치 top: 5.8rem */
   const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
 
   return (
@@ -53,7 +54,7 @@ const BookSearchPage = () => {
         <TopHeader text={'Discover'} />
       </div>
       <article
-        className={`flex max-h-[calc(100%-14.8rem)] w-full flex-col gap-[3rem] transition duration-500 ${
+        className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
           watchedKeyword ? '-translate-y-[5.8rem]' : 'translate-y-0'
         }`}
       >
@@ -161,6 +162,10 @@ const RecentSearchResult = ({
 
 const BookSearchLoading = () => {
   return (
+    /**
+     * Loading 컴포넌트가 화면 중앙에 올바르게 표시되도록 height가 존재하는 relative div 요소 추가
+     * 화면이 스크롤 되지 않는 크기: 100dvh - 23.3rem
+     */
     <div className="relative flex h-[calc(100dvh-23.3rem)]">
       <Loading fullpage />
     </div>
