@@ -1,7 +1,7 @@
 import { forwardRef, InputHTMLAttributes, Ref } from 'react';
 
 const BASE_CLASSES =
-  'flex h-[8rem] w-full cursor-pointer items-center justify-between rounded-[0.5rem] border-[0.1rem] bg-white px-[2.5rem] text-black-600 text-md';
+  'flex h-[8rem] w-full cursor-pointer items-center justify-between rounded-[0.5rem] border-[0.1rem] bg-white px-[2.5rem] text-black-600 font-body1-regular';
 
 const JoinTypeRadioCard = (
   {

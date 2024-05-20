@@ -14,7 +14,7 @@ const ProfileBookshelfPresenter = ({
   return (
     <div className="flex flex-col gap-[1rem]">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-bold">책장</h3>
+        <h3 className="font-body1-bold">책장</h3>
         <div className="flex gap-[2rem]">
           <Badge
             colorScheme="red"
@@ -24,7 +24,7 @@ const ProfileBookshelfPresenter = ({
           >
             <div className="flex items-center gap-[0.4rem]">
               <IconHeart className="h-[1.4rem] w-[1.4rem] fill-[#F56565]" />
-              <div className="bold text-xs">{likeCount}</div>
+              <div className="font-caption1-bold">{likeCount}</div>
             </div>
           </Badge>
           <Link href={`/bookshelf/${bookshelfId}`}>

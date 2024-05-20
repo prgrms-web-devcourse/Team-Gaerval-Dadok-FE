@@ -12,7 +12,7 @@ const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
   return (
     <article>
       <section className="flex flex-col gap-[1.5rem]">
-        <h2 className="text-lg font-bold text-black-700">
+        <h2 className="text-black-700 font-subheading-bold">
           독서모임 이름을 적어주세요
         </h2>
         <TitleField name="title" />

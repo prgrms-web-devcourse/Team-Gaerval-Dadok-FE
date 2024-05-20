@@ -32,7 +32,7 @@ const BookSearchList = ({
 
   if (!books.length) {
     return (
-      <p className="mb-[2.4rem] text-center text-sm text-placeholder">
+      <p className="mb-[2.4rem] text-center text-placeholder font-body2-regular">
         검색된 도서가 없어요 🥲
       </p>
     );
@@ -40,9 +40,11 @@ const BookSearchList = ({
 
   return (
     <>
-      <h3 className="mb-[1rem] font-bold">
-        <span className="">검색 결과 </span>
-        <span className="text-black-500">{totalCount}</span>
+      <h3 className="mb-[1rem] ">
+        <span className="text-black-600 font-body1-bold">검색 결과 </span>
+        <span className="pl-[0.2rem] text-black-500 font-body1-regular">
+          {totalCount}
+        </span>
       </h3>
       <ul className="grid w-full grid-cols-3 gap-[1.6rem]">
         {books.map((book, idx) => (
@@ -75,7 +77,7 @@ const BookSearchItem = ({
       className="flex min-h-0 w-full cursor-pointer flex-col gap-[0.8rem] bg-white p-[0.2rem]"
     >
       <BookCover size="fill" src={imageUrl} title={title} />
-      <p className="line-clamp-2 text-sm font-normal leading-tight text-black-900">
+      <p className="line-clamp-2 !leading-tight text-black-900 font-body2-regular">
         {title}
       </p>
     </li>

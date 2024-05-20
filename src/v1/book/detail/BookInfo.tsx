@@ -35,11 +35,11 @@ const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
 export default BookInfo;
 
 const BookTitle = ({ title }: { title: string }) => (
-  <p className="text-lg font-bold">{title}</p>
+  <p className="font-subheading-bold">{title}</p>
 );
 
 const BookAuthor = ({ author }: { author: string }) => (
-  <p className="text-sm">{author}</p>
+  <p className="font-body2-regular">{author}</p>
 );
 
 const BookmarkButton = ({ bookId }: { bookId: APIBook['bookId'] }) => {
@@ -78,7 +78,7 @@ const BookSummary = ({
   summary: string;
   bookUrl: string;
 }) => (
-  <p className="text-md">
+  <p>
     {summary}&nbsp;...&nbsp;
     {bookUrl && (
       <a target="_blank" href={bookUrl}>
@@ -104,7 +104,7 @@ const BookmarkUserInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
           ))}
         </AvatarGroup>
       )}
-      <p className="text-sm">
+      <p className="font-body2-regular">
         {getBookmarkedUserCountText(totalCount, avatarCount)}
       </p>
     </div>
