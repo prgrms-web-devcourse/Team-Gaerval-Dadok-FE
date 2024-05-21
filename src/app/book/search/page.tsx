@@ -42,6 +42,7 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
+  /* debounce된 keyword값에 따라 queryParameter를 수정하는 useEffect */
   useEffect(() => {
     const queryValue = getQueryParam('queryKeyword');
 
