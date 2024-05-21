@@ -29,7 +29,7 @@ type InfoProps = Omit<APIBookshelf, 'books'>;
 
 const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
   return (
-    <div className="flex flex-col gap-[1rem]">
+    <div className="flex flex-col gap-[1rem] px-[2rem]">
       <div className="flex items-center justify-between">
         <div className="font-body2-bold">{bookshelfName}</div>
         <Link href={`/bookshelf/${bookshelfId}`}>
@@ -50,7 +50,7 @@ type BooksProps = Pick<APIBookshelf, 'books'>;
 
 const Books = ({ books }: BooksProps) => {
   return (
-    <ul className="grid grid-cols-4 px-[0.5rem]">
+    <ul className="grid grid-cols-4 px-[1rem]">
       {books.map(book => (
         <li key={book.bookId} className="flex justify-center">
           <Book {...book} />
