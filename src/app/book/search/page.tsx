@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useInView } from 'react-intersection-observer';
 
@@ -31,12 +31,11 @@ type FormValues = {
 
 const BookSearchPage = () => {
   const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams();
-  const hasRunOnce = useRef(false);
 
-  const { register, watch, setValue, getValues } = useForm<FormValues>({
+  const { register, watch, setValue } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
-      searchValue: '',
+      searchValue: getQueryParam('searchValue') ?? '',
     },
   });
 
@@ -45,25 +44,13 @@ const BookSearchPage = () => {
 
   useEffect(() => {
     const queryValue = getQueryParam('searchValue');
-    if (!hasRunOnce.current) {
-      hasRunOnce.current = true;
-      queryValue && setValue('searchValue', queryValue);
-    }
 
     if (debouncedKeyword) {
       setQueryParams('searchValue', debouncedKeyword, 'replace');
-    } else if (queryValue && !getValues('searchValue')) {
+    } else if (!debouncedKeyword && queryValue) {
       removeQueryParam('searchValue', 'replace');
     }
-  }, [
-    hasRunOnce,
-    debouncedKeyword,
-    setValue,
-    getValues,
-    getQueryParam,
-    setQueryParams,
-    removeQueryParam,
-  ]);
+  }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
   /* TopHeader가 사라졌을 때 input의 위치 top: 5.8rem */
   const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
