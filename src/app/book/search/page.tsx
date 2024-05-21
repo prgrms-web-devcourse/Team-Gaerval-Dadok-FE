@@ -35,7 +35,7 @@ const BookSearchPage = () => {
   const { register, watch, setValue } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
-      searchValue: getQueryParam('searchValue') ?? '',
+      searchValue: getQueryParam('queryKeyword') ?? '',
     },
   });
 
@@ -43,12 +43,12 @@ const BookSearchPage = () => {
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
   useEffect(() => {
-    const queryValue = getQueryParam('searchValue');
+    const queryValue = getQueryParam('queryKeyword');
 
     if (debouncedKeyword) {
-      setQueryParams('searchValue', debouncedKeyword, 'replace');
+      setQueryParams('queryKeyword', debouncedKeyword, 'replace');
     } else if (!debouncedKeyword && queryValue) {
-      removeQueryParam('searchValue', 'replace');
+      removeQueryParam('queryKeyword', 'replace');
     }
   }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
