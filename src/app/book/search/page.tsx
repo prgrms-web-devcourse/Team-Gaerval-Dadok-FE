@@ -73,6 +73,7 @@ const BookSearchPage = () => {
         }`}
       >
         <Input
+          type="search"
           inputStyle="line"
           leftIconType="search"
           placeholder="책 제목, 작가를 검색해보세요"
