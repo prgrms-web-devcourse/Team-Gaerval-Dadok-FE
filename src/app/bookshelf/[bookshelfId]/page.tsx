@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
-import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
+import type { APIBookshelf } from '@/types/bookshelf';
 
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
@@ -99,7 +99,6 @@ const BookShelfContent = ({
   bookshelfId,
 }: {
   bookshelfId: APIBookshelf['bookshelfId'];
-  userNickname?: APIBookshelfInfo['userNickname'];
 }) => {
   const isAuthenticated = checkAuthentication();
   const { ref, inView } = useInView();
@@ -121,28 +120,23 @@ const BookShelfContent = ({
   // TODO: Suspense 적용
   if (!isSuccess) return null;
 
-  return (
+  return isAuthenticated ? (
     <>
-      {isAuthenticated ? (
-        <>
-          {booksData.pages.map(page =>
-            page.books.map((rowBooks, idx) => (
-              <BookShelfRow key={idx} books={rowBooks} />
-            ))
-          )}
-          {!isFetchingNextPage && <div ref={ref} />}
-        </>
-      ) : (
-        <>
-          <BookShelfRow books={booksData.pages[0].books[0]} />
-          <DummyBookShelfRow />
-          <BookShelfLoginBox bookshelfId={bookshelfId} />
-        </>
+      {booksData.pages.map(page =>
+        page.books.map((rowBooks, idx) => (
+          <BookShelfRow key={idx} books={rowBooks} />
+        ))
       )}
+      {!isFetchingNextPage && <div ref={ref} />}
+    </>
+  ) : (
+    <>
+      <BookShelfRow books={booksData.pages[0].books[0]} />
+      <DummyBookShelfRow />
+      <BookShelfLoginBox bookshelfId={bookshelfId} />
     </>
   );
 };
-
 const DummyBookShelfRow = () => (
   <div className="pointer-events-none blur-sm">
     <BookShelfRow books={initialBookImageUrl} />
