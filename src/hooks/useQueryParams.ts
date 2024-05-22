@@ -1,5 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback } from 'react';
 
 type RouteOptions = 'push' | 'replace';
 
@@ -8,58 +8,57 @@ const useQueryParams = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const [queryParams, _setQueryParams] = useState<string>(
-    searchParams.toString()
+  const getQueryParam = useCallback(
+    (queryKey: string) => {
+      const queryParam = searchParams.get(queryKey);
+
+      return queryParam;
+    },
+    [searchParams]
   );
 
-  const getQueryParam = (queryKey: string) => {
-    const queryParam = searchParams.get(queryKey);
+  const setQueryParams = useCallback(
+    (queryKey: string, queryValue: string, option?: RouteOptions) => {
+      const prevParams = new URLSearchParams(searchParams.toString());
+      prevParams.set(queryKey, queryValue);
 
-    return queryParam;
-  };
+      const newQueryParams = prevParams.toString();
 
-  const setQueryParams = (
-    queryKey: string,
-    queryValue: string,
-    option?: RouteOptions
-  ) => {
-    const prevParams = new URLSearchParams(searchParams.toString());
-    prevParams.set(queryKey, queryValue);
+      switch (option) {
+        case 'replace':
+          router.replace(pathname + `?${newQueryParams}`, { shallow: true });
+          return;
+        case 'push':
+        default:
+          router.push(pathname + `?${newQueryParams}`, { shallow: true });
+          return;
+      }
+    },
+    [router, searchParams, pathname]
+  );
 
-    const newQueryParams = prevParams.toString();
-    _setQueryParams(newQueryParams);
+  const removeQueryParam = useCallback(
+    (queryKey: string, option?: RouteOptions) => {
+      const prevParams = new URLSearchParams(searchParams.toString());
+      if (!prevParams.has(queryKey)) return;
+      prevParams.delete(queryKey);
 
-    switch (option) {
-      case 'replace':
-        router.replace(pathname + `/?${newQueryParams}`, { shallow: true });
-        return;
-      case 'push':
-      default:
-        router.push(pathname + `/?${newQueryParams}`, { shallow: true });
-        return;
-    }
-  };
+      const newQueryParams = prevParams.toString();
 
-  const removeQueryParam = (queryKey: string, option?: RouteOptions) => {
-    const prevParams = new URLSearchParams(searchParams.toString());
-    if (!prevParams.get(queryKey)) return;
-    prevParams.delete(queryKey);
+      switch (option) {
+        case 'replace':
+          router.replace(pathname + `?${newQueryParams}`, { shallow: true });
+          return;
+        case 'push':
+        default:
+          router.push(pathname + `?${newQueryParams}`, { shallow: true });
+          return;
+      }
+    },
+    [router, searchParams, pathname]
+  );
 
-    const newQueryParams = prevParams.toString();
-    _setQueryParams(newQueryParams);
-
-    switch (option) {
-      case 'replace':
-        router.replace(pathname + `/?${newQueryParams}`, { shallow: true });
-        return;
-      case 'push':
-      default:
-        router.push(pathname + `/?${newQueryParams}`, { shallow: true });
-        return;
-    }
-  };
-
-  return { queryParams, getQueryParam, setQueryParams, removeQueryParam };
+  return { getQueryParam, setQueryParams, removeQueryParam };
 };
 
 export default useQueryParams;
