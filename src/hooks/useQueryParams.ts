@@ -8,6 +8,8 @@ const useQueryParams = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
+  const queryParams = searchParams.toString();
+
   const getQueryParam = useCallback(
     (queryKey: string) => {
       const queryParam = searchParams.get(queryKey);
@@ -58,7 +60,7 @@ const useQueryParams = () => {
     [router, searchParams, pathname]
   );
 
-  return { getQueryParam, setQueryParams, removeQueryParam };
+  return { queryParams, getQueryParam, setQueryParams, removeQueryParam };
 };
 
 export default useQueryParams;
