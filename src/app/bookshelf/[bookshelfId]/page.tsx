@@ -1,23 +1,26 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
+import { useInView } from 'react-intersection-observer';
+
+import type { APIBookshelf } from '@/types/bookshelf';
+
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
 import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
-import useToast from '@/v1/base/Toast/useToast';
+import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
+import { KAKAO_LOGIN_URL } from '@/constants/url';
+
+import useToast from '@/v1/base/Toast/useToast';
 import TopNavigation from '@/v1/base/TopNavigation';
 import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
 import Button from '@/v1/base/Button';
 import LikeButton from '@/v1/base/LikeButton';
 import BackButton from '@/v1/base/BackButton';
 import ShareButton from '@/v1/base/ShareButton';
-import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
-
-const KAKAO_OAUTH_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -26,23 +29,6 @@ export default function UserBookShelfPage({
     bookshelfId: APIBookshelf['bookshelfId'];
   };
 }) {
-  const isAuthenticated = checkAuthentication();
-  const { data, isSuccess } = useBookShelfInfoQuery({ bookshelfId });
-  const { mutate: mutateBookshelfLike } =
-    useMutateBookshelfLikeQuery(bookshelfId);
-  const { show: showToast } = useToast();
-
-  if (!isSuccess) return null;
-
-  const handleClickLikeButton = () => {
-    if (!isAuthenticated) {
-      showToast({ message: '로그인 후 이용해주세요.', type: 'normal' });
-      return;
-    }
-
-    mutateBookshelfLike(data.isLiked);
-  };
-
   return (
     <div className="flex w-full flex-col">
       <TopNavigation>
@@ -53,37 +39,66 @@ export default function UserBookShelfPage({
           <ShareButton />
         </TopNavigation.RightItem>
       </TopNavigation>
-      <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">
-        <h1 className="font-subheading-bold">
-          <span className="text-main-900">{data.userNickname}</span>
-          님의 책장
-        </h1>
-        <div className="flex items-center justify-between">
-          <span className="text-black-600 font-body2-regular">
-            {`${data.job.jobGroupKoreanName} • ${data.job.jobNameKoreanName}`}
-          </span>
-          <LikeButton
-            isLiked={data.isLiked}
-            likeCount={data.likeCount}
-            onClick={handleClickLikeButton}
-          />
-        </div>
-      </div>
 
-      <BookShelfContent
-        bookshelfId={bookshelfId}
-        userNickname={data.userNickname}
-      />
+      <BookShelfInfo bookshelfId={bookshelfId} />
+      <BookShelfContent bookshelfId={bookshelfId} />
     </div>
   );
 }
 
+const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
+  const isAuthenticated = checkAuthentication();
+  const { show: showToast } = useToast();
+
+  const { data } = useBookShelfInfoQuery(bookshelfId);
+  const { isLiked, likeCount, userId, userNickname, job } = data;
+
+  const { mutate: mutateBookshelfLike } =
+    useMutateBookshelfLikeQuery(bookshelfId);
+
+  const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
+
+  const handleClickLikeButton = () => {
+    if (!isAuthenticated) {
+      showToast({ message: '로그인 후 이용해주세요.', type: 'normal' });
+      return;
+    }
+
+    if (userId === myId) {
+      showToast({
+        message: '내 책장에는 좋아요를 누를 수 없어요.',
+        type: 'normal',
+      });
+      return;
+    }
+
+    mutateBookshelfLike(isLiked);
+  };
+
+  return (
+    <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">
+      <h1 className="font-subheading-bold">
+        <span className="text-main-900">{userNickname}</span>
+        님의 책장
+      </h1>
+      <div className="flex items-center justify-between">
+        <span className="text-black-600 font-body2-regular">
+          {`${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
+        </span>
+        <LikeButton
+          isLiked={isLiked}
+          likeCount={likeCount}
+          onClick={handleClickLikeButton}
+        />
+      </div>
+    </div>
+  );
+};
+
 const BookShelfContent = ({
   bookshelfId,
-  userNickname,
 }: {
   bookshelfId: APIBookshelf['bookshelfId'];
-  userNickname: APIBookshelfInfo['userNickname'];
 }) => {
   const isAuthenticated = checkAuthentication();
   const { ref, inView } = useInView();
@@ -93,7 +108,6 @@ const BookShelfContent = ({
     fetchNextPage,
     hasNextPage,
     isSuccess,
-    isFetching,
     isFetchingNextPage,
   } = useBookShelfBooksQuery({ bookshelfId });
 
@@ -113,37 +127,52 @@ const BookShelfContent = ({
           <BookShelfRow key={idx} books={rowBooks} />
         ))
       )}
-
-      {isFetching && !isFetchingNextPage ? null : <div ref={ref} />}
+      {!isFetchingNextPage && <div ref={ref} />}
     </>
   ) : (
     <>
       <BookShelfRow books={booksData.pages[0].books[0]} />
-      <div className="pointer-events-none blur-sm">
-        <BookShelfRow books={initialBookImageUrl} />
-      </div>
-      <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
-        <p className="text-center font-body1-bold">
-          지금 로그인하면
-          <br />
-          책장에 담긴 모든 책을 볼 수 있어요!
-        </p>
-        <p className="text-center text-placeholder font-body2-regular">
-          <span className="text-main-900">{userNickname}</span>님의 책장에서
-          다양한
-          <br />
-          인사이트를 얻을 수 있어요.
-        </p>
-        <Link href={KAKAO_OAUTH_LOGIN_URL}>
-          <Button colorScheme="kakao" size="full">
-            <div className="flex items-center justify-center gap-[1rem]">
-              <IconKakao width={16} height={'auto'} />
-              <span className="font-body1-regular">카카오 로그인</span>
-            </div>
-          </Button>
-        </Link>
-      </div>
+      <DummyBookShelfRow />
+      <BookShelfLoginBox bookshelfId={bookshelfId} />
     </>
+  );
+};
+const DummyBookShelfRow = () => (
+  <div className="pointer-events-none blur-sm">
+    <BookShelfRow books={initialBookImageUrl} />
+  </div>
+);
+
+const BookShelfLoginBox = ({
+  bookshelfId,
+}: {
+  bookshelfId: APIBookshelf['bookshelfId'];
+}) => {
+  const { data } = useBookShelfInfoQuery(bookshelfId);
+  const { userNickname } = data;
+
+  return (
+    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
+      <p className="text-center font-body1-bold">
+        지금 로그인하면
+        <br />
+        책장에 담긴 모든 책을 볼 수 있어요!
+      </p>
+      <p className="text-center text-placeholder font-body2-regular">
+        <span className="text-main-900">{userNickname}</span>님의 책장에서
+        다양한
+        <br />
+        인사이트를 얻을 수 있어요.
+      </p>
+      <Link href={KAKAO_LOGIN_URL}>
+        <Button colorScheme="kakao" size="full">
+          <div className="flex items-center justify-center gap-[1rem]">
+            <IconKakao width={16} height={'auto'} />
+            <span className="font-body1-regular">카카오 로그인</span>
+          </div>
+        </Button>
+      </Link>
+    </div>
   );
 };
 

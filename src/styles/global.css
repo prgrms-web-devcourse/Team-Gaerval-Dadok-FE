@@ -75,4 +75,9 @@
   .w-app {
     @apply relative -left-[2rem] w-[calc(100%+4rem)];
   }
+
+  .bg-blur {
+    box-shadow: inset 0 0 3rem #dddddd;
+    @apply bg-placeholder;
+  }
 }
