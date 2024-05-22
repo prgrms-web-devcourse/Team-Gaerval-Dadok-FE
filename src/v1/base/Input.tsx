@@ -30,7 +30,7 @@ const getInputStyleClasses = (inputStyle: InputStyle) => {
 const getLeftIconClass = (iconType?: LeftIconType) => {
   switch (iconType) {
     case 'search':
-      return 'px-[1rem] before:relative before:top-[0.3rem] before:pr-[1rem] before:content-search';
+      return 'px-[1rem] before:h-[2.4rem] before:w-[2rem] before:relative before:top-[0.2rem] before:mr-[1rem] before:content-search';
     default:
       return '';
   }
