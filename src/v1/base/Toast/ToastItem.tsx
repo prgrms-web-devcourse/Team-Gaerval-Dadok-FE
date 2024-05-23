@@ -1,40 +1,21 @@
-import { IconCheckCircle, IconWarningCircle } from '@public/icons';
+import { IconSuccess, IconWarning, IconError } from '@public/icons';
 import { ToastOption } from './types';
 
-const schemes = {
-  success: {
-    icon: <IconCheckCircle />,
-    backgroundColor: 'bg-success-500',
-    textColor: 'text-success-900',
-    fillColor: 'fill-success-900',
-  },
-  error: {
-    icon: <IconWarningCircle />,
-    backgroundColor: 'bg-warning-500',
-    textColor: 'text-warning-800',
-    fillColor: 'fill-warning-800',
-  },
-  normal: {
-    icon: null,
-    backgroundColor: 'bg-black-500',
-    textColor: 'text-white',
-    fillColor: 'fill-white',
-  },
+const ICONS = {
+  success: <IconSuccess />,
+  error: <IconError />,
+  normal: <IconWarning />,
 } as const;
 
 const ToastItem = ({ type = 'normal', message }: ToastOption) => {
-  const scheme = schemes[type];
+  const icon = ICONS[type];
 
   return (
     <div
-      className={`flex min-h-[5.3rem] w-full min-w-fit flex-row items-center gap-[1rem] rounded-full px-[2rem] ${scheme.backgroundColor}`}
+      className={`flex min-h-[5.3rem] w-full min-w-fit flex-row items-center gap-[1rem] rounded-full bg-black-500/[.98] px-[2rem] shadow-bookcover`}
     >
-      {scheme.icon && (
-        <div className={`h-[2rem] w-[2rem] ${scheme.fillColor}`}>
-          {scheme.icon}
-        </div>
-      )}
-      <p className={`!leading-tight font-body2-regular ${scheme.textColor}`}>
+      {icon}
+      <p className={`!leading-tight tracking-wide text-white font-body2-bold`}>
         {message}
       </p>
     </div>

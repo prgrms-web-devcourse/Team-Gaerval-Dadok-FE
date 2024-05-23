@@ -46,7 +46,13 @@ export const Default: Story = {
   args: {
     message: '토스트 예시',
   },
-  render: args => <ToastItem {...args} />,
+  render: args => (
+    <div className="flex flex-col gap-[1rem]">
+      <ToastItem type="normal" {...args} />
+      <ToastItem type="error" {...args} />
+      <ToastItem type="success" {...args} />
+    </div>
+  ),
 };
 
 export const Normal: Story = {
