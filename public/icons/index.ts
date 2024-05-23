@@ -21,8 +21,10 @@ export { default as IconHeart } from './heart.svg';
 
 // 검색
 export { default as IconSearch } from './search.svg';
-export { default as IconWarningCircle } from './warning-circle.svg';
-export { default as IconCheckCircle } from './check-circle.svg';
+export { default as IconWarning } from './warning-circle.svg';
+export { default as IconSuccess } from './check-circle.svg';
+export { default as IconError } from './error-circle.svg';
+export { default as IconErrorExclamation } from './error-with-exclamation.svg';
 
 // 독서 모임
 export { default as IconAvatar } from './avatar.svg';
