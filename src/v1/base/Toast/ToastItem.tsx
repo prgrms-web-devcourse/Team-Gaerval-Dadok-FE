@@ -4,10 +4,10 @@ import { ToastOption } from './types';
 const ICONS = {
   success: <IconSuccess />,
   error: <IconError />,
-  normal: <IconWarning />,
+  warning: <IconWarning />,
 } as const;
 
-const ToastItem = ({ type = 'normal', message }: ToastOption) => {
+const ToastItem = ({ type = 'warning', message }: ToastOption) => {
   const icon = ICONS[type];
 
   return (
