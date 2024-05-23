@@ -14,11 +14,11 @@ export default meta;
 
 type Story = StoryObj<typeof ToastItem>;
 
-const NormalToast = () => {
+const WarningToast = () => {
   const toast = useToast();
   const handleButtonClick = () =>
     toast.show({
-      type: 'normal',
+      type: 'warning',
       message: '5초 동안 보여지는 토스트 메세지에요.',
       duration: 5000,
     });
@@ -46,11 +46,17 @@ export const Default: Story = {
   args: {
     message: '토스트 예시',
   },
-  render: args => <ToastItem {...args} />,
+  render: args => (
+    <div className="flex flex-col gap-[1rem]">
+      <ToastItem type="warning" {...args} />
+      <ToastItem type="error" {...args} />
+      <ToastItem type="success" {...args} />
+    </div>
+  ),
 };
 
 export const Normal: Story = {
-  render: NormalToast,
+  render: WarningToast,
 };
 
 export const Success: Story = {

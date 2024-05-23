@@ -54,7 +54,7 @@ const BookmarkButton = ({ bookId }: { bookId: APIBook['bookId'] }) => {
   const handleButtonClick = () => {
     if (!isAuthenticated) {
       // TODO: 로그인 유도 모달로 변경
-      showToast({ type: 'normal', message: '로그인 후에 책을 꽂을 수 있어요' });
+      showToast({ message: '로그인 후에 책을 꽂을 수 있어요' });
       return;
     }
 

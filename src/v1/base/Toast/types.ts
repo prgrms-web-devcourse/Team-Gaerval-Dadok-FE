@@ -1,4 +1,4 @@
-export type ToastType = 'normal' | 'success' | 'error';
+export type ToastType = 'warning' | 'success' | 'error';
 
 export type ToastOption = {
   type?: ToastType;

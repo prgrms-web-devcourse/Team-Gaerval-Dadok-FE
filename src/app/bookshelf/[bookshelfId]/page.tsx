@@ -60,14 +60,13 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
 
   const handleClickLikeButton = () => {
     if (!isAuthenticated) {
-      showToast({ message: '로그인 후 이용해주세요.', type: 'normal' });
+      showToast({ message: '로그인 후 이용해주세요' });
       return;
     }
 
     if (userId === myId) {
       showToast({
-        message: '내 책장에는 좋아요를 누를 수 없어요.',
-        type: 'normal',
+        message: '내 책장에는 좋아요를 누를 수 없어요',
       });
       return;
     }

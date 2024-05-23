@@ -60,7 +60,7 @@ const AddJobProfile = ({ jobCategories }: AddJobProfileProps) => {
   const showToastEditFailed = () =>
     toast.show({
       type: 'error',
-      message: '잠시 후 다시 시도해 주세요.',
+      message: '잠시 후 다시 시도해 주세요',
       duration: 3000,
     });
 
