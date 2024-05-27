@@ -29,13 +29,15 @@ type FormValues = {
   searchValue: string;
 };
 
+const KEYWORD = 'keyword';
+
 const BookSearchPage = () => {
   const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams();
 
   const { register, watch, setValue } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
-      searchValue: getQueryParam('queryKeyword') ?? '',
+      searchValue: getQueryParam(KEYWORD) ?? '',
     },
   });
 
@@ -44,12 +46,12 @@ const BookSearchPage = () => {
 
   /* debounce된 keyword값에 따라 queryParameter를 수정하는 useEffect */
   useEffect(() => {
-    const queryValue = getQueryParam('queryKeyword');
+    const queryValue = getQueryParam(KEYWORD);
 
     if (debouncedKeyword) {
-      setQueryParams('queryKeyword', debouncedKeyword, 'replace');
+      setQueryParams({ [KEYWORD]: debouncedKeyword });
     } else if (!debouncedKeyword && queryValue) {
-      removeQueryParam('queryKeyword', 'replace');
+      removeQueryParam(KEYWORD, 'replace');
     }
   }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
