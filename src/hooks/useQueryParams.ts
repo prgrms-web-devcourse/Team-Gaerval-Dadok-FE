@@ -1,12 +1,13 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
 type RouteOptions = 'push' | 'replace';
 
+type QueryParams = { [key: string]: string };
+
 const useQueryParams = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
   const queryParams = searchParams.toString();
 
@@ -20,23 +21,26 @@ const useQueryParams = () => {
   );
 
   const setQueryParams = useCallback(
-    (queryKey: string, queryValue: string, option?: RouteOptions) => {
+    (queryParams: QueryParams, option?: RouteOptions) => {
       const prevParams = new URLSearchParams(searchParams.toString());
-      prevParams.set(queryKey, queryValue);
+
+      for (const queryKey in queryParams) {
+        prevParams.set(queryKey, queryParams[queryKey]);
+      }
 
       const newQueryParams = prevParams.toString();
 
       switch (option) {
         case 'replace':
-          router.replace(pathname + `?${newQueryParams}`, { shallow: true });
+          router.replace(`?${newQueryParams}`, { shallow: true });
           return;
         case 'push':
         default:
-          router.push(pathname + `?${newQueryParams}`, { shallow: true });
+          router.push(`?${newQueryParams}`, { shallow: true });
           return;
       }
     },
-    [router, searchParams, pathname]
+    [router, searchParams]
   );
 
   const removeQueryParam = useCallback(
@@ -49,15 +53,15 @@ const useQueryParams = () => {
 
       switch (option) {
         case 'replace':
-          router.replace(pathname + `?${newQueryParams}`, { shallow: true });
+          router.replace(`?${newQueryParams}`, { shallow: true });
           return;
         case 'push':
         default:
-          router.push(pathname + `?${newQueryParams}`, { shallow: true });
+          router.push(`?${newQueryParams}`, { shallow: true });
           return;
       }
     },
-    [router, searchParams, pathname]
+    [router, searchParams]
   );
 
   return { queryParams, getQueryParam, setQueryParams, removeQueryParam };
