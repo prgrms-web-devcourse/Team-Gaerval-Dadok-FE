@@ -42,13 +42,13 @@ export default RecentSearchList;
 export const RecentSearchListSkeleton = () => {
   return (
     <Skeleton>
-      <section className="flex animate-pulse flex-col gap-[1.7rem] rounded-[0.5rem]">
+      <section className="flex animate-pulse flex-col gap-[1.5rem] rounded-[0.5rem]">
         <Skeleton.Text width="8rem" fontSize="2xlarge" />
         <ul className="flex w-full gap-[1rem] pb-[1rem]">
-          <Skeleton.Rect width="7.55rem" height="2.8rem" rounded="full" />
-          <Skeleton.Rect width="7.55rem" height="2.8rem" rounded="full" />
-          <Skeleton.Rect width="7.55rem" height="2.8rem" rounded="full" />
-          <Skeleton.Rect width="7.55rem" height="2.8rem" rounded="full" />
+          <Skeleton.Rect width="7.55rem" height="3.3rem" rounded="full" />
+          <Skeleton.Rect width="7.55rem" height="3.3rem" rounded="full" />
+          <Skeleton.Rect width="7.55rem" height="3.3rem" rounded="full" />
+          <Skeleton.Rect width="7.55rem" height="3.3rem" rounded="full" />
         </ul>
       </section>
     </Skeleton>
