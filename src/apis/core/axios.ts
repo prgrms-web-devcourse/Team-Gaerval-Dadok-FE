@@ -1,12 +1,12 @@
 import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
+import { AuthRefreshIgnoredError } from '@/types/customError';
 import { ACCESS_TOKEN_STORAGE_KEY, SERVICE_ERROR_MESSAGE } from '@/constants';
 import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
 } from '@/utils/helpers';
-import isClient from '@/utils/isClient';
 import webStorage from '@/utils/storage';
 
 const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
@@ -38,10 +38,6 @@ const requestHandler = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-/** api 요청이 병렬적으로 이뤄질 때,
- *  토큰 업데이트는 한번만 요청하기 위해 사용되는 flag 변수 */
-let isRefreshing = false;
-
 const responseHandler = async (error: unknown) => {
   if (isAxiosErrorWithCustomCode(error)) {
     const { config: originRequest, response } = error;
@@ -50,7 +46,7 @@ const responseHandler = async (error: unknown) => {
 
     console.warn(code, message);
 
-    if (originRequest && isAuthRefreshError(code) && !isRefreshing) {
+    if (originRequest && isAuthRefreshError(code)) {
       return silentRefresh(originRequest);
     }
 
@@ -66,45 +62,39 @@ const responseHandler = async (error: unknown) => {
 
 const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
   try {
-    isRefreshing = true;
-
     const newToken = await updateToken();
     storage.set(newToken);
     setAxiosAuthHeader(originRequest, newToken);
 
-    isRefreshing = false;
-
     return await publicApi(originRequest);
   } catch (error) {
     removeToken();
-    isRefreshing = false;
-
     return Promise.reject(error);
   }
 };
 
-const updateToken = async () => {
-  try {
-    const {
-      data: { accessToken },
-    } = await axios.post<{ accessToken: string }>('/service-api/auth/token');
+/** api 요청이 병렬적으로 이뤄질 때,
+ *  토큰 업데이트는 한번만 요청하기 위해 사용되는 flag 변수 */
+let isTokenRefreshing = false;
 
-    if (!accessToken) {
-      throw new Error('새로운 accessToken을 받아오지 못했어요.');
+const updateToken = () =>
+  new Promise<string>((resolve, reject) => {
+    if (isTokenRefreshing) {
+      reject(new AuthRefreshIgnoredError('Already trying to refresh token'));
+      return;
     }
 
-    return accessToken;
-  } catch (error) {
-    return Promise.reject(error);
-  }
-};
+    isTokenRefreshing = true;
+
+    axios
+      .post<{ accessToken: string }>('/service-api/auth/token')
+      .then(({ data }) => resolve(data.accessToken))
+      .catch(reason => reject(reason))
+      .finally(() => (isTokenRefreshing = false));
+  });
 
 const removeToken = () => {
   storage.remove();
-
-  if (isClient()) {
-    window.location.reload();
-  }
 };
 
 const setAxiosAuthHeader = (
