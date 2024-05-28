@@ -8,7 +8,7 @@ const ProfileGroupContainer = ({
 }: {
   userId: 'me' | APIUser['userId'];
 }) => {
-  const { data } = useMyGroupsQuery({ suspense: true });
+  const { data } = useMyGroupsQuery();
   const {
     data: { userId: myId },
   } = useMyProfileQuery({ enabled: userId === 'me' });
