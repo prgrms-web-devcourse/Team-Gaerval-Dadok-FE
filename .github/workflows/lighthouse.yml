@@ -65,12 +65,13 @@ jobs:
                 averageScores[key] += summary[key];
               };
 
-            const details = JSON.parse(fs.readFileSync(result.jsonPath));
-            ['first-contentful-paint', 'largest-contentful-paint', 'interactive', 'total-blocking-time', 'cumulative-layout-shift'].forEach(auditName => {
-              if (details.audits[auditName]) {
-                const auditDetails = details.audits[auditName];
-                auditSummaries[auditName] += parseFloat(auditDetails.displayValue) || 0;
-              }
+              const details = JSON.parse(fs.readFileSync(result.jsonPath));
+              ['first-contentful-paint', 'largest-contentful-paint', 'interactive', 'total-blocking-time', 'cumulative-layout-shift'].forEach(auditName => {
+                if (details.audits[auditName]) {
+                  const auditDetails = details.audits[auditName];
+                  auditSummaries[auditName] += parseFloat(auditDetails.displayValue) || 0;
+                }
+              });
             });
 
             // 점수에 따른 색상 표시
