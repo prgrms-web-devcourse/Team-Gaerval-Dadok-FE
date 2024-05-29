@@ -42,9 +42,10 @@ jobs:
 
             results.forEach((result) => {
               const { summary, jsonPath } = result;
+              
+              const details = JSON.parse(fs.readFileSync(jsonPath));
               const { audits } = details;
 
-              const details = JSON.parse(fs.readFileSync(jsonPath));
               const formatResult = (res) => Math.round(res * 100);
 
               Object.keys(summary).forEach(
