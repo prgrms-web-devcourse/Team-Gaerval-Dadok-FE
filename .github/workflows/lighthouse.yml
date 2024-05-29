@@ -6,25 +6,24 @@ on:
 
 jobs:
   lhci:
-    - name: Lighthouse CI
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-        - name: Use Node.js 18
-          uses: actions/setup-node@v1
-          with:
-            node-version: 18
-            cache: 'yarn'
+      - name: Use Node.js 18
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+          cache: 'yarn'
 
-        - name: Install packages
-          run: yarn install && yarn global add @lhci/cli
+      - name: Install packages
+        run: yarn install && yarn global add @lhci/cli
 
-        - name: Build
-          run: yarn build
+      - name: Build
+        run: yarn build
 
-        - name: Run Lighthouse CI
-          run: lhci autorun
-          env:
-            LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
