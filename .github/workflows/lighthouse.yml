@@ -58,7 +58,10 @@ jobs:
                 `| Category | Score |`,
                 `| --- | --- |`,
                 `| ${score(summary.performance)} Performance | ${summary.performance} |`,
-                { ... }
+                `| ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |`,
+                `| ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |`,
+                `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+                `| ${score(summary.pwa)} PWA | ${summary.pwa} |`,
               ].join("\n");
 
               const detail = [
@@ -69,8 +72,34 @@ jobs:
                 )} First Contentful Paint | ${
                   audits["first-contentful-paint"].displayValue
                 } |`,
-                { ... }
+                `| ${score(
+                  audits["time-to-interactive"].score * 100
+                )} Time To Interactive | ${
+                  audits["time-to-interactive"].displayValue
+                } |`,
+                `| ${score(
+                  audits["speed-index"].score * 100
+                )} Speed Index | ${
+                  audits["speed-index"].displayValue
+                } |`,
+                `| ${score(
+                  audits["total-blocking-time"].score * 100
+                )} Total Blocking Time | ${
+                  audits["total-blocking-time"].displayValue
+                } |`,
+                `| ${score(
+                  audits["largest-contentful-paint"].score * 100
+                )} Largest Contentful Paint | ${
+                  audits["largest-contentful-paint"].displayValue
+                } |`,
+                `| ${score(
+                  audits["cumulative-layout-shift"].score * 100
+                )} Cumulative Layout Shift | ${
+                  audits["cumulative-layout-shift"].displayValue
+                } |`,
+                
               ].join("\n");
+              
               comments += comment + "\n" + detail + "\n";
             });
 
