@@ -34,6 +34,7 @@ const SetUpDetailStep = ({
 
   return (
     <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
+      <h2 className="font-subheading-bold">모임 정보를 설정해주세요</h2>
       <TitleField name={'title'} />
       <SelectedBookInfoField
         bookId={getValues('book.bookId')}
