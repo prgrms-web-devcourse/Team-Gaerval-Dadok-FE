@@ -1,13 +1,13 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'yarn start',
+      startServerCommand: 'yarn start-ssl',
       startServerReadyPattern: 'ready on',
       url: [
-        'https://local.dev.dadok.app/bookarchive',
-        'https://local.dev.dadok.app/book/search',
-        'https://local.dev.dadok.app/group',
-        'https://local.dev.dadok.app/profile/me',
+        'https://local.dev.dadok.app:3000/bookarchive',
+        'https://local.dev.dadok.app:3000/book/search',
+        'https://local.dev.dadok.app:3000/group',
+        'https://local.dev.dadok.app:3000/profile/me',
       ],
       numberOfRuns: 1,
     },
