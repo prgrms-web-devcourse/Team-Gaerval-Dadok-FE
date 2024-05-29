@@ -31,8 +31,9 @@ module.exports = {
       },
       colors: {
         main: {
-          400: '#F5F4EE',
-          500: '#FAF0DD',
+          300: '#F5F4EE',
+          400: '#FAF0DD',
+          500: '#FFDEB6',
           600: '#FFD480', // use with opacity 18%
           700: '#FFC073',
           800: '#F6AD55',
