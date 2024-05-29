@@ -40,30 +40,38 @@ jobs:
             const results = JSON.parse(fs.readFileSync("./lhci_reports/manifest.json"));
             let comments = "";
 
-            results.forEach((result,index) => {
-              const { summary } = result;
+            results.forEach((result) => {
+              const { summary, jsonPath } = result;
+              const { audits } = details;
 
+              const details = JSON.parse(fs.readFileSync(jsonPath));
               const formatResult = (res) => Math.round(res * 100);
 
               Object.keys(summary).forEach(
                 (key) => (summary[key] = formatResult(summary[key]))
               );
 
-              const score = (res) => (res >= 90 ? "🟢" : res >= 70 ? "🟠" : "🔴");
+              const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
 
               const comment = [
-                `⚡️ Lighthouse report ${index}`,
+                `⚡️ Lighthouse report! ${index}`,
                 `| Category | Score |`,
                 `| --- | --- |`,
                 `| ${score(summary.performance)} Performance | ${summary.performance} |`,
-                `| ${score(summary.accessibility)} Accessibility | ${summary.accessibility} |`,
-                `| ${score(summary['best-practices'])} Best practices | ${summary['best-practices']} |`,
-                `| ${score(summary.seo)} SEO | ${summary.seo} |`,
-                `| ${score(summary.pwa)} PWA | ${summary.pwa} |`,
-                `\n`,
+                { ... }
               ].join("\n");
 
-              comments += comment + "\n";
+              const detail = [
+                `| Category | Score |`,
+                `| --- | --- |`,
+                `| ${score(
+                  audits["first-contentful-paint"].score * 100
+                )} First Contentful Paint | ${
+                  audits["first-contentful-paint"].displayValue
+                } |`,
+                { ... }
+              ].join("\n");
+              comments += comment + "\n" + detail + "\n";
             });
 
             core.setOutput('comments', comments)
