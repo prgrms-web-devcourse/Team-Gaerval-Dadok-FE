@@ -1,7 +1,7 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'yarn start',
+      startServerCommand: 'yarn next start',
       startServerReadyPattern: 'ready on',
       url: [
         'http://localhost:3000/bookarchive',
