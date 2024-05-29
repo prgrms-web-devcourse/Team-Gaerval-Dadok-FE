@@ -1,7 +1,8 @@
 module.exports = {
   ci: {
     collect: {
-      staticDistDir: './dist',
+      startServerCommand: 'yarn start',
+      startServerReadyPattern: 'ready on',
       url: [
         'http://localhost:3000/bookarchive',
         'http://localhost:3000/book/search',
