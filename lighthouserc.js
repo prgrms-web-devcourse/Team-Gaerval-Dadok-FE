@@ -1,15 +1,15 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'yarn start',
+      startServerCommand: 'yarn next start',
       startServerReadyPattern: 'ready on',
       url: [
-        'http://local.dev.dadok.app:3000/bookarchive',
-        'http://local.dev.dadok.app:3000/book/search',
-        'http://local.dev.dadok.app:3000/group',
-        'http://local.dev.dadok.app:3000/profile/me',
+        'http://localhost:3000/bookarchive',
+        'http://localhost:3000/book/search',
+        'http://localhost:3000/group',
+        'http://localhost:3000/profile/me',
       ],
-      numberOfRuns: 1,
+      numberOfRuns: 3,
     },
     upload: {
       target: 'temporary-public-storage',
