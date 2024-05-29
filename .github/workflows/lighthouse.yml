@@ -1,4 +1,4 @@
-name: lighthouse CI
+name: LightHouse CI
 
 on: [push]
 
