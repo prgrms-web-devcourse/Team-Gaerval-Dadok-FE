@@ -12,8 +12,13 @@ module.exports = {
       numberOfRuns: 3,
     },
     upload: {
-      target: 'temporary-public-storage',
-      githubAppToken: process.env.LHCI_GITHUB_APP_TOKEN,
+      target: 'filesystem',
+      outputDir: './lhci_reports',
+      reportFilenamePattern: '%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%',
     },
+    // upload: {
+    //   target: 'temporary-public-storage',
+    //   githubAppToken: process.env.LHCI_GITHUB_APP_TOKEN,
+    // },
   },
 };
