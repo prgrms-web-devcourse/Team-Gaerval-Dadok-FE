@@ -14,6 +14,7 @@ import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
 import { IconArrowLeft } from '@public/icons';
 import TopNavigation from '@/v1/base/TopNavigation';
+import Stepper from '@/v1/base/Stepper';
 import {
   EnterTitleStep,
   SelectBookStep,
@@ -33,6 +34,9 @@ const CreateBookGroupFunnel = () => {
   const [Funnel, setStep, currentStep] = useFunnel(FUNNEL_STEPS, {
     initialStep: 'SelectBook',
   });
+  const stepIndex = FUNNEL_STEPS.indexOf(currentStep);
+  const activeStep = stepIndex !== -1 ? stepIndex : 0;
+
   const { show: showToast } = useToast();
   const { mutate } = useCreateBookGroupMutation();
 
@@ -110,6 +114,16 @@ const CreateBookGroupFunnel = () => {
           <IconArrowLeft onClick={handleBackButtonClick} />
         </TopNavigation.LeftItem>
       </TopNavigation>
+
+      <div className="sticky top-[5.4rem] z-10 -ml-[2rem] w-[calc(100%+4rem)] bg-white px-[2rem] pb-[3rem] pt-[1rem]">
+        <div className="relative left-1/2 w-[20rem] -translate-x-1/2 ">
+          <Stepper activeIndex={activeStep}>
+            {FUNNEL_STEPS.map((_, idx) => {
+              return <Stepper.Step key={idx} />;
+            })}
+          </Stepper>
+        </div>
+      </div>
 
       <form>
         <Funnel>
