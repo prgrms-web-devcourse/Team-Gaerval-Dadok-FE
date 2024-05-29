@@ -40,7 +40,7 @@ jobs:
             const results = JSON.parse(fs.readFileSync("./lhci_reports/manifest.json"));
             let comments = "";
 
-            results.forEach((result) => {
+            results.forEach((result, index) => {
               const { summary, jsonPath } = result;
               
               const details = JSON.parse(fs.readFileSync(jsonPath));
