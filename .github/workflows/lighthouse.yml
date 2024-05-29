@@ -111,17 +111,12 @@ jobs:
               comments += `| ${colorCode}  ${formattedName} | ${average.toFixed(1)}${unit} |\n`;
             });
 
-            // Pull Request에 Comment 작성
-            if (comments && context.issue.number) {
-              const issue_number = context.issue.number;
-              const repo = context.repo.repo;
-              const owner = context.repo.owner;
-              github.rest.issues.createComment({
-                owner,
-                repo,
-                issue_number,
-                body: comments
-              });
-            } else {
-              console.log("No PR COMMENT!");
-            };
+            // comment OUT
+            core.setOutput('comments', comments)
+
+      - name: Comment PR
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: ${{ steps.format_lighthouse_score.outputs.comments}}
