@@ -1,7 +1,8 @@
-// const core = require('@actions/core')
+const core = require('@actions/core');
+console.log('꼽냐?');
 
 try {
-  // const results = core.getInput('results')
+  console.log('hello');
 
   // 점수 지표 파일 정보
   const fs = require('fs');
@@ -68,7 +69,7 @@ try {
     }
   };
 
-  // comments 업데이트
+  // comments 파싱
   let comments =
     '⚡️ Lighthouse Average Scores Across Reports:\n| Category | Score |\n| --- | --- |\n';
   Object.keys(averageScores).forEach(key => {
@@ -96,20 +97,23 @@ try {
     )}${unit} |\n`;
   });
 
-  if (comments && context.issue.number) {
-    const issue_number = context.issue.number;
-    const repo = context.repo.repo;
-    const owner = context.repo.owner;
-    github.issues.createComment({
-      owner,
-      repo,
-      issue_number,
-      body: comments,
-    });
-  } else {
-    console.log('No PR COMMENT!');
-  }
+  // comments 내보내기
+  core.setOutput('comments', comments);
+
+  // // Comment 작성
+  // if (comments && context.issue.number) {
+  //   const issue_number = context.issue.number;
+  //   const repo = context.repo.repo;
+  //   const owner = context.repo.owner;
+  //   github.issues.createComment({
+  //     owner,
+  //     repo,
+  //     issue_number,
+  //     body: comments,
+  //   });
+  // } else {
+  //   console.log('No PR COMMENT!');
+  // }
 } catch (error) {
-  // console.error(error);
-  // core.setFailed(error.message);
+  console.error(error);
 }

@@ -33,6 +33,13 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
-      - name: Comment LightHouse Score
-        id: comment-lightHouse-score
-        uses: ./.github/actions/comment-scores
+      - name: Get Score Comments
+        id: get-score-comments
+        uses: ./.github/actions/get-score-comments
+
+      - name: Comment On PR
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          msg: ${{ steps.get-score-comments.outputs.comments }}

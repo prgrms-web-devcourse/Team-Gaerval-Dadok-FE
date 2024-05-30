@@ -1,6 +1,0 @@
-name: 'comment-scores'
-description: 'Comment Scores'
-
-runs:
-  using: 'node16'
-  main: 'action.js'
