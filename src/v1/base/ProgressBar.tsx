@@ -19,7 +19,7 @@ const ProgressBar = ({
         className="absolute h-full w-full bg-main-900"
         style={{
           transform: `translateX(-${100 - value}%)`,
-          transition: 'transform 0.4s 0.1s ease-in-out',
+          transition: 'transform 0.4s ease-in-out',
         }}
       />
     </div>

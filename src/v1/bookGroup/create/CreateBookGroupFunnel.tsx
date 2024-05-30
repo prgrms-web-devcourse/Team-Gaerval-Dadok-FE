@@ -29,6 +29,13 @@ const FUNNEL_STEPS = [
   'SelectJoinType',
 ] as const;
 
+const steps = [
+  { label: '도서선택' },
+  { label: '모임이름' },
+  { label: '모임정보' },
+  { label: '가입유형' },
+];
+
 const CreateBookGroupFunnel = () => {
   const router = useRouter();
   const [Funnel, setStep, currentStep] = useFunnel(FUNNEL_STEPS, {
@@ -116,10 +123,10 @@ const CreateBookGroupFunnel = () => {
       </TopNavigation>
 
       <div className="sticky top-[5.4rem] z-10 -ml-[2rem] w-[calc(100%+4rem)] bg-white px-[2rem] pb-[3rem] pt-[1rem]">
-        <div className="relative left-1/2 w-[20rem] -translate-x-1/2 ">
+        <div className="relative left-1/2 w-[98%] -translate-x-1/2 ">
           <Stepper activeIndex={activeStep}>
-            {FUNNEL_STEPS.map((_, idx) => {
-              return <Stepper.Step key={idx} />;
+            {steps.map(({ label }, idx) => {
+              return <Stepper.Step key={idx} label={label} />;
             })}
           </Stepper>
         </div>
