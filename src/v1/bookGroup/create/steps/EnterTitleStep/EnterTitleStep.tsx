@@ -3,11 +3,15 @@ import { useFormContext } from 'react-hook-form';
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
 import type { EnterTitleStepFormValues } from '../../types';
 
+import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
+
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import { TitleField } from './fields';
 
 const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const { handleSubmit } = useFormContext<EnterTitleStepFormValues>();
+
+  useRemoveVerticalScroll();
 
   return (
     <article>
