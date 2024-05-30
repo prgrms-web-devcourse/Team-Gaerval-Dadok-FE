@@ -57,25 +57,40 @@ const getStepClasses = (status: StepStatus) => {
     case 'complete':
       return 'bg-main-900';
     case 'active':
-      return 'bg-main-900 scale-[1.3] delay-500';
+      return 'bg-main-900 w-[7.4rem] delay-[400]';
     case 'incomplete':
     default:
       return 'bg-main-500';
   }
 };
 
-const Step = ({ children }: { children?: ReactNode }) => {
+const Step = ({
+  label,
+  children,
+}: {
+  label?: string;
+  children?: ReactNode;
+}) => {
   const { status, index } = useContext(StepperContext);
   const statusClasses = getStepClasses(status);
 
+  const stepNumberToRender = index + 1;
+  const labelToRender = label ? label : stepNumberToRender;
+
   return (
     <div
-      className={`relative flex h-[1.8rem] w-[1.8rem] shrink-0 flex-col items-center justify-center rounded-full duration-500 ${statusClasses}`}
+      className={`relative flex h-[3rem] w-[3rem] shrink-0 flex-col items-center justify-center rounded-full duration-500 ${statusClasses} overflow-hidden`}
     >
       {status === 'complete' ? (
         <IconCheckStroke className="h-auto w-[1rem]" />
+      ) : status === 'active' ? (
+        <p className=" relative animate-stepper-transition self-baseline whitespace-nowrap px-[1.2rem] py-[0.4rem] text-white opacity-0 font-body2-bold">
+          {labelToRender}
+        </p>
       ) : (
-        <p className="absolute text-white font-caption2-bold">{index + 1}</p>
+        <p className="relaive text-white font-body2-bold">
+          {stepNumberToRender}
+        </p>
       )}
       {children}
     </div>

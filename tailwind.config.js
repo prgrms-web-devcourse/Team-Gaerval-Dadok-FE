@@ -88,7 +88,7 @@ module.exports = {
         'bookgroup-card': '0 0 6px rgba(180,180,180,0.25)',
       },
       keyframes: {
-        'page-transition': {
+        'opacity-show': {
           from: { opacity: 0 },
           to: { opacity: 1 },
         },
@@ -116,13 +116,14 @@ module.exports = {
         },
       },
       animation: {
-        'page-transition': 'page-transition 0.2s forwards ease-in-out',
+        'page-transition': 'opacity-show 0.2s forwards ease-in-out',
         'slide-in': '0.3s forwards slide-in ease-in-out',
         'slide-out': '0.3s forwards slide-out ease-in-out',
         'slide-init': '0.3s forwards slide-init ease-in-out',
         'dot-flash': '2s infinite dot-flash linear',
         'dot-flash-delay-0.5': '2s 0.5s infinite dot-flash linear',
         'dot-flash-delay-1': '2s 1s infinite dot-flash linear',
+        'stepper-transition': 'opacity-show 0.2s 0.2s forwards',
       },
       content: {
         search: 'url("/icons/search.svg")',
