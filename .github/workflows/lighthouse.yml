@@ -1,6 +1,9 @@
 name: LightHouse CI
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lhci:
@@ -32,3 +35,21 @@ jobs:
       - name: Get Score Comments
         id: get-score-comments
         uses: ./.github/actions/get-score-comments
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: ⚡️ Lighthouse Average Scores Across Reports
+
+      - name: Create or update comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.get-score-comments.outputs.comments }}
+          edit-mode: replace

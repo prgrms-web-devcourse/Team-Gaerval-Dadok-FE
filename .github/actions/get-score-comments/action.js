@@ -1,4 +1,4 @@
-// const core = require('@actions/core');
+const core = require('@actions/core');
 console.log('꼽냐?');
 
 try {
@@ -97,23 +97,23 @@ try {
     )}${unit} |\n`;
   });
 
-  // // comments 내보내기
-  // core.setOutput('comments', comments);
+  // comments 내보내기
+  core.setOutput('comments', comments);
 
-  // Comment 작성
-  if (comments && context.issue.number) {
-    const issue_number = context.issue.number;
-    const repo = context.repo.repo;
-    const owner = context.repo.owner;
-    github.issues.createComment({
-      owner,
-      repo,
-      issue_number,
-      body: comments,
-    });
-  } else {
-    console.log('No PR COMMENT!');
-  }
+  // // Comment 작성
+  // if (comments && context.issue.number) {
+  //   const issue_number = context.issue.number;
+  //   const repo = context.repo.repo;
+  //   const owner = context.repo.owner;
+  //   github.issues.createComment({
+  //     owner,
+  //     repo,
+  //     issue_number,
+  //     body: comments,
+  //   });
+  // } else {
+  //   console.log('No PR COMMENT!');
+  // }
 } catch (error) {
   console.error(error);
 }
