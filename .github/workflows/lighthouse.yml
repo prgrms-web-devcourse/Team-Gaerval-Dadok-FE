@@ -20,7 +20,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
-        run: yarn install && yarn global add @lhci/cli@0.13.x && yarn add @actions/core
+        run: yarn install && yarn global add @lhci/cli@0.13.x
 
       - name: Set .env
         run: echo "${{ vars.DEVELOPMENT_ENV }}" > .env.local
@@ -36,10 +36,3 @@ jobs:
       - name: Get Score Comments
         id: get-score-comments
         uses: ./.github/actions/get-score-comments
-
-      - name: Comment On PR
-        uses: unsplash/comment-on-pr@v1.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          msg: ${{ steps.get-score-comments.outputs.comments }}
