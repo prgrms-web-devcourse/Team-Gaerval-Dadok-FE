@@ -52,12 +52,13 @@ const Stepper = ({
   );
 };
 
-const getStepClasses = (status: StepStatus) => {
+const getStepClasses = (status: StepStatus, label?: string) => {
   switch (status) {
     case 'complete':
       return 'bg-main-900';
+    // TODO: label text width 계산 로직 추가
     case 'active':
-      return 'bg-main-900 w-[7.4rem] delay-[400]';
+      return `bg-main-900 ${label ? 'w-[7.4rem]' : ''}`;
     case 'incomplete':
     default:
       return 'bg-main-500';
@@ -72,9 +73,15 @@ const Step = ({
   children?: ReactNode;
 }) => {
   const { status, index } = useContext(StepperContext);
-  const statusClasses = getStepClasses(status);
+
+  const statusClasses = getStepClasses(status, label);
+  const labelPositionClass = label
+    ? 'self-baseline px-[1.2rem]'
+    : 'self-center';
+
+  // 첫번째 스텝이 아니고, 라벨 text가 있는 경우만 opacity transition 적용
   const activeAnimationClasses =
-    index !== 0 ? 'opacity-0 animate-stepper-transition' : 'opacity-1';
+    index !== 0 && label ? 'opacity-0 animate-stepper-transition' : 'opacity-1';
 
   const stepNumberToRender = index + 1;
   const labelToRender = label ? label : stepNumberToRender;
@@ -87,12 +94,12 @@ const Step = ({
         <IconCheckStroke className="h-auto w-[1rem]" />
       ) : status === 'active' ? (
         <p
-          className={`relative self-baseline whitespace-nowrap px-[1.2rem] py-[0.4rem] text-white font-body2-bold ${activeAnimationClasses}`}
+          className={`relative whitespace-nowrap text-white font-body2-bold ${activeAnimationClasses} ${labelPositionClass}`}
         >
           {labelToRender}
         </p>
       ) : (
-        <p className="relaive text-white font-body2-bold">
+        <p className="relative text-white font-body2-bold">
           {stepNumberToRender}
         </p>
       )}
