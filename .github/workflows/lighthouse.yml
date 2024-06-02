@@ -1,0 +1,55 @@
+name: LightHouse CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn install && yarn global add @lhci/cli@0.13.x && yarn add @actions/core
+
+      - name: Set .env
+        run: echo "${{ vars.DEVELOPMENT_ENV }}" > .env.local
+
+      - name: Build
+        run: yarn build
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Get Score Comments
+        id: get-score-comments
+        uses: ./.github/actions/get-score-comments
+
+      - name: Find Comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v2
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: ⚡️ Lighthouse Average Scores Across Reports
+
+      - name: Create or update comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: ${{ steps.get-score-comments.outputs.comments }}
+          edit-mode: replace
