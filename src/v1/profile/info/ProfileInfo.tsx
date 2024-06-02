@@ -1,44 +1,24 @@
-import { ReactNode, Suspense } from 'react';
+import type { APIUser } from '@/types/user';
+
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+
+import Skeleton from '@/v1/base/Skeleton';
 import MyProfileContainer from './MyProfileInfoContainer';
 import UserProfileInfoContainer from './UserProfileInfoContainer';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
-import type { APIUser } from '@/types/user';
-import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
-import useMounted from '@/hooks/useMounted';
 
 type ProfileInfoProps = {
-  children?: ReactNode;
   userId: 'me' | APIUser['userId'];
 };
 
-const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
-  const mounted = useMounted();
-
-  if (!mounted) return null;
-
+const ProfileInfo = ({ userId }: ProfileInfoProps) => {
   return (
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary
-          onReset={reset}
-          fallbackRender={({ resetErrorBoundary }) => (
-            <QueryErrorBoundaryFallback
-              resetErrorBoundary={resetErrorBoundary}
-            />
-          )}
-        >
-          <Suspense fallback={<ProfileInfoSkeleton />}>
-            {userId === 'me' ? (
-              <MyProfileContainer />
-            ) : (
-              <UserProfileInfoContainer userId={userId} />
-            )}
-            {children && children}
-          </Suspense>
-        </ErrorBoundary>
+    <SSRSafeSuspense fallback={<ProfileInfoSkeleton />}>
+      {userId === 'me' ? (
+        <MyProfileContainer />
+      ) : (
+        <UserProfileInfoContainer userId={userId} />
       )}
-    </QueryErrorResetBoundary>
+    </SSRSafeSuspense>
   );
 };
 
@@ -46,15 +26,17 @@ export default ProfileInfo;
 
 const ProfileInfoSkeleton = () => {
   return (
-    <div className="mb-[2rem] flex animate-pulse flex-col gap-[2rem]">
-      <div className="flex gap-[0.8rem]">
-        <div className="h-[2.1rem] w-[3.8rem] rounded-lg bg-placeholder" />
-        <div className="h-[2.1rem] w-[7.6rem] rounded-lg bg-placeholder" />
+    <Skeleton>
+      <div className="mb-[2rem] flex flex-col gap-[2rem]">
+        <div className="flex gap-[0.8rem]">
+          <Skeleton.Rect width="3.8rem" height="2.1rem" />
+          <Skeleton.Rect width="10.4rem" height="2.1rem" />
+        </div>
+        <div className="flex items-center gap-[1rem]">
+          <Skeleton.Circle size="large" />
+          <Skeleton.Text fontSize="2xlarge" width="18rem" />
+        </div>
       </div>
-      <div className="flex items-center gap-[1rem]">
-        <div className="h-[7rem] w-[7rem] rounded-full bg-placeholder" />
-        <div className="h-[2.7rem] w-[11rem] bg-placeholder" />
-      </div>
-    </div>
+    </Skeleton>
   );
 };
