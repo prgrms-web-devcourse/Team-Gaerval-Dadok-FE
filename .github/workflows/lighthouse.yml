@@ -1,9 +1,6 @@
 name: LightHouse CI
 
-on:
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
   lhci:

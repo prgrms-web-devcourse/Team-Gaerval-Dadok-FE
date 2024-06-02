@@ -9,7 +9,7 @@ module.exports = {
         'http://localhost:3000/group',
         'http://localhost:3000/profile/me',
       ],
-      numberOfRuns: 1,
+      numberOfRuns: 2,
     },
     upload: {
       target: 'filesystem',
