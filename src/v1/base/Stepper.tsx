@@ -73,6 +73,8 @@ const Step = ({
 }) => {
   const { status, index } = useContext(StepperContext);
   const statusClasses = getStepClasses(status);
+  const activeAnimationClasses =
+    index !== 0 ? 'opacity-0 animate-stepper-transition' : 'opacity-1';
 
   const stepNumberToRender = index + 1;
   const labelToRender = label ? label : stepNumberToRender;
@@ -84,7 +86,9 @@ const Step = ({
       {status === 'complete' ? (
         <IconCheckStroke className="h-auto w-[1rem]" />
       ) : status === 'active' ? (
-        <p className=" relative animate-stepper-transition self-baseline whitespace-nowrap px-[1.2rem] py-[0.4rem] text-white opacity-0 font-body2-bold">
+        <p
+          className={`relative self-baseline whitespace-nowrap px-[1.2rem] py-[0.4rem] text-white font-body2-bold ${activeAnimationClasses}`}
+        >
           {labelToRender}
         </p>
       ) : (
