@@ -1,9 +1,6 @@
 const core = require('@actions/core');
-console.log('꼽냐?');
 
 try {
-  console.log('hello');
-
   // 점수 지표 파일 정보
   const fs = require('fs');
   const results = JSON.parse(fs.readFileSync('./lhci_reports/manifest.json'));
@@ -48,10 +45,10 @@ try {
     });
   });
 
-  // 점수에 따른 색상 표시
+  // 점수 색상 표시
   const formatScore = res => (res >= 90 ? '🟢' : res >= 70 ? '🟠' : '🔴');
 
-  // 상세 지표의 표준 점수에 따른 색상 표시
+  // 상세 지표 점수 색상 표시
   const detailScore = (value, metric) => {
     switch (metric) {
       case 'first-contentful-paint':
@@ -99,21 +96,6 @@ try {
 
   // comments 내보내기
   core.setOutput('comments', comments);
-
-  // // Comment 작성
-  // if (comments && context.issue.number) {
-  //   const issue_number = context.issue.number;
-  //   const repo = context.repo.repo;
-  //   const owner = context.repo.owner;
-  //   github.issues.createComment({
-  //     owner,
-  //     repo,
-  //     issue_number,
-  //     body: comments,
-  //   });
-  // } else {
-  //   console.log('No PR COMMENT!');
-  // }
 } catch (error) {
   console.error(error);
 }
