@@ -16,7 +16,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
-        run: yarn install && yarn global add @lhci/cli@0.13.x
+        run: yarn install && yarn global add @lhci/cli@0.13.x && yarn add @actions/core
 
       - name: Set .env
         run: echo "${{ vars.DEVELOPMENT_ENV }}" > .env.local
