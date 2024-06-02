@@ -30,6 +30,7 @@ export { default as IconErrorExclamation } from './error-with-exclamation.svg';
 export { default as IconAvatar } from './avatar.svg';
 export { default as IconCalendar } from './calendar.svg';
 export { default as IconCheck } from './check.svg';
+export { default as IconCheckStroke } from './check-stroke.svg';
 export { default as IconComments } from './comments.svg';
 export { default as IconDelete } from './delete.svg';
 export { default as IconMembers } from './members.svg';
