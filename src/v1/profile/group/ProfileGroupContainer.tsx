@@ -8,14 +8,12 @@ const ProfileGroupContainer = ({
 }: {
   userId: 'me' | APIUser['userId'];
 }) => {
-  const { isSuccess, data } = useMyGroupsQuery({ suspense: true });
+  const { data } = useMyGroupsQuery();
   const {
     data: { userId: myId },
   } = useMyProfileQuery({ enabled: userId === 'me' });
 
   const isMeOwner = (ownerId: number) => ownerId === myId;
-
-  if (!isSuccess) return null;
 
   return (
     <ProfileGroupPresenter userId={userId} isGroupOwner={isMeOwner} {...data} />
