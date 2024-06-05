@@ -5,18 +5,18 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import EditProfile from '@/v1/profile/EditProfile';
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import withAuthRequired from '@/hocs/withAuthRequired';
 
-/**
- * @todo
- * Fallback UI 추가하기
- */
+import EditProfile from '@/v1/profile/EditProfile';
+import Loading from '@/v1/base/Loading';
 
 const EditProfilePage = () => {
+  const AuthRequiredContents = withAuthRequired(Contents);
+
   return (
-    <SSRSafeSuspense fallback={null}>
-      <Contents />
+    <SSRSafeSuspense fallback={<Loading fullpage />}>
+      <AuthRequiredContents />
     </SSRSafeSuspense>
   );
 };
