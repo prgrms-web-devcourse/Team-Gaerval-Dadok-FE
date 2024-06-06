@@ -26,9 +26,7 @@ const UserGroupPage = () => {
   );
 };
 
-const AuthRequiredUserGroupPage = withAuthRequired(UserGroupPage);
-
-export default AuthRequiredUserGroupPage;
+export default withAuthRequired(UserGroupPage);
 
 const UserGroupContent = () => {
   const isAuthenticated = checkAuthentication();

@@ -38,9 +38,7 @@ const JoinBookGroupPage = ({
   );
 };
 
-const AuthRequiredJoinBookGroupPage = withAuthRequired(JoinBookGroupPage);
-
-export default AuthRequiredJoinBookGroupPage;
+export default withAuthRequired(JoinBookGroupPage);
 
 const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
   const router = useRouter();

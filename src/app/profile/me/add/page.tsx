@@ -10,14 +10,14 @@ import withAuthRequired from '@/hocs/withAuthRequired';
 import AddJobProfile from '@/v1/profile/AddJobProfile';
 
 const AddJobProfilePage = () => {
-  const AuthRequiredContents = withAuthRequired(Contents);
-
   return (
     <SSRSafeSuspense fallback={null}>
-      <AuthRequiredContents />
+      <Contents />
     </SSRSafeSuspense>
   );
 };
+
+export default withAuthRequired(AddJobProfilePage);
 
 const Contents = () => {
   const isAuthenticated = checkAuthentication();
@@ -27,5 +27,3 @@ const Contents = () => {
     <AddJobProfile jobCategories={allJobQuery.data.jobGroups} />
   ) : null;
 };
-
-export default AddJobProfilePage;

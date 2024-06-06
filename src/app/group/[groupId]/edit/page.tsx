@@ -11,9 +11,9 @@ import type { APIGroupDetail, APIEditBookGroup } from '@/types/group';
 
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
+import useToast from '@/v1/base/Toast/useToast';
 
 import withAuthRequired from '@/hocs/withAuthRequired';
-import useToast from '@/v1/base/Toast/useToast';
 import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
 import BookGroupEditIntroduceForm from '@/v1/bookGroup/edit/BookGroupEditIntroduceForm';
 import BookGroupEditTitleForm from '@/v1/bookGroup/edit/BookGroupEditTitleForm';
@@ -99,6 +99,4 @@ const BookGroupEditPage = ({
   );
 };
 
-const AuthRequiredBookGroupEditPage = withAuthRequired(BookGroupEditPage);
-
-export default AuthRequiredBookGroupEditPage;
+export default withAuthRequired(BookGroupEditPage);

@@ -12,14 +12,14 @@ import EditProfile from '@/v1/profile/EditProfile';
 import Loading from '@/v1/base/Loading';
 
 const EditProfilePage = () => {
-  const AuthRequiredContents = withAuthRequired(Contents);
-
   return (
     <SSRSafeSuspense fallback={<Loading fullpage />}>
-      <AuthRequiredContents />
+      <Contents />
     </SSRSafeSuspense>
   );
 };
+
+export default withAuthRequired(EditProfilePage);
 
 const Contents = () => {
   const isAuthenticated = checkAuthentication();
@@ -30,5 +30,3 @@ const Contents = () => {
     <EditProfile profile={profileData} jobGroups={allJobQuery.data.jobGroups} />
   ) : null;
 };
-
-export default EditProfilePage;
