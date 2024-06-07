@@ -3,12 +3,11 @@ import { ImageResponse } from 'next/server';
 // Route segment config
 export const runtime = 'edge';
 export const size = { width: 1200, height: 630 };
-export const alt = 'About Acme';
-export const contentType = 'image/png';
+export const alt = 'DadokDadok OpenGraph Image';
+export const contentType = 'image/jpeg';
 
 // Image generation
 export default async function Image() {
-  // Font
   const lineSeedKR = fetch(
     new URL('../styles/font/LINESeedKR-Rg.woff2', import.meta.url)
   ).then(res => res.arrayBuffer());
