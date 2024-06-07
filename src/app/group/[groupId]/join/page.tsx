@@ -6,6 +6,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import withAuthRequired from '@/hocs/withAuthRequired';
+
 import Loading from '@/v1/base/Loading';
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
@@ -35,6 +37,8 @@ const JoinBookGroupPage = ({
     </SSRSafeSuspense>
   );
 };
+
+export default withAuthRequired(JoinBookGroupPage);
 
 const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
   const router = useRouter();
@@ -100,5 +104,3 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
     </form>
   );
 };
-
-export default JoinBookGroupPage;
