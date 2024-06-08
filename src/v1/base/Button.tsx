@@ -33,7 +33,20 @@ const getSizeClasses = (size: Size) => {
   }
 };
 
-const getSchemeClasses = (theme: ColorScheme, isFill: boolean) => {
+const getSchemeClasses = (
+  theme: ColorScheme,
+  isFill: boolean,
+  disabled?: boolean
+) => {
+  if (disabled) {
+    return (
+      'cursor-default ' +
+      (isFill
+        ? 'border-transparent bg-black-900/[0.12] text-black-900/[0.26]'
+        : 'border-black-900/[0.12] bg-white text-black-900/[0.26]')
+    );
+  }
+
   switch (theme) {
     case 'main': {
       return isFill
@@ -68,21 +81,23 @@ const Button = ({
   fill = true,
   fullRadius = false,
   className,
+  disabled,
   children,
   ...props
 }: ButtonProps) => {
   const computedClasses = useMemo(() => {
     const sizeClass = getSizeClasses(size);
-    const schemeClass = getSchemeClasses(colorScheme, fill);
+    const schemeClass = getSchemeClasses(colorScheme, fill, disabled);
     const roundedClass = fullRadius ? 'rounded-full' : 'rounded-[5px]';
 
     return [sizeClass, schemeClass, roundedClass].join(' ');
-  }, [size, colorScheme, fill, fullRadius]);
+  }, [size, colorScheme, fill, fullRadius, disabled]);
 
   return (
     <button
       type="button"
-      className={`${BASE_BUTTON_CLASSES} ${computedClasses} ` + className}
+      className={`${BASE_BUTTON_CLASSES} ${computedClasses} ${className}`}
+      disabled={disabled}
       {...props}
     >
       {children}
