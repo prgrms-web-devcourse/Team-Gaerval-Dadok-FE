@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     '책',
     '독서',
   ],
+  verification: {
+    google: '72kN3MWyQHuvSb8V67dVkfPUPMrw102Tm6BsvTvfKmg',
+    other: {
+      'naver-site-verification': '9046af5eda448309a92e2e923a45cb874df986a0',
+    },
+  },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
