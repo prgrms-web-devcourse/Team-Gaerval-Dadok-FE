@@ -18,7 +18,7 @@ const LoginPage = () => {
           width={300}
           height={270}
         />
-        <p className="text-center !font-medium !leading-snug font-heading">
+        <p className="text-center !leading-snug font-heading-regular">
           <span className="font-subheading-regular">
             책에 대한 모든 이야기,
           </span>
