@@ -21,16 +21,14 @@ export async function booksSitemap() {
     }
 
     const data: APIRecommendedBookshelf = await res.json();
-    const books: APIBook['bookId'][] = [];
+
+    const books = new Set<APIBook['bookId']>();
 
     data.bookshelfResponses.forEach(bookshelf =>
-      bookshelf.books.forEach(book => books.push(book.bookId))
+      bookshelf.books.forEach(book => books.add(book.bookId))
     );
 
-    // const filteredBooks = [...new Set(books)];
-    const filteredBooks = books.filter((bookId, idx) => {
-      return books.indexOf(bookId) === idx;
-    });
+    const filteredBooks = Array.from(books);
 
     return filteredBooks;
   } catch {
