@@ -10,7 +10,10 @@ export type JoinTypeStepFieldName = keyof SelectJoinTypeStepFormValues;
 export type JoinTypeStepFieldProp = { name: JoinTypeStepFieldName };
 
 const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
-  const { handleSubmit } = useFormContext<SelectJoinTypeStepFormValues>();
+  const {
+    handleSubmit,
+    formState: { isValid },
+  } = useFormContext<SelectJoinTypeStepFormValues>();
 
   return (
     <article>
@@ -31,6 +34,7 @@ const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
 
       <BottomActionButton
         type="submit"
+        disabled={!isValid}
         onClick={onSubmit && handleSubmit(onSubmit)}
       >
         독서모임 만들기
