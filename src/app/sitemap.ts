@@ -12,19 +12,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: 'https://dadok.app/bookarchive',
+      url: `${process.env.NEXT_HOST}/bookarchive`,
       lastModified: new Date(),
     },
     {
-      url: 'https://dadok.app/book/search',
+      url: `${process.env.NEXT_HOST}/book/search`,
       lastModified: new Date(),
     },
     {
-      url: 'https://dadok.app/group',
+      url: `${process.env.NEXT_HOST}/group`,
       lastModified: new Date(),
     },
     {
-      url: 'https://dadok.app/profile/me',
+      url: `${process.env.NEXT_HOST}/profile/me`,
       lastModified: new Date(),
     },
     ...booksSitemaps,

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://dadok.app/sitemap.xml',
-    host: 'https://dadok.app',
+    sitemap: `${process.env.NEXT_HOST}/sitemap.xml`,
+    host: `${process.env.NEXT_HOST}`,
   };
 }

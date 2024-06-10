@@ -8,7 +8,7 @@ import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dadok.app'),
+  metadataBase: new URL(`${process.env.NEXT_HOST}`),
   title: {
     template: '%s | 다독다독',
     default: '다독다독',

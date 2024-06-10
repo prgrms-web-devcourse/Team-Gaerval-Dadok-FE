@@ -41,7 +41,7 @@ export const getBooksSitemaps = async () => {
   });
 
   const booksSitemap = filteredBooksId.map(bookId => ({
-    url: `https://dadok.app/book/${bookId}`,
+    url: `${process.env.NEXT_HOST}/book/${bookId}`,
     lastModified: new Date(),
   }));
 
@@ -57,7 +57,7 @@ export const getBookshelvesSitemaps = async () => {
   );
 
   const bookShelvesSitemap = bookshelvesId.map(bookshelfId => ({
-    url: `https://dadok.app/bookshelf/${bookshelfId}`,
+    url: `${process.env.NEXT_HOST}/bookshelf/${bookshelfId}`,
     lastModified: new Date(),
   }));
 
@@ -86,7 +86,7 @@ export const getBookGroupSitemaps = async () => {
   );
 
   const bookGroupsSitemap = entireBookGroupsId.map(bookGroupId => ({
-    url: `https://dadok.app/group/${bookGroupId}`,
+    url: `${process.env.NEXT_HOST}/group/${bookGroupId}`,
     lastModified: new Date(),
   }));
 
