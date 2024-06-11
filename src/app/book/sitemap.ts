@@ -37,10 +37,11 @@ export async function booksSitemap() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const books = await booksSitemap();
+  const booksId = await booksSitemap();
+  const sitemap = ['search', ...booksId];
 
-  return books.map(bookId => ({
-    url: `${process.env.NEXT_PUBLIC_HOST}/book/${bookId}`,
+  return sitemap.map(value => ({
+    url: `${process.env.NEXT_PUBLIC_HOST}/book/${value}`,
     lastModified: new Date(),
   }));
 }
