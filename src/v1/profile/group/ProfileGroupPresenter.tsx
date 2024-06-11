@@ -17,12 +17,13 @@ const ProfileGroupPresenter = ({
 }: ProfileGroupPresenterProps) => {
   return (
     <div className="mt-[0.5rem] flex flex-col gap-[1.5rem]">
-      <div className="flex items-center justify-between">
+      <Link
+        href={`/profile/${userId}/group`}
+        className="flex w-fit items-center gap-[0.5rem]"
+      >
         <h3 className="font-body1-bold">참여한 모임</h3>
-        <Link href={`/profile/${userId}/group`}>
-          <IconArrowRight height="1.8rem" width="1.8rem" />
-        </Link>
-      </div>
+        <IconArrowRight height="1.3rem" width="1.3rem" />
+      </Link>
 
       <ul className="relative left-0 flex w-[calc(100%+2rem)] gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem] pr-[2rem]">
         {bookGroups.map(({ bookGroupId, title, owner, book: { imageUrl } }) => (

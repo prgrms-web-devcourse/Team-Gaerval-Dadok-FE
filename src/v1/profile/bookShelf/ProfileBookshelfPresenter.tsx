@@ -1,6 +1,5 @@
 import { APIBookshelf } from '@/types/bookshelf';
 
-import Badge from '@/v1/base/Badge';
 import BookShelf from '@/v1/bookShelf/BookShelf';
 
 import { IconArrowRight, IconHeart } from '@public/icons';
@@ -14,24 +13,19 @@ const ProfileBookshelfPresenter = ({
   return (
     <div className="flex flex-col gap-[1rem]">
       <div className="flex items-center justify-between">
-        <h3 className="font-body1-bold">책장</h3>
-        <div className="flex gap-[2rem]">
-          <Badge
-            colorScheme="red"
-            fontWeight="bold"
-            size="medium"
-            isFilled={false}
-          >
-            <div className="flex items-center gap-[0.4rem]">
-              <IconHeart className="h-[1.4rem] w-[1.4rem] fill-[#F56565]" />
-              <div className="font-caption1-bold">{likeCount}</div>
-            </div>
-          </Badge>
-          <Link href={`/bookshelf/${bookshelfId}`}>
-            <IconArrowRight height="1.8rem" width="1.8rem" />
-          </Link>
+        <Link
+          href={`/bookshelf/${bookshelfId}`}
+          className="flex items-center gap-[0.5rem]"
+        >
+          <h3 className="font-body1-bold">책장</h3>
+          <IconArrowRight height="1.3rem" width="1.3rem" />
+        </Link>
+        <div className="flex items-center gap-[0.3rem] px-[0.6rem] py-[0.2rem]">
+          <IconHeart className=" fill-warning-800 stroke-warning-800" />
+          <p className=" text-black-600 font-caption2-bold">{likeCount}</p>
         </div>
       </div>
+
       <BookShelf>
         <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
           <BookShelf.Background />
