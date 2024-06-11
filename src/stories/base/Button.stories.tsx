@@ -59,6 +59,22 @@ export const Kakao: Story = {
   render: args => <Button {...args}>버튼</Button>,
 };
 
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+  render: args => (
+    <div className="flex gap-[0.5rem]">
+      <Button {...args} fill={true}>
+        버튼
+      </Button>
+      <Button {...args} fill={false}>
+        버튼
+      </Button>
+    </div>
+  ),
+};
+
 export const RecentSearch: Story = {
   args: {
     ...MainLight.args,
