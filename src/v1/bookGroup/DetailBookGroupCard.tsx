@@ -61,9 +61,7 @@ const DetailBookGroupCard = ({
 export default DetailBookGroupCard;
 
 const Public = ({ isPublic }: { isPublic: boolean }) => (
-  <Badge size="large" colorScheme="grey">
-    {isPublic ? '공개' : '비공개'}
-  </Badge>
+  <Badge colorScheme="grey">{isPublic ? '공개' : '비공개'}</Badge>
 );
 
 const Title = ({ title }: { title: string }) => {
