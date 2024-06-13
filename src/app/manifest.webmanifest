@@ -1,0 +1,37 @@
+{
+  "name": "다독다독",
+  "short_name": "다독다독",
+  "description": "책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼",
+  "theme_color": "#FFA436",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "images/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}
