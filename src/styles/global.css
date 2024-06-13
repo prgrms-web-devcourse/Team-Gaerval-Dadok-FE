@@ -25,6 +25,8 @@
 
   body {
     font-size: 1.6rem;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .app-layout {
