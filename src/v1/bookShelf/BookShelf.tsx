@@ -10,8 +10,6 @@ import { APIBook } from '@/types/book';
 import { APIBookshelf } from '@/types/bookshelf';
 import { IconArrowRight, IconHeart } from '@public/icons';
 
-import Badge from '@/v1/base/Badge';
-
 const BookShelf = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
@@ -31,17 +29,18 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
   return (
     <div className="flex flex-col gap-[1rem] px-[2rem]">
       <div className="flex items-center justify-between">
-        <div className="font-body2-bold">{bookshelfName}</div>
-        <Link href={`/bookshelf/${bookshelfId}`}>
-          <IconArrowRight width="1.8rem" height="1.8rem" />
+        <Link
+          href={`/bookshelf/${bookshelfId}`}
+          className="flex select-none items-center gap-[0.5rem]"
+        >
+          <div className="font-body2-bold">{bookshelfName}</div>
+          <IconArrowRight width="1.2rem" height="1.2rem" />
         </Link>
-      </div>
-      <Badge colorScheme="red" fontWeight="bold" size="small">
-        <div className="flex items-center gap-[0.4rem]">
-          <IconHeart className="h-[1.3rem] w-[1.3rem] fill-warning-800 stroke-white stroke-[0.15rem]" />
-          <div className="font-caption1-bold">{likeCount}</div>
+        <div className="flex items-center gap-[0.3rem] px-[0.6rem] py-[0.2rem]">
+          <IconHeart className=" fill-warning-800 stroke-warning-800" />
+          <p className=" text-black-600 font-caption2-bold">{likeCount}</p>
         </div>
-      </Badge>
+      </div>
     </div>
   );
 };
