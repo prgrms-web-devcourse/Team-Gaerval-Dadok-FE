@@ -123,7 +123,7 @@ module.exports = {
         'dot-flash': '2s infinite dot-flash linear',
         'dot-flash-delay-0.5': '2s 0.5s infinite dot-flash linear',
         'dot-flash-delay-1': '2s 1s infinite dot-flash linear',
-        'stepper-transition': 'opacity-show 0.2s 0.2s forwards',
+        'stepper-transition': 'opacity-show 0.2s 0.1s forwards',
       },
       content: {
         search: 'url("/icons/search.svg")',
