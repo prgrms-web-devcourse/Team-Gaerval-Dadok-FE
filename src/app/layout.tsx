@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     default: '다독다독',
   },
   description: '책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼',
-  themeColor: '#FFA436',
+  themeColor: '#FFFFFF',
   keywords: [
     '다독다독',
     'dadok',
@@ -42,7 +42,6 @@ export const metadata: Metadata = {
   ],
   appleWebApp: {
     title: '다독다독',
-    statusBarStyle: 'black-translucent',
     startupImage: appleSplashScreens,
   },
 };
