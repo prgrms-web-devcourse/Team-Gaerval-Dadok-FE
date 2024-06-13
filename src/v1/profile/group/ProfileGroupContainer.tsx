@@ -1,6 +1,9 @@
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { APIUser } from '@/types/user';
+import type { APIUser } from '@/types/user';
+
+import { checkAuthentication } from '@/utils/helpers';
+
 import ProfileGroupPresenter from './ProfileGroupPresenter';
 
 const ProfileGroupContainer = ({
@@ -8,14 +11,14 @@ const ProfileGroupContainer = ({
 }: {
   userId: 'me' | APIUser['userId'];
 }) => {
-  const { isSuccess, data } = useMyGroupsQuery({ suspense: true });
+  const isAuthenticated = checkAuthentication();
+
+  const { data } = useMyGroupsQuery({ enabled: isAuthenticated });
   const {
     data: { userId: myId },
   } = useMyProfileQuery({ enabled: userId === 'me' });
 
   const isMeOwner = (ownerId: number) => ownerId === myId;
-
-  if (!isSuccess) return null;
 
   return (
     <ProfileGroupPresenter userId={userId} isGroupOwner={isMeOwner} {...data} />

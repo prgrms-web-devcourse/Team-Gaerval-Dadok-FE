@@ -5,21 +5,21 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import EditProfile from '@/v1/profile/EditProfile';
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import withAuthRequired from '@/hocs/withAuthRequired';
 
-/**
- * @todo
- * Fallback UI 추가하기
- */
+import EditProfile from '@/v1/profile/EditProfile';
+import Loading from '@/v1/base/Loading';
 
 const EditProfilePage = () => {
   return (
-    <SSRSafeSuspense fallback={null}>
+    <SSRSafeSuspense fallback={<Loading fullpage />}>
       <Contents />
     </SSRSafeSuspense>
   );
 };
+
+export default withAuthRequired(EditProfilePage);
 
 const Contents = () => {
   const isAuthenticated = checkAuthentication();
@@ -30,5 +30,3 @@ const Contents = () => {
     <EditProfile profile={profileData} jobGroups={allJobQuery.data.jobGroups} />
   ) : null;
 };
-
-export default EditProfilePage;

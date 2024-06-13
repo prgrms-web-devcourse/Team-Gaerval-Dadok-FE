@@ -20,6 +20,7 @@
 @layer base {
   html {
     @apply w-full bg-background font-[LineSeedKR] text-[62.5%] text-black-700;
+    -webkit-tap-highlight-color: #ffffff50;
   }
 
   body {

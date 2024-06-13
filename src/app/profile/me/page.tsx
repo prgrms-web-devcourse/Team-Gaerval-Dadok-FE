@@ -39,7 +39,7 @@ const MyProfileForUnAuth = () => {
   return (
     <>
       <TopHeader text="Profile" />
-      <div className="flex flex-col gap-[2rem]">
+      <div className="flex flex-col gap-[3rem]">
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
           <div className="flex-grow">

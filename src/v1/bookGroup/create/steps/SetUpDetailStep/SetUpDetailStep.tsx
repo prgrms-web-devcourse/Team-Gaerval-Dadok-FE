@@ -30,8 +30,11 @@ const SetUpDetailStep = ({
   goToSelectBookStep,
   onNextStep,
 }: SetUpDetailStepProps) => {
-  const { handleSubmit, getValues } =
-    useFormContext<SetUpDetailStepFormValues>();
+  const {
+    handleSubmit,
+    getValues,
+    formState: { isValid },
+  } = useFormContext<SetUpDetailStepFormValues>();
 
   return (
     <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
@@ -55,6 +58,7 @@ const SetUpDetailStep = ({
 
       <BottomActionButton
         type="submit"
+        disabled={!isValid}
         onClick={handleSubmit(() => onNextStep?.())}
       >
         다음
