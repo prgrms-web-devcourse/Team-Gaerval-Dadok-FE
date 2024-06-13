@@ -42,7 +42,6 @@ export const metadata: Metadata = {
   ],
   appleWebApp: {
     title: '다독다독',
-    statusBarStyle: 'black-translucent',
     startupImage: appleSplashScreens,
   },
 };
