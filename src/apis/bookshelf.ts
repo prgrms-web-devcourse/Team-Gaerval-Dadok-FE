@@ -4,7 +4,7 @@ import {
   APIBookshelfPagination,
 } from '@/types/bookshelf';
 import { APIUser } from '@/types/user';
-import { publicApi } from '../core/axios';
+import { publicApi } from './core/axios';
 
 const bookshelfAPI = {
   getUserSummaryBookshelf: ({ userId }: { userId: APIUser['userId'] }) =>

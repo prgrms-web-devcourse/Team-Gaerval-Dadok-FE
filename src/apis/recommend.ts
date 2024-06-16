@@ -4,9 +4,9 @@ import {
   APIRecommendedBooksPagination,
 } from '@/types/bookshelf';
 import { APIJobGroup } from '@/types/job';
-import { publicApi } from '../core/axios';
+import { publicApi } from '@/apis/core/axios';
 
-const RecommendAPI = {
+const recommendAPI = {
   getUnAuthRecommendedBookshelf: () =>
     publicApi.get<APIRecommendedBookshelf>(
       `/service-api/suggestions/bookshelves/default`
@@ -23,4 +23,4 @@ const RecommendAPI = {
     ),
 };
 
-export default RecommendAPI;
+export default recommendAPI;

@@ -11,8 +11,8 @@ import type {
   APIRecentSearches,
   APIBestSellerRes,
 } from '@/types/book';
-import bookshelfAPI from '../bookshelf';
-import { publicApi } from '../core/axios';
+import bookshelfAPI from './bookshelf';
+import { publicApi } from './core/axios';
 
 const bookAPI = {
   searchBooks: ({

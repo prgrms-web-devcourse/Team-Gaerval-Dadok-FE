@@ -6,7 +6,7 @@ import {
   APIGroupComment,
   APIGroupCommentPagination,
 } from '@/types/group';
-import { publicApi } from '../core/axios';
+import { publicApi } from './core/axios';
 
 const groupAPI = {
   getEntireGroups: (pageParam: string) =>
