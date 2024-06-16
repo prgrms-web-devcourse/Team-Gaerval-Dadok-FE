@@ -6,7 +6,7 @@ import { useCallback, useEffect } from 'react';
 import { setAuth } from '@/utils/helpers';
 import userAPI from '@/apis/user';
 
-import Loading from '@/v1/base/Loading';
+import Loading from '@/components/common/Loading';
 
 const RedirectPage = () => {
   const router = useRouter();

@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SearchGroup from '@/v1/bookGroup/SearchGroup';
+import SearchGroup from '@/components/bookGroup/SearchGroup';
 
 const meta: Meta<typeof SearchGroup> = {
-  title: 'Base/SearchGroup',
+  title: 'Common/SearchGroup',
   component: SearchGroup,
   tags: ['autodocs'],
 };

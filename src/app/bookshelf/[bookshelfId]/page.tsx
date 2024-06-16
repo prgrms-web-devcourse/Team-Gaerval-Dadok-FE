@@ -14,13 +14,13 @@ import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
 import { KAKAO_LOGIN_URL } from '@/constants';
 
-import useToast from '@/v1/base/Toast/useToast';
-import TopNavigation from '@/v1/base/TopNavigation';
-import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
-import Button from '@/v1/base/Button';
-import LikeButton from '@/v1/base/LikeButton';
-import BackButton from '@/v1/base/BackButton';
-import ShareButton from '@/v1/base/ShareButton';
+import useToast from '@/components/common/Toast/useToast';
+import TopNavigation from '@/components/common/TopNavigation';
+import BookShelfRow from '@/components/bookShelf/BookShelfRow';
+import Button from '@/components/common/Button';
+import LikeButton from '@/components/common/LikeButton';
+import BackButton from '@/components/common/BackButton';
+import ShareButton from '@/components/common/ShareButton';
 
 export default function UserBookShelfPage({
   params: { bookshelfId },

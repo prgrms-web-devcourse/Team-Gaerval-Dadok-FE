@@ -3,12 +3,12 @@
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
-import BackButton from '@/v1/base/BackButton';
-import TopNavigation from '@/v1/base/TopNavigation';
-import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
+import BackButton from '@/components/common/BackButton';
+import TopNavigation from '@/components/common/TopNavigation';
+import DetailBookGroupCard from '@/components/bookGroup/DetailBookGroupCard';
 
 const UserGroupPage = () => {
   return (
