@@ -38,6 +38,7 @@ module.exports = {
           700: '#FFC073',
           800: '#F6AD55',
           900: '#FFA436',
+          brighter: '#FF8B00',
         },
         success: {
           500: '#F2FDF5',
