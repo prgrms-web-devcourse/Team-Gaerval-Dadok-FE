@@ -2,8 +2,8 @@ import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 import { APIUser } from '@/types/user';
 
+import ProfileGroupContainer from '@/v1/profile/group/ProfileGroupContainer';
 import Skeleton from '@/v1/base/Skeleton';
-import ProfileGroupContainer from './ProfileGroupContainer';
 
 const ProfileGroup = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
   return (

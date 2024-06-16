@@ -1,5 +1,6 @@
+import type { ToastOption } from '@/v1/base/Toast/types';
+
 import { IconSuccess, IconWarning, IconError } from '@public/icons';
-import { ToastOption } from './types';
 
 const ICONS = {
   success: <IconSuccess />,

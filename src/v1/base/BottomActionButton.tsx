@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
-import Button from './Button';
+
+import Button from '@/v1/base/Button';
 
 type BottomActionButtonProps = Omit<
   ComponentPropsWithoutRef<typeof Button>,

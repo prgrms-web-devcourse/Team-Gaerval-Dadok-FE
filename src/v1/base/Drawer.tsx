@@ -7,10 +7,10 @@ import {
 } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-import { IconClose } from '@public/icons';
 import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
-import Button from './Button';
+import { IconClose } from '@public/icons';
+import Button from '@/v1/base/Button';
 
 interface DrawerProps {
   isOpen: boolean;

@@ -1,12 +1,13 @@
-import { APIBookComment } from '@/types/book';
-import useToast from '@/v1/base/Toast/useToast';
+import type { APIBookComment } from '@/types/book';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { useBookComments } from '@/queries/book/useBookCommentsQuery';
 import usePatchBookCommentMutation from '@/queries/book/usePatchBookCommentMutation';
 import useDeleteBookCommentMutation from '@/queries/book/useDeleteBookCommentMutation';
+
+import useToast from '@/v1/base/Toast/useToast';
 import { checkAuthentication } from '@/utils/helpers';
 
-import CommentList from './CommentList';
+import CommentList from '@/v1/comment/CommentList';
 
 const BookCommentList = ({ bookId }: { bookId: number }) => {
   const isAuthenticated = checkAuthentication();
