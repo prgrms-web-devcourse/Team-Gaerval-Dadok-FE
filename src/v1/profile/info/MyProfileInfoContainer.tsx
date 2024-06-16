@@ -1,7 +1,9 @@
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import ProfileInfoPresenter from './ProfileInfoPresenter';
+import { usePathname, useRouter } from 'next/navigation';
+
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
+
+import ProfileInfoPresenter from '@/v1/profile/info/ProfileInfoPresenter';
 
 const MyProfileContainer = () => {
   const { data } = useMyProfileQuery();
@@ -17,7 +19,7 @@ const MyProfileContainer = () => {
     if (!isSavedAdditionalInfo) replace(`${pathname}/add`);
   }, [data, pathname, replace]);
 
-  return <ProfileInfoPresenter {...data}></ProfileInfoPresenter>;
+  return <ProfileInfoPresenter {...data} />;
 };
 
 export default MyProfileContainer;

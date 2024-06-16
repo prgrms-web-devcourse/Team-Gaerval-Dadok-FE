@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react';
 
 import { IconPlus } from '@public/icons';
 
-import Portal from './Portal';
+import Portal from '@/v1/base/Portal';
 
 interface FloatingButtonProps extends ComponentPropsWithoutRef<'button'> {
   position?: string;

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 
 import { KAKAO_LOGIN_URL } from '@/constants';
-import BottomActionButton from './BottomActionButton';
+
+import BottomActionButton from '@/v1/base/BottomActionButton';
 
 const LoginBottomActionButton = () => (
   <Link href={KAKAO_LOGIN_URL}>
