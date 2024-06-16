@@ -37,7 +37,7 @@ const SetUpDetailStep = ({
   } = useFormContext<SetUpDetailStepFormValues>();
 
   return (
-    <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
+    <article className="pb-action-button flex flex-col gap-[2.5rem] overflow-y-scroll">
       <h2 className="font-subheading-bold">모임 정보를 설정해주세요</h2>
       <TitleField name={'title'} />
       <SelectedBookInfoField
