@@ -1,6 +1,7 @@
-import ProfileBookshelfPresenter from './ProfileBookshelfPresenter';
 import useUserSummaryBookshelfQuery from '@/queries/bookshelf/useUserSummaryBookShelfQuery';
 import type { APIUser } from '@/types/user';
+
+import ProfileBookshelfPresenter from '@/v1/profile/bookShelf/ProfileBookshelfPresenter';
 
 const UserProfileBookshelfContainer = ({
   userId,

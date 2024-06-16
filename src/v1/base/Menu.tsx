@@ -12,7 +12,7 @@ import {
 import { IconHamburger } from '@public/icons';
 import useOutsideClickRef from '@/hooks/useOutsideClickRef';
 
-import BottomSheet from './BottomSheet';
+import BottomSheet from '@/v1/base/BottomSheet';
 
 type MenuContextValue = {
   isOpen: boolean;

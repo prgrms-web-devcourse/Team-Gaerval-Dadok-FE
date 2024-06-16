@@ -1,12 +1,12 @@
 import { useFormContext } from 'react-hook-form';
 
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { EnterTitleStepFormValues } from '../../types';
+import type { EnterTitleStepFormValues } from '@/v1/bookGroup/create/types';
 
 import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
+import { TitleField } from '@/v1/bookGroup/create/steps/EnterTitleStep/fields';
 import BottomActionButton from '@/v1/base/BottomActionButton';
-import { TitleField } from './fields';
 
 const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
   const {
