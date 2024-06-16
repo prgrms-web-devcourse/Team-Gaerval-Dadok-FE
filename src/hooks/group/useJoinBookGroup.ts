@@ -1,7 +1,7 @@
 import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 import groupAPI from '@/apis/group';
-import useToast from '@/v1/base/Toast/useToast';
+import useToast from '@/components/common/Toast/useToast';
 import { useBookGroupJoinInfo } from '@/queries/group/useBookGroupQuery';
 
 const useJoinBookGroup = (groupId: number) => {

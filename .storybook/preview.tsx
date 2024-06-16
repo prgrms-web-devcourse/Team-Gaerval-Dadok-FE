@@ -4,7 +4,7 @@ import { initialize, mswLoader } from 'msw-storybook-addon';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { Preview } from '@storybook/react';
 
-import ToastProvider from '../src/v1/base/Toast/ToastProvider';
+import ToastProvider from '../src/components/common/Toast/ToastProvider';
 
 import '@/styles/global.css';
 

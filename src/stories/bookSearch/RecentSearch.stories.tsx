@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import RecentSearch from '@/v1/bookSearch/RecentSearchList';
+import RecentSearch from '@/components/bookSearch/RecentSearchList';
 
 const meta: Meta<typeof RecentSearch> = {
   title: 'bookSearch/RecentSearch',
