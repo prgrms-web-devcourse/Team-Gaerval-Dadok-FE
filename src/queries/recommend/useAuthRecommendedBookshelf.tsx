@@ -1,6 +1,7 @@
-import recommendAPI from '@/apis/recommend';
-import { APIJobGroup } from '@/types/job';
 import { useQuery } from '@tanstack/react-query';
+
+import { APIJobGroup } from '@/types/job';
+import recommendAPI from '@/apis/recommend';
 
 const useAuthRecommendedBookshelf = (jobGroup: APIJobGroup['name']) =>
   useQuery(['authRecommendedBookshelf', jobGroup], () =>

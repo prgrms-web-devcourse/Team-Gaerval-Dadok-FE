@@ -1,5 +1,6 @@
-import recommendAPI from '@/apis/recommend';
 import { useQuery } from '@tanstack/react-query';
+
+import recommendAPI from '@/apis/recommend';
 
 const useUnAuthRecommendedBookshelfQuery = () =>
   useQuery(['unAuthRecommendedBookshelf'], () =>

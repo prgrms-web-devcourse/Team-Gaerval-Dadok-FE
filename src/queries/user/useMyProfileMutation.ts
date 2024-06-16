@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+
 import userAPI from '@/apis/user';
 import { APIUser } from '@/types/user';
 import { APIJob, APIJobGroup } from '@/types/job';
