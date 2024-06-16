@@ -69,7 +69,7 @@ module.exports = {
         },
         white: '#FFFFFF',
         background: '#FCFCFC',
-        cancel: '#CFCFCF',
+        shadow: '#CFCFCF',
         placeholder: '#AFAFAF', // ( = description)
         overlay: '#494949', // use with opacity 60%
       },
