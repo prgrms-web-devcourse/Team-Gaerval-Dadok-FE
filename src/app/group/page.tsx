@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';

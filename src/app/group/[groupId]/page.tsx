@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
 import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';

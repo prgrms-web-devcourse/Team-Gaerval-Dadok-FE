@@ -1,4 +1,4 @@
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 
 import { APIUser } from '@/types/user';
 

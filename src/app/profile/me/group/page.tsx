@@ -3,7 +3,7 @@
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
 import BackButton from '@/v1/base/BackButton';

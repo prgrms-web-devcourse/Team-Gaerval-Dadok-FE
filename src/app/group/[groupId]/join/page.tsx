@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
 import Loading from '@/v1/base/Loading';

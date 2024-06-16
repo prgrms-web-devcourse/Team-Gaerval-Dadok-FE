@@ -1,6 +1,6 @@
 import type { APIUser } from '@/types/user';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 
 import MyProfileContainer from '@/v1/profile/info/MyProfileInfoContainer';
 import UserProfileInfoContainer from '@/v1/profile/info/UserProfileInfoContainer';

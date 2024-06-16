@@ -21,7 +21,7 @@ import {
 import useCreateBookGroupCommentMutation from '@/queries/group/useCreateBookGroupCommentMutation';
 import useDeleteBookGroupMutation from '@/queries/group/useDeleteBookGroupMutation';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import Button from '@/v1/base/Button';
 import Menu from '@/v1/base/Menu';
 import Modal from '@/v1/base/Modal';

@@ -11,7 +11,7 @@ import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
 import bookAPI from '@/apis/book';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import useQueryParams from '@/hooks/useQueryParams';
 import { checkAuthentication } from '@/utils/helpers';

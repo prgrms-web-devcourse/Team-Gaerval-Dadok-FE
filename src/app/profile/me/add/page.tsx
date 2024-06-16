@@ -4,7 +4,7 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
 import AddJobProfile from '@/v1/profile/AddJobProfile';

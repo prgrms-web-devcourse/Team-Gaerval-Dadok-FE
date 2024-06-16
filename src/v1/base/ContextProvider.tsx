@@ -2,8 +2,8 @@
 
 import { ReactNode } from 'react';
 
-import PWAServiceWorkerProvider from '@/components/PWAServiceWorkerProvider';
-import ReactQueryProvider from '@/components/ReactQueryProvider';
+import PWAServiceWorkerProvider from '@/v1/base/PWAServiceWorkerProvider';
+import ReactQueryProvider from '@/v1/base/ReactQueryProvider';
 
 import ToastProvider from '@/v1/base/Toast/ToastProvider';
 

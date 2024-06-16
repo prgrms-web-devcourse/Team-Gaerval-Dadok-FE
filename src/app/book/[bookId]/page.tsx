@@ -14,7 +14,7 @@ import {
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
 import Skeleton from '@/v1/base/Skeleton';
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import TopNavigation from '@/v1/base/TopNavigation';
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';

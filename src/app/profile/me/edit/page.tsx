@@ -5,7 +5,7 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
 import EditProfile from '@/v1/profile/EditProfile';

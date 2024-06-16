@@ -4,7 +4,7 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 import BookArchiveForAuth from '@/v1/bookArchive/BookArchiveForAuth';
 import BookArchiveForUnAuth from '@/v1/bookArchive/BookArchiveForUnAuth';
 import TopHeader from '@/v1/base/TopHeader';

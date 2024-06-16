@@ -11,7 +11,7 @@ import { checkAuthentication, removeAuth } from '@/utils/helpers';
 import { KAKAO_LOGIN_URL } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
 
 import Avatar from '@/v1/base/Avatar';
 import Button from '@/v1/base/Button';

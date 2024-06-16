@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
-import ContextProvider from '@/components/ContextProvider';
-import AuthFailedErrorBoundary from '@/components/AuthFailedErrorBoundary';
+import ContextProvider from '@/v1/base/ContextProvider';
+import AuthFailedErrorBoundary from '@/v1/base/AuthFailedErrorBoundary';
 import Layout from '@/v1/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
