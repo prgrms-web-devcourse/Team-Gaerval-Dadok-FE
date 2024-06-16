@@ -39,9 +39,5 @@ const AuthFailedFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
     }
   }, [error, resetErrorBoundary, showToast]);
 
-  useEffect(() => {
-    console.log(showToast);
-  }, [showToast]);
-
   return <Loading fullpage />;
 };
