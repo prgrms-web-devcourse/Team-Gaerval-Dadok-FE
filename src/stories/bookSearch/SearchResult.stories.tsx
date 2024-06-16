@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import type { APISearchedBook } from '@/types/book';
-import BookSearchList from '@/v1/bookSearch/BookSearchList';
+import BookSearchList from '@/components/bookSearch/BookSearchList';
 
 const meta: Meta<typeof BookSearchList> = {
   title: 'bookSearch/BookSearchList',

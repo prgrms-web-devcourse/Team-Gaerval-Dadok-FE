@@ -1,4 +1,4 @@
-import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
+import BookShelfCard from '@/components/bookShelf/BookShelfCard';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BookShelfCard> = {

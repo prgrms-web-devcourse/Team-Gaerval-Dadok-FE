@@ -5,8 +5,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { assert } from '@/utils/assert';
 
-import type { FunnelProps, StepProps } from '@/v1/base/Funnel';
-import { Funnel, Step } from '@/v1/base/Funnel';
+import type { FunnelProps, StepProps } from '@/components/common/Funnel';
+import { Funnel, Step } from '@/components/common/Funnel';
 
 export type NonEmptyArray<T> = readonly [T, ...T[]];
 

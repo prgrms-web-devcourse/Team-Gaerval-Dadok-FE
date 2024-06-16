@@ -4,10 +4,10 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/v1/base/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
-import AddJobProfile from '@/v1/profile/AddJobProfile';
+import AddJobProfile from '@/components/profile/AddJobProfile';
 
 const AddJobProfilePage = () => {
   return (

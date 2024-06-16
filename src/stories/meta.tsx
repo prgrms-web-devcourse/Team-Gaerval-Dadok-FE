@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import Layout from '@/v1/layout/Layout';
+import Layout from '@/components/layout/Layout';
 
 export const appLayoutMeta: Meta = {
   parameters: {
