@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     default: '다독다독',
   },
   description: '책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼',
-  themeColor: '#FFA436',
+  themeColor: '#FFFFFF',
   keywords: [
     '다독다독',
     'dadok',
@@ -37,12 +37,11 @@ export const metadata: Metadata = {
     },
   },
   icons: [
-    { rel: 'apple-touch-icon', url: 'favicon.ico' },
+    { rel: 'apple-touch-icon', url: 'images/icon-192x192.png' },
     { rel: 'icon', url: 'favicon.ico' },
   ],
   appleWebApp: {
     title: '다독다독',
-    statusBarStyle: 'black-translucent',
     startupImage: appleSplashScreens,
   },
 };
@@ -50,13 +49,6 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
-      <head>
-        <meta
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-          name="viewport"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <Layout>

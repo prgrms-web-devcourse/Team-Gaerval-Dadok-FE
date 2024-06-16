@@ -3,9 +3,9 @@
 import { ReactNode } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import PWAServiceWorkerProvider from './PWAServiceWorkerProvider';
-import ChakraThemeProvider from './ChakraThemeProvider';
-import ReactQueryProvider from './ReactQueryProvider';
+import PWAServiceWorkerProvider from '@/components/PWAServiceWorkerProvider';
+import ChakraThemeProvider from '@/components/ChakraThemeProvider';
+import ReactQueryProvider from '@/components/ReactQueryProvider';
 
 import ToastProvider from '@/v1/base/Toast/ToastProvider';
 
