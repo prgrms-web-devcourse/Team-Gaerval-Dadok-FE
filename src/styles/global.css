@@ -101,6 +101,6 @@
    */
 
   .pb-action-button {
-    @apply pb-[calc(env(safe-area-inset-bottom)+7.3rem)];
+    @apply pb-[calc(env(safe-area-inset-bottom)+6.3rem)];
   }
 }
