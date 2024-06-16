@@ -21,6 +21,14 @@
   html {
     @apply w-full bg-background font-[LineSeedKR] text-[62.5%] text-black-700;
     -webkit-tap-highlight-color: #ffffff50;
+
+    /** from charka */
+    -webkit-text-size-adjust: 100%;
+    font-family: system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
   }
 
   body {
@@ -28,9 +36,9 @@
   }
 
   .app-layout {
-    /* TODO: Chakra UI 걷어내면 제거 */
     max-width: 43rem;
     margin: 0 auto;
+    @apply bg-white;
   }
 
   .sticky {
