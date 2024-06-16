@@ -67,7 +67,7 @@ const getSchemeClasses = (
         : 'border-black-400 text-black-500';
     }
     case 'kakao': {
-      return 'border-kakao bg-kakao text-kakaotext';
+      return 'border-kakao bg-kakao text-kakao-dark';
     }
   }
 };
