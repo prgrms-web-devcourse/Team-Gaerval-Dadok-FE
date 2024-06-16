@@ -95,11 +95,6 @@
     @apply bg-placeholder;
   }
 
-  /*
-   * 그룹 상세
-   * 책 상세
-   */
-
   .pb-action-button {
     @apply pb-[6.3rem];
   }
