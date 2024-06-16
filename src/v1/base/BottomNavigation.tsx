@@ -41,7 +41,7 @@ const iconColor = {
 
 const BottomNavigation = ({ pathname }: BottomNavigationProps) => {
   return (
-    <nav className="fixed bottom-0 left-[50%] flex w-full max-w-[43rem] -translate-x-1/2 justify-between rounded-t-[2rem] border-t-[0.05rem] border-black-200 bg-white px-[3.2rem] pb-[calc(env(safe-area-inset-bottom)+1.4rem)] pt-[1.4rem] shadow-bottomNav">
+    <nav className="fixed bottom-0 left-[50%] flex w-full max-w-[43rem] -translate-x-1/2 justify-between rounded-t-[2rem] border-t-[0.05rem] border-black-200 bg-white px-[3.2rem] pb-[calc(env(safe-area-inset-bottom)+1.4rem)] pt-[1.4rem] shadow-bottom-navigation">
       {icons.map(({ icon, label, href }) => (
         <Link key={label} type="button" href={href}>
           <button

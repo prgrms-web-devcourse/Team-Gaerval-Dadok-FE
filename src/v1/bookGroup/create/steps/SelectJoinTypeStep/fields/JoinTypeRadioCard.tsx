@@ -27,7 +27,7 @@ const JoinTypeRadioCard = (
         {...props}
       />
       <label
-        className={`${BASE_CLASSES} after:h-[2.4rem] peer-checked:border-main-900 peer-checked:bg-main-900/[0.05] peer-checked:text-[#FF8B00] peer-checked:after:content-check`}
+        className={`${BASE_CLASSES} after:h-[2.4rem] peer-checked:border-main-900 peer-checked:bg-main-900/[0.05] peer-checked:text-main-brighter peer-checked:after:content-check`}
         htmlFor={inputId}
       >
         <p>{label}</p>
