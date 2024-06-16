@@ -73,6 +73,10 @@ module.exports = {
         shadow: '#CFCFCF',
         placeholder: '#AFAFAF', // ( = description)
         overlay: '#494949', // use with opacity 60%
+        bookshelf: {
+          light: '#F6F3EC',
+          dark: '#F2ECDF',
+        },
       },
       fontFamily: {
         lineseed: ['var(--font-lineseed)'],
