@@ -17,7 +17,7 @@ const SimpleBookGroupCard = ({
   return (
     <Link href={`/group/${bookGroupId}`}>
       <article className="flex w-[10rem] flex-col gap-[1rem]">
-        <div className="bg-orange-100 px-[1.8rem] py-[1.6rem]">
+        <div className="bg-main-300 px-[1.8rem] py-[1.6rem]">
           <BookCover size="xsmall" src={imageSource} />
         </div>
         <p className="break-keep text-center !leading-tight font-caption1-regular">

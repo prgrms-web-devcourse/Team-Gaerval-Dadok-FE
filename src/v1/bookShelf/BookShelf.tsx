@@ -17,8 +17,8 @@ const BookShelf = ({ children }: { children: ReactNode }) => {
 const Background = () => {
   return (
     <div className="absolute bottom-0 w-full rounded-b-[inherit]">
-      <div className="h-[3rem] bg-[#F2ECDF] shadow-[0px_-3px_8px_0px_#F1F1F1_inset]" />
-      <div className="h-[1rem] rounded-b-[inherit] bg-[#F6F3EC] shadow-[0px_-1px_8px_-4.5px_#494949]" />
+      <div className="h-[3rem] bg-bookshelf-dark shadow-[0px_-3px_8px_0px_#F1F1F1_inset]" />
+      <div className="h-[1rem] rounded-b-[inherit] bg-bookshelf-light shadow-[0px_-1px_8px_-4.5px_#494949]" />
     </div>
   );
 };
