@@ -34,7 +34,7 @@ const BookDetailPage = ({
     <>
       <BookTopNavigation bookId={bookId} />
       <SSRSafeSuspense fallback={<BookPageSkeleton />}>
-        <div className="flex flex-col gap-[3rem] pb-[5rem] pt-[1rem]">
+        <div className="pb-action-button flex flex-col gap-[3rem] pt-[1rem]">
           <BookInfo bookId={bookId} />
           <div className="flex flex-col gap-[1rem]">
             <Heading text="책 코멘트" />

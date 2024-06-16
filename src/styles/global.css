@@ -94,4 +94,13 @@
     box-shadow: inset 0 0 3rem #dddddd;
     @apply bg-placeholder;
   }
+
+  /*
+   * 그룹 상세
+   * 책 상세
+   */
+
+  .pb-action-button {
+    @apply pb-[calc(env(safe-area-inset-bottom)+7.3rem)];
+  }
 }
