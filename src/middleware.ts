@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
      */
 
     if (request.cookies.has('RefreshToken')) {
+      console.log('has refreshToken', request.cookies);
       request.nextUrl.pathname = '/bookarchive';
     } else {
       request.nextUrl.pathname = '/login';
