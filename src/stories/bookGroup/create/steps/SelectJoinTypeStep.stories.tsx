@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { SelectJoinTypeStepFormValues } from '@/v1/bookGroup/create/types';
+import type { SelectJoinTypeStepFormValues } from '@/components/bookGroup/create/types';
 
 import { appLayoutMeta } from '@/stories/meta';
-import { SelectJoinTypeStep } from '@/v1/bookGroup/create/steps';
+import { SelectJoinTypeStep } from '@/components/bookGroup/create/steps';
 
 const meta: Meta<typeof SelectJoinTypeStep> = {
   title: 'bookGroup/create/steps/SelectJoinTypeStep',

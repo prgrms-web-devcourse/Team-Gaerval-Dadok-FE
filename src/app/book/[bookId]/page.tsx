@@ -5,7 +5,7 @@ import { APIBook } from '@/types/book';
 import { useBookTitle } from '@/queries/book/useBookInfoQuery';
 import { useHasBookComment } from '@/queries/book/useBookCommentsQuery';
 import useCreateBookCommentMutation from '@/queries/book/useCreateBookCommentMutation';
-import useToast from '@/v1/base/Toast/useToast';
+import useToast from '@/components/common/Toast/useToast';
 import useDisclosure from '@/hooks/useDisclosure';
 import {
   checkAuthentication,
@@ -13,15 +13,15 @@ import {
 } from '@/utils/helpers';
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
-import Skeleton from '@/v1/base/Skeleton';
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import TopNavigation from '@/v1/base/TopNavigation';
-import BottomActionButton from '@/v1/base/BottomActionButton';
-import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
-import CommentDrawer from '@/v1/comment/CommentDrawer';
-import BackButton from '@/v1/base/BackButton';
-import BookInfo, { BookInfoSkeleton } from '@/v1/book/detail/BookInfo';
-import BookCommentList from '@/v1/comment/BookCommentList';
+import Skeleton from '@/components/common/Skeleton';
+import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import TopNavigation from '@/components/common/TopNavigation';
+import BottomActionButton from '@/components/common/BottomActionButton';
+import LoginBottomActionButton from '@/components/common/LoginBottomActionButton';
+import CommentDrawer from '@/components/comment/CommentDrawer';
+import BackButton from '@/components/common/BackButton';
+import BookInfo, { BookInfoSkeleton } from '@/components/book/detail/BookInfo';
+import BookCommentList from '@/components/comment/BookCommentList';
 
 const BookDetailPage = ({
   params: { bookId },
@@ -34,7 +34,7 @@ const BookDetailPage = ({
     <>
       <BookTopNavigation bookId={bookId} />
       <SSRSafeSuspense fallback={<BookPageSkeleton />}>
-        <div className="flex flex-col gap-[3rem] pb-[5rem] pt-[1rem]">
+        <div className="pb-action-button flex flex-col gap-[3rem] pt-[1rem]">
           <BookInfo bookId={bookId} />
           <div className="flex flex-col gap-[1rem]">
             <Heading text="책 코멘트" />

@@ -1,11 +1,11 @@
 'use client';
 
 import { APIUser } from '@/types/user';
-import BackButton from '@/v1/base/BackButton';
-import ShareButton from '@/v1/base/ShareButton';
-import TopNavigation from '@/v1/base/TopNavigation';
-import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
-import ProfileInfo from '@/v1/profile/info/ProfileInfo';
+import BackButton from '@/components/common/BackButton';
+import ShareButton from '@/components/common/ShareButton';
+import TopNavigation from '@/components/common/TopNavigation';
+import ProfileBookShelf from '@/components/profile/bookShelf/ProfileBookShelf';
+import ProfileInfo from '@/components/profile/info/ProfileInfo';
 
 const UserProfilePage = ({
   params: { userId },

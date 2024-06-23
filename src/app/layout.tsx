@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
-import ContextProvider from '@/components/ContextProvider';
-import AuthFailedErrorBoundary from '@/components/AuthFailedErrorBoundary';
-import Layout from '@/v1/layout/Layout';
+import ContextProvider from '@/components/common/ContextProvider';
+import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
+import Layout from '@/components/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     },
   },
   icons: [
-    { rel: 'apple-touch-icon', url: 'images/icon-192x192.png' },
-    { rel: 'icon', url: 'favicon.ico' },
+    { rel: 'apple-touch-icon', url: '/images/icon-192x192.png' },
+    { rel: 'icon', url: '/favicon.ico' },
   ],
   appleWebApp: {
     title: '다독다독',
@@ -49,7 +49,6 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
-      {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <Layout>
           <ContextProvider>

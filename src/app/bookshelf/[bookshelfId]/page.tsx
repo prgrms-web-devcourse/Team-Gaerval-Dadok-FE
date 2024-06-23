@@ -12,15 +12,15 @@ import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfL
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
-import { KAKAO_LOGIN_URL } from '@/constants/url';
+import { KAKAO_LOGIN_URL } from '@/constants';
 
-import useToast from '@/v1/base/Toast/useToast';
-import TopNavigation from '@/v1/base/TopNavigation';
-import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
-import Button from '@/v1/base/Button';
-import LikeButton from '@/v1/base/LikeButton';
-import BackButton from '@/v1/base/BackButton';
-import ShareButton from '@/v1/base/ShareButton';
+import useToast from '@/components/common/Toast/useToast';
+import TopNavigation from '@/components/common/TopNavigation';
+import BookShelfRow from '@/components/bookShelf/BookShelfRow';
+import Button from '@/components/common/Button';
+import LikeButton from '@/components/common/LikeButton';
+import BackButton from '@/components/common/BackButton';
+import ShareButton from '@/components/common/ShareButton';
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -151,7 +151,7 @@ const BookShelfLoginBox = ({
   const { userNickname } = data;
 
   return (
-    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
+    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-shadow px-[1.7rem] py-[4rem]">
       <p className="text-center font-body1-bold">
         지금 로그인하면
         <br />

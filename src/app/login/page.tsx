@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { IconKakao } from '@public/icons';
-import { KAKAO_LOGIN_URL } from '@/constants/url';
+import { KAKAO_LOGIN_URL } from '@/constants';
 
-import Button from '@/v1/base/Button';
+import Button from '@/components/common/Button';
 
 const LoginPage = () => {
   return (
@@ -37,7 +37,7 @@ const LoginPage = () => {
             </div>
           </Button>
         </Link>
-        <Link href="/" className="flex justify-center">
+        <Link href="/bookarchive" className="flex justify-center">
           <Button
             size="small"
             colorScheme="grey"
