@@ -37,7 +37,7 @@ const LoginPage = () => {
             </div>
           </Button>
         </Link>
-        <Link href="/bookarchive" className="flex justify-center">
+        <Link href="/" className="flex justify-center">
           <Button
             size="small"
             colorScheme="grey"

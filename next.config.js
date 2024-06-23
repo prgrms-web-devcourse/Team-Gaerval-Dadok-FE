@@ -42,6 +42,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/bookarchive',
+        permanent: false,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
