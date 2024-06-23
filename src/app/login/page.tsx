@@ -17,7 +17,6 @@ const LoginPage = () => {
           alt="로그인랜딩이미지"
           width={300}
           height={270}
-          priority
         />
         <p className="text-center !leading-snug font-heading-regular">
           <span className="font-subheading-regular">
@@ -29,7 +28,7 @@ const LoginPage = () => {
         </p>
       </article>
 
-      <section className="absolute inset-x-[2rem] bottom-[calc(env(safe-area-inset-bottom)+2rem)] mx-auto flex max-w-[41rem] flex-col justify-center gap-[1rem]">
+      <section className="absolute inset-x-[2rem] bottom-[2rem] flex flex-col justify-center gap-[1rem]">
         <Link href={KAKAO_LOGIN_URL}>
           <Button size="full" colorScheme="kakao">
             <div className="flex w-full items-center justify-center">
