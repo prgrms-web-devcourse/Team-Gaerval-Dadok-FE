@@ -17,23 +17,12 @@ export const metadata: Metadata = {
   },
   description: '책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼',
   themeColor: '#FFFFFF',
-  keywords: [
-    '다독다독',
-    'dadok',
-    'dadokdadok',
-    '책장',
-    '책추천',
-    '도서검색',
-    '독서모임',
-    '책',
-    '독서',
-  ],
   viewport:
     'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   verification: {
     google: '72kN3MWyQHuvSb8V67dVkfPUPMrw102Tm6BsvTvfKmg',
     other: {
-      'naver-site-verification': '9046af5eda448309a92e2e923a45cb874df986a0',
+      'naver-site-verification': 'd838b57100508b70db53a7d15014627456c5ac28',
     },
   },
   icons: [
