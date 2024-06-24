@@ -25,5 +25,13 @@
         "caughtErrors": "all"
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }
