@@ -101,7 +101,7 @@ const Date = ({ date }: { date: string }) => (
 );
 
 const CommentContent = ({ content }: { content: string }) => (
-  <p className="text-justify font-body1-regular">{content}</p>
+  <p className="break-all text-justify font-body1-regular">{content}</p>
 );
 
 const CommentActionMenu = ({

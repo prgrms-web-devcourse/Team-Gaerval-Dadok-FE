@@ -78,7 +78,7 @@ const BookSummary = ({
   summary: string;
   bookUrl: string;
 }) => (
-  <p>
+  <p className="break-all">
     {summary}&nbsp;...&nbsp;
     {bookUrl && (
       <a target="_blank" href={bookUrl}>
