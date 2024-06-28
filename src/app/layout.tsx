@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
@@ -35,7 +36,29 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const _fetchAppToken = async () => {
+  // const header = cookies.length()
+  const cookie = cookies().get('RefreshToken');
+
+  if (!cookie) {
+    return;
+  }
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/token`, {
+    method: 'POST',
+    headers: {
+      Cookie: `${cookie.name}=${cookie.value}`,
+    },
+  });
+
+  if (!res.ok) {
+    return;
+  }
+};
+
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // await fetchAppToken();
+
   return (
     <html lang="ko">
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>

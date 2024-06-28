@@ -7953,6 +7953,11 @@ jiti@^1.18.2:
   resolved "https://registry.npmjs.org/jiti/-/jiti-1.19.1.tgz"
   integrity sha512-oVhqoRDaBXf7sjkll95LHVS6Myyyb1zaunVwk4Z0+WPSW4gjS0pl01zYKHScTuyEhQsFxV5L4DR5r+YqSyqyyg==
 
+jose@^5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-5.5.0.tgz#ec2a834606325d797851532733b14f1d5a40ee25"
+  integrity sha512-DUPr/1kYXbuqYpkCj9r66+B4SGCKXCLQ5ZbKCgmn4sJveJqcwNqWtAR56u4KPmpXjrmBO2uNuLdEAEiqIhFNBg==
+
 jpeg-js@^0.4.1:
   version "0.4.4"
   resolved "https://registry.npmjs.org/jpeg-js/-/jpeg-js-0.4.4.tgz"

@@ -25,11 +25,11 @@ export const publicApi = axios.create({
 
 const requestHandler = (config: InternalAxiosRequestConfig) => {
   const { data, method } = config;
-  const accessToken = storage.get();
+  // const accessToken = storage.get();
 
-  if (accessToken) {
-    setAxiosAuthHeader(config, accessToken);
-  }
+  // if (accessToken) {
+  //   setAxiosAuthHeader(config, accessToken);
+  // }
 
   if (!data && (method === 'get' || method === 'delete')) {
     config.data = {};

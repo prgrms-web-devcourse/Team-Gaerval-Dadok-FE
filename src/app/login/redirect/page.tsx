@@ -1,54 +1,26 @@
-'use client';
+import { cookies } from 'next/headers';
+import { notFound, redirect } from 'next/navigation';
 
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
-
-import { setAuth } from '@/utils/helpers';
 import userAPI from '@/apis/user';
 
-import Loading from '@/components/common/Loading';
-
-const RedirectPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const accessToken = searchParams.get('access_token');
-
+const RedirectPage = async () => {
+  const accessToken = cookies().get(process.env.DADOK_TOKEN_KEY as string);
+  console.log(cookies());
   if (!accessToken) {
     notFound();
   }
 
-  const checkSavedAdditionalInfo = useCallback(async () => {
-    try {
-      const isSavedAdditionalInfo = await userAPI.getMyProfile().then(
-        ({
-          data: {
-            job: { jobName, jobGroupName },
-            nickname,
-          },
-        }) => !!(nickname && jobGroupName && jobName)
-      );
+  const { data } = await userAPI.getMyProfile({
+    headers: { Authorization: `Bearers ${accessToken.value}` },
+  });
 
-      if (!isSavedAdditionalInfo) {
-        router.replace('/profile/me/add');
-      }
+  const shouldAddProfile = !data.nickname || !data.job.jobGroupName;
 
-      router.replace('/bookarchive');
-    } catch {
-      router.replace('/not-found');
-    }
-  }, [router]);
-
-  useEffect(() => {
-    const hasAccessToken = !!accessToken;
-
-    if (hasAccessToken) {
-      accessToken && setAuth(accessToken);
-      checkSavedAdditionalInfo();
-    }
-  }, [accessToken, checkSavedAdditionalInfo]);
-
-  return <Loading fullpage />;
+  if (shouldAddProfile) {
+    redirect('/profile/me/add');
+  } else {
+    redirect('/bookarchive');
+  }
 };
 
 export default RedirectPage;
