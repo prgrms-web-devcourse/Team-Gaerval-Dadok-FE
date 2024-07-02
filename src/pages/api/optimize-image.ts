@@ -6,12 +6,15 @@ import fs from 'fs';
 import path from 'path';
 
 const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { src } = req.query;
+  const { src, width, height } = req.query;
 
   if (!src || typeof src !== 'string') {
     res.status(400).send('Missing or invalid "src" query parameter');
     return;
   }
+
+  const widthInt = width ? parseInt(width as string, 10) : null;
+  const heightInt = height ? parseInt(height as string, 10) : null;
 
   try {
     let imageBuffer: Buffer;
@@ -26,8 +29,12 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
       imageBuffer = fs.readFileSync(imagePath);
     }
 
-    // 이미지 최적화
-    const optimizedImageBuffer = await sharp(imageBuffer).webp().toBuffer();
+    // 이미지 최적화 및 크기 조정
+    let image = sharp(imageBuffer).webp();
+    if (widthInt || heightInt) {
+      image = image.resize(widthInt, heightInt);
+    }
+    const optimizedImageBuffer = await image.toBuffer();
 
     // 응답 헤더 설정 및 최적화된 이미지 전송
     res.setHeader('Content-Type', 'image/webp');
