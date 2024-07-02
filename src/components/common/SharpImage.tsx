@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 type SafeNumber = number | `${number}`;
 // type StaticImageData = {
 //   src: string;
@@ -43,7 +47,18 @@ const SharpImage = ({
 // placeholder = 'blur',
 // blurDataURL,
 ImageProps) => {
-  const optimizedSrc = `/api/optimize-image?src=${encodeURIComponent(src)}`;
+  const [optimizedSrc, setOptimizedSrc] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams({ src });
+
+    if (width) params.append('width', width.toString());
+    if (height) params.append('height', height.toString());
+
+    setOptimizedSrc(`/api/optimize-image?${params.toString()}`);
+  }, [src, width, height]);
+
+  if (!optimizedSrc) return null;
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
