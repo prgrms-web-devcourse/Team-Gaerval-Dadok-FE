@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import sharp from 'sharp';
 import axios from 'axios';
 
+import fs from 'fs';
+import path from 'path';
+
 const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
   const { src } = req.query;
 
@@ -11,9 +14,17 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    // 외부 API로부터 이미지 가져오기
-    const response = await axios.get(src, { responseType: 'arraybuffer' });
-    const imageBuffer = Buffer.from(response.data, 'binary');
+    let imageBuffer: Buffer;
+
+    if (src.startsWith('http://') || src.startsWith('https://')) {
+      // 외부 이미지 URL 처리
+      const response = await axios.get(src, { responseType: 'arraybuffer' });
+      imageBuffer = Buffer.from(response.data, 'binary');
+    } else {
+      // 로컬 이미지 경로 처리
+      const imagePath = path.resolve('./public', src);
+      imageBuffer = fs.readFileSync(imagePath);
+    }
 
     // 이미지 최적화
     const optimizedImageBuffer = await sharp(imageBuffer).webp().toBuffer();

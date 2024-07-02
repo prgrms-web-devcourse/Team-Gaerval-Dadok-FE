@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 type SafeNumber = number | `${number}`;
 // type StaticImageData = {
 //   src: string;
@@ -46,21 +44,15 @@ const SharpImage = ({
 // blurDataURL,
 ImageProps) => {
   const optimizedSrc = `/api/optimize-image?src=${encodeURIComponent(src)}`;
-  const sizeClasses = useMemo(() => {
-    const widthClass = width ? `${Number(width) / 10}` : '';
-    const heightClass = height ? `${Number(height) / 10}` : '';
-
-    return [widthClass, heightClass].join(' ');
-  }, [width, height]);
-
-  console.log('size: ', sizeClasses);
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={optimizedSrc}
       alt={alt}
-      className={`${sizeClasses} ${className}`}
+      width={width}
+      height={height}
+      className={className}
     />
   );
 };
