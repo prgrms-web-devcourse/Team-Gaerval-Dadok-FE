@@ -1,9 +1,7 @@
-'use client';
-
-import Image from 'next/image';
+import { default as NextImage } from 'next/image';
 
 type SafeNumber = number | `${number}`;
-type SharpImageProps = Omit<
+type ImageProps = Omit<
   JSX.IntrinsicElements['img'],
   'src' | 'srcSet' | 'ref' | 'alt' | 'width' | 'height' | 'loading'
 > & {
@@ -20,7 +18,7 @@ type SharpImageProps = Omit<
   blurDataURL?: string;
 };
 
-const SharpImage = ({
+const Image = ({
   src,
   alt,
   width,
@@ -33,7 +31,7 @@ const SharpImage = ({
   placeholder = 'empty',
   blurDataURL,
   ...props
-}: SharpImageProps) => {
+}: ImageProps) => {
   const params = new URLSearchParams({ src });
 
   if (width) params.append('width', width.toString());
@@ -42,8 +40,7 @@ const SharpImage = ({
   const optimizedSrc = `/api/optimize-image?${params.toString()}`;
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <Image
+    <NextImage
       unoptimized
       src={optimizedSrc}
       alt={alt}
@@ -61,4 +58,4 @@ const SharpImage = ({
   );
 };
 
-export default SharpImage;
+export default Image;
