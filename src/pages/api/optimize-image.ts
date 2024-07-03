@@ -26,7 +26,7 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
       return imageBuffer;
     } else {
       // 로컬 이미지 경로 처리
-      const imagePath = path.resolve('./public', src);
+      const imagePath = path.join('./public', src);
       const imageBuffer = fs.readFileSync(imagePath);
 
       return imageBuffer;
