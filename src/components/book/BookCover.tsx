@@ -1,8 +1,10 @@
 'use client';
 
 import { ComponentPropsWithoutRef, useState } from 'react';
-import Image from 'next/image';
+
 import { DATA_URL } from '@/constants';
+
+import Image from '@/components/common/Image';
 
 type BookCoverSize =
   | 'xsmall'
@@ -78,7 +80,6 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
     >
       {src && !isError ? (
         <Image
-          unoptimized
           src={src}
           alt={title || 'book-cover'}
           placeholder="blur"
@@ -89,7 +90,7 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
         />
       ) : (
         /** default cover line */
-        <div className="absolute left-[5%] h-full w-[0.3rem] bg-black-400"></div>
+        <div className="absolute left-[5%] h-full w-[0.3rem] bg-black-400" />
       )}
     </div>
   );

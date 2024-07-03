@@ -1,12 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { IconKakao } from '@public/icons';
 import { KAKAO_LOGIN_URL } from '@/constants';
 
 import Button from '@/components/common/Button';
+import Image from '@/components/common/Image';
 
 const LoginPage = () => {
   return (
