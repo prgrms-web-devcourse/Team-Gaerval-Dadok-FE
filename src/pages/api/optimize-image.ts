@@ -15,29 +15,43 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const widthInt = width ? parseInt(width as string, 10) : null;
   const heightInt = height ? parseInt(height as string, 10) : null;
+  const isGif = src.endsWith('.gif');
 
-  try {
-    let imageBuffer: Buffer;
-
+  const getImageBuffer = async () => {
     if (src.startsWith('http://') || src.startsWith('https://')) {
       // 외부 이미지 URL 처리
       const response = await axios.get(src, { responseType: 'arraybuffer' });
-      imageBuffer = Buffer.from(response.data, 'binary');
+      const imageBuffer = Buffer.from(response.data, 'binary');
+
+      return imageBuffer;
     } else {
       // 로컬 이미지 경로 처리
       const imagePath = path.resolve('./public', src);
-      imageBuffer = fs.readFileSync(imagePath);
+      const imageBuffer = fs.readFileSync(imagePath);
+
+      return imageBuffer;
+    }
+  };
+
+  try {
+    const imageBuffer = await getImageBuffer();
+
+    // 이미지 최적화 작업
+    const image = isGif
+      ? sharp(imageBuffer, { animated: true }).gif()
+      : sharp(imageBuffer).webp();
+
+    // 이미지 리사이징
+    if (widthInt || heightInt) {
+      image.resize(widthInt, heightInt);
     }
 
-    // 이미지 최적화 및 크기 조정
-    let image = sharp(imageBuffer).webp();
-    if (widthInt || heightInt) {
-      image = image.resize(widthInt, heightInt);
-    }
     const optimizedImageBuffer = await image.toBuffer();
 
     // 응답 헤더 설정 및 최적화된 이미지 전송
-    res.setHeader('Content-Type', 'image/webp');
+    isGif
+      ? res.setHeader('Content-Type', 'image/gif')
+      : res.setHeader('Content-Type', 'image/webp');
     res.send(optimizedImageBuffer);
   } catch (error) {
     console.error('Error optimizing image:', error);
