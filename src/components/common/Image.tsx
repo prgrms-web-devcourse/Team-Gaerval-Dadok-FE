@@ -37,7 +37,7 @@ const Image = ({
   if (width) params.append('width', width.toString());
   if (height) params.append('height', height.toString());
 
-  const optimizedSrc = `/api/optimize-image?${params.toString()}`;
+  const optimizedSrc = `/api/imageOptimize?${params.toString()}`;
 
   return (
     <NextImage
