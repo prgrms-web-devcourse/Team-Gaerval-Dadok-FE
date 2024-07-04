@@ -7,7 +7,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import userAPI from '@/apis/user';
 import userKeys from '@/queries/user/key';
 
-import { checkAuthentication, removeAuth } from '@/utils/helpers';
+import { deleteAuthSession } from '@/lib/auth/action';
+import { checkAuthentication } from '@/utils/helpers';
 import { KAKAO_LOGIN_URL } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
@@ -87,7 +88,7 @@ const MyProfileForAuth = () => {
 
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
-    removeAuth();
+    await deleteAuthSession();
     queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
     router.refresh();
   };
