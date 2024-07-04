@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import Button from '@/components/common/Button';
-import Image from '@/components/common/Image';
 
 const NotFound = () => {
   const router = useRouter();
