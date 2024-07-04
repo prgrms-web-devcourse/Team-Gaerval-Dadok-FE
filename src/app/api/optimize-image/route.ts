@@ -1,16 +1,20 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
-import axios from 'axios';
 
 import fs from 'fs';
 import path from 'path';
 
-const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { src, width, height } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+
+  const src = searchParams.get('src');
+  const width = searchParams.get('width');
+  const height = searchParams.get('height');
 
   if (!src || typeof src !== 'string') {
-    res.status(400).send('Missing or invalid "src" query parameter');
-    return;
+    return new NextResponse('Missing or invalid "src" query parameter', {
+      status: 400,
+    });
   }
 
   const widthInt = width ? parseInt(width as string, 10) : null;
@@ -20,8 +24,13 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
   const getImageBuffer = async () => {
     if (src.startsWith('http://') || src.startsWith('https://')) {
       // 외부 이미지 URL 처리
-      const response = await axios.get(src, { responseType: 'arraybuffer' });
-      const imageBuffer = Buffer.from(response.data, 'binary');
+      const response = await fetch(src, {
+        next: { revalidate: 60 * 60 * 24 },
+        headers: {
+          responseType: 'arraybuffer',
+        },
+      });
+      const imageBuffer = await response.arrayBuffer();
 
       return imageBuffer;
     } else {
@@ -48,15 +57,24 @@ const optimizeImage = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const optimizedImageBuffer = await image.toBuffer();
 
-    // 응답 헤더 설정 및 최적화된 이미지 전송
-    isGif
-      ? res.setHeader('Content-Type', 'image/gif')
-      : res.setHeader('Content-Type', 'image/webp');
-    res.send(optimizedImageBuffer);
+    // 응답 헤더 설정
+    const contentTypeHeader = isGif
+      ? {
+          'Content-Type': 'image/gif',
+        }
+      : {
+          'Content-Type': 'image/webp',
+        };
+
+    // 최적화된 이미지 전송
+    return new NextResponse(optimizedImageBuffer, {
+      status: 200,
+      headers: contentTypeHeader,
+    });
   } catch (error) {
     console.error('Error optimizing image:', error);
-    res.status(500).send('Error optimizing image');
+    return new NextResponse('Error optimizing image', {
+      status: 500,
+    });
   }
-};
-
-export default optimizeImage;
+}
