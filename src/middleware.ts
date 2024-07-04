@@ -1,16 +1,35 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { verifyJWT } from '@/lib/auth';
+import { verifyJWT } from '@/lib/auth/verify';
+import { COOKIE_KEYS, SEARCH_PARAMS_KEYS } from '@/constants';
 
-const SERVER_ACCESS_TOKEN_KEY = 'access_token';
-const SERVER_REFRESH_TOKEN_KEY = 'RefreshToken';
-const DADOK_TOKEN_KEY = process.env.DADOK_TOKEN_KEY as string;
+// constants
+const SESSION_KEY = COOKIE_KEYS.ACCESS_TOKEN;
+const SESSION_PUBLIC_UID_KEY = COOKIE_KEYS.PUBLIC_USER_ID;
+const ACCESS_TOKEN_KEY = SEARCH_PARAMS_KEYS.ACCESS_TOKEN;
+const REFRESH_TOKEN_KEY = COOKIE_KEYS.REFRESH_TOKEN;
+const REDIRECT_PATHNAME_KEY = SEARCH_PARAMS_KEYS.REDIRECT_PATHNAME;
+
+const EXCLUDE_AUTH_HEADER_PATHS = ['/api/auth/token'];
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+};
 
 export async function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get(DADOK_TOKEN_KEY);
+  const session = request.cookies.get(SESSION_KEY);
 
-  // api proxy rewrite
+  // server api call proxy
   if (request.nextUrl.pathname.startsWith('/service-api/')) {
     const { search } = request.nextUrl;
     const pathname = request.nextUrl.pathname.replace('/service-api', '/api');
@@ -18,33 +37,47 @@ export async function middleware(request: NextRequest) {
 
     const headers = new Headers(request.headers);
 
-    if (accessToken) {
-      headers.set('Authorization', `Bearers ${accessToken.value}`);
+    if (session && !EXCLUDE_AUTH_HEADER_PATHS.includes(pathname)) {
+      headers.set('Authorization', `Bearers ${session.value}`);
     }
 
     return NextResponse.rewrite(destination, { request: { headers } });
   }
 
-  // oauth 리다이렉팅
+  // oAuth redirect
   if (request.nextUrl.pathname.startsWith('/login/redirect')) {
-    const token =
-      request.nextUrl.searchParams.get(SERVER_ACCESS_TOKEN_KEY) ?? '';
-    const isAuthValid = await verifyJWT(token);
+    const token = request.nextUrl.searchParams.get(ACCESS_TOKEN_KEY) ?? '';
+    const payload = await verifyJWT(token);
 
-    console.log(isAuthValid, token);
+    const destination = new URL('/api/profile', request.url);
 
-    const response = NextResponse.next();
+    // redirect pathname이 있으면 search parameter에 추가
+    const redirectPathname = request.nextUrl.searchParams.get(
+      REDIRECT_PATHNAME_KEY
+    );
 
-    if (isAuthValid) {
-      response.cookies.set(DADOK_TOKEN_KEY, token, {
+    if (redirectPathname) {
+      destination.searchParams.append(REDIRECT_PATHNAME_KEY, redirectPathname);
+    }
+
+    const response = NextResponse.redirect(destination);
+
+    // cookie에 auth session 추가
+    if (payload) {
+      response.cookies.set(SESSION_KEY, token, {
         httpOnly: true,
         sameSite: 'strict',
         path: '/',
-        secure: true,
+        secure: false,
       });
-    }
 
-    console.log(response);
+      if (payload.id) {
+        response.cookies.set(SESSION_PUBLIC_UID_KEY, `${payload.id}`, {
+          sameSite: 'strict',
+          path: '/',
+        });
+      }
+    }
 
     return response;
   }
@@ -55,7 +88,7 @@ export async function middleware(request: NextRequest) {
    * cookie에 RefreshToken이 없으면 /login
    */
   if (request.nextUrl.pathname.match(/^\/$/)) {
-    if (request.cookies.has(SERVER_REFRESH_TOKEN_KEY)) {
+    if (request.cookies.has(REFRESH_TOKEN_KEY)) {
       request.nextUrl.pathname = '/bookarchive';
     } else {
       request.nextUrl.pathname = '/login';

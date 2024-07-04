@@ -1,11 +1,11 @@
 import { jwtVerify } from 'jose';
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY as string;
+import { SECRET_KEYS } from '@/constants';
 
 export const verifyJWT = async (token: string) => {
   try {
     const encoder = new TextEncoder();
-    const secretKey = encoder.encode(JWT_SECRET_KEY);
+    const secretKey = encoder.encode(SECRET_KEYS.JWT);
     const { payload } = await jwtVerify(token, secretKey);
     return payload;
   } catch {
