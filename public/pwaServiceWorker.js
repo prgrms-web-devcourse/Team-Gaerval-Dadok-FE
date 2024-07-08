@@ -1,7 +1,7 @@
 self.addEventListener('install', () => {
-  console.log('Service worker installed');
+  // 서비스 워커 설치 됐을 때 동작
 });
 
 self.addEventListener('activate', () => {
-  console.log('Service worker activated');
+  // 서비스 워커 작동할 때 동작
 });
