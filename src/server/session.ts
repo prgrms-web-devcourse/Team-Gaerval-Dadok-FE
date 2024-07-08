@@ -50,14 +50,14 @@ export async function setAuthSession(token: string) {
   if (payload) {
     cookies().set(SESSION_KEY, token, {
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
     });
 
     // 클라이언트에서 접근 가능하도록 public하게 설정
     if (payload.id) {
       cookies().set(SESSION_PUBLIC_UID_KEY, `${payload.id}`, {
-        sameSite: 'strict',
+        sameSite: 'lax',
       });
     }
   }
