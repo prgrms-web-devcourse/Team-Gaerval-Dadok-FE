@@ -45,9 +45,7 @@ export async function GET(request: Request) {
 
     if (!hasProfile) {
       const search = createQueryString({
-        ...(destination && {
-          [REDIRECT_SEARCH_KEY]: destination,
-        }),
+        ...(destination && { [REDIRECT_SEARCH_KEY]: destination }),
       });
       redirect(`/profile/me/add${search}`);
     } else if (destination) {
@@ -67,7 +65,7 @@ const fetchMyProfile = async (
   request: RetryRequest,
   token: string
 ): Promise<Response> => {
-  const origin = getOrigin(request);
+  const origin = getOrigin(new URL(request.url), request.headers);
   const response = await fetch(`${origin}/service-api/users/me`, {
     headers: {
       Accept: '*/*',

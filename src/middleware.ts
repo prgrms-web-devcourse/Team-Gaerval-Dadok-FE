@@ -101,12 +101,11 @@ export async function middleware(request: NextRequest) {
     const token = request.nextUrl.searchParams.get(ACCESS_TOKEN_KEY) ?? '';
     const jwtPayload = await verifyJWT(token);
 
-    const redirectPathname =
-      request.nextUrl.searchParams.get(REDIRECT_SEARCH_KEY);
+    const redirectParam = request.nextUrl.searchParams.get(REDIRECT_SEARCH_KEY);
 
     const destination = new URL('/profile/redirect', request.url);
     const search = createQueryString({
-      ...(redirectPathname && { [REDIRECT_SEARCH_KEY]: redirectPathname }),
+      ...(redirectParam && { [REDIRECT_SEARCH_KEY]: redirectParam }),
     });
 
     const response = NextResponse.redirect(`${destination}${search}`);

@@ -4,6 +4,7 @@ import { cookies, headers } from 'next/headers';
 
 import { COOKIE_KEYS, SESSION_COOKIES_KEYS } from '@/constants';
 import { verifyJWT } from '@/lib/auth/verifyJWT';
+import { getOrigin } from '@/lib/request/getOrigin';
 
 const SESSION_KEY = COOKIE_KEYS.ACCESS_TOKEN;
 const SESSION_PUBLIC_UID_KEY = COOKIE_KEYS.PUBLIC_USER_ID;
@@ -20,8 +21,7 @@ export async function getAuthSession() {
   }
 
   const host = headers().get('host');
-  const protocol = headers().get('x-forwarded-proto') ?? 'http';
-  const origin = host ? `${protocol}://${host}` : process.env.NEXT_HOST;
+  const origin = getOrigin({ host }, headers());
 
   const response = await fetch(`${origin}/service-api/auth/token`, {
     method: 'POST',
