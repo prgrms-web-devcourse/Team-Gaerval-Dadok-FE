@@ -1,19 +1,9 @@
-import { ACCESS_TOKEN_STORAGE_KEY } from '@/constants/index';
-import webStorage from '@/utils/storage';
-
-const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
+import { COOKIE_KEYS } from '@/constants';
+import { getCookie } from '@/utils/cookie';
 
 const checkAuthentication = () => {
-  const accessToken = storage.get();
+  const accessToken = getCookie(COOKIE_KEYS.PUBLIC_USER_ID);
   return !!accessToken;
 };
 
-const setAuth = (newToken: string) => {
-  storage.set(newToken);
-};
-
-const removeAuth = () => {
-  storage.remove();
-};
-
-export { checkAuthentication, setAuth, removeAuth };
+export { checkAuthentication };

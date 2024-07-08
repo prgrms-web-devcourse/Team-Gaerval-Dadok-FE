@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
-import ContextProvider from '@/components/common/ContextProvider';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
+import PWAServiceWorkerProvider from '@/components/common/PWAServiceWorkerProvider';
+import ReactQueryProvider from '@/components/common/ReactQueryProvider';
+import ToastProvider from '@/components/common/Toast/ToastProvider';
 import Layout from '@/components/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
@@ -35,15 +37,19 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
-        <Layout>
-          <ContextProvider>
-            <AuthFailedErrorBoundary>{children}</AuthFailedErrorBoundary>
-          </ContextProvider>
-        </Layout>
+        <PWAServiceWorkerProvider>
+          <ToastProvider>
+            <AuthFailedErrorBoundary>
+              <ReactQueryProvider>
+                <Layout>{children}</Layout>
+              </ReactQueryProvider>
+            </AuthFailedErrorBoundary>
+          </ToastProvider>
+        </PWAServiceWorkerProvider>
       </body>
     </html>
   );
