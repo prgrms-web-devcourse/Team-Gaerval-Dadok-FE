@@ -114,15 +114,13 @@ export async function middleware(request: NextRequest) {
     if (jwtPayload) {
       response.cookies.set(SESSION_AUTH_KEY, token, {
         httpOnly: true,
-        sameSite: 'strict',
-        path: '/',
-        secure: false,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
       });
 
       if (jwtPayload.id) {
         response.cookies.set(SESSION_PUBLIC_UID_KEY, `${jwtPayload.id}`, {
-          sameSite: 'strict',
-          path: '/',
+          sameSite: 'lax',
         });
       }
     }
