@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import userAPI from '@/apis/user';
 import userKeys from '@/queries/user/key';
 
-import { deleteAuthSession } from '@/lib/auth/action';
+import { deleteAuthSession } from '@/server/session';
 import { checkAuthentication } from '@/utils/helpers';
 import { KAKAO_LOGIN_URL } from '@/constants';
 import { IconArrowRight } from '@public/icons';

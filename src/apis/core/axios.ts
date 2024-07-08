@@ -7,7 +7,7 @@ import {
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
 } from '@/utils/helpers';
-import { deleteAuthSession, setAuthSession } from '@/lib/auth/action';
+import { deleteAuthSession, setAuthSession } from '@/server/session';
 
 const options: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_HOST,
