@@ -57,7 +57,15 @@ export async function middleware(request: NextRequest) {
       headers.set('Authorization', `Bearers ${authSession.value}`);
     }
 
-    return NextResponse.rewrite(destination, { request: { headers } });
+    const response = NextResponse.rewrite(destination, {
+      request: { headers },
+    });
+
+    if (pathname === '/api/auth/logout') {
+      SESSION_COOKIES_KEYS.map(key => response.cookies.delete(key));
+    }
+
+    return response;
   }
 
   /*

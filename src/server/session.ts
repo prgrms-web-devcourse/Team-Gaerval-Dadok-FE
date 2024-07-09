@@ -76,6 +76,6 @@ export async function deleteAuthSession() {
 export async function setProfileSession(value: boolean) {
   cookies().set(SESSION_ADDED_PROFILE_KEY, JSON.stringify(value), {
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: 'lax',
   });
 }
