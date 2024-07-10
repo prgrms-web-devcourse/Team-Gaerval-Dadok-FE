@@ -119,7 +119,7 @@ const Book = ({
           src={imageUrl}
           alt={title}
           onLoadingComplete={handleOnLoadImage}
-          className=" rounded-[1px] object-cover"
+          className="rounded-[1px] object-cover"
           sizes="9.1rem"
           fill
           style={{ visibility: bookSpineColor ? 'visible' : 'hidden' }}

@@ -1,8 +1,9 @@
 'use client';
 
-import Button from '@/components/common/Button';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+import Button from '@/components/common/Button';
 
 export const ErrorPage = () => {
   const router = useRouter();

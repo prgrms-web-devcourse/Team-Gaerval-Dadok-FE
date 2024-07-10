@@ -1,7 +1,7 @@
 'use client';
 
-import { Children, ReactNode, useState } from 'react';
 import Image from 'next/image';
+import { Children, ReactNode, useState } from 'react';
 
 type AvatarSize = 'small' | 'medium' | 'large';
 interface AvatarProps {
