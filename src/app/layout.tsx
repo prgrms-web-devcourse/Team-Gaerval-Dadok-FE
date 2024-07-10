@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   viewport:
     'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   verification: {
-    google: '72kN3MWyQHuvSb8V67dVkfPUPMrw102Tm6BsvTvfKmg',
+    google: 'a9BQOn0FrycbbErhMCQ8RDJK0v9BBdJxFjAoJ84BWhY',
     other: {
       'naver-site-verification': 'd838b57100508b70db53a7d15014627456c5ac28',
     },
