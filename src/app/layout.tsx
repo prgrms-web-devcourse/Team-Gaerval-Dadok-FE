@@ -43,11 +43,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <PWAServiceWorkerProvider>
           <ToastProvider>
-            <AuthFailedErrorBoundary>
-              <ReactQueryProvider>
+            <ReactQueryProvider>
+              <AuthFailedErrorBoundary>
                 <Layout>{children}</Layout>
-              </ReactQueryProvider>
-            </AuthFailedErrorBoundary>
+              </AuthFailedErrorBoundary>
+            </ReactQueryProvider>
           </ToastProvider>
         </PWAServiceWorkerProvider>
       </body>

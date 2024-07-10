@@ -1,13 +1,14 @@
 import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
 import { AuthRefreshIgnoredError } from '@/types/customError';
-import { SERVICE_ERROR_MESSAGE } from '@/constants';
+import { SERVICE_ERROR_MESSAGE, SESSION_COOKIES_KEYS } from '@/constants';
 import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
 } from '@/utils/helpers';
 import { deleteAuthSession, setAuthSession } from '@/server/session';
+import { deleteCookie } from '@/utils/cookie';
 
 const options: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_HOST,
@@ -86,6 +87,7 @@ const updateToken = () =>
   });
 
 const removeToken = async () => {
+  SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
   await deleteAuthSession();
 };
 

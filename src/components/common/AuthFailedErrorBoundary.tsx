@@ -1,10 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-
-import { SESSION_COOKIES_KEYS } from '@/constants';
-import { deleteCookie } from '@/utils/cookie';
 import useToast from '@/components/common/Toast/useToast';
 import QueryErrorBoundaryFallback from '@/components/common/QueryErrorBoundaryFallback';
 
@@ -26,14 +24,12 @@ const AuthFailedErrorBoundary = ({
 
 export default AuthFailedErrorBoundary;
 
-const AuthFailedFallback = ({ resetErrorBoundary }: FallbackProps) => {
+const AuthFailedFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
   const { show: showToast } = useToast();
 
-  const handleError = () => {
-    SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
+  useEffect(() => {
     showToast({ message: '다시 로그인 해주세요' });
-    resetErrorBoundary();
-  };
+  }, [error, showToast]);
 
-  return <QueryErrorBoundaryFallback resetErrorBoundary={handleError} />;
+  return <QueryErrorBoundaryFallback resetErrorBoundary={resetErrorBoundary} />;
 };

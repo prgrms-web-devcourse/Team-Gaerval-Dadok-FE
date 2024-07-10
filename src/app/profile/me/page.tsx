@@ -88,11 +88,14 @@ const MyProfileForAuth = () => {
   const router = useRouter();
 
   const handleLogoutButtonClick = async () => {
-    await userAPI.logout();
-    await deleteAuthSession();
-    SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
-    queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
-    router.refresh();
+    try {
+      await userAPI.logout();
+      await deleteAuthSession();
+    } finally {
+      SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
+      queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
+      router.refresh();
+    }
   };
 
   return (
