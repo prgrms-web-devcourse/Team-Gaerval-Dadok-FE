@@ -3,8 +3,10 @@ import type { Metadata } from 'next';
 import { appleSplashScreens } from '@/constants/metadata';
 
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
-import ContextProvider from '@/components/common/ContextProvider';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
+import PWAServiceWorkerProvider from '@/components/common/PWAServiceWorkerProvider';
+import ReactQueryProvider from '@/components/common/ReactQueryProvider';
+import ToastProvider from '@/components/common/Toast/ToastProvider';
 import Layout from '@/components/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
@@ -41,11 +43,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="ko">
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <GoogleAnalytics />
-        <Layout>
-          <ContextProvider>
-            <AuthFailedErrorBoundary>{children}</AuthFailedErrorBoundary>
-          </ContextProvider>
-        </Layout>
+        <PWAServiceWorkerProvider>
+          <ToastProvider>
+            <ReactQueryProvider>
+              <AuthFailedErrorBoundary>
+                <Layout>{children}</Layout>
+              </AuthFailedErrorBoundary>
+            </ReactQueryProvider>
+          </ToastProvider>
+        </PWAServiceWorkerProvider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import AuthRefreshIgnoredError from '@/types/customError/AuthRefreshIgnoredError';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

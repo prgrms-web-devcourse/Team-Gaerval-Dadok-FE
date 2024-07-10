@@ -7,8 +7,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import userAPI from '@/apis/user';
 import userKeys from '@/queries/user/key';
 
-import { checkAuthentication, removeAuth } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL } from '@/constants';
+import { deleteAuthSession } from '@/server/session';
+import { deleteCookie } from '@/utils/cookie';
+import { checkAuthentication } from '@/utils/helpers';
+import { KAKAO_LOGIN_URL, SESSION_COOKIES_KEYS } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
@@ -86,10 +88,14 @@ const MyProfileForAuth = () => {
   const router = useRouter();
 
   const handleLogoutButtonClick = async () => {
-    await userAPI.logout();
-    removeAuth();
-    queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
-    router.refresh();
+    try {
+      await userAPI.logout();
+      await deleteAuthSession();
+    } finally {
+      SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
+      queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
+      router.refresh();
+    }
   };
 
   return (

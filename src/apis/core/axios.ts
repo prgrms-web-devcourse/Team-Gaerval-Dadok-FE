@@ -1,15 +1,15 @@
 import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
 import { AuthRefreshIgnoredError } from '@/types/customError';
-import { ACCESS_TOKEN_STORAGE_KEY, SERVICE_ERROR_MESSAGE } from '@/constants';
+import { SERVICE_ERROR_MESSAGE, SESSION_COOKIES_KEYS } from '@/constants';
 import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
 } from '@/utils/helpers';
-import webStorage from '@/utils/storage';
+import { deleteAuthSession, setAuthSession } from '@/server/session';
+import { deleteCookie } from '@/utils/cookie';
 
-const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
 const options: CreateAxiosDefaults = {
   baseURL: process.env.NEXT_HOST,
   headers: {
@@ -25,11 +25,6 @@ export const publicApi = axios.create({
 
 const requestHandler = (config: InternalAxiosRequestConfig) => {
   const { data, method } = config;
-  const accessToken = storage.get();
-
-  if (accessToken) {
-    setAxiosAuthHeader(config, accessToken);
-  }
 
   if (!data && (method === 'get' || method === 'delete')) {
     config.data = {};
@@ -51,7 +46,7 @@ const responseHandler = async (error: unknown) => {
     }
 
     if (isAuthFailedError(code)) {
-      removeToken();
+      await removeToken();
     }
   } else {
     console.error('예상하지 못한 오류가 발생했어요.\n', error);
@@ -63,12 +58,10 @@ const responseHandler = async (error: unknown) => {
 const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
   try {
     const newToken = await updateToken();
-    storage.set(newToken);
-    setAxiosAuthHeader(originRequest, newToken);
-
+    await setAuthSession(newToken);
     return await publicApi(originRequest);
   } catch (error) {
-    removeToken();
+    await removeToken();
     return Promise.reject(error);
   }
 };
@@ -93,15 +86,9 @@ const updateToken = () =>
       .finally(() => (isTokenRefreshing = false));
   });
 
-const removeToken = () => {
-  storage.remove();
-};
-
-const setAxiosAuthHeader = (
-  config: InternalAxiosRequestConfig,
-  token: string
-) => {
-  config.headers['Authorization'] = `Bearers ${token}`;
+const removeToken = async () => {
+  SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
+  await deleteAuthSession();
 };
 
 publicApi.interceptors.request.use(requestHandler);
