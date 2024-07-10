@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
+import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import ContextProvider from '@/components/common/ContextProvider';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
 import Layout from '@/components/layout/Layout';
@@ -39,6 +40,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
+        <GoogleAnalytics />
         <Layout>
           <ContextProvider>
             <AuthFailedErrorBoundary>{children}</AuthFailedErrorBoundary>
