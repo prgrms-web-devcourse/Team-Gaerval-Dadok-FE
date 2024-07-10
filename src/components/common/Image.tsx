@@ -1,21 +1,8 @@
 import NextImage from 'next/image';
+import type { ComponentPropsWithRef } from 'react';
 
-type SafeNumber = number | `${number}`;
-type ImageProps = Omit<
-  JSX.IntrinsicElements['img'],
-  'src' | 'srcSet' | 'ref' | 'alt' | 'width' | 'height' | 'loading'
-> & {
+type ImageProps = Omit<ComponentPropsWithRef<typeof NextImage>, 'src'> & {
   src: string;
-  alt: string;
-  width?: SafeNumber | undefined;
-  height?: SafeNumber | undefined;
-  fill?: boolean;
-  sizes?: string | undefined;
-  className?: string;
-  priority?: boolean;
-  loading?: 'lazy' | 'eager';
-  placeholder?: 'blur' | 'empty';
-  blurDataURL?: string;
 };
 
 const Image = ({
