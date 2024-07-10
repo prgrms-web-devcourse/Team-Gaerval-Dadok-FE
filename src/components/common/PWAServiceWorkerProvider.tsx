@@ -18,7 +18,6 @@ const PWAServiceWorkerProvider = ({
 
       try {
         registerWorker();
-        console.log('register success!');
       } catch (error) {
         console.error('register failed: ', error);
       }
