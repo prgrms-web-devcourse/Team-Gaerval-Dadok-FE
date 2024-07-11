@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 
-import { appleSplashScreens } from '@/constants/metadata';
+import {
+  appleSplashScreens,
+  navigationSchemaItems,
+} from '@/constants/metadata';
 
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
@@ -38,6 +41,12 @@ export const metadata: Metadata = {
   },
 };
 
+const navigationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: navigationSchemaItems,
+};
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
@@ -52,6 +61,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </ReactQueryProvider>
           </ToastProvider>
         </PWAServiceWorkerProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
+        />
       </body>
     </html>
   );
