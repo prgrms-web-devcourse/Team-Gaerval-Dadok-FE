@@ -10,7 +10,7 @@ import userKeys from '@/queries/user/key';
 import { deleteAuthSession } from '@/server/session';
 import { deleteCookie } from '@/utils/cookie';
 import { checkAuthentication } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL, SESSION_COOKIES_KEYS } from '@/constants';
+import { SESSION_COOKIES_KEYS } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
@@ -20,6 +20,7 @@ import Button from '@/components/common/Button';
 import Loading from '@/components/common/Loading';
 import Menu from '@/components/common/Menu';
 import TopHeader from '@/components/common/TopHeader';
+import LoginLink from '@/components/common/LoginLink';
 import BookShelf from '@/components/bookShelf/BookShelf';
 import ProfileBookShelf from '@/components/profile/bookShelf/ProfileBookShelf';
 import ProfileGroup from '@/components/profile/group/ProfileGroup';
@@ -51,9 +52,9 @@ const MyProfileForUnAuth = () => {
               카카오로 3초만에 가입할 수 있어요.
             </p>
           </div>
-          <Link href={KAKAO_LOGIN_URL}>
+          <LoginLink>
             <IconArrowRight width="20px" />
-          </Link>
+          </LoginLink>
         </div>
         <div className="flex flex-col gap-[0.6rem]">
           <div className="flex items-center justify-between">
