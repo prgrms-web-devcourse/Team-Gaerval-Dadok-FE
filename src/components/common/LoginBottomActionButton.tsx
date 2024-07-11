@@ -1,13 +1,10 @@
-import Link from 'next/link';
-
-import { KAKAO_LOGIN_URL } from '@/constants';
-
 import BottomActionButton from '@/components/common/BottomActionButton';
+import LoginLink from '@/components/common/LoginLink';
 
 const LoginBottomActionButton = () => (
-  <Link href={KAKAO_LOGIN_URL}>
+  <LoginLink>
     <BottomActionButton>로그인 및 회원가입</BottomActionButton>
-  </Link>
+  </LoginLink>
 );
 
 export default LoginBottomActionButton;

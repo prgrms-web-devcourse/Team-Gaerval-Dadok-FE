@@ -1,12 +1,10 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { IconKakao } from '@public/icons';
-import { KAKAO_LOGIN_URL } from '@/constants';
 
 import Button from '@/components/common/Button';
+import LoginLink from '@/components/common/LoginLink';
 
 const LoginPage = () => {
   return (
@@ -30,14 +28,14 @@ const LoginPage = () => {
       </article>
 
       <section className="absolute inset-x-[2rem] bottom-[calc(env(safe-area-inset-bottom)+2rem)] mx-auto flex max-w-[41rem] flex-col justify-center gap-[1rem]">
-        <Link href={KAKAO_LOGIN_URL}>
+        <LoginLink>
           <Button size="full" colorScheme="kakao">
             <div className="flex w-full items-center justify-center">
               <IconKakao className="absolute left-[2rem] w-[2.1rem]" />
               <p>카카오 로그인</p>
             </div>
           </Button>
-        </Link>
+        </LoginLink>
         <Link href="/bookarchive" className="flex justify-center">
           <Button
             size="small"
