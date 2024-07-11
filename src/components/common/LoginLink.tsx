@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { SEARCH_PARAMS_KEYS } from '@/constants/key';
+import { KAKAO_LOGIN_BASE_URL } from '@/constants/url';
 import { createQueryString } from '@/utils/url';
 
 type LoginLinkProps = Omit<ComponentPropsWithRef<typeof Link>, 'href'>;
 
 const LoginLink = ({
   children,
+  replace = true,
   ...props
 }: PropsWithChildren<LoginLinkProps>) => {
   const pathname = usePathname();
@@ -19,7 +21,11 @@ const LoginLink = ({
   });
 
   return (
-    <Link href={`${process.env.KAKAO_LOGIN_BASE_URL}${search}`} {...props}>
+    <Link
+      href={`${KAKAO_LOGIN_BASE_URL}${search}`}
+      replace={replace}
+      {...props}
+    >
       {children}
     </Link>
   );
