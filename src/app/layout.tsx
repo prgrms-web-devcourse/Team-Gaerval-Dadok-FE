@@ -1,15 +1,13 @@
 import type { Metadata } from 'next';
 
-import {
-  appleSplashScreens,
-  navigationSchemaItems,
-} from '@/constants/metadata';
+import { appleSplashScreens } from '@/constants/metadata';
 
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
 import PWAServiceWorkerProvider from '@/components/common/PWAServiceWorkerProvider';
 import ReactQueryProvider from '@/components/common/ReactQueryProvider';
 import ToastProvider from '@/components/common/Toast/ToastProvider';
+import NavigationSchemaScript from '@/components/common/NavigationSchemaScript';
 import Layout from '@/components/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
@@ -41,12 +39,6 @@ export const metadata: Metadata = {
   },
 };
 
-const navigationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  itemListElement: navigationSchemaItems,
-};
-
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
@@ -61,10 +53,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </ReactQueryProvider>
           </ToastProvider>
         </PWAServiceWorkerProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationSchema) }}
-        />
+        <NavigationSchemaScript />
       </body>
     </html>
   );
