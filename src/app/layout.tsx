@@ -7,6 +7,7 @@ import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary
 import PWAServiceWorkerProvider from '@/components/common/PWAServiceWorkerProvider';
 import ReactQueryProvider from '@/components/common/ReactQueryProvider';
 import ToastProvider from '@/components/common/Toast/ToastProvider';
+import NavigationSchemaScript from '@/components/common/NavigationSchemaScript';
 import Layout from '@/components/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
@@ -52,6 +53,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             </ReactQueryProvider>
           </ToastProvider>
         </PWAServiceWorkerProvider>
+        <NavigationSchemaScript />
       </body>
     </html>
   );
