@@ -129,8 +129,15 @@ const Book = ({
   );
 };
 
+const EmptyText = () => (
+  <p className="pb-[5.5rem] pt-[3rem] text-center text-placeholder font-body2-regular">
+    책장이 비었어요.
+  </p>
+);
+
 BookShelf.Background = Background;
 BookShelf.Info = Info;
 BookShelf.Books = Books;
+BookShelf.EmptyText = EmptyText;
 
 export default BookShelf;

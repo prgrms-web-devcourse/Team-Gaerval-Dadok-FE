@@ -63,21 +63,15 @@ const MyProfileForUnAuth = () => {
           <BookShelf>
             <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
               <BookShelf.Background />
-              <div className="pb-[5.5rem] pt-[3rem] text-center">
-                <p className="text-placeholder font-body2-regular">
-                  책장이 비었어요.
-                </p>
-              </div>
+              <BookShelf.EmptyText />
             </div>
           </BookShelf>
         </div>
         <div className="flex flex-col gap-[0.6rem]">
           <h3 className="font-body1-bold">참여한 모임</h3>
-          <div className="pb-[5.5rem] pt-[5.5rem] text-center">
-            <p className="text-placeholder font-body2-regular">
-              참여 중인 모임이 없어요.
-            </p>
-          </div>
+          <p className="py-[4rem] text-center text-placeholder font-body2-regular">
+            참여 중인 모임이 없어요.
+          </p>
         </div>
       </div>
     </>

@@ -29,7 +29,11 @@ const ProfileBookshelfPresenter = ({
       <BookShelf>
         <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
           <BookShelf.Background />
-          <BookShelf.Books books={books} />
+          {books.length > 0 ? (
+            <BookShelf.Books books={books} />
+          ) : (
+            <BookShelf.EmptyText />
+          )}
         </div>
       </BookShelf>
     </div>
