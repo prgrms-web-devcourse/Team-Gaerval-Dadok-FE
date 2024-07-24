@@ -14,7 +14,9 @@ import { IconKakao } from '@public/icons';
 
 import useToast from '@/components/common/Toast/useToast';
 import TopNavigation from '@/components/common/TopNavigation';
-import BookShelfRow from '@/components/bookShelf/BookShelfRow';
+import BookShelfRow, {
+  EmptyBookShelfRow,
+} from '@/components/bookShelf/BookShelfRow';
 import Button from '@/components/common/Button';
 import LikeButton from '@/components/common/LikeButton';
 import BackButton from '@/components/common/BackButton';
@@ -51,6 +53,7 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
 
   const { data } = useBookShelfInfoQuery(bookshelfId);
   const { isLiked, likeCount, userId, userNickname, job } = data;
+  const hasJobInfo = job.jobGroupKoreanName && job.jobNameKoreanName;
 
   const { mutate: mutateBookshelfLike } =
     useMutateBookshelfLikeQuery(bookshelfId);
@@ -81,7 +84,7 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
       </h1>
       <div className="flex items-center justify-between">
         <span className="text-black-600 font-body2-regular">
-          {`${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
+          {hasJobInfo && `${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
         </span>
         <LikeButton
           isLiked={isLiked}
@@ -120,10 +123,14 @@ const BookShelfContent = ({
 
   return isAuthenticated ? (
     <>
-      {booksData.pages.map(page =>
-        page.books.map((rowBooks, idx) => (
-          <BookShelfRow key={idx} books={rowBooks} />
-        ))
+      {booksData.pages.map((page, pageIdx) =>
+        page.books.length > 0 ? (
+          page.books.map((rowBooks, idx) => (
+            <BookShelfRow key={idx} books={rowBooks} />
+          ))
+        ) : (
+          <EmptyBookShelfRow key={pageIdx} />
+        )
       )}
       {!isFetchingNextPage && <div ref={ref} />}
     </>

@@ -3,6 +3,7 @@ import { APIBookshelfInfo } from '@/types/bookshelf';
 import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
 import bookshelfAPI from '@/apis/bookshelf';
 import bookShelfKeys from './key';
+import { getSafeNickname } from '@/utils/converter';
 
 const useBookShelfInfoQuery = <TData = APIBookshelfInfo>(
   bookshelfId: APIBookshelfInfo['bookshelfId'],
@@ -11,9 +12,10 @@ const useBookShelfInfoQuery = <TData = APIBookshelfInfo>(
   useQueryWithSuspense(
     bookShelfKeys.info(bookshelfId),
     () =>
-      bookshelfAPI
-        .getBookshelfInfo(bookshelfId)
-        .then(response => response.data),
+      bookshelfAPI.getBookshelfInfo(bookshelfId).then(({ data }) => ({
+        ...data,
+        userNickname: getSafeNickname(data.userId, data.userNickname),
+      })),
     options
   );
 
