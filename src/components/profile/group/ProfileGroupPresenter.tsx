@@ -25,18 +25,26 @@ const ProfileGroupPresenter = ({
         <IconArrowRight height="1.3rem" width="1.3rem" />
       </Link>
 
-      <ul className="relative left-0 flex w-[calc(100%+2rem)] gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem] pr-[2rem]">
-        {bookGroups.map(({ bookGroupId, title, owner, book: { imageUrl } }) => (
-          <li key={bookGroupId}>
-            <SimpleBookGroupCard
-              title={title}
-              imageSource={imageUrl}
-              isOwner={!!isGroupOwner && isGroupOwner(owner.id)}
-              bookGroupId={bookGroupId}
-            />
-          </li>
-        ))}
-      </ul>
+      {bookGroups.length > 0 ? (
+        <ul className="relative left-0 flex w-[calc(100%+2rem)] gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem] pr-[2rem]">
+          {bookGroups.map(
+            ({ bookGroupId, title, owner, book: { imageUrl } }) => (
+              <li key={bookGroupId}>
+                <SimpleBookGroupCard
+                  title={title}
+                  imageSource={imageUrl}
+                  isOwner={!!isGroupOwner && isGroupOwner(owner.id)}
+                  bookGroupId={bookGroupId}
+                />
+              </li>
+            )
+          )}
+        </ul>
+      ) : (
+        <p className="py-[4rem] text-center text-placeholder font-body2-regular">
+          참여 중인 모임이 없어요.
+        </p>
+      )}
     </div>
   );
 };
