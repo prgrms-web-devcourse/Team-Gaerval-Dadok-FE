@@ -1,14 +1,12 @@
 import { APIJob, APIJobGroup } from '@/types/job';
 import { APIUser, APIUserProfile } from '@/types/user';
 import { publicApi } from '@/apis/core/axios';
-import { AxiosRequestConfig } from 'axios';
 
 const userAPI = {
   getUserProfile: ({ userId }: { userId: APIUser['userId'] }) =>
     publicApi.get<APIUserProfile>(`/service-api/users/${userId}/profile`),
 
-  getMyProfile: (config?: AxiosRequestConfig) =>
-    publicApi.get<APIUser>('/service-api/users/me', config),
+  getMyProfile: () => publicApi.get<APIUser>('/service-api/users/me'),
 
   updateMyProfile: ({
     nickname,

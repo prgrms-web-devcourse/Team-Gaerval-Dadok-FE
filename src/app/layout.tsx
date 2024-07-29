@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
 
+import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
 import PWAServiceWorkerProvider from '@/components/common/PWAServiceWorkerProvider';
 import ReactQueryProvider from '@/components/common/ReactQueryProvider';
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   viewport:
     'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   verification: {
-    google: '72kN3MWyQHuvSb8V67dVkfPUPMrw102Tm6BsvTvfKmg',
+    google: 'a9BQOn0FrycbbErhMCQ8RDJK0v9BBdJxFjAoJ84BWhY',
     other: {
       'naver-site-verification': 'd838b57100508b70db53a7d15014627456c5ac28',
     },
@@ -37,17 +38,18 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
+        <GoogleAnalytics />
         <PWAServiceWorkerProvider>
           <ToastProvider>
-            <AuthFailedErrorBoundary>
-              <ReactQueryProvider>
+            <ReactQueryProvider>
+              <AuthFailedErrorBoundary>
                 <Layout>{children}</Layout>
-              </ReactQueryProvider>
-            </AuthFailedErrorBoundary>
+              </AuthFailedErrorBoundary>
+            </ReactQueryProvider>
           </ToastProvider>
         </PWAServiceWorkerProvider>
       </body>

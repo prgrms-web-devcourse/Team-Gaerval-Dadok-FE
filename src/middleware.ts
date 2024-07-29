@@ -41,7 +41,7 @@ export const config = {
 export async function middleware(request: NextRequest) {
   // accessToken을 담고 있는 세션 쿠키
   const authSession = request.cookies.get(SESSION_AUTH_KEY);
-
+  const uidSession = request.cookies.get(SESSION_PUBLIC_UID_KEY);
   /*
    * Server API Proxy
    */
@@ -53,7 +53,11 @@ export async function middleware(request: NextRequest) {
     const headers = new Headers(request.headers);
 
     // Authorization header 추가
-    if (authSession && !EXCLUDE_AUTH_HEADER_API.includes(pathname)) {
+    if (
+      authSession &&
+      uidSession &&
+      !EXCLUDE_AUTH_HEADER_API.includes(pathname)
+    ) {
       headers.set('Authorization', `Bearers ${authSession.value}`);
     }
 
@@ -73,16 +77,11 @@ export async function middleware(request: NextRequest) {
    * 'NEED_PROFILE_PATHS'에 포함되어 있는 경우,
    * 추가 프로필 등록 페이지로 리다이렉션
    */
-  if (authSession && NEED_PROFILE_PATHS.includes(request.nextUrl.pathname)) {
-    const isVerfied = await verifyJWT(authSession.value);
-
-    // accessToken이 유효하지 않은 경우, auth 관련 세션 쿠키 모두 제거 후 재요청
-    if (!isVerfied) {
-      const response = NextResponse.rewrite(request.url, { request });
-      SESSION_COOKIES_KEYS.map(key => response.cookies.delete(key));
-      return response;
-    }
-
+  if (
+    authSession &&
+    uidSession &&
+    NEED_PROFILE_PATHS.includes(request.nextUrl.pathname)
+  ) {
     // 프로필이 등록되었는지 여부를 저장하고 있는 세션 쿠키
     const profileSession = request.cookies.get(COOKIE_KEYS.ADDED_PROFILE_FLAG);
 
