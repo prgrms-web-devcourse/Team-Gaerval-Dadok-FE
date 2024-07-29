@@ -111,6 +111,9 @@ const BookShelfContent = ({
     isSuccess,
     isFetchingNextPage,
   } = useBookShelfBooksQuery({ bookshelfId });
+  const hasBooks = booksData && booksData.pages[0].books.length !== 0;
+  const isSingleBookshelfRow =
+    booksData && booksData.pages[0].books.length <= 1;
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -123,25 +126,30 @@ const BookShelfContent = ({
 
   return isAuthenticated ? (
     <>
-      {booksData.pages.map((page, pageIdx) =>
-        page.books.length > 0 ? (
-          page.books.map((rowBooks, idx) => (
-            <BookShelfRow key={idx} books={rowBooks} />
-          ))
-        ) : (
-          <EmptyBookShelfRow key={pageIdx} />
-        )
+      {hasBooks ? (
+        <>
+          {booksData.pages.map(page =>
+            page.books.map((rowBooks, idx) => (
+              <BookShelfRow key={idx} books={rowBooks} />
+            ))
+          )}
+          {!isFetchingNextPage && <div ref={ref} />}
+        </>
+      ) : (
+        <EmptyBookShelfRow />
       )}
-      {!isFetchingNextPage && <div ref={ref} />}
     </>
   ) : (
     <>
-      <BookShelfRow books={booksData.pages[0].books[0]} />
+      {!isSingleBookshelfRow && (
+        <BookShelfRow books={booksData.pages[0].books[0]} />
+      )}
       <DummyBookShelfRow />
       <BookShelfLoginBox bookshelfId={bookshelfId} />
     </>
   );
 };
+
 const DummyBookShelfRow = () => (
   <div className="pointer-events-none blur-sm">
     <BookShelfRow books={initialBookImageUrl} />
