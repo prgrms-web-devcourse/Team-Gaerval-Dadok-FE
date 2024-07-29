@@ -1,1 +1,2 @@
-export { default as appleSplashScreens } from './appleSplashScreens';
+export * from './appleSplashScreens';
+export * from './schema';

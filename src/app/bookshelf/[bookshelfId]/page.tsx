@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
 import type { APIBookshelf } from '@/types/bookshelf';
@@ -12,15 +11,17 @@ import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfL
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
-import { KAKAO_LOGIN_URL } from '@/constants';
 
 import useToast from '@/components/common/Toast/useToast';
 import TopNavigation from '@/components/common/TopNavigation';
-import BookShelfRow from '@/components/bookShelf/BookShelfRow';
+import BookShelfRow, {
+  EmptyBookShelfRow,
+} from '@/components/bookShelf/BookShelfRow';
 import Button from '@/components/common/Button';
 import LikeButton from '@/components/common/LikeButton';
 import BackButton from '@/components/common/BackButton';
 import ShareButton from '@/components/common/ShareButton';
+import LoginLink from '@/components/common/LoginLink';
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -52,6 +53,7 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
 
   const { data } = useBookShelfInfoQuery(bookshelfId);
   const { isLiked, likeCount, userId, userNickname, job } = data;
+  const hasJobInfo = job.jobGroupKoreanName && job.jobNameKoreanName;
 
   const { mutate: mutateBookshelfLike } =
     useMutateBookshelfLikeQuery(bookshelfId);
@@ -82,7 +84,7 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
       </h1>
       <div className="flex items-center justify-between">
         <span className="text-black-600 font-body2-regular">
-          {`${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
+          {hasJobInfo && `${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
         </span>
         <LikeButton
           isLiked={isLiked}
@@ -121,10 +123,14 @@ const BookShelfContent = ({
 
   return isAuthenticated ? (
     <>
-      {booksData.pages.map(page =>
-        page.books.map((rowBooks, idx) => (
-          <BookShelfRow key={idx} books={rowBooks} />
-        ))
+      {booksData.pages.map((page, pageIdx) =>
+        page.books.length > 0 ? (
+          page.books.map((rowBooks, idx) => (
+            <BookShelfRow key={idx} books={rowBooks} />
+          ))
+        ) : (
+          <EmptyBookShelfRow key={pageIdx} />
+        )
       )}
       {!isFetchingNextPage && <div ref={ref} />}
     </>
@@ -163,14 +169,14 @@ const BookShelfLoginBox = ({
         <br />
         인사이트를 얻을 수 있어요.
       </p>
-      <Link href={KAKAO_LOGIN_URL}>
+      <LoginLink>
         <Button colorScheme="kakao" size="full">
           <div className="flex items-center justify-center gap-[1rem]">
             <IconKakao width={16} height={'auto'} />
             <span className="font-body1-regular">카카오 로그인</span>
           </div>
         </Button>
-      </Link>
+      </LoginLink>
     </div>
   );
 };

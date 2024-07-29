@@ -1,4 +1,4 @@
-const appleSplashScreens = [
+export const appleSplashScreens = [
   {
     rel: 'apple-touch-startup-image',
     media:
@@ -228,5 +228,3 @@ const appleSplashScreens = [
     url: '/images/splash-screens/8.3__iPad_Mini_portrait.png',
   },
 ];
-
-export default appleSplashScreens;

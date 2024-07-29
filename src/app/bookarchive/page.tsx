@@ -27,7 +27,9 @@ const Contents = () => {
     enabled: isAuthenticated,
   });
 
-  return isAuthenticated ? (
+  const hasProfile = isAuthenticated && userData?.job?.jobGroupName;
+
+  return hasProfile ? (
     <BookArchiveForAuth userJobGroup={userData.job.jobGroupName} />
   ) : (
     <BookArchiveForUnAuth />
