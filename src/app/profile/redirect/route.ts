@@ -41,7 +41,7 @@ export async function GET(request: Request) {
     const data = await response.json();
     const hasProfile = Boolean(data?.nickname && data?.job?.jobGroupName);
 
-    setProfileSession(hasProfile);
+    await setProfileSession(hasProfile);
 
     if (!hasProfile) {
       const search = createQueryString({

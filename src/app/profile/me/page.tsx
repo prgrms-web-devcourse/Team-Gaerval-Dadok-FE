@@ -8,8 +8,9 @@ import userAPI from '@/apis/user';
 import userKeys from '@/queries/user/key';
 
 import { deleteAuthSession } from '@/server/session';
+import { deleteCookie } from '@/utils/cookie';
 import { checkAuthentication } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL } from '@/constants';
+import { KAKAO_LOGIN_URL, SESSION_COOKIES_KEYS } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
@@ -89,6 +90,7 @@ const MyProfileForAuth = () => {
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
     await deleteAuthSession();
+    SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
     queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
     router.refresh();
   };
