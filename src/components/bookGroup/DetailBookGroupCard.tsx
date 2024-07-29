@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
+import { getSafeNickname } from '@/utils/converter';
+
 import BookGroupStatus from '@/components/bookGroup/BookGroupStatus';
 import Badge from '@/components/common/Badge';
 import Avatar from '@/components/common/Avatar';
@@ -11,7 +13,7 @@ interface DetailBookGroupCardProps {
   description: string;
   bookImageSrc: string;
   date: { start: string; end: string };
-  owner: { name: string; profileImageSrc: string };
+  owner: { id: number; name: string; profileImageSrc: string };
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
@@ -43,7 +45,7 @@ const DetailBookGroupCard = ({
             <Duration start={date.start} end={date.end} />
             <div className="flex justify-between">
               <Owner
-                name={owner.name}
+                name={getSafeNickname(owner.id, owner.name)}
                 profileImageSrc={owner.profileImageSrc}
               />
               <div className="flex gap-[0.5rem]">

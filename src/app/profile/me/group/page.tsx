@@ -54,6 +54,7 @@ const UserGroupContent = () => {
               bookImageSrc={book.imageUrl}
               date={{ start: startDate, end: endDate }}
               owner={{
+                id: owner.id,
                 name: owner.nickname,
                 profileImageSrc: owner.profileUrl,
               }}
