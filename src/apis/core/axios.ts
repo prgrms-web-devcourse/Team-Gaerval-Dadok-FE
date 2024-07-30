@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
 import { AuthRefreshIgnoredError } from '@/types/customError';
@@ -6,6 +7,7 @@ import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
+  isNotFoundError,
 } from '@/utils/helpers';
 import { deleteAuthSession, setAuthSession } from '@/server/session';
 import { deleteCookie } from '@/utils/cookie';
@@ -40,6 +42,10 @@ const responseHandler = async (error: unknown) => {
     const message = SERVICE_ERROR_MESSAGE[code];
 
     console.warn(code, message);
+
+    if (isNotFoundError(code)) {
+      notFound();
+    }
 
     if (originRequest && isAuthRefreshError(code)) {
       return silentRefresh(originRequest);

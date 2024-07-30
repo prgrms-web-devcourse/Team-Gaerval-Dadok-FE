@@ -15,6 +15,8 @@ const isAuthFailedError = (code: ServiceErrorCode) =>
 
 const isAuthRefreshError = (code: ServiceErrorCode) => code === 'A4';
 
+const isNotFoundError = (code: ServiceErrorCode) => code === 'C1';
+
 /**  axios 에러 응답에 custom error code가 포함되어 있는지 확인하며, 이를 보장하는 타입 가드 함수입니다. */
 const isAxiosErrorWithCustomCode = (
   error: unknown
@@ -28,4 +30,9 @@ const isAxiosErrorWithCustomCode = (
   );
 };
 
-export { isAuthFailedError, isAuthRefreshError, isAxiosErrorWithCustomCode };
+export {
+  isAuthFailedError,
+  isAuthRefreshError,
+  isNotFoundError,
+  isAxiosErrorWithCustomCode,
+};
