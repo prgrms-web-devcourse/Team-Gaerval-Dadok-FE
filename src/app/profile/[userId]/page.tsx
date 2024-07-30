@@ -1,6 +1,10 @@
 'use client';
 
-import { APIUser } from '@/types/user';
+import { notFound } from 'next/navigation';
+import { ErrorBoundary } from 'react-error-boundary';
+
+import type { APIUser } from '@/types/user';
+
 import BackButton from '@/components/common/BackButton';
 import ShareButton from '@/components/common/ShareButton';
 import TopNavigation from '@/components/common/TopNavigation';
@@ -13,7 +17,7 @@ const UserProfilePage = ({
   params: { userId: APIUser['userId'] };
 }) => {
   return (
-    <>
+    <ErrorBoundary fallbackRender={notFound}>
       <TopNavigation>
         <TopNavigation.LeftItem>
           <BackButton />
@@ -26,7 +30,7 @@ const UserProfilePage = ({
         <ProfileInfo userId={userId} />
         <ProfileBookShelf userId={userId} />
       </div>
-    </>
+    </ErrorBoundary>
   );
 };
 
