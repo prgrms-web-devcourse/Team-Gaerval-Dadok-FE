@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { appleSplashScreens } from '@/constants/metadata';
+import { DEPLOYMENT_URL } from '@/constants/url';
 
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import AuthFailedErrorBoundary from '@/components/common/AuthFailedErrorBoundary';
@@ -14,7 +15,7 @@ import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`${process.env.NEXT_HOST}`),
+  metadataBase: new URL(`${DEPLOYMENT_URL}`),
   title: {
     template: '%s | 다독다독',
     default: '다독다독',
