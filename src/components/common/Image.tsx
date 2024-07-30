@@ -21,8 +21,8 @@ const Image = ({
 }: ImageProps) => {
   const params = new URLSearchParams({ src });
 
-  if (width) params.append('width', width.toString());
-  if (height) params.append('height', height.toString());
+  // if (width) params.append('width', width.toString());
+  // if (height) params.append('height', height.toString());
 
   const optimizedSrc = `/api/imageOptimize?${params.toString()}`;
 
