@@ -1,5 +1,6 @@
 'use client';
 
+import { notFound } from 'next/navigation';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -54,6 +55,10 @@ const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
   const { data } = useBookShelfInfoQuery(bookshelfId);
   const { isLiked, likeCount, userId, userNickname, job } = data;
   const hasJobInfo = job.jobGroupKoreanName && job.jobNameKoreanName;
+
+  if (!data.bookshelfId) {
+    notFound();
+  }
 
   const { mutate: mutateBookshelfLike } =
     useMutateBookshelfLikeQuery(bookshelfId);
