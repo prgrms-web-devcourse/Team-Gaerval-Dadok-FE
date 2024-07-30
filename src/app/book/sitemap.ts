@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import type { APIRecommendedBookshelf } from '@/types/bookshelf';
 import type { APIBook } from '@/types/book';
+import { DEPLOYMENT_URL } from '@/constants/url';
 
 const options = {
   headers: {
@@ -41,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const sitemap = ['search', ...booksId];
 
   return sitemap.map(value => ({
-    url: `${process.env.NEXT_HOST}/book/${value}`,
+    url: `${DEPLOYMENT_URL}/book/${value}`,
     lastModified: new Date(),
   }));
 }
