@@ -14,7 +14,7 @@ import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`${process.env.NEXT_DEPLOYMENT_URL}`),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_PRODUCTION_URL}`),
   title: {
     template: '%s | 다독다독',
     default: '다독다독',

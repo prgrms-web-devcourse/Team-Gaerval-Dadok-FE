@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const bookshelves = await bookshelvesSitemap();
 
   return bookshelves.map(({ bookshelfId }) => ({
-    url: `${process.env.NEXT_DEPLOYMENT_URL}/bookshelf/${bookshelfId}`,
+    url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/bookshelf/${bookshelfId}`,
     lastModified: new Date(),
   }));
 }
