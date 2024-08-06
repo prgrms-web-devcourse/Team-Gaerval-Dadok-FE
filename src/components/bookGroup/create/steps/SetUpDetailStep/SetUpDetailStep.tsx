@@ -7,7 +7,6 @@ import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
 
 import withScrollLockOnFocus from '@/hocs/withScrollLockOnFocus';
-import FunnelBottomActionButton from '@/components/common/FunnelBottomActionButton';
 import DatePicker from '@/components/common/DatePicker';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import Input from '@/components/common/Input';
@@ -16,6 +15,8 @@ import RadioButton from '@/components/common/RadioButton';
 import Switch from '@/components/common/Switch';
 import TextArea from '@/components/common/TextArea';
 import BookInfoCard from '@/components/bookGroup/BookInfoCard';
+import StickyFooter from '@/components/common/StickyFooter';
+import Button from '@/components/common/Button';
 
 interface SetUpDetailStepProps extends MoveFunnelStepProps {
   goToSelectBookStep?: () => void;
@@ -57,17 +58,24 @@ const SetUpDetailStep = ({
 
       <SwitchIsPublicField name={'isPublic'} />
 
-      <FunnelBottomActionButton>
-        <FunnelBottomActionButton.Previous onClick={onPrevStep}>
+      <StickyFooter>
+        <Button
+          colorScheme="grey"
+          size="large"
+          className="grow-[1]"
+          onClick={onPrevStep}
+        >
           이전
-        </FunnelBottomActionButton.Previous>
-        <FunnelBottomActionButton.Submit
+        </Button>
+        <Button
+          size="large"
+          className="grow-[5]"
           onClick={handleSubmit(() => onNextStep?.())}
           disabled={!isValid}
         >
           다음
-        </FunnelBottomActionButton.Submit>
-      </FunnelBottomActionButton>
+        </Button>
+      </StickyFooter>
     </article>
   );
 };

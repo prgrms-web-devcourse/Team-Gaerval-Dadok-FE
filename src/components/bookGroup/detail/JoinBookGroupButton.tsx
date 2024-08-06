@@ -1,7 +1,8 @@
 import { usePathname, useRouter } from 'next/navigation';
 
 import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import StickyFooter from '@/components/common/StickyFooter';
+import Button from '@/components/common/Button';
 
 const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
   const router = useRouter();
@@ -24,16 +25,20 @@ const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
 
   if (isExpired) {
     return (
-      <BottomActionButton colorScheme="grey" disabled>
-        모임이 종료되었어요.
-      </BottomActionButton>
+      <StickyFooter>
+        <Button size="full" colorScheme="grey" disabled>
+          모임이 종료되었어요.
+        </Button>
+      </StickyFooter>
     );
   }
 
   return (
-    <BottomActionButton onClick={handleButtonClick}>
-      참여하기
-    </BottomActionButton>
+    <StickyFooter>
+      <Button size="full" onClick={handleButtonClick}>
+        참여하기
+      </Button>
+    </StickyFooter>
   );
 };
 
