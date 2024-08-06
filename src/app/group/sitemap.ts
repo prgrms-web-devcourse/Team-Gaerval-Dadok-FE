@@ -32,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const bookGroups = await bookGroupSitemap();
 
   return bookGroups.map(bookGroupId => ({
-    url: `${process.env.NEXT_PRODUCTION_URL}/group/${bookGroupId}`,
+    url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/group/${bookGroupId}`,
     lastModified: new Date(),
   }));
 }
