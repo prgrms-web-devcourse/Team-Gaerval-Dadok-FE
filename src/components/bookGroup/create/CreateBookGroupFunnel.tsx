@@ -12,7 +12,7 @@ import { getTodayDate } from '@/utils/date';
 import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
-import { IconArrowLeft } from '@public/icons';
+import { IconClose } from '@public/icons';
 import TopNavigation from '@/components/common/TopNavigation';
 import Stepper from '@/components/common/Stepper';
 import {
@@ -57,18 +57,6 @@ const CreateBookGroupFunnel = () => {
       hasJoinPassword: 'false',
     },
   });
-
-  const handleBackButtonClick = () => {
-    const currentStepIndex = FUNNEL_STEPS.indexOf(currentStep);
-
-    if (currentStepIndex === 0 || currentStepIndex === -1) {
-      router.back();
-    } else {
-      setStep(FUNNEL_STEPS[currentStepIndex - 1]);
-    }
-
-    return;
-  };
 
   const handleCreateGroupSubmit: SubmitHandler<
     CreateBookGroupFormValues
@@ -118,7 +106,7 @@ const CreateBookGroupFunnel = () => {
     <FormProvider {...methods}>
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <IconArrowLeft onClick={handleBackButtonClick} />
+          <IconClose onClick={() => router.back()} />
         </TopNavigation.LeftItem>
       </TopNavigation>
 
