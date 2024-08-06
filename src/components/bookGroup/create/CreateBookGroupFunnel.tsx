@@ -64,7 +64,7 @@ const CreateBookGroupFunnel = () => {
 
   const handleCloseButtonClick = () => {
     onClose();
-    router.push('/group');
+    router.back();
   };
 
   const handleCreateGroupSubmit: SubmitHandler<
