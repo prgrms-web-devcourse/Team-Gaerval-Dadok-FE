@@ -23,10 +23,11 @@ const MenuContext = createContext({} as MenuContextValue);
 
 const Menu = ({ children }: { children?: React.ReactNode }) => {
   const [isOpen, setOpen] = useState(false);
+
   const toggle = useCallback(() => setOpen(prev => !prev), []);
-  const value = useMemo(() => ({ isOpen, toggle }), [isOpen, toggle]);
 
   const ref = useOutsideClickRef<HTMLDivElement>(() => setOpen(false));
+  const value = useMemo(() => ({ isOpen, toggle }), [isOpen, toggle]);
 
   return (
     <div className="relative" ref={ref}>
@@ -50,6 +51,7 @@ const Toggle = () => {
 
 const BottomSheetList = ({ children }: { children?: React.ReactNode }) => {
   const { isOpen, toggle } = useContext(MenuContext);
+
   return (
     <BottomSheet isShow={isOpen} onClose={toggle}>
       {children}
@@ -58,13 +60,18 @@ const BottomSheetList = ({ children }: { children?: React.ReactNode }) => {
 };
 
 const DropdownList = ({ children }: { children?: React.ReactNode }) => {
-  const { isOpen } = useContext(MenuContext);
+  const { isOpen, toggle } = useContext(MenuContext);
+
   return (
     <>
       {isOpen && (
-        <ul className="absolute right-0 top-[3rem] z-50 min-w-[10rem] rounded-[0.5rem] bg-white py-[0.5rem] shadow-[0_0_15px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.1)]">
-          {children}
-        </ul>
+        <>
+          {/** overlay */}
+          <div className="fixed inset-0 z-50 bg-overlay/60" onClick={toggle} />
+          <ul className="absolute right-0 top-[3rem] z-50 min-w-[10rem] rounded-[0.5rem] bg-white py-[0.5rem] shadow-[0_0_15px_rgba(0,0,0,0.05),0_1px_2px_rgba(0,0,0,0.1)]">
+            {children}
+          </ul>
+        </>
       )}
     </>
   );
