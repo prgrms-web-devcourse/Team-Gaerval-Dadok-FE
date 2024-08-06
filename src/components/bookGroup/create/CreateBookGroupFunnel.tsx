@@ -34,7 +34,7 @@ const steps = [
   { label: '모임이름' },
   { label: '모임정보' },
   { label: '가입유형' },
-];
+] as const;
 
 const CreateBookGroupFunnel = () => {
   const router = useRouter();
@@ -126,16 +126,21 @@ const CreateBookGroupFunnel = () => {
             <SelectBookStep onNextStep={() => setStep('EnterTitle')} />
           </Funnel.Step>
           <Funnel.Step name="EnterTitle">
-            <EnterTitleStep onNextStep={() => setStep('SetUpDetail')} />
+            <EnterTitleStep
+              onPrevStep={() => setStep('SelectBook')}
+              onNextStep={() => setStep('SetUpDetail')}
+            />
           </Funnel.Step>
           <Funnel.Step name="SetUpDetail">
             <SetUpDetailStep
-              goToSelectBookStep={() => setStep('SelectBook')}
+              onPrevStep={() => setStep('EnterTitle')}
               onNextStep={() => setStep('SelectJoinType')}
+              goToSelectBookStep={() => setStep('SelectBook')}
             />
           </Funnel.Step>
           <Funnel.Step name="SelectJoinType">
             <SelectJoinTypeStep
+              onPrevStep={() => setStep('SetUpDetail')}
               onSubmit={methods.handleSubmit(handleCreateGroupSubmit)}
             />
           </Funnel.Step>

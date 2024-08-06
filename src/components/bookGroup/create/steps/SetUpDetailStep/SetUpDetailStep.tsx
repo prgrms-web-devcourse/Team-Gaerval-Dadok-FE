@@ -7,7 +7,7 @@ import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
 
 import withScrollLockOnFocus from '@/hocs/withScrollLockOnFocus';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import FunnelBottomActionButton from '@/components/common/FunnelBottomActionButton';
 import DatePicker from '@/components/common/DatePicker';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import Input from '@/components/common/Input';
@@ -28,6 +28,7 @@ interface SetUpDetailStepProps extends MoveFunnelStepProps {
 
 const SetUpDetailStep = ({
   goToSelectBookStep,
+  onPrevStep,
   onNextStep,
 }: SetUpDetailStepProps) => {
   const {
@@ -56,13 +57,17 @@ const SetUpDetailStep = ({
 
       <SwitchIsPublicField name={'isPublic'} />
 
-      <BottomActionButton
-        type="submit"
-        disabled={!isValid}
-        onClick={handleSubmit(() => onNextStep?.())}
-      >
-        다음
-      </BottomActionButton>
+      <FunnelBottomActionButton>
+        <FunnelBottomActionButton.Previous onClick={onPrevStep}>
+          이전
+        </FunnelBottomActionButton.Previous>
+        <FunnelBottomActionButton.Submit
+          onClick={handleSubmit(() => onNextStep?.())}
+          disabled={!isValid}
+        >
+          다음
+        </FunnelBottomActionButton.Submit>
+      </FunnelBottomActionButton>
     </article>
   );
 };

@@ -6,9 +6,9 @@ import type { EnterTitleStepFormValues } from '@/components/bookGroup/create/typ
 import useRemoveVerticalScroll from '@/hooks/useRemoveVerticalScroll';
 
 import { TitleField } from '@/components/bookGroup/create/steps/EnterTitleStep/fields';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import FunnelBottomActionButton from '@/components/common/FunnelBottomActionButton';
 
-const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
+const EnterTitleStep = ({ onPrevStep, onNextStep }: MoveFunnelStepProps) => {
   const {
     handleSubmit,
     formState: { isValid },
@@ -25,13 +25,17 @@ const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
         <TitleField name="title" />
       </section>
 
-      <BottomActionButton
-        type="submit"
-        disabled={!isValid}
-        onClick={handleSubmit(() => onNextStep?.())}
-      >
-        다음
-      </BottomActionButton>
+      <FunnelBottomActionButton>
+        <FunnelBottomActionButton.Previous onClick={onPrevStep}>
+          이전
+        </FunnelBottomActionButton.Previous>
+        <FunnelBottomActionButton.Submit
+          onClick={handleSubmit(() => onNextStep?.())}
+          disabled={!isValid}
+        >
+          다음
+        </FunnelBottomActionButton.Submit>
+      </FunnelBottomActionButton>
     </article>
   );
 };

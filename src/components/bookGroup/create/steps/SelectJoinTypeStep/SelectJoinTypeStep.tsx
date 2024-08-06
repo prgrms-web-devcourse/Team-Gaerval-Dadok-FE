@@ -7,12 +7,12 @@ import {
   JoinPasswordFieldset,
   JoinTypeFieldset,
 } from '@/components/bookGroup/create/steps/SelectJoinTypeStep/fields';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import FunnelBottomActionButton from '@/components/common/FunnelBottomActionButton';
 
 export type JoinTypeStepFieldName = keyof SelectJoinTypeStepFormValues;
 export type JoinTypeStepFieldProp = { name: JoinTypeStepFieldName };
 
-const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
+const SelectJoinTypeStep = ({ onPrevStep, onSubmit }: MoveFunnelStepProps) => {
   const {
     handleSubmit,
     formState: { isValid },
@@ -35,13 +35,17 @@ const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
         </JoinPasswordFieldset>
       </section>
 
-      <BottomActionButton
-        type="submit"
-        disabled={!isValid}
-        onClick={onSubmit && handleSubmit(onSubmit)}
-      >
-        독서모임 만들기
-      </BottomActionButton>
+      <FunnelBottomActionButton>
+        <FunnelBottomActionButton.Previous onClick={onPrevStep}>
+          이전
+        </FunnelBottomActionButton.Previous>
+        <FunnelBottomActionButton.Submit
+          onClick={onSubmit && handleSubmit(onSubmit)}
+          disabled={!isValid}
+        >
+          독서모임 만들기
+        </FunnelBottomActionButton.Submit>
+      </FunnelBottomActionButton>
     </article>
   );
 };
