@@ -22,7 +22,12 @@ const REDIRECT_SEARCH_KEY = SEARCH_PARAMS_KEYS.REDIRECT_PATHNAME;
 const EXCLUDE_AUTH_HEADER_API = ['/api/auth/token'];
 
 // 추가 프로필 등록이 반드시 필요한 path
-const NEED_PROFILE_PATHS = ['/bookarchive', '/profile/me', '/profile/me/edit'];
+const NEED_PROFILE_PATHS = [
+  '/bookarchive',
+  '/profile/me',
+  '/profile/me/edit',
+  '/group/create',
+];
 
 export const config = {
   matcher: [
