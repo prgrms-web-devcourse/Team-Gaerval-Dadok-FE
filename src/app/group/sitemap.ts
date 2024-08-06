@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
 import type { APIGroupPagination } from '@/types/group';
-import { DEPLOYMENT_URL } from '@/constants/url';
 
 const options = {
   headers: {
@@ -33,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const bookGroups = await bookGroupSitemap();
 
   return bookGroups.map(bookGroupId => ({
-    url: `${DEPLOYMENT_URL}/group/${bookGroupId}`,
+    url: `${process.env.NEXT_DEPLOYMENT_URL}/group/${bookGroupId}`,
     lastModified: new Date(),
   }));
 }

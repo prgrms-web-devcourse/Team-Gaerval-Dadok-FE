@@ -4,5 +4,3 @@ export const DATA_URL = {
 };
 
 export const KAKAO_LOGIN_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
-
-export const DEPLOYMENT_URL = 'https://dev.dadok.app';

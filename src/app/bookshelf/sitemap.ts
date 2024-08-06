@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
 import type { APIRecommendedBookshelf } from '@/types/bookshelf';
-import { DEPLOYMENT_URL } from '@/constants/url';
 
 const options = {
   headers: {
@@ -35,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const bookshelves = await bookshelvesSitemap();
 
   return bookshelves.map(({ bookshelfId }) => ({
-    url: `${DEPLOYMENT_URL}/bookshelf/${bookshelfId}`,
+    url: `${process.env.NEXT_DEPLOYMENT_URL}/bookshelf/${bookshelfId}`,
     lastModified: new Date(),
   }));
 }
