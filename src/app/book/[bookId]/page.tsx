@@ -16,12 +16,13 @@ import { SERVICE_ERROR_MESSAGE } from '@/constants';
 import Skeleton from '@/components/common/Skeleton';
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
 import TopNavigation from '@/components/common/TopNavigation';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import StickyFooter from '@/components/common/StickyFooter';
 import LoginBottomActionButton from '@/components/common/LoginBottomActionButton';
 import CommentDrawer from '@/components/comment/CommentDrawer';
 import BackButton from '@/components/common/BackButton';
 import BookInfo, { BookInfoSkeleton } from '@/components/book/detail/BookInfo';
 import BookCommentList from '@/components/comment/BookCommentList';
+import Button from '@/components/common/Button';
 
 const BookDetailPage = ({
   params: { bookId },
@@ -125,9 +126,11 @@ const AddBookCommentButton = ({ bookId }: { bookId: APIBook['bookId'] }) => {
 
   return (
     <>
-      <BottomActionButton onClick={onDrawerOpen}>
-        코멘트 작성하기
-      </BottomActionButton>
+      <StickyFooter>
+        <Button size="full" onClick={onDrawerOpen}>
+          코멘트 작성하기
+        </Button>
+      </StickyFooter>
       <CommentDrawer
         isOpen={isDrawerOpen}
         onClose={onDrawerClose}
