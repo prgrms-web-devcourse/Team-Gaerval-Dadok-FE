@@ -33,6 +33,7 @@ const SelectBookStep = ({ onNextStep }: MoveFunnelStepProps) => {
       </h2>
 
       <Input
+        type="search"
         placeholder="책 제목, 작가를 검색해보세요"
         inputStyle="line"
         leftIconType="search"

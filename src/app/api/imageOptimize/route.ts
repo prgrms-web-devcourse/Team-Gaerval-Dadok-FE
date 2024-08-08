@@ -8,8 +8,8 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
   const src = searchParams.get('src');
-  const width = searchParams.get('width');
-  const height = searchParams.get('height');
+  // const width = searchParams.get('width');
+  // const height = searchParams.get('height');
 
   if (!src || typeof src !== 'string') {
     return new NextResponse('Missing or invalid "src" query parameter', {
@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  const widthInt = width ? parseInt(width as string, 10) : null;
-  const heightInt = height ? parseInt(height as string, 10) : null;
+  // const widthInt = width ? parseInt(width as string, 10) : null;
+  // const heightInt = height ? parseInt(height as string, 10) : null;
   const isGif = src.endsWith('.gif');
 
   const getImageBuffer = async () => {
@@ -50,10 +50,10 @@ export async function GET(request: NextRequest) {
       ? sharp(imageBuffer, { animated: true }).gif()
       : sharp(imageBuffer).webp();
 
-    // 이미지 리사이징
-    if (widthInt || heightInt) {
-      image.resize(widthInt, heightInt);
-    }
+    // // 이미지 리사이징
+    // if (widthInt || heightInt) {
+    //   image.resize(widthInt, heightInt);
+    // }
 
     const optimizedImageBuffer = await image.toBuffer();
 

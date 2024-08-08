@@ -7,14 +7,17 @@ import type { CreateBookGroupFormValues } from '@/components/bookGroup/create/ty
 import useCreateBookGroupMutation from '@/queries/group/useCreateBookGroupMutation';
 
 import { useFunnel } from '@/hooks/useFunnel';
+import useDisclosure from '@/hooks/useDisclosure';
 import useToast from '@/components/common/Toast/useToast';
 import { getTodayDate } from '@/utils/date';
 import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 
-import { IconArrowLeft } from '@public/icons';
+import { IconClose } from '@public/icons';
 import TopNavigation from '@/components/common/TopNavigation';
 import Stepper from '@/components/common/Stepper';
+import Modal from '@/components/common/Modal';
+import Button from '@/components/common/Button';
 import {
   EnterTitleStep,
   SelectBookStep,
@@ -34,7 +37,7 @@ const steps = [
   { label: '모임이름' },
   { label: '모임정보' },
   { label: '가입유형' },
-];
+] as const;
 
 const CreateBookGroupFunnel = () => {
   const router = useRouter();
@@ -44,6 +47,7 @@ const CreateBookGroupFunnel = () => {
   const stepIndex = FUNNEL_STEPS.indexOf(currentStep);
   const activeStep = stepIndex !== -1 ? stepIndex : 0;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { show: showToast } = useToast();
   const { mutate } = useCreateBookGroupMutation();
 
@@ -58,16 +62,9 @@ const CreateBookGroupFunnel = () => {
     },
   });
 
-  const handleBackButtonClick = () => {
-    const currentStepIndex = FUNNEL_STEPS.indexOf(currentStep);
-
-    if (currentStepIndex === 0 || currentStepIndex === -1) {
-      router.back();
-    } else {
-      setStep(FUNNEL_STEPS[currentStepIndex - 1]);
-    }
-
-    return;
+  const handleCloseButtonClick = () => {
+    onClose();
+    router.back();
   };
 
   const handleCreateGroupSubmit: SubmitHandler<
@@ -118,9 +115,15 @@ const CreateBookGroupFunnel = () => {
     <FormProvider {...methods}>
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <IconArrowLeft onClick={handleBackButtonClick} />
+          <IconClose onClick={onOpen} />
         </TopNavigation.LeftItem>
       </TopNavigation>
+
+      <FunnelCloseModal
+        isOpen={isOpen}
+        onClose={onClose}
+        handleSubmit={handleCloseButtonClick}
+      />
 
       <div className="sticky top-[5.4rem] z-10 -ml-[2rem] w-[calc(100%+4rem)] bg-white px-[2rem] pb-[3rem] pt-[1rem]">
         <div className="relative left-1/2 w-[98%] -translate-x-1/2 ">
@@ -138,16 +141,21 @@ const CreateBookGroupFunnel = () => {
             <SelectBookStep onNextStep={() => setStep('EnterTitle')} />
           </Funnel.Step>
           <Funnel.Step name="EnterTitle">
-            <EnterTitleStep onNextStep={() => setStep('SetUpDetail')} />
+            <EnterTitleStep
+              onPrevStep={() => setStep('SelectBook')}
+              onNextStep={() => setStep('SetUpDetail')}
+            />
           </Funnel.Step>
           <Funnel.Step name="SetUpDetail">
             <SetUpDetailStep
-              goToSelectBookStep={() => setStep('SelectBook')}
+              onPrevStep={() => setStep('EnterTitle')}
               onNextStep={() => setStep('SelectJoinType')}
+              goToSelectBookStep={() => setStep('SelectBook')}
             />
           </Funnel.Step>
           <Funnel.Step name="SelectJoinType">
             <SelectJoinTypeStep
+              onPrevStep={() => setStep('SetUpDetail')}
               onSubmit={methods.handleSubmit(handleCreateGroupSubmit)}
             />
           </Funnel.Step>
@@ -158,3 +166,32 @@ const CreateBookGroupFunnel = () => {
 };
 
 export default CreateBookGroupFunnel;
+
+const FunnelCloseModal = ({
+  isOpen,
+  onClose,
+  handleSubmit,
+}: {
+  isOpen: boolean;
+  onClose?: () => void;
+  handleSubmit?: () => void;
+}) => {
+  return (
+    <Modal isOpen={isOpen} onClose={() => onClose?.()}>
+      <div className="text-lg font-bold">
+        독서모임 만들기를 그만할까요?
+        <p className="text-xs font-normal text-black-500">
+          작성한 내용은 저장되지 않아요.
+        </p>
+      </div>
+      <div className="flex justify-end gap-[1rem]">
+        <Button onClick={onClose} fill={false} colorScheme="grey" size="small">
+          취소
+        </Button>
+        <Button onClick={handleSubmit} size="small">
+          그만두기
+        </Button>
+      </div>
+    </Modal>
+  );
+};
