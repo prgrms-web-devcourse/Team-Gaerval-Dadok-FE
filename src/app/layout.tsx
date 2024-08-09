@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: '다독다독',
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     startupImage: appleSplashScreens,
   },
 };
