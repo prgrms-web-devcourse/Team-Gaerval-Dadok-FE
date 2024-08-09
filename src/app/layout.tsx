@@ -33,7 +33,9 @@ export const metadata: Metadata = {
     { rel: 'icon', url: '/favicon.ico' },
   ],
   appleWebApp: {
+    capable: true,
     title: '다독다독',
+    statusBarStyle: 'default',
     startupImage: appleSplashScreens,
   },
 };
