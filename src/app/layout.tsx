@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     default: '다독다독',
   },
   description: '책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼',
-  themeColor: '#FFFFFF',
   viewport:
     'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
   verification: {
@@ -34,9 +33,7 @@ export const metadata: Metadata = {
     { rel: 'icon', url: '/favicon.ico' },
   ],
   appleWebApp: {
-    capable: true,
     title: '다독다독',
-    statusBarStyle: 'default',
     startupImage: appleSplashScreens,
   },
 };
