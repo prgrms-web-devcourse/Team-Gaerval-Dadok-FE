@@ -2,6 +2,8 @@
   "name": "다독다독",
   "short_name": "다독다독",
   "description": "책에 대한 인사이트를 공유하고 소통하는 독서 소셜 플랫폼",
+  "theme_color": "#FFA436",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
