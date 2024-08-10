@@ -62,15 +62,14 @@ const BookSearchPage = () => {
 
   return (
     <>
-      <div
+      <TopHeader
+        text={'Discover'}
         className={`transition duration-500 ${
           watchedKeyword
             ? '-translate-y-[5.8rem] opacity-0'
             : 'translate-y-0 opacity-100'
         }`}
-      >
-        <TopHeader text={'Discover'} />
-      </div>
+      />
       <article
         className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
           watchedKeyword ? '-translate-y-[5.8rem]' : 'translate-y-0'
