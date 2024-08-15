@@ -148,10 +148,10 @@ const CommentActionMenu = ({
     <>
       <Menu>
         <Menu.Toggle />
-        <Menu.DropdownList>
+        <Menu.BottomSheetList>
           <Menu.Item onSelect={onDrawerOpen}>수정하기</Menu.Item>
           <Menu.Item onSelect={onModalOpen}>삭제하기</Menu.Item>
-        </Menu.DropdownList>
+        </Menu.BottomSheetList>
       </Menu>
       <EditCommentDrawer
         isOpen={isDrawerOpen}
