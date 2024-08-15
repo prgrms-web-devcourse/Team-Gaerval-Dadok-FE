@@ -10,6 +10,8 @@ import userKeys from '@/queries/user/key';
 import { deleteAuthSession } from '@/server/session';
 import { deleteCookie } from '@/utils/cookie';
 import { checkAuthentication } from '@/utils/helpers';
+import useIsScrollAtTop from '@/hooks/useIsScrollAtTop';
+
 import { SESSION_COOKIES_KEYS } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
@@ -30,6 +32,7 @@ const USER_ID = 'me';
 
 const MyProfilePage = () => {
   const isAuthenticated = checkAuthentication();
+
   return (
     <SSRSafeSuspense fallback={<Loading fullpage />}>
       {isAuthenticated ? <MyProfileForAuth /> : <MyProfileForUnAuth />}
@@ -38,9 +41,11 @@ const MyProfilePage = () => {
 };
 
 const MyProfileForUnAuth = () => {
+  const { isScrollAtTop } = useIsScrollAtTop();
+
   return (
     <>
-      <TopHeader text="Profile" />
+      <TopHeader text="Profile" blur={!isScrollAtTop} />
       <div className="flex flex-col gap-[3rem]">
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
@@ -81,6 +86,7 @@ const MyProfileForUnAuth = () => {
 const MyProfileForAuth = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { isScrollAtTop } = useIsScrollAtTop();
 
   const handleLogoutButtonClick = async () => {
     try {
@@ -95,7 +101,7 @@ const MyProfileForAuth = () => {
 
   return (
     <>
-      <TopHeader text="Profile">
+      <TopHeader text="Profile" blur={!isScrollAtTop}>
         <Menu>
           <Menu.Toggle />
           <Menu.DropdownList>

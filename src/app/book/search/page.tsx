@@ -57,8 +57,8 @@ const BookSearchPage = () => {
     }
   }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
-  /* TopHeader가 사라졌을 때 input의 위치 top: 5.8rem */
-  const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
+  /* TopHeader가 사라졌을 때 input의 위치 top: 6.15rem */
+  const inputPositionClasses = watchedKeyword && 'sticky top-[6.15rem]';
 
   return (
     <>
@@ -66,13 +66,13 @@ const BookSearchPage = () => {
         text={'Discover'}
         className={`transition duration-500 ${
           watchedKeyword
-            ? '-translate-y-[5.8rem] opacity-0'
+            ? '-translate-y-[6.15rem] opacity-0'
             : 'translate-y-0 opacity-100'
         }`}
       />
       <article
         className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
-          watchedKeyword ? '-translate-y-[5.8rem]' : 'translate-y-0'
+          watchedKeyword ? '-translate-y-[6.15rem]' : 'translate-y-0'
         }`}
       >
         <Input
