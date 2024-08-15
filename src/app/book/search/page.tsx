@@ -63,7 +63,7 @@ const BookSearchPage = () => {
 
   /* 검색어가 입력되었을 때 각 컨테이너의 애니메이션 class */
   const discoverPageAnimationClasses = `transition duration-500 ${
-    watchedKeyword ? '-translate-y-[6.15rem]' : 'translate-y-0'
+    watchedKeyword ? '-translate-y-[6.05rem]' : 'translate-y-0'
   }`;
   const headingOpacityClasses = `${
     watchedKeyword ? 'opacity-0' : 'opacity-100'
