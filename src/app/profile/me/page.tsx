@@ -98,9 +98,9 @@ const MyProfileForAuth = () => {
       <TopHeader text="Profile">
         <Menu>
           <Menu.Toggle />
-          <Menu.DropdownList>
+          <Menu.BottomSheetList>
             <Menu.Item onSelect={handleLogoutButtonClick}>로그아웃</Menu.Item>
-          </Menu.DropdownList>
+          </Menu.BottomSheetList>
         </Menu>
       </TopHeader>
       <div className="flex flex-col gap-[1rem]">
