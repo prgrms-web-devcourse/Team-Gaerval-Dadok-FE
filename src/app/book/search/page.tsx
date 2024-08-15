@@ -67,15 +67,13 @@ const BookSearchPage = () => {
         text={'Discover'}
         className={`transition duration-500 ${
           watchedKeyword
-            ? '-translate-y-[calc(env(safe-area-inset-top)+6.15rem)] opacity-0'
+            ? '-translate-y-[6.15rem] opacity-0'
             : 'translate-y-0 opacity-100'
         }`}
       />
       <article
         className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
-          watchedKeyword
-            ? '-translate-y-[calc(env(safe-area-inset-top)+6.15rem)]'
-            : 'translate-y-0'
+          watchedKeyword ? '-translate-y-[6.15rem]' : 'translate-y-0'
         }`}
       >
         <Input
