@@ -45,7 +45,9 @@ const MyProfileForUnAuth = () => {
 
   return (
     <>
-      <TopHeader text="Profile" blur={!isScrollAtTop} />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">Profile</h1>
+      </TopHeader>
       <div className="flex flex-col gap-[3rem]">
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
@@ -101,7 +103,11 @@ const MyProfileForAuth = () => {
 
   return (
     <>
-      <TopHeader text="Profile" blur={!isScrollAtTop}>
+      <TopHeader
+        className="flex items-center justify-between"
+        blur={!isScrollAtTop}
+      >
+        <h1 className="text-main-900 font-heading-bold">Profile</h1>
         <Menu>
           <Menu.Toggle />
           <Menu.DropdownList>

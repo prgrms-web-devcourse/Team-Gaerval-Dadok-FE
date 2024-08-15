@@ -57,24 +57,29 @@ const BookSearchPage = () => {
     }
   }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
-  /* TopHeader가 사라졌을 때 input의 위치 top: 6.15rem */
+  /* TopHeader가 사라졌을 때 input의 위치 top: topSafeArea + 6.15rem */
   const inputPositionClasses =
     watchedKeyword && 'sticky top-[calc(env(safe-area-inset-top)+6.15rem)]';
 
+  /* 검색어가 입력되었을 때 각 컨테이너의 애니메이션 class */
+  const discoverPageAnimationClasses = `transition duration-500 ${
+    watchedKeyword ? '-translate-y-[6.15rem]' : 'translate-y-0'
+  }`;
+  const headingOpacityClasses = `${
+    watchedKeyword ? 'opacity-0' : 'opacity-100'
+  }`;
+
   return (
     <>
-      <TopHeader
-        text={'Discover'}
-        className={`transition duration-500 ${
-          watchedKeyword
-            ? '-translate-y-[6.15rem] opacity-0'
-            : 'translate-y-0 opacity-100'
-        }`}
-      />
+      <TopHeader className={discoverPageAnimationClasses}>
+        <h1
+          className={`text-main-900 font-heading-bold ${headingOpacityClasses}`}
+        >
+          Discover
+        </h1>
+      </TopHeader>
       <article
-        className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
-          watchedKeyword ? '-translate-y-[6.15rem]' : 'translate-y-0'
-        }`}
+        className={`flex w-full flex-col gap-[3rem] ${discoverPageAnimationClasses}`}
       >
         <Input
           type="search"

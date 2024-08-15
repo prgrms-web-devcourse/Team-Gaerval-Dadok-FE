@@ -16,7 +16,9 @@ export default function BookArchivePage() {
 
   return (
     <div className="flex w-full flex-col gap-[1rem] pb-[2rem]">
-      <TopHeader text="BookArchive" blur={!isScrollAtTop} />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">BookArchive</h1>
+      </TopHeader>
       {/* TODO: 스켈레톤 컴포넌트로 교체 */}
       <SSRSafeSuspense fallback={null}>
         <Contents />
