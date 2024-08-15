@@ -52,7 +52,9 @@ const GroupPage = () => {
 
   return (
     <>
-      <TopHeader text="Group" blur={!isScrollAtTop} />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">Group</h1>
+      </TopHeader>
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<PageSkeleton />}>
