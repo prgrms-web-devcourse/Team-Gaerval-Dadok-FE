@@ -90,7 +90,7 @@ const Item = ({
 
   return (
     <li
-      className="flex cursor-pointer list-none flex-col truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] pt-[1rem] font-body1-regular after:mt-[1rem] after:block after:h-[0.1rem] after:w-full after:bg-black-300 last:after:w-0 hover:bg-black-100"
+      className="flex cursor-pointer select-none list-none flex-col truncate whitespace-nowrap rounded-[0.5rem] px-[1rem] pt-[1rem] font-body1-regular after:mt-[1rem] after:block after:h-[0.1rem] after:w-full after:bg-black-300 last:after:w-0 hover:bg-black-100"
       onClick={handleItemClick}
     >
       {children}
