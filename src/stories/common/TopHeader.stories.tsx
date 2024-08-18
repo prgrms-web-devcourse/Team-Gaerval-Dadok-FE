@@ -1,11 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
+
 import { IconHamburger } from '@public/icons';
 import TopHeader from '@/components/common/TopHeader';
+
+import { appLayoutMeta } from '@/stories/meta';
 
 const meta: Meta<typeof TopHeader> = {
   title: 'Common/TopHeader',
   component: TopHeader,
-  tags: ['autodocs'],
+  ...appLayoutMeta,
 };
 
 export default meta;
