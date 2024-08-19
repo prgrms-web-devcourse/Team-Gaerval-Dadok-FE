@@ -14,6 +14,7 @@ import bookAPI from '@/apis/book';
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import useQueryParams from '@/hooks/useQueryParams';
+import useIsScrollAtTop from '@/hooks/useIsScrollAtTop';
 import { checkAuthentication } from '@/utils/helpers';
 
 import Loading from '@/components/common/Loading';
@@ -46,6 +47,8 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
+  const { isScrollAtTop } = useIsScrollAtTop();
+
   /* debounce된 keyword값에 따라 queryParameter를 수정하는 useEffect */
   useEffect(() => {
     const queryValue = getQueryParam(KEYWORD);
@@ -71,7 +74,7 @@ const BookSearchPage = () => {
 
   return (
     <>
-      <TopHeader className={discoverPageAnimationClasses}>
+      <TopHeader blur={!isScrollAtTop} className={discoverPageAnimationClasses}>
         <h1
           className={`text-main-900 font-heading-bold ${headingOpacityClasses}`}
         >
