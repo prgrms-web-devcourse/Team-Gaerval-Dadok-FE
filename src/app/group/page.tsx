@@ -12,6 +12,7 @@ import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import useMounted from '@/hooks/useMounted';
 import { checkAuthentication } from '@/utils/helpers';
 import useToast from '@/components/common/Toast/useToast';
+import useIsScrollAtTop from '@/hooks/useIsScrollAtTop';
 
 import FloatingButton from '@/components/common/FloatingButton';
 import Loading from '@/components/common/Loading';
@@ -28,6 +29,7 @@ import CreateGroupBanner from '@/components/bookGroup/banner/CreateGroupBanner';
 const GroupPage = () => {
   const router = useRouter();
   const { show: showToast } = useToast();
+  const { isScrollAtTop } = useIsScrollAtTop();
 
   const isAuthenticated = checkAuthentication();
 
@@ -50,7 +52,9 @@ const GroupPage = () => {
 
   return (
     <>
-      <TopHeader text="Group" />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">Group</h1>
+      </TopHeader>
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<PageSkeleton />}>
