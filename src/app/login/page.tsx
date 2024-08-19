@@ -27,7 +27,7 @@ const LoginPage = () => {
         </p>
       </article>
 
-      <section className="absolute inset-x-[2rem] bottom-[calc(env(safe-area-inset-bottom)+2rem)] mx-auto flex max-w-[41rem] flex-col justify-center gap-[1rem]">
+      <section className="absolute inset-x-[2rem] bottom-[2rem] mx-auto flex max-w-[41rem] flex-col justify-center gap-[1rem]">
         <LoginLink>
           <Button size="full" colorScheme="kakao">
             <div className="flex w-full items-center justify-center">
