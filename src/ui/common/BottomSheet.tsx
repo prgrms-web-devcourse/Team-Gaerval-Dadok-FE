@@ -64,7 +64,7 @@ const Drawer = ({
             exit={{ y: '100%', opacity: 0, transition: { duration: 0.2 } }}
           >
             <IconButton
-              name="close-legacy"
+              name="close"
               size="2.5rem"
               onClick={handleClickOverlay}
               alignSelf="end"

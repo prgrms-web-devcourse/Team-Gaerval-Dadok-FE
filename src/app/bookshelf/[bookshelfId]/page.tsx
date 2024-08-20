@@ -151,7 +151,7 @@ export default function UserBookShelfPage({
             <Link href={kakaoUrl} style={{ width: '100%' }}>
               <Button scheme="kakao" fullWidth>
                 <Image
-                  src="/icons/kakao-legacy.svg"
+                  src="/images/kakao.svg"
                   alt="카카오 로고"
                   width={21}
                   height={19}

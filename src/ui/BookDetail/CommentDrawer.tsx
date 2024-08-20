@@ -37,7 +37,7 @@ const CommentDrawer = ({
         >
           <Flex align="center" justify="space-between">
             <IconButton
-              name="close-legacy"
+              name="close"
               size="2rem"
               onClick={onClose}
               alignSelf="flex-start"

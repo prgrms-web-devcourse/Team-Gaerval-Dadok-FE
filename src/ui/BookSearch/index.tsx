@@ -17,7 +17,7 @@ import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 import useDebounceValue from '@/hooks/useDebounce';
 import SearchedBook from './SearchedBook';
 import RecentSearches from './RecentSearches';
-import SearchIcon from '@public/icons/legacy/search-legacy.svg';
+import SearchIcon from '@public/icons/search.svg';
 import { isAuthed } from '@/utils/helpers';
 
 interface BookSearchProps {

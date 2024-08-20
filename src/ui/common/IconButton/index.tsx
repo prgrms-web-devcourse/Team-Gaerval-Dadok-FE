@@ -19,7 +19,7 @@ const IconButton = ({
   ...props
 }: Props) => {
   const Icon = dynamic<SVGProps<SVGSVGElement>>(
-    () => import(`@/../public/icons/legacy/${name}.svg`)
+    () => import(`@/../public/icons/${name}.svg`)
   );
 
   return (
@@ -43,11 +43,11 @@ const IconButton = ({
 };
 
 type IconNameType =
-  | 'close-legacy'
+  | 'close'
   | 'back'
   | 'book'
-  | 'search-legacy'
-  | 'bookmark-legacy'
+  | 'search'
+  | 'bookmark'
   | 'more'
   | 'more-circle'
   | 'job-card'
