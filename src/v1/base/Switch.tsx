@@ -21,7 +21,7 @@ const Switch = (
         {...props}
       />
       <div className="absolute bottom-0 left-0 right-0 top-0 rounded-full bg-cancel peer-checked:bg-main-900" />
-      <span className="absolute left-0 h-[2rem] w-[2rem] translate-x-[0.25rem] transform rounded-full bg-white transition peer-checked:translate-x-[2rem]" />
+      <span className="absolute left-0 h-[2rem] w-[2rem] translate-x-[2rem] transform rounded-full bg-white transition peer-checked:translate-x-[0.25rem]" />
       <span className="sr-only">{`Enable ${name}`}</span>
     </label>
   );
