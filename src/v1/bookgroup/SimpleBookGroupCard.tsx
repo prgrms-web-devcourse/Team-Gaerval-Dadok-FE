@@ -4,19 +4,19 @@ interface SimpleBookGroupCardProps {
   title: string;
   isOwner: boolean;
   imageSource: string;
-  onClick: () => void;
+  handleClick: () => void;
 }
 
 const SimpleBookGroupCard = ({
   title,
   isOwner,
-  onClick,
+  handleClick,
   imageSource,
 }: SimpleBookGroupCardProps) => {
   return (
     <div
       className="flex h-[15rem] w-[10rem] flex-col gap-[0.5rem]"
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="h-[11.6rem] w-[10rem] rounded-[0.534rem] bg-orange-100 px-[1.8rem] py-[1.6rem]">
         <Image

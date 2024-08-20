@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof SimpleBookGroupCard>;
 
-const handleClick = () => {
+const moveGroupDetail = () => {
   alert('모임 상세 페이지로 이동');
 };
 
@@ -20,7 +20,7 @@ export const Default: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: false,
-    onClick: handleClick,
+    handleClick: moveGroupDetail,
   },
 };
 
@@ -29,6 +29,6 @@ export const OwnerCase: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: true,
-    onClick: handleClick,
+    handleClick: moveGroupDetail,
   },
 };
