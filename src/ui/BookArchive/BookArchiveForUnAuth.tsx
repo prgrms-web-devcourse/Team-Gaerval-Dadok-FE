@@ -17,7 +17,7 @@ const BookArchiveForUnAuth = () => {
   if (!isSuccess) return null;
 
   return (
-    <div className="flex w-full flex-col gap-[1.5rem]">
+    <div className="flex flex-col gap-[1.5rem] w-full">
       <div className="text-md font-bold">🔥 인기 책장</div>
       <div className="flex w-full flex-col gap-[3rem]">
         {data.bookshelfResponses.map(bookshelf => (
