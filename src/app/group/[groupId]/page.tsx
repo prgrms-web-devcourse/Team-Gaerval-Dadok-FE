@@ -1,16 +1,13 @@
 'use client';
 
-import { notFound } from 'next/navigation';
-import { ErrorBoundary } from 'react-error-boundary';
-
 import { checkAuthentication } from '@/utils/helpers';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
-import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
-import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
 import BookGroupCommentList from '@/v1/comment/BookGroupCommentList';
+import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
+import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
+import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -18,9 +15,8 @@ const DetailBookGroupPage = ({
   params: { groupId: number };
 }) => {
   const isAuthenticated = checkAuthentication();
-
   return (
-    <ErrorBoundary fallbackRender={notFound}>
+    <>
       <BookGroupNavigation groupId={groupId}>
         <BookGroupNavigation.BackButton />
         <BookGroupNavigation.Title />
@@ -43,7 +39,7 @@ const DetailBookGroupPage = ({
           <LoginBottomActionButton />
         )}
       </SSRSafeSuspense>
-    </ErrorBoundary>
+    </>
   );
 };
 
