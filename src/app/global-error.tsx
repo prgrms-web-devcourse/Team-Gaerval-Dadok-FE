@@ -17,7 +17,7 @@ export const ErrorPage = () => {
             height={160}
             alt="loading"
           />
-          <div className="font-heading-bold">
+          <div className="font-heading">
             <span className="font-bold text-main-900">다독이</span>도 몰라요~ 왜
             이래요~
           </div>

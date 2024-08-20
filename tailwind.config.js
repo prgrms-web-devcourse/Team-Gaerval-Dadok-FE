@@ -134,15 +134,10 @@ module.exports = {
   plugins: [
     ({ addUtilities }) => {
       addUtilities({
-        '.font-heading-bold': {
+        '.font-heading': {
           fontSize: '2.1rem',
           lineHeight: '1.5',
           fontWeight: 700,
-        },
-        '.font-heading-regular': {
-          fontSize: '2.1rem',
-          lineHeight: '1.5',
-          fontWeight: 400,
         },
         '.font-subheading-bold': {
           fontSize: '1.8rem',

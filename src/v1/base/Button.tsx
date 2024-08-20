@@ -60,7 +60,7 @@ const getSchemeClasses = (theme: ColorScheme, isFill: boolean) => {
 };
 
 const BASE_BUTTON_CLASSES =
-  'cursor-pointer border-[0.1rem] leading-none inline-block focus:outline-none focus:ring-1';
+  'cursor-pointer border-[0.1rem] leading-none inline-block focus:outline-none focus:ring-2';
 
 const Button = ({
   size = 'medium',
