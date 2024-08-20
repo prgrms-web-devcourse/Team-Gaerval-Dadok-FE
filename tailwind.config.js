@@ -41,8 +41,7 @@ module.exports = {
         kakao: '#FEE102',
         kakaotext: '#191600',
         black: {
-          100: '#F4F4F4',
-          200: '#E9E9E9',
+          200: '#F4F4F4',
           300: '#ECECEC',
           400: '#D9D9D9',
           500: '#8D8D8D',
