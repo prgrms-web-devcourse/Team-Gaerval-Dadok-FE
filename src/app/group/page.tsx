@@ -78,7 +78,7 @@ const GroupPage = () => {
                   startDate,
                   endDate,
                   owner,
-                  currentMemberCount,
+                  memberCount,
                   commentCount,
                   isPublic,
                   bookGroupId,
@@ -94,7 +94,7 @@ const GroupPage = () => {
                       name: owner.nickname,
                       profileImageSrc: owner.profileUrl,
                     }}
-                    memberCount={currentMemberCount}
+                    memberCount={memberCount}
                     commentCount={commentCount}
                     isPublic={isPublic}
                     bookGroupId={bookGroupId}
