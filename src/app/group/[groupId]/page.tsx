@@ -29,7 +29,7 @@ const DetailBookGroupPage = ({
       </BookGroupNavigation>
 
       <SSRSafeSuspense fallback={<PageSkeleton />}>
-        <div className="pb-action-button flex flex-col gap-[2rem]">
+        <div className="flex flex-col gap-[2rem]">
           <BookGroupInfo groupId={groupId} />
           <Divider />
           <div className="flex flex-col gap-[1rem]">

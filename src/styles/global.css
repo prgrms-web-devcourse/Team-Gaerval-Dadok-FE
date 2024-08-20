@@ -94,8 +94,4 @@
     box-shadow: inset 0 0 3rem #dddddd;
     @apply bg-placeholder;
   }
-
-  .pb-action-button {
-    @apply pb-[6.3rem];
-  }
 }

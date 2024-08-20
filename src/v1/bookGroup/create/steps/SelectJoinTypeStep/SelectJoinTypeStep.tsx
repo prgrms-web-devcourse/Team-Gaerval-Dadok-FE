@@ -16,7 +16,7 @@ const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
   } = useFormContext<SelectJoinTypeStepFormValues>();
 
   return (
-    <article className="pb-action-button">
+    <article>
       <h2 className="mb-[3rem] font-subheading-bold">
         가입은 어떻게 받을까요?
       </h2>

@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   const dynamicClass = isRootPath
     ? 'pb-[calc(env(safe-area-inset-bottom)+7rem)] pt-[2rem]'
-    : 'pb-[calc(env(safe-area-inset-bottom)+2rem)] pt-[5.4rem]';
+    : 'pt-[5.4rem] pb-[2rem]';
 
   return (
     <>
