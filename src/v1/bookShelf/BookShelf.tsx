@@ -26,7 +26,7 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
   return (
     <div className="flex flex-col gap-[1rem]">
       <div className="flex items-center justify-between">
-        <div className="font-body2-bold">{bookshelfName}</div>
+        <div className="text-md font-bold">{bookshelfName}</div>
         <Link href={`/bookshelf/${bookshelfId}`}>
           <IconArrowRight width="1.8rem" height="1.8rem" />
         </Link>
@@ -34,7 +34,7 @@ const Info = ({ bookshelfName, bookshelfId, likeCount }: InfoProps) => {
       <Badge colorScheme="red" fontWeight="bold" size="small">
         <div className="flex items-center gap-[0.4rem]">
           <IconHeart className="h-[1.3rem] w-[1.3rem] fill-warning-800 stroke-white stroke-[0.15rem]" />
-          <div className="font-caption1-bold">{likeCount}</div>
+          <div className="bold text-xs">{likeCount}</div>
         </div>
       </Badge>
     </div>

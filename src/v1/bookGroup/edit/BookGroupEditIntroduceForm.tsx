@@ -14,7 +14,7 @@ const BookGroupEditIntroduceForm = () => {
 
   return (
     <section className="flex flex-col gap-[0.6rem]">
-      <h2 className="text-black-700 font-body1-regular">활동 내용</h2>
+      <h2 className="text-md text-black-700">활동 내용</h2>
       <TextArea
         count={true}
         maxLength={500}

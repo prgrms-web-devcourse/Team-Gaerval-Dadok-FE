@@ -86,16 +86,12 @@ const DrawerHeader = ({ children }: { children?: ReactNode }) => {
 };
 
 const DrawerContent = ({ children }: { children?: ReactNode }) => {
-  return (
-    <div className="w-full px-6 pt-6 font-body1-regular sm:px-8">
-      {children}
-    </div>
-  );
+  return <div className="w-full px-6 pt-6 text-md sm:px-8">{children}</div>;
 };
 
 const Title = ({ text }: { text?: string }) => {
   return (
-    <h1 className="flex-grow truncate pl-[2.5rem] text-center font-body1-regular">
+    <h1 className="flex-grow truncate pl-[2.5rem] text-center text-md">
       {text}
     </h1>
   );

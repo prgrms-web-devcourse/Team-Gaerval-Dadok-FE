@@ -21,7 +21,7 @@ const LikeButton = ({ isLiked, likeCount, onClick }: LikeButtonProps) => {
         className={`${ICON_COLOR_CLASS} h-[1.5rem] w-[1.5rem] fill-white stroke-[0.15rem]`}
       />
       <p
-        className={`${TEXT_COLOR_CLASS} min-w-[1.5rem] text-center font-caption1-bold`}
+        className={`${TEXT_COLOR_CLASS} min-w-[1.5rem] text-center text-xs font-bold`}
       >
         {likeCount}
       </p>

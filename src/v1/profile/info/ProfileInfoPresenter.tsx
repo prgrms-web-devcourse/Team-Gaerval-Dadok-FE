@@ -31,7 +31,7 @@ const ProfileInfoPresenter = ({
       </div>
       <div className="flex items-center gap-[1rem]">
         <Avatar src={profileImage} size="large" />
-        <h2 className="font-subheading-regular">
+        <h2 className="text-lg">
           <b>{nickname}</b>님의 공간
         </h2>
       </div>

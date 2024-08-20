@@ -54,12 +54,12 @@ export default function UserBookShelfPage({
         </TopNavigation.RightItem>
       </TopNavigation>
       <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">
-        <h1 className="font-subheading-bold">
+        <h1 className="text-[1.8rem]">
           <span className="text-main-900">{data.userNickname}</span>
           님의 책장
         </h1>
         <div className="flex items-center justify-between">
-          <span className="text-black-600 font-body2-regular">
+          <span className="text-[1.4rem] text-[#939393]">
             {`${data.job.jobGroupKoreanName} • ${data.job.jobNameKoreanName}`}
           </span>
           <LikeButton
@@ -123,12 +123,12 @@ const BookShelfContent = ({
         <BookShelfRow books={initialBookImageUrl} />
       </div>
       <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
-        <p className="text-center font-body1-bold">
+        <p className="text-center text-md font-bold">
           지금 로그인하면
           <br />
           책장에 담긴 모든 책을 볼 수 있어요!
         </p>
-        <p className="text-center text-placeholder font-body2-regular">
+        <p className="text-center text-xs text-placeholder">
           <span className="text-main-900">{userNickname}</span>님의 책장에서
           다양한
           <br />
@@ -136,9 +136,9 @@ const BookShelfContent = ({
         </p>
         <Link href={KAKAO_OAUTH_LOGIN_URL}>
           <Button colorScheme="kakao" size="full">
-            <div className="flex items-center justify-center gap-[1rem]">
+            <div className="flex justify-center gap-[1rem]">
               <IconKakao width={16} height={'auto'} />
-              <span className="font-body1-regular">카카오 로그인</span>
+              <span className="text-md font-normal">카카오 로그인</span>
             </div>
           </Button>
         </Link>

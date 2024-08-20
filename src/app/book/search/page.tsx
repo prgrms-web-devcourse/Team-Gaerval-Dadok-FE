@@ -52,7 +52,7 @@ const BookSearchPage = () => {
 
         {/** 최근 검색어 + 베스트 셀러 */}
         <section
-          className={`flex flex-col gap-[2rem] ${watchedKeyword && 'hidden'}`}
+          className={`flex flex-col gap-[1.6rem] ${watchedKeyword && 'hidden'}`}
         >
           <SSRSafeSuspense fallback={<ContentsSkelton />}>
             <RecentSearchResult

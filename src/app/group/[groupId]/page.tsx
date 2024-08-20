@@ -50,7 +50,7 @@ const DetailBookGroupPage = ({
 export default DetailBookGroupPage;
 
 const Heading = ({ text }: { text: string }) => (
-  <p className="font-subheading-bold">{text}</p>
+  <p className=" text-xl font-bold">{text}</p>
 );
 
 const PageSkeleton = () => (

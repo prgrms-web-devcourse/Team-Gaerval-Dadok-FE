@@ -64,12 +64,12 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
       className="mt-[2.5rem] flex flex-col gap-[2.5rem]"
       onSubmit={handleSubmit(submitJoinForm)}
     >
-      <p className="whitespace-pre-line !leading-snug font-subheading-bold">
+      <p className="whitespace-pre-line text-2xl font-bold leading-snug">
         {`문제를 맞추면
           모임에 가입할 수 있어요`}
       </p>
       <div className="flex flex-col gap-[1.5rem]">
-        <p className="font-body2-regular">{question}</p>
+        <p className="text-sm">{question}</p>
         <div className="flex flex-col gap-[0.5rem]">
           <Input
             {...register('answer', {

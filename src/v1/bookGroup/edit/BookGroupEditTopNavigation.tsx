@@ -20,12 +20,12 @@ const BookGroupEditTopNavigation = ({
         <BackButton />
       </TopNavigation.LeftItem>
       <TopNavigation.CenterItem>
-        <h1 className="text-black-900 font-body1-regular">모임 수정하기</h1>
+        <h1 className="text-md text-black-900">모임 수정하기</h1>
       </TopNavigation.CenterItem>
       <TopNavigation.RightItem>
         <button
           onClick={handleSubmit(onSubmit)}
-          className="cursor-pointer text-main-900 font-body1-bold"
+          className="cursor-pointer font-bold text-main-900"
         >
           완료
         </button>

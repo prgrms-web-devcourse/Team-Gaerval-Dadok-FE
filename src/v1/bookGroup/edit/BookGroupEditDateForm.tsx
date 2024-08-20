@@ -17,8 +17,8 @@ const BookGroupEditDateForm = () => {
     <>
       <section className="flex justify-between">
         <div>
-          <h2 className="text-black-500">모임 시작일</h2>
-          <p className="pt-[0.3rem] text-placeholder font-caption1-regular">
+          <h2 className="text-md text-black-500">모임 시작일</h2>
+          <p className="text-xs text-placeholder">
             모임 시작일은 수정할 수 없어요
           </p>
         </div>
@@ -26,7 +26,7 @@ const BookGroupEditDateForm = () => {
       </section>
       <section className="flex flex-col gap-[0.5rem]">
         <div className="flex justify-between">
-          <h2 className="text-black-700">모임 종료일</h2>
+          <h2 className="text-md text-black-700">모임 종료일</h2>
           <DatePicker
             {...register('endDate', {
               required: { value: true, message: '종료일을 입력해주세요' },

@@ -31,7 +31,7 @@ const ShortMemberInfo = ({ members }: ShortMemberInfoProps) => {
 export default ShortMemberInfo;
 
 const Heading = ({ text }: { text: string }) => (
-  <p className="font-subheading-bold">{text}</p>
+  <p className="text-xl font-bold">{text}</p>
 );
 
 const MemberList = ({ members }: { members: Member[] }) => (
@@ -48,7 +48,7 @@ const ViewAllButton = () => {
   return (
     <Link href={`${pathname}/members`}>
       <Button size="full" colorScheme="main-light">
-        <span className="mr-[0.5rem] text-black-700 font-body2-bold">
+        <span className="mr-[0.5rem] text-sm font-bold text-black-700">
           전체보기
         </span>
         <IconArrowLeft className="inline-block h-[1rem] w-[1rem] rotate-180" />

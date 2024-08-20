@@ -13,8 +13,8 @@ interface InputProps extends ComponentPropsWithoutRef<'input'> {
 }
 
 const FONT_SIZE_CLASSES = {
-  small: 'font-body1-regular after:font-body1-regular',
-  large: 'font-subheading-bold after:font-subheading-bold',
+  small: 'text-sm after:text-sm',
+  large: 'text-lg font-bold after:text-lg after:font-bold',
 };
 
 const getInputStyleClasses = (inputStyle: InputStyle) => {

@@ -93,24 +93,24 @@ const AddJobProfile = ({ jobCategories }: AddJobProfileProps) => {
     <>
       <TopNavigation>
         <TopNavigation.CenterItem textAlign="center">
-          <p className="text-black-900 font-body1-regular">프로필 등록</p>
+          <span className="text-md font-normal text-black-900">
+            프로필 등록
+          </span>
         </TopNavigation.CenterItem>
         <TopNavigation.RightItem>
-          <button
+          <span
             onClick={handleSubmit(handleSubmitForm)}
-            className="text-main-900 font-body1-bold"
+            className="cursor-pointer text-md font-bold text-main-900"
           >
             완료
-          </button>
+          </span>
         </TopNavigation.RightItem>
       </TopNavigation>
 
-      <div className="mt-[3.8rem] flex w-full flex-col gap-[3.3rem]">
-        <div className="flex flex-col gap-[1rem]">
-          <span className="text-black-700 font-subheading-bold">
-            프로필을 등록해주세요!
-          </span>
-          <div className="text-placeholder font-body2-regular">
+      <div className="mt-[9.2rem] flex w-full flex-col gap-[3.3rem]">
+        <div className="flex flex-col gap-[1rem] font-normal">
+          <span className="text-lg text-black-700">프로필을 등록해주세요!</span>
+          <div className="text-sm text-placeholder">
             <p>프로필을 등록하면</p>
             <p>
               <span className="text-main-900">다독다독</span>이 추천하는 책장을
@@ -124,7 +124,9 @@ const AddJobProfile = ({ jobCategories }: AddJobProfileProps) => {
           className="flex w-full flex-col gap-[3.2rem]"
         >
           <div className="flex flex-col gap-[1rem]">
-            <p className="text-black-700">닉네임</p>
+            <span className="h-[2.1rem] text-md font-normal text-black-700">
+              닉네임
+            </span>
             <div className="flex flex-col gap-[0.5rem]">
               <Input
                 placeholder="닉네임을 입력해주세요."
@@ -149,7 +151,9 @@ const AddJobProfile = ({ jobCategories }: AddJobProfileProps) => {
           </div>
 
           <div className="flex flex-col gap-[1rem]">
-            <p className="text-black-700">직업/직군</p>
+            <span className="h-[2.1rem] text-md font-normal text-black-700">
+              직업/직군
+            </span>
 
             <div className="flex flex-col gap-[0.5rem]">
               <Select

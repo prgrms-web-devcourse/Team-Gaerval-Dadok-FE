@@ -17,7 +17,7 @@ const _Select = (
     : 'border-black-400 focus:border-main-900';
 
   return (
-    <div className="font-body2-regular">
+    <div className="text-sm">
       <select
         ref={ref}
         defaultValue=""

@@ -59,7 +59,7 @@ const Owner = ({
         size="medium"
         src={userInfo.profileImage}
       />
-      <span className="text-center font-body2-bold">
+      <span className="text-center text-sm font-bold">
         <span>{userInfo.nickname}</span>
         <span>{isMe && ' 👑'}</span>
       </span>
@@ -68,14 +68,14 @@ const Owner = ({
 };
 
 const Title = ({ title }: { title: string }) => {
-  return <p className="font-subheading-bold">{title}</p>;
+  return <p className="text-xl font-bold">{title}</p>;
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
   return (
     <div className="flex items-center gap-[1rem]">
       <IconCalendar className="h-auto w-[1.6rem] fill-placeholder" />
-      <span className="text-placeholder font-body2-regular">
+      <span className="text-sm text-placeholder">
         {start} ~ {end}
       </span>
     </div>
@@ -92,7 +92,7 @@ const MemberCapacity = ({
   return (
     <div className="flex items-center gap-[1rem]">
       <IconMembers className="h-auto w-[1.6rem] fill-placeholder" />
-      <p className="text-placeholder font-body2-regular">
+      <p className="text-sm text-placeholder">
         <span className="text-main-900">{current}</span>
         {`${max ? ` / ${max}` : ''}명`}
       </p>
@@ -101,5 +101,5 @@ const MemberCapacity = ({
 };
 
 const Description = ({ content }: { content: string }) => {
-  return <p className="leading-snug font-body1-regular">{content}</p>;
+  return <p className="text-md leading-snug">{content}</p>;
 };

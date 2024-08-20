@@ -20,7 +20,7 @@ const SimpleBookGroupCard = ({
         <div className="bg-orange-100 px-[1.8rem] py-[1.6rem]">
           <BookCover size="xsmall" src={imageSource} />
         </div>
-        <p className="break-keep text-center !leading-tight font-caption1-regular">
+        <p className="break-keep text-center text-xs leading-tight">
           {isOwner ? `👑 ${title}` : title}
         </p>
       </article>
