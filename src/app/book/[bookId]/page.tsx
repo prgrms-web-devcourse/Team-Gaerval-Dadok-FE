@@ -1,70 +1,99 @@
 'use client';
 
-import { APIBook } from '@/types/book';
-import { useBookTitle } from '@/queries/book/useBookInfoQuery';
+import { Box, Skeleton, SkeletonText, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 
-import Skeleton from '@/v1/base/Skeleton';
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import TopNavigation from '@/v1/base/TopNavigation';
-import BottomActionButton from '@/v1/base/BottomActionButton';
-import BackButton from '@/v1/base/BackButton';
-import BookInfo, { BookInfoSkeleton } from '@/v1/book/detail/BookInfo';
-import BookCommentList from '@/v1/comment/BookCommentList';
+import bookAPI from '@/apis/book';
+import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
+import { APIBook } from '@/types/book';
+import { BookCommentList, BookInfo } from '@/ui/BookDetail';
+import TopNavigation from '@/ui/common/TopNavigation';
+import debounce from '@/utils/debounce';
 
 const BookDetailPage = ({
   params: { bookId },
 }: {
   params: { bookId: APIBook['bookId'] };
 }) => {
+  const router = useRouter();
+
+  const bookQueryInfo = useBookInfoQuery(bookId, {
+    onError: () => {
+      /** @todo /404 페이지로 교체 */
+      router.replace('/');
+    },
+  });
+
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId);
+
+  const updateBookmark = (isBookMarked: boolean) => {
+    if (!bookUserQueryInfo.isSuccess) {
+      return;
+    }
+
+    const { isInMyBookshelf } = bookUserQueryInfo.data;
+
+    if (!isInMyBookshelf && isBookMarked) {
+      bookAPI.setBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    } else if (isInMyBookshelf && !isBookMarked) {
+      bookAPI.unsetBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    }
+  };
+
   return (
-    <>
-      <BookTopNavigation bookId={bookId} />
-      <SSRSafeSuspense fallback={<BookPageSkeleton />}>
-        <div className="flex flex-col gap-[3rem] pb-[5rem] pt-[1rem]">
-          <BookInfo bookId={bookId} />
-          <div className="flex flex-col gap-[1rem]">
-            <Heading text="책 코멘트" />
-            <BookCommentList bookId={bookId} />
-          </div>
-        </div>
-      </SSRSafeSuspense>
-      <BottomActionButton>코멘트 작성하기</BottomActionButton>
-    </>
+    <Box>
+      <TopNavigation pageTitle="책 상세 페이지" />
+      <VStack
+        w="100%"
+        bgColor="white"
+        p="2rem"
+        shadow="lg"
+        align="stretch"
+        borderLeftRadius={15}
+        gap="2rem"
+      >
+        {bookQueryInfo.isSuccess && bookUserQueryInfo.isSuccess && (
+          <BookInfo
+            title={bookQueryInfo.data.title}
+            author={bookQueryInfo.data.author}
+            imageUrl={bookQueryInfo.data.imageUrl}
+            contents={bookQueryInfo.data.contents}
+            url={bookQueryInfo.data.url}
+            onBookmarkClick={debounce(updateBookmark, 500)}
+            {...bookUserQueryInfo.data}
+          />
+        )}
+        {bookQueryInfo.isLoading && (
+          <VStack spacing="2rem" align="stretch">
+            <Skeleton width="18rem" height="25rem" />
+            <SkeletonText
+              mt="4"
+              noOfLines={4}
+              spacing="4"
+              skeletonHeight="1.4rem"
+            />
+          </VStack>
+        )}
+      </VStack>
+
+      <VStack align="stretch">
+        <Text pt="3rem" pb="1rem" fontSize="lg" fontWeight="bold">
+          책 코멘트
+        </Text>
+        {bookUserQueryInfo.isSuccess && (
+          <BookCommentList
+            bookId={bookId}
+            isInMyBookshelf={bookUserQueryInfo.data.isInMyBookshelf}
+          />
+        )}
+      </VStack>
+    </Box>
   );
 };
 
 export default BookDetailPage;
-
-const BookPageSkeleton = () => (
-  <div className="pt-[1rem]">
-    <BookInfoSkeleton />
-  </div>
-);
-
-const BookTopNavigation = ({ bookId }: { bookId: APIBook['bookId'] }) => (
-  <TopNavigation>
-    <TopNavigation.LeftItem>
-      <BackButton />
-    </TopNavigation.LeftItem>
-    <TopNavigation.CenterItem textAlign="left">
-      <SSRSafeSuspense fallback={<BookTitleSkeleton />}>
-        <BookTitle bookId={bookId} />
-      </SSRSafeSuspense>
-    </TopNavigation.CenterItem>
-  </TopNavigation>
-);
-
-const BookTitle = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const { data: title } = useBookTitle(bookId);
-  return <p className="w-full truncate">{title}</p>;
-};
-
-const Heading = ({ text }: { text: string }) => (
-  <p className="text-xl font-bold">{text}</p>
-);
-
-const BookTitleSkeleton = () => (
-  <Skeleton>
-    <Skeleton.Text fontSize="medium" width="20rem" />
-  </Skeleton>
-);
