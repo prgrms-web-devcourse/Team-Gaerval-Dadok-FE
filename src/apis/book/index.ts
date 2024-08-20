@@ -101,11 +101,6 @@ const bookAPI = {
     publicApi.get<APIBestSellerRes>(
       `/aladin-api?QueryType=Bestseller&Cover=Big`
     ),
-
-  storeRecentSearch: (queryKeyword: string) =>
-    publicApi.get(
-      `/service-api/books?page=1&pageSize=1&query=${queryKeyword}&isStoreRecent=true`
-    ),
 };
 
 export default bookAPI;
