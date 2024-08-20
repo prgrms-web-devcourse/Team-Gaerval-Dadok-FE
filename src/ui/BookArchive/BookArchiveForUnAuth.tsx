@@ -1,6 +1,6 @@
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
-import { Skeleton, VStack } from '@chakra-ui/react';
-import Bookshelf from '../Bookshelf';
+import { Flex, Skeleton, VStack } from '@chakra-ui/react';
+import { RecommendedBookshelf } from '../Recommended';
 
 const BookArchiveForUnAuth = () => {
   const { data, isSuccess, isLoading } = useUnAuthRecommendedBookshelfQuery();
@@ -17,14 +17,19 @@ const BookArchiveForUnAuth = () => {
   if (!isSuccess) return null;
 
   return (
-    <div className="flex flex-col gap-[1.5rem] w-full">
-      <div className="text-md font-bold">🔥 인기 책장</div>
-      <div className="flex w-full flex-col gap-[3rem]">
-        {data.bookshelfResponses.map(bookshelf => (
-          <Bookshelf key={bookshelf.bookshelfId} {...bookshelf} />
-        ))}
-      </div>
-    </div>
+    <Flex direction="column" width="100%" gap="3rem">
+      {data.bookshelfResponses.map(
+        ({ bookshelfId, bookshelfName, books, likeCount }) => (
+          <RecommendedBookshelf
+            key={bookshelfId}
+            bookshelfId={bookshelfId}
+            bookshelfName={bookshelfName}
+            books={books}
+            likeCount={likeCount}
+          />
+        )
+      )}
+    </Flex>
   );
 };
 
