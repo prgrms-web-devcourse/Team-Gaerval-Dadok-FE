@@ -1,13 +1,12 @@
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { useBookComments } from '@/queries/book/useBookCommentsQuery';
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 
 import CommentList from './CommentList';
 
 const BookCommentList = ({ bookId }: { bookId: number }) => {
-  const isAuthenticated = checkAuthentication();
   const { data: comments } = useBookComments(bookId);
-  const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
+  const { data: myId } = useMyProfileId({ enabled: isAuthed() });
 
   return (
     <CommentList

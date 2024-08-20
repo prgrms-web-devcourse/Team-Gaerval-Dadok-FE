@@ -14,10 +14,7 @@ import type { APIBookComment, APIBookmarkedUserList } from '@/types/book';
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 import { useToast } from '@/hooks/toast';
 import LoginBottomSheet from '@/ui/LoginBottomSheet';
-import {
-  checkAuthentication,
-  isAxiosErrorWithCustomCode,
-} from '@/utils/helpers';
+import { isAuthed, isAxiosErrorWithCustomCode } from '@/utils/helpers';
 
 interface Props {
   bookId: number;
@@ -28,7 +25,6 @@ type CommentType = 'me' | 'user';
 type CommentRecordType = Record<CommentType, APIBookComment[]>;
 
 const BookCommentList = ({ bookId, isInMyBookshelf }: Props) => {
-  const isAuthenticated = checkAuthentication();
   const { showToast } = useToast();
   const commentTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const bookCommentsQueryInfo = useBookCommentsQuery(bookId);
@@ -108,7 +104,7 @@ const BookCommentList = ({ bookId, isInMyBookshelf }: Props) => {
   };
 
   const handleCreateCommentDrawerOpen = () => {
-    if (!isAuthenticated) {
+    if (!isAuthed()) {
       onLoginBottomSheetOpen();
       return;
     }
@@ -126,7 +122,7 @@ const BookCommentList = ({ bookId, isInMyBookshelf }: Props) => {
 
   return (
     <VStack align="stretch" spacing="2rem" width="100%" pt="1rem">
-      {!isAuthenticated && (
+      {!isAuthed() && (
         <LoginBottomSheet
           isOpen={isLoginBottomSheetOpen}
           onClose={onLoginBottomSheetsClose}

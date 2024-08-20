@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { initialBookGroupComments } from '@/constants/initialBookGroupComments';
 import { APIGroupComment } from '@/types/group';
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 import CommentDeleteModal from './CommentDeleteModal';
 import CommentModifyModal from './CommentModifyModal';
 import GuideMessage from './GuideMessage';
@@ -29,19 +29,18 @@ const CommentsList = ({
   handleDeleteCommentBtnClick,
   handleModifyCommentBtnClick,
 }: commentsListProps) => {
-  const isAuthenticated = checkAuthentication();
   const getFilteredComments = () => {
     const commentsLength = commentsListData.length;
 
-    if (!isAuthenticated && !isPublic && commentsLength < 5) {
+    if (!isAuthed() && !isPublic && commentsLength < 5) {
       return initialBookGroupComments.slice(0, commentsLength);
-    } else if (!isAuthenticated && !isPublic) {
+    } else if (!isAuthed() && !isPublic) {
       return initialBookGroupComments;
     }
 
-    if (isAuthenticated && !isPublic && !isGroupMember && commentsLength < 5) {
+    if (isAuthed() && !isPublic && !isGroupMember && commentsLength < 5) {
       return initialBookGroupComments.slice(0, commentsLength);
-    } else if (isAuthenticated && !isPublic && !isGroupMember) {
+    } else if (isAuthed() && !isPublic && !isGroupMember) {
       return initialBookGroupComments;
     }
     return commentsListData;
@@ -75,8 +74,8 @@ const CommentsList = ({
                 <Box
                   filter="auto"
                   blur={
-                    (!isAuthenticated && !isPublic) ||
-                    (isAuthenticated && !isPublic && !isGroupMember)
+                    (!isAuthed() && !isPublic) ||
+                    (isAuthed() && !isPublic && !isGroupMember)
                       ? '3px'
                       : 'undefined'
                   }
@@ -130,7 +129,7 @@ const CommentsList = ({
           )}
       </Box>
       <GuideMessage
-        isAuthed={isAuthenticated}
+        isAuthed={isAuthed()}
         isPublic={isPublic}
         isGroupMember={isGroupMember}
       />

@@ -2,15 +2,14 @@ import LoginBottomSheet from '@/ui/LoginBottomSheet';
 import { Box, Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import Link from 'next/link';
 
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 import { MouseEvent } from 'react';
 
 const GroupHeader = () => {
-  const isAuthenticated = checkAuthentication();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (isAuthenticated) return;
+    if (isAuthed()) return;
     onOpen();
     event.preventDefault();
   };

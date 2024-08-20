@@ -1,12 +1,13 @@
 'use client';
 
+import { Suspense } from 'react';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
+import AuthRequired from '@/ui/AuthRequired';
 
 import EditProfile from '@/v1/profile/EditProfile';
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 /**
  * @todo
@@ -15,15 +16,16 @@ import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 const EditProfilePage = () => {
   return (
-    <SSRSafeSuspense fallback={null}>
-      <Contents />
-    </SSRSafeSuspense>
+    <AuthRequired>
+      <Suspense fallback={null}>
+        <Contents />
+      </Suspense>
+    </AuthRequired>
   );
 };
 
 const Contents = () => {
-  const isAuthenticated = checkAuthentication();
-  const allJobQuery = useAllJobQuery({ enabled: isAuthenticated });
+  const allJobQuery = useAllJobQuery({ enabled: isAuthed() });
   const { data: profileData } = useMyProfileQuery();
 
   return allJobQuery.isSuccess ? (

@@ -1,7 +1,7 @@
 'use client';
 
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 
 import BackButton from '@/v1/base/BackButton';
 import TopNavigation from '@/v1/base/TopNavigation';
@@ -22,8 +22,7 @@ const UserGroupPage = () => {
 };
 
 const UserGroupContent = () => {
-  const isAuthenticated = checkAuthentication();
-  const { data, isSuccess } = useMyGroupsQuery({ enabled: isAuthenticated });
+  const { data, isSuccess } = useMyGroupsQuery({ enabled: isAuthed() });
 
   if (!isSuccess) {
     return (

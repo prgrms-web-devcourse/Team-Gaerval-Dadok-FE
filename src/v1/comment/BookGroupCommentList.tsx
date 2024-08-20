@@ -1,15 +1,14 @@
 import { useBookGroupComments } from '@/queries/group/useBookGroupCommentsQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { useBookGroup } from '@/queries/group/useBookGroupQuery';
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 
 import CommentList from './CommentList';
 
 const BookGroupCommentList = ({ groupId }: { groupId: number }) => {
-  const isAuthenticated = checkAuthentication();
   const { data: bookGroupInfo } = useBookGroup(groupId);
   const { data: comments } = useBookGroupComments(groupId);
-  const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
+  const { data: myId } = useMyProfileId({ enabled: isAuthed() });
   const { isPublic, isMember } = bookGroupInfo;
 
   const isHidden = !isPublic && !isMember;

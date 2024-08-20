@@ -15,7 +15,7 @@ import IconButton from '@/ui/common/IconButton';
 import type { APIBookDetail, APIBookmarkedUserList } from '@/types/book';
 import Link from 'next/link';
 
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 import { useState } from 'react';
 import LoginBottomSheet from '../LoginBottomSheet';
 
@@ -36,7 +36,6 @@ const BookInfo = ({
   onBookmarkClick,
   ...bookmarkInfo
 }: Props) => {
-  const isAuthenticated = checkAuthentication();
   const theme = useTheme();
   const [bookmark, setBookmark] = useState(bookmarkInfo.isInMyBookshelf);
 
@@ -47,7 +46,7 @@ const BookInfo = ({
   } = useDisclosure();
 
   const handleBookmarkClick = () => {
-    if (!isAuthenticated) {
+    if (!isAuthed()) {
       onLoginBottomSheetOpen();
       return;
     }
@@ -107,7 +106,7 @@ const BookInfo = ({
         )}
       </Text>
 
-      {!isAuthenticated && (
+      {!isAuthed() && (
         <LoginBottomSheet
           isOpen={isLoginBottomSheetOpen}
           onClose={onLoginBottomSheetsClose}

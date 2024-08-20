@@ -16,12 +16,11 @@ import DetailBookGroupCard, {
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 import useMounted from '@/hooks/useMounted';
 import Loading from '@/v1/base/Loading';
 
 const GroupPage = () => {
-  const isAuthenticated = checkAuthentication();
   const handleSearchInputClick = () => {
     alert('아직 준비 중인 기능이에요.');
   };
@@ -32,7 +31,7 @@ const GroupPage = () => {
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<PageSkeleton />}>
-          {isAuthenticated && <MyBookGroupList />}
+          {isAuthed() && <MyBookGroupList />}
           <EntireBookGroupList />
         </SSRSafeSuspense>
       </div>
@@ -46,11 +45,10 @@ const GroupPage = () => {
 export default GroupPage;
 
 const MyBookGroupList = () => {
-  const isAuthenticated = checkAuthentication();
   const {
     data: { bookGroups },
-  } = useMyGroupsQuery({ enabled: isAuthenticated });
-  const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
+  } = useMyGroupsQuery({ enabled: isAuthed() });
+  const { data: myId } = useMyProfileId({ enabled: isAuthed() });
 
   return (
     <div className="flex gap-[1rem] overflow-scroll">

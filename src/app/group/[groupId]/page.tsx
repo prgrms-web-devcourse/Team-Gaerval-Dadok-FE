@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { checkAuthentication } from '@/utils/helpers';
+import { isAuthed } from '@/utils/helpers';
 import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
@@ -17,7 +17,6 @@ const DetailBookGroupPage = ({
 }: {
   params: { groupId: number };
 }) => {
-  const isAuthenticated = checkAuthentication();
   return (
     <>
       <BookGroupNavigation groupId={groupId}>
@@ -36,7 +35,7 @@ const DetailBookGroupPage = ({
             <BookGroupCommentList groupId={groupId} />
           </div>
         </div>
-        {isAuthenticated ? (
+        {isAuthed() ? (
           <JoinBookGroupButton groupId={groupId} />
         ) : (
           <LoginBottomActionButton />

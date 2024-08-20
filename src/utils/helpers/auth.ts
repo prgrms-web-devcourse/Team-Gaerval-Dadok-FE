@@ -3,7 +3,7 @@ import webStorage from '@/utils/storage';
 
 const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
 
-const checkAuthentication = () => {
+const isAuthed = () => {
   const accessToken = storage.get();
   return !!accessToken;
 };
@@ -16,4 +16,4 @@ const removeAuth = () => {
   storage.remove();
 };
 
-export { checkAuthentication, setAuth, removeAuth };
+export { isAuthed, setAuth, removeAuth };
