@@ -13,7 +13,6 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
-    layout: 'fullscreen',
   },
 };
 

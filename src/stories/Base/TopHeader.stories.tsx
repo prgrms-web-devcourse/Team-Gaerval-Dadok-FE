@@ -12,15 +12,9 @@ export default meta;
 
 type Story = StoryObj<typeof TopHeader>;
 
-export const Default: Story = {
-  args: { pathname: '/bookarchive' },
-  render: args => <TopHeader {...args} />,
-};
-
-export const WithMenu: Story = {
-  args: { pathname: '/profile/me' },
-  render: args => (
-    <TopHeader {...args}>
+const TopHeaderWithMenu = () => {
+  return (
+    <TopHeader label="Profile">
       <button
         onClick={() => {
           alert('HAMBURGUR MENU!🍔');
@@ -29,5 +23,13 @@ export const WithMenu: Story = {
         <IconHamburger width={20} height={20} alt="햄버거메뉴" />
       </button>
     </TopHeader>
-  ),
+  );
+};
+
+export const Default: Story = {
+  args: { label: 'BookArchive' },
+};
+
+export const Menu: Story = {
+  render: () => <TopHeaderWithMenu />,
 };

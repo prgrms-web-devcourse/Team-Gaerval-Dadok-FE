@@ -6,7 +6,6 @@ module.exports = {
     './src/ui/**/*.{ts,tsx}',
     './src/app/**/*.{ts,tsx}',
     './src/stories/**/*.{ts,tsx}',
-    './src/v1/**/*.{ts,tsx}',
     './.storybook/**/*.{ts,tsx}',
   ],
   theme: {
@@ -61,15 +60,6 @@ module.exports = {
       },
       fontFamily: {
         lineseed: ['var(--font-lineseed)'],
-      },
-      keyframes: {
-        'page-transition': {
-          from: { opacity: 0 },
-          to: { opacity: 1 },
-        },
-      },
-      animation: {
-        'page-transition': 'page-transition 0.2s forwards ease-in-out',
       },
     },
   },
