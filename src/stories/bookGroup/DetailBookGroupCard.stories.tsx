@@ -24,6 +24,7 @@ export const Default: Story = {
     },
     memberCount: 3,
     owner: {
+      id: 3,
       name: '소피아',
       profileImageSrc: '',
     },

@@ -12,6 +12,7 @@ import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import useMounted from '@/hooks/useMounted';
 import { checkAuthentication } from '@/utils/helpers';
 import useToast from '@/components/common/Toast/useToast';
+import useIsScrollAtTop from '@/hooks/useIsScrollAtTop';
 
 import FloatingButton from '@/components/common/FloatingButton';
 import Loading from '@/components/common/Loading';
@@ -23,10 +24,12 @@ import SearchGroupInput from '@/components/bookGroup/SearchGroup';
 import SimpleBookGroupCard, {
   SimpleBookGroupCardSkeleton,
 } from '@/components/bookGroup/SimpleBookGroupCard';
+import CreateGroupBanner from '@/components/bookGroup/banner/CreateGroupBanner';
 
 const GroupPage = () => {
   const router = useRouter();
   const { show: showToast } = useToast();
+  const { isScrollAtTop } = useIsScrollAtTop();
 
   const isAuthenticated = checkAuthentication();
 
@@ -49,11 +52,13 @@ const GroupPage = () => {
 
   return (
     <>
-      <TopHeader text="Group" />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">Group</h1>
+      </TopHeader>
       <div className="flex w-full flex-col gap-[2rem]">
         <SearchGroupInput onClick={handleSearchInputClick} />
         <SSRSafeSuspense fallback={<PageSkeleton />}>
-          {isAuthenticated && <MyBookGroupList />}
+          {isAuthenticated && <MyBookGroupSection />}
           <EntireBookGroupList />
         </SSRSafeSuspense>
       </div>
@@ -67,24 +72,33 @@ const GroupPage = () => {
 
 export default GroupPage;
 
-const MyBookGroupList = () => {
+const MyBookGroupSection = () => {
   const isAuthenticated = checkAuthentication();
   const {
     data: { bookGroups },
   } = useMyGroupsQuery({ enabled: isAuthenticated });
   const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
 
+  // 참여한 모임이 없는 경우, 모임 생성 유도 배너 노출
+  if (bookGroups.length === 0) {
+    return <CreateGroupBanner />;
+  }
+
   return (
-    <section className="flex gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem]">
-      {bookGroups.map(({ title, book, bookGroupId, owner }) => (
-        <SimpleBookGroupCard
-          key={bookGroupId}
-          title={title}
-          imageSource={book.imageUrl}
-          isOwner={owner.id === myId}
-          bookGroupId={bookGroupId}
-        />
-      ))}
+    <section className="flex flex-col gap-[1rem]">
+      <h2 className="font-body1-bold">내 모임</h2>
+      <ul className="flex gap-[1rem] overflow-y-hidden overflow-x-scroll pb-[1.5rem]">
+        {bookGroups.map(({ title, book, bookGroupId, owner }) => (
+          <li key={bookGroupId}>
+            <SimpleBookGroupCard
+              title={title}
+              imageSource={book.imageUrl}
+              isOwner={owner.id === myId}
+              bookGroupId={bookGroupId}
+            />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
@@ -149,6 +163,7 @@ const EntireBookGroupList = () => {
   return (
     <>
       <section className="flex flex-col gap-[1rem]">
+        <h2 className="font-body1-bold">전체 모임</h2>
         {isSuccess &&
           data.pages.map(({ bookGroups }) =>
             bookGroups.map(
@@ -171,6 +186,7 @@ const EntireBookGroupList = () => {
                   bookImageSrc={book.imageUrl}
                   date={{ start: startDate, end: endDate }}
                   owner={{
+                    id: owner.id,
                     name: owner.nickname,
                     profileImageSrc: owner.profileUrl,
                   }}

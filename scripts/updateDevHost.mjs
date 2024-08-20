@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const fs = require('fs');
-const { EOL } = require('os');
+import * as fs from 'fs';
+import { EOL } from 'os';
 
 const LOCALHOST = '127.0.0.1';
 const IS_WINDOWS = process.platform === 'win32';

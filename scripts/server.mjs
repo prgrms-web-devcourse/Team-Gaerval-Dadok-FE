@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const fs = require('fs');
-const https = require('https');
-const path = require('path');
-const { parse } = require('url');
-const { execSync } = require('child_process');
-const next = require('next');
+import fs from 'fs';
+import https from 'https';
+import path from 'path';
+import { parse } from 'url';
+import { execSync } from 'child_process';
+import next from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = process.argv[2];

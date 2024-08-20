@@ -9,10 +9,12 @@ type RecentSearchListProps = {
 };
 
 const RecentSearchList = ({ keywords, onClick }: RecentSearchListProps) => {
+  const hasKeywords = keywords && keywords?.length !== 0;
+
   return (
     <section className="flex flex-col gap-[1.5rem]">
       <h2 className="font-body1-regular">최근 검색어</h2>
-      {keywords ? (
+      {hasKeywords ? (
         <ul className="relative flex w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
           {keywords.map(item => (
             <li key={`${item.keyword}-${item.modifiedAt}`}>

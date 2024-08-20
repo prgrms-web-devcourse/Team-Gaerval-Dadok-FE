@@ -119,7 +119,7 @@ const Book = ({
           src={imageUrl}
           alt={title}
           onLoadingComplete={handleOnLoadImage}
-          className=" rounded-[1px] object-cover"
+          className="rounded-[1px] object-cover"
           sizes="9.1rem"
           fill
           style={{ visibility: bookSpineColor ? 'visible' : 'hidden' }}
@@ -129,8 +129,15 @@ const Book = ({
   );
 };
 
+const EmptyText = () => (
+  <p className="pb-[5.5rem] pt-[3rem] text-center text-placeholder font-body2-regular">
+    책장이 비었어요.
+  </p>
+);
+
 BookShelf.Background = Background;
 BookShelf.Info = Info;
 BookShelf.Books = Books;
+BookShelf.EmptyText = EmptyText;
 
 export default BookShelf;

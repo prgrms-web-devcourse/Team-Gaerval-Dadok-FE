@@ -7,8 +7,12 @@ import { useQueryClient } from '@tanstack/react-query';
 import userAPI from '@/apis/user';
 import userKeys from '@/queries/user/key';
 
-import { checkAuthentication, removeAuth } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL } from '@/constants';
+import { deleteAuthSession } from '@/server/session';
+import { deleteCookie } from '@/utils/cookie';
+import { checkAuthentication } from '@/utils/helpers';
+import useIsScrollAtTop from '@/hooks/useIsScrollAtTop';
+
+import { SESSION_COOKIES_KEYS } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
 import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
@@ -18,6 +22,7 @@ import Button from '@/components/common/Button';
 import Loading from '@/components/common/Loading';
 import Menu from '@/components/common/Menu';
 import TopHeader from '@/components/common/TopHeader';
+import LoginLink from '@/components/common/LoginLink';
 import BookShelf from '@/components/bookShelf/BookShelf';
 import ProfileBookShelf from '@/components/profile/bookShelf/ProfileBookShelf';
 import ProfileGroup from '@/components/profile/group/ProfileGroup';
@@ -27,6 +32,7 @@ const USER_ID = 'me';
 
 const MyProfilePage = () => {
   const isAuthenticated = checkAuthentication();
+
   return (
     <SSRSafeSuspense fallback={<Loading fullpage />}>
       {isAuthenticated ? <MyProfileForAuth /> : <MyProfileForUnAuth />}
@@ -35,9 +41,13 @@ const MyProfilePage = () => {
 };
 
 const MyProfileForUnAuth = () => {
+  const { isScrollAtTop } = useIsScrollAtTop();
+
   return (
     <>
-      <TopHeader text="Profile" />
+      <TopHeader blur={!isScrollAtTop}>
+        <h1 className="text-main-900 font-heading-bold">Profile</h1>
+      </TopHeader>
       <div className="flex flex-col gap-[3rem]">
         <div className="mb-[2rem] flex items-center gap-[1rem]">
           <Avatar size="large" />
@@ -49,9 +59,9 @@ const MyProfileForUnAuth = () => {
               카카오로 3초만에 가입할 수 있어요.
             </p>
           </div>
-          <Link href={KAKAO_LOGIN_URL}>
+          <LoginLink>
             <IconArrowRight width="20px" />
-          </Link>
+          </LoginLink>
         </div>
         <div className="flex flex-col gap-[0.6rem]">
           <div className="flex items-center justify-between">
@@ -60,21 +70,15 @@ const MyProfileForUnAuth = () => {
           <BookShelf>
             <div className="w-app pb-[2.5rem] pt-[2rem] shadow-[0px_20px_20px_-16px_#D1D1D1]">
               <BookShelf.Background />
-              <div className="pb-[5.5rem] pt-[3rem] text-center">
-                <p className="text-placeholder font-body2-regular">
-                  책장이 비었어요.
-                </p>
-              </div>
+              <BookShelf.EmptyText />
             </div>
           </BookShelf>
         </div>
         <div className="flex flex-col gap-[0.6rem]">
           <h3 className="font-body1-bold">참여한 모임</h3>
-          <div className="pb-[5.5rem] pt-[5.5rem] text-center">
-            <p className="text-placeholder font-body2-regular">
-              참여 중인 모임이 없어요.
-            </p>
-          </div>
+          <p className="py-[4rem] text-center text-placeholder font-body2-regular">
+            참여 중인 모임이 없어요.
+          </p>
         </div>
       </div>
     </>
@@ -84,22 +88,31 @@ const MyProfileForUnAuth = () => {
 const MyProfileForAuth = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { isScrollAtTop } = useIsScrollAtTop();
 
   const handleLogoutButtonClick = async () => {
-    await userAPI.logout();
-    removeAuth();
-    queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
-    router.refresh();
+    try {
+      await userAPI.logout();
+      await deleteAuthSession();
+    } finally {
+      SESSION_COOKIES_KEYS.map(key => deleteCookie(key));
+      queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
+      router.refresh();
+    }
   };
 
   return (
     <>
-      <TopHeader text="Profile">
+      <TopHeader
+        className="flex items-center justify-between"
+        blur={!isScrollAtTop}
+      >
+        <h1 className="text-main-900 font-heading-bold">Profile</h1>
         <Menu>
           <Menu.Toggle />
-          <Menu.DropdownList>
+          <Menu.BottomSheetList>
             <Menu.Item onSelect={handleLogoutButtonClick}>로그아웃</Menu.Item>
-          </Menu.DropdownList>
+          </Menu.BottomSheetList>
         </Menu>
       </TopHeader>
       <div className="flex flex-col gap-[1rem]">

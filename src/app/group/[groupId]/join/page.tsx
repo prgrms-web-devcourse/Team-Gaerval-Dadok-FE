@@ -12,8 +12,9 @@ import Loading from '@/components/common/Loading';
 import Input from '@/components/common/Input';
 import InputLength from '@/components/common/InputLength';
 import ErrorMessage from '@/components/common/ErrorMessage';
-import BottomActionButton from '@/components/common/BottomActionButton';
+import StickyFooter from '@/components/common/StickyFooter';
 import BookGroupNavigation from '@/components/bookGroup/BookGroupNavigation';
+import Button from '@/components/common/Button';
 
 type JoinFormValues = {
   answer: string;
@@ -100,7 +101,12 @@ const BookGroupJoinForm = ({ groupId }: { groupId: number }) => {
           </div>
         </div>
       </div>
-      <BottomActionButton type="submit">제출하기</BottomActionButton>
+
+      <StickyFooter>
+        <Button type="submit" size="full">
+          제출하기
+        </Button>
+      </StickyFooter>
     </form>
   );
 };

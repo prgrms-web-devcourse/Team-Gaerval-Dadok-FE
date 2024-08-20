@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
+import { getSafeNickname } from '@/utils/converter';
+
 import BookGroupStatus from '@/components/bookGroup/BookGroupStatus';
 import Badge from '@/components/common/Badge';
 import Avatar from '@/components/common/Avatar';
@@ -11,7 +13,7 @@ interface DetailBookGroupCardProps {
   description: string;
   bookImageSrc: string;
   date: { start: string; end: string };
-  owner: { name: string; profileImageSrc: string };
+  owner: { id: number; name: string; profileImageSrc: string };
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
@@ -37,13 +39,13 @@ const DetailBookGroupCard = ({
           <Public isPublic={isPublic} />
         </div>
         <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
-          <div className="flex min-w-0 flex-grow flex-col justify-between ">
+          <div className="flex min-w-0 flex-grow flex-col justify-center gap-[0.6rem]">
             <Title title={title} />
             <Description description={description} />
             <Duration start={date.start} end={date.end} />
             <div className="flex justify-between">
               <Owner
-                name={owner.name}
+                name={getSafeNickname(owner.id, owner.name)}
                 profileImageSrc={owner.profileImageSrc}
               />
               <div className="flex gap-[0.5rem]">
@@ -66,7 +68,7 @@ const Public = ({ isPublic }: { isPublic: boolean }) => (
 );
 
 const Title = ({ title }: { title: string }) => {
-  return <p className="min-w-0 truncate font-body1-bold">{title}</p>;
+  return <p className="min-w-0 truncate font-body2-bold">{title}</p>;
 };
 
 const Description = ({ description }: { description: string }) => {
@@ -74,15 +76,8 @@ const Description = ({ description }: { description: string }) => {
 };
 
 const Duration = ({ start, end }: { start: string; end: string }) => {
-  const formatDateTime = (dateString: string) =>
-    new Intl.DateTimeFormat('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).format(new Date(dateString));
-
   return (
-    <div className="flex items-center gap-[0.5rem]">
+    <div className="my-[0.2rem] flex items-center gap-[0.5rem]">
       <IconCalendar className="w-[1.2rem] fill-placeholder" />
       <p className="text-placeholder font-caption1-regular">
         {formatDateTime(start)} - {formatDateTime(end)}
@@ -90,6 +85,13 @@ const Duration = ({ start, end }: { start: string; end: string }) => {
     </div>
   );
 };
+
+const formatDateTime = (dateString: string) =>
+  new Intl.DateTimeFormat('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(dateString));
 
 const Owner = ({
   name,

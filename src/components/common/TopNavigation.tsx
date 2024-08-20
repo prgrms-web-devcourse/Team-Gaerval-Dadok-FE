@@ -8,17 +8,17 @@ type ItemProps = TopNavigationProps;
 
 const TopNavigation = ({ children }: TopNavigationProps) => {
   return (
-    <div className="fixed left-0 right-0 top-0 z-50 mx-auto flex h-[2.4rem] w-full max-w-[43rem] items-center justify-center bg-white px-[4rem] py-[2.7rem] font-body1-regular">
+    <header className="fixed left-0 right-0 top-0 z-50 mx-auto flex h-[2.4rem] w-full max-w-[43rem] items-center justify-center bg-white px-[4rem] pb-[2.7rem] pt-[calc(env(safe-area-inset-top)+2.7rem)] font-body1-regular">
       {children}
-    </div>
+    </header>
   );
 };
 
 const LeftItem = ({ children }: ItemProps) => {
   return (
-    <div className="absolute left-[0rem] flex pl-[2rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
+    <nav className="absolute left-[0rem] flex pl-[2rem] [&_svg]:h-[2rem] [&_svg]:w-[2rem] [&_svg]:cursor-pointer">
       {children}
-    </div>
+    </nav>
   );
 };
 

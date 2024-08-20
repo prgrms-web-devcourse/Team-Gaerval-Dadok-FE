@@ -32,22 +32,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/service-api/:url*',
-        destination: `${baseURL}/api/:url*`,
-      },
-      {
         source: '/aladin-api',
         has: [{ type: 'query', key: 'QueryType', value: '(?<QueryType>.*)' }],
         destination: `${aladinURL}/api/ItemList.aspx?ttbkey=${ALADIN_API_KEY}&QueryType=:QueryType&MaxResults=10&start=1&SearchTarget=Book&output=JS&Version=20131101`,
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/bookarchive',
-        permanent: false,
       },
     ];
   },
@@ -78,6 +65,9 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  experimental: {
+    serverActions: true,
   },
 };
 
