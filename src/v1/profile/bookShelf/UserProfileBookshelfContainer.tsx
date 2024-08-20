@@ -1,5 +1,5 @@
 import ProfileBookshelfPresenter from './ProfileBookshelfPresenter';
-import useUserSummaryBookshelfQuery from '@/queries/bookshelf/useUserSummaryBookShelfQuery';
+import useUserSummaryBookshlefQuery from '@/queries/bookshelf/useUserSummaryBookShelfQuery';
 import type { APIUser } from '@/types/user';
 
 const UserProfileBookshelfContainer = ({
@@ -7,7 +7,7 @@ const UserProfileBookshelfContainer = ({
 }: {
   userId: APIUser['userId'];
 }) => {
-  const { isSuccess, data } = useUserSummaryBookshelfQuery(userId, {
+  const { isSuccess, data } = useUserSummaryBookshlefQuery(userId, {
     suspense: true,
   });
 

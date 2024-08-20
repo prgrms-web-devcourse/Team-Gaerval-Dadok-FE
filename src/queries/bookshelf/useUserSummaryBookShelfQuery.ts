@@ -5,7 +5,7 @@ import type { APIBookshelf } from '@/types/bookshelf';
 import bookShelfKeys from './key';
 import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
 
-const useUserSummaryBookshelfQuery = (
+const useUserSummaryBookshlefQuery = (
   userId: APIUser['userId'],
   options?: QueryOptions<APIBookshelf>
 ) =>
@@ -16,4 +16,4 @@ const useUserSummaryBookshelfQuery = (
     options
   );
 
-export default useUserSummaryBookshelfQuery;
+export default useUserSummaryBookshlefQuery;
