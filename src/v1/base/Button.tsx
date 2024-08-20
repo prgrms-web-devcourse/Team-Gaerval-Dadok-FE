@@ -67,7 +67,6 @@ const Button = ({
   colorScheme = 'main',
   fill = true,
   fullRadius = false,
-  className,
   children,
   ...props
 }: ButtonProps) => {
@@ -82,7 +81,7 @@ const Button = ({
   return (
     <button
       type="button"
-      className={`${BASE_BUTTON_CLASSES} ${computedClasses} ` + className}
+      className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
       {...props}
     >
       {children}
