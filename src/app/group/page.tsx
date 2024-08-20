@@ -45,7 +45,7 @@ const GroupPage = () => {
   };
 
   const FLOATING_BUTTON_POSITION =
-    'bottom-[calc(env(safe-area-inset-bottom)+8.3rem)] right-[1.7rem] desktop:right-1/2 desktop:translate-x-[19.8rem]';
+    'bottom-[8.3rem] right-[1.7rem] desktop:right-1/2 desktop:translate-x-[19.8rem]';
 
   return (
     <>
