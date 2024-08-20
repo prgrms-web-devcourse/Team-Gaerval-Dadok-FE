@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const fs = require('fs');
 const https = require('https');
-const path = require('path');
 const { parse } = require('url');
 const { execSync } = require('child_process');
 const next = require('next');
@@ -15,10 +14,7 @@ const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 const SELF_CERTIFICATES_PATH = {
-  ca: path.resolve(
-    execSync('mkcert -CAROOT').toString().replace(/\s$/, ''),
-    './rootCA.pem'
-  ),
+  ca: `${execSync('mkcert -CAROOT').toString().replace(/\s/g, '')}/rootCA.pem`,
   key: './.certificates/localhost-key.pem',
   cert: './.certificates/localhost.pem',
 };

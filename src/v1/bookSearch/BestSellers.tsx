@@ -169,10 +169,10 @@ const BestSellerSkeleton = () => {
 export const BestSellersSkeleton = () => {
   return (
     <Skeleton>
-      <section className="flex flex-col gap-[1.5rem]">
+      <section className="flex flex-col gap-[1.7rem]">
         <Skeleton.Text width="7rem" fontSize="2xlarge" />
-        <ul className="flex w-full gap-[1rem]">
-          <Skeleton.Rect width="5.5rem" height="2.5rem" rounded="large" />
+        <ul className="flex w-full gap-[1rem] pb-[1rem]">
+          <Skeleton.Rect width="5.5rem" height="2.7rem" rounded="large" />
         </ul>
         <ul className="flex w-[12.8rem] flex-row justify-around">
           <Skeleton.Text width="2.5rem" fontSize="xsmall" />

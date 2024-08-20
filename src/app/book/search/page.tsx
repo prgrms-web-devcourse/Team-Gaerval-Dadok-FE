@@ -13,7 +13,6 @@ import bookAPI from '@/apis/book';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
-import useQueryParams from '@/hooks/useQueryParams';
 import { checkAuthentication } from '@/utils/helpers';
 
 import Loading from '@/v1/base/Loading';
@@ -29,31 +28,16 @@ type FormValues = {
   searchValue: string;
 };
 
-const KEYWORD = 'keyword';
-
 const BookSearchPage = () => {
-  const { getQueryParam, setQueryParams, removeQueryParam } = useQueryParams();
-
   const { register, watch, setValue } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
-      searchValue: getQueryParam(KEYWORD) ?? '',
+      searchValue: '',
     },
   });
 
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
-
-  /* debounce된 keyword값에 따라 queryParameter를 수정하는 useEffect */
-  useEffect(() => {
-    const queryValue = getQueryParam(KEYWORD);
-
-    if (debouncedKeyword) {
-      setQueryParams({ [KEYWORD]: debouncedKeyword });
-    } else if (!debouncedKeyword && queryValue) {
-      removeQueryParam(KEYWORD, 'replace');
-    }
-  }, [debouncedKeyword, getQueryParam, setQueryParams, removeQueryParam]);
 
   /* TopHeader가 사라졌을 때 input의 위치 top: 5.8rem */
   const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
@@ -75,7 +59,6 @@ const BookSearchPage = () => {
         }`}
       >
         <Input
-          type="search"
           inputStyle="line"
           leftIconType="search"
           placeholder="책 제목, 작가를 검색해보세요"
