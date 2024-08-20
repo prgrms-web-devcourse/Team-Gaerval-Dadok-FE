@@ -1,5 +1,5 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import BookCover from '../book/BookCover';
 
 interface SimpleBookGroupCardProps {
   title: string;
@@ -16,23 +16,24 @@ const SimpleBookGroupCard = ({
 }: SimpleBookGroupCardProps) => {
   return (
     <Link href={`/group/${bookGroupId}`}>
-      <div className="flex w-[10rem] flex-col gap-[1rem]">
+      <div className="flex w-[10rem] flex-col gap-[0.5rem]">
         <div className="bg-orange-100 px-[1.8rem] py-[1.6rem]">
-          <BookCover size="xsmall" src={imageSource} />
+          <Image
+            src={imageSource}
+            alt="bookgroup"
+            width={65}
+            height={90}
+            className="rounded-[0.5rem]"
+          />
         </div>
-        <p className="break-keep text-center text-xs leading-tight">
-          {isOwner ? `👑 ${title}` : title}
-        </p>
+        <div>
+          <p className="break-keep text-center text-xs leading-6">
+            {isOwner ? `👑 ${title}` : title}
+          </p>
+        </div>
       </div>
     </Link>
   );
 };
 
 export default SimpleBookGroupCard;
-
-export const SimpleBookGroupCardSkeleton = () => (
-  <div className="flex animate-pulse flex-col gap-[1rem]">
-    <div className="h-[12.3rem] w-[10rem] rounded-[0.5rem] bg-black-400" />
-    <div className="h-[1.3rem] w-[5rem] self-center bg-black-400" />
-  </div>
-);

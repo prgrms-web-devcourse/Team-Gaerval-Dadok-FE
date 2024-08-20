@@ -138,26 +138,3 @@ const CommentCount = ({ commentCount }: { commentCount: number }) => {
     </div>
   );
 };
-
-export const DetailBookGroupCardSkeleton = () => (
-  <div className="w-full animate-pulse rounded-[0.5rem] p-[1.5rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
-    <div className="flex gap-[0.5rem]">
-      <div className="h-[1.9rem] w-[4.8rem] rounded-[0.5rem] bg-black-400" />
-      <div className="h-[2rem] w-[3.8rem] rounded-[0.5rem] bg-black-400" />
-    </div>
-    <div className="flex justify-between gap-[1.5rem] pt-[1rem]">
-      <div className="flex flex-grow flex-col justify-between ">
-        <div className="h-[2.2rem] w-[65%] bg-black-400" />
-        <div className="h-[1.3rem] w-[75%] bg-black-400" />
-        <div className="h-[1.3rem] w-[60%] bg-black-400" />
-        <div className="flex w-full items-center gap-[0.5rem]">
-          <div className="h-[2rem] w-[2rem] rounded-full bg-black-400" />
-          <div className="h-[1.3rem] w-[4rem] bg-black-400" />
-          <div className="flex-grow" />
-          <div className="h-[1.3rem] w-[5rem] bg-black-400" />
-        </div>
-      </div>
-      <div className="h-[10.5rem] w-[7.5rem] rounded-[0.5rem] bg-black-400"></div>
-    </div>
-  </div>
-);
