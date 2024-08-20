@@ -9,10 +9,7 @@ import BottomActionButton from '@/v1/base/BottomActionButton';
 import { TitleField } from './fields';
 
 const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
-  const {
-    handleSubmit,
-    formState: { isValid },
-  } = useFormContext<EnterTitleStepFormValues>();
+  const { handleSubmit } = useFormContext<EnterTitleStepFormValues>();
 
   useRemoveVerticalScroll();
 
@@ -27,7 +24,6 @@ const EnterTitleStep = ({ onNextStep }: MoveFunnelStepProps) => {
 
       <BottomActionButton
         type="submit"
-        disabled={!isValid}
         onClick={handleSubmit(() => onNextStep?.())}
       >
         다음
