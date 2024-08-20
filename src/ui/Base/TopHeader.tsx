@@ -24,9 +24,9 @@ const getHeaderLabel = (pathname: string) => {
 const TopHeader = ({ pathname, children }: TopHeaderProps) => {
   return (
     <div className="flex w-full items-center justify-between pb-[0.8rem]">
-      <h1 className="text-xl font-bold text-main-900">
+      <p className="text-xl font-bold text-main-900">
         {getHeaderLabel(pathname)}
-      </h1>
+      </p>
       {children}
     </div>
   );

@@ -45,7 +45,7 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
   const sizeClasses = getCoverSizeClasses(size);
 
   return (
-    <div className={`relative ${sizeClasses}`}>
+    <span className={`relative ${sizeClasses}`}>
       <Image
         src={src}
         alt={title}
@@ -54,7 +54,7 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
         className="object-fit rounded-[0.5rem] shadow-bookcover"
         fill
       />
-    </div>
+    </span>
   );
 };
 
