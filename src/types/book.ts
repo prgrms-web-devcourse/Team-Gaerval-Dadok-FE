@@ -1,6 +1,6 @@
 import { BookSearchPagination, Pagination } from './common';
 import { APIJobGroup } from './job';
-import { APIUser, Writer } from './user';
+import { APIUser } from './user';
 
 export interface APIBook {
   bookId: number;
@@ -82,12 +82,6 @@ export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookComment[];
 }
 
-export type BookComment = {
-  id: APIBook['bookId'];
-  writer: Writer;
-  createdAt: APIBookComment['createdAt'];
-  content: APIBookComment['contents'];
-};
 export interface APIBestSeller {
   isbn: string;
   title: string;

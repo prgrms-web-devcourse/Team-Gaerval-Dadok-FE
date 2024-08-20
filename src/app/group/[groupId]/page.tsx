@@ -1,16 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-
-import { isAuthed } from '@/utils/helpers';
-import { KAKAO_LOGIN_URL } from '@/constants/url';
-
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
-import BookGroupCommentList from '@/v1/comment/BookGroupCommentList';
+import CommentList from '@/v1/bookGroup/detail/CommentList';
 import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
 import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
 import BottomActionButton from '@/v1/base/BottomActionButton';
+import { isAuthed } from '@/utils/helpers';
+import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -32,7 +30,7 @@ const DetailBookGroupPage = ({
           <Divider />
           <div className="flex flex-col gap-[1rem]">
             <Heading text="게시글" />
-            <BookGroupCommentList groupId={groupId} />
+            <CommentList groupId={groupId} />
           </div>
         </div>
         {isAuthed() ? (
