@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H local.dev.dadok.app",
-    "dev-ssl": "node scripts/server.js local.dev.dadok.app",
+    "ssl-dev": "node scripts/server.js local.dev.dadok.app",
     "build": "next build",
     "start": "next start -H local.dev.dadok.app",
     "lint": "next lint",
