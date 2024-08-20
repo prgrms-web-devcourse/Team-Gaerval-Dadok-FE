@@ -1,19 +1,11 @@
 'use client';
 
-import AddGroupForm from '@/ui/Group/AddGroupForm';
-import { VStack } from '@chakra-ui/react';
-import TopNavigation from '@/ui/common/TopNavigation';
-import AuthRequired from '@/ui/AuthRequired';
+import withAuthRequired from '@/hocs/withAuthRequired';
 
-const GroupCreatePage = () => {
-  return (
-    <AuthRequired>
-      <VStack justify="center" align="center">
-        <TopNavigation pageTitle="모임 생성" />
-        <AddGroupForm />
-      </VStack>
-    </AuthRequired>
-  );
+import CreateBookGroupFunnel from '@/components/bookGroup/create/CreateBookGroupFunnel';
+
+const GroupCreateFunnelPage = () => {
+  return <CreateBookGroupFunnel />;
 };
 
-export default GroupCreatePage;
+export default withAuthRequired(GroupCreateFunnelPage);

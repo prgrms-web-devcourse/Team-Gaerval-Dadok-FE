@@ -1,51 +1,54 @@
 'use client';
 
-import { Highlight, Text, VStack } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Button from '@/ui/common/Button';
-import Logo from '@/ui/common/Logo';
+import { IconKakao } from '@public/icons';
+import { KAKAO_LOGIN_URL } from '@/constants';
+
+import Button from '@/components/common/Button';
 
 const LoginPage = () => {
-  const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
-
   return (
-    <VStack
-      align="center"
-      justify="center"
-      pos="relative"
-      zIndex="1"
-      bgColor="white.800"
-      h="100%"
-      gap="26rem"
-    >
-      <VStack w="100%" align="flex-start" spacing="3rem" px="2rem">
-        <Logo width={65} />
-        <Text fontSize="2xl" fontWeight="normal">
-          책에 대한 모든 이야기
+    <>
+      <article className="absolute inset-x-0 top-[15vh] flex w-full flex-col items-center gap-[2.3rem]">
+        <Image
+          src="/images/login-landing.jpg"
+          alt="로그인랜딩이미지"
+          width={300}
+          height={270}
+        />
+        <p className="text-center !leading-snug font-heading-regular">
+          <span className="font-subheading-regular">
+            책에 대한 모든 이야기,
+          </span>
           <br />
-          <Highlight
-            query="다독다독"
-            styles={{ color: 'main', fontWeight: 'bold' }}
+          <span className="font-bold text-main-900">다독다독</span>에서
+          함께해요!
+        </p>
+      </article>
+
+      <section className="absolute inset-x-[2rem] bottom-[2rem] flex flex-col justify-center gap-[1rem]">
+        <Link href={KAKAO_LOGIN_URL}>
+          <Button size="full" colorScheme="kakao">
+            <div className="flex w-full items-center justify-center">
+              <IconKakao className="absolute left-[2rem] w-[2.1rem]" />
+              <p>카카오 로그인</p>
+            </div>
+          </Button>
+        </Link>
+        <Link href="/" className="flex justify-center">
+          <Button
+            size="small"
+            colorScheme="grey"
+            className="border-none !text-black-700 underline underline-offset-4 font-body2-regular"
+            fill={false}
           >
-            다독다독에서 함께 해요
-          </Highlight>
-        </Text>
-      </VStack>
-      <Link href={kakaoUrl} style={{ width: '100%' }}>
-        <Button scheme="kakao" fullWidth>
-          <Image
-            src="/images/kakao.svg"
-            alt="카카오 로고"
-            width={21}
-            height={19}
-            priority
-          />
-          카카오 로그인
-        </Button>
-      </Link>
-    </VStack>
+            로그인하지 않고 둘러보기
+          </Button>
+        </Link>
+      </section>
+    </>
   );
 };
 

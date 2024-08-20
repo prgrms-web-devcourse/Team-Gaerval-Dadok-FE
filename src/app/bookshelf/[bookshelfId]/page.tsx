@@ -1,37 +1,26 @@
 'use client';
 
-import { useToast } from '@/hooks/toast';
-import useBookshelfBooksQuery from '@/queries/bookshelf/useBookshelfBookListQuery';
-import useBookshelfInfoQuery from '@/queries/bookshelf/useBookshelfInfoQuery';
-import {
-  useBookshelfLike,
-  useBookshelfUnlike,
-} from '@/queries/bookshelf/useBookshelfLikeMutation';
-import { APIBookshelf } from '@/types/bookshelf';
-import Button from '@/ui/common/Button';
-import IconButton from '@/ui/common/IconButton';
-import { LikeButton } from '@/ui/common/BookshelfLike/';
-import TopNavigation from '@/ui/common/TopNavigation';
-import InteractiveBookShelf from '@/ui/InteractiveBookShelf';
-import InitialBookShelfData from '@/ui/InteractiveBookShelf/InitialBookShelfData';
-import UserJobInfoTag from '@/ui/UserJobInfoTag';
-import { isAuthed } from '@/utils/helpers';
-import {
-  Box,
-  Flex,
-  Highlight,
-  HStack,
-  Image,
-  Link,
-  Skeleton,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
-import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { useInView } from 'react-intersection-observer';
 
-const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+import type { APIBookshelf } from '@/types/bookshelf';
+
+import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
+import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
+import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
+import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
+import { checkAuthentication } from '@/utils/helpers';
+import { IconKakao } from '@public/icons';
+import { KAKAO_LOGIN_URL } from '@/constants';
+
+import useToast from '@/components/common/Toast/useToast';
+import TopNavigation from '@/components/common/TopNavigation';
+import BookShelfRow from '@/components/bookShelf/BookShelfRow';
+import Button from '@/components/common/Button';
+import LikeButton from '@/components/common/LikeButton';
+import BackButton from '@/components/common/BackButton';
+import ShareButton from '@/components/common/ShareButton';
 
 export default function UserBookShelfPage({
   params: { bookshelfId },
@@ -40,23 +29,86 @@ export default function UserBookShelfPage({
     bookshelfId: APIBookshelf['bookshelfId'];
   };
 }) {
+  return (
+    <div className="flex w-full flex-col">
+      <TopNavigation>
+        <TopNavigation.LeftItem>
+          <BackButton />
+        </TopNavigation.LeftItem>
+        <TopNavigation.RightItem>
+          <ShareButton />
+        </TopNavigation.RightItem>
+      </TopNavigation>
+
+      <BookShelfInfo bookshelfId={bookshelfId} />
+      <BookShelfContent bookshelfId={bookshelfId} />
+    </div>
+  );
+}
+
+const BookShelfInfo = ({ bookshelfId }: { bookshelfId: number }) => {
+  const isAuthenticated = checkAuthentication();
+  const { show: showToast } = useToast();
+
+  const { data } = useBookShelfInfoQuery(bookshelfId);
+  const { isLiked, likeCount, userId, userNickname, job } = data;
+
+  const { mutate: mutateBookshelfLike } =
+    useMutateBookshelfLikeQuery(bookshelfId);
+
+  const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
+
+  const handleClickLikeButton = () => {
+    if (!isAuthenticated) {
+      showToast({ message: '로그인 후 이용해주세요' });
+      return;
+    }
+
+    if (userId === myId) {
+      showToast({
+        message: '내 책장에는 좋아요를 누를 수 없어요',
+      });
+      return;
+    }
+
+    mutateBookshelfLike(isLiked);
+  };
+
+  return (
+    <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">
+      <h1 className="font-subheading-bold">
+        <span className="text-main-900">{userNickname}</span>
+        님의 책장
+      </h1>
+      <div className="flex items-center justify-between">
+        <span className="text-black-600 font-body2-regular">
+          {`${job.jobGroupKoreanName} • ${job.jobNameKoreanName}`}
+        </span>
+        <LikeButton
+          isLiked={isLiked}
+          likeCount={likeCount}
+          onClick={handleClickLikeButton}
+        />
+      </div>
+    </div>
+  );
+};
+
+const BookShelfContent = ({
+  bookshelfId,
+}: {
+  bookshelfId: APIBookshelf['bookshelfId'];
+}) => {
+  const isAuthenticated = checkAuthentication();
   const { ref, inView } = useInView();
-  const { data: infoData, isSuccess: infoIsSuccess } = useBookshelfInfoQuery({
-    bookshelfId,
-  });
-  const { mutate: likeBookshelf } = useBookshelfLike(bookshelfId);
-  const { mutate: unlikeBookshelf } = useBookshelfUnlike(bookshelfId);
-  const pathname = usePathname();
-  const { showToast } = useToast();
+
   const {
     data: booksData,
     fetchNextPage,
     hasNextPage,
-    isSuccess: booksIsSuccess,
-    isLoading,
-    isFetching,
+    isSuccess,
     isFetchingNextPage,
-  } = useBookshelfBooksQuery({ bookshelfId });
+  } = useBookShelfBooksQuery({ bookshelfId });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -64,105 +116,68 @@ export default function UserBookShelfPage({
     }
   }, [fetchNextPage, inView, hasNextPage]);
 
-  if (isLoading) {
-    return (
-      <VStack gap="2rem" mt="7.8rem">
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-        <Skeleton width="100%" height="15.2rem" />
-      </VStack>
-    );
-  }
+  // TODO: Suspense 적용
+  if (!isSuccess) return null;
 
-  if (!(infoIsSuccess && booksIsSuccess)) return null;
+  return isAuthenticated ? (
+    <>
+      {booksData.pages.map(page =>
+        page.books.map((rowBooks, idx) => (
+          <BookShelfRow key={idx} books={rowBooks} />
+        ))
+      )}
+      {!isFetchingNextPage && <div ref={ref} />}
+    </>
+  ) : (
+    <>
+      <BookShelfRow books={booksData.pages[0].books[0]} />
+      <DummyBookShelfRow />
+      <BookShelfLoginBox bookshelfId={bookshelfId} />
+    </>
+  );
+};
+const DummyBookShelfRow = () => (
+  <div className="pointer-events-none blur-sm">
+    <BookShelfRow books={initialBookImageUrl} />
+  </div>
+);
 
-  const filtered = () => {
-    const data = booksData.pages[0].books;
-
-    if (isAuthed()) return data;
-
-    return data.slice(0, 4);
-  };
-
-  const filteredData = filtered();
-
-  const handleClickShareButton = () => {
-    const url = 'https://dev.dadok.site' + pathname;
-
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        showToast({ message: '복사 성공!' });
-      })
-      .catch(() => {
-        showToast({ message: '잠시 후 다시 시도해주세요' });
-      });
-  };
-
-  const handleBookshelfLikeButton = () => {
-    !infoData.isLiked ? likeBookshelf() : unlikeBookshelf();
-  };
+const BookShelfLoginBox = ({
+  bookshelfId,
+}: {
+  bookshelfId: APIBookshelf['bookshelfId'];
+}) => {
+  const { data } = useBookShelfInfoQuery(bookshelfId);
+  const { userNickname } = data;
 
   return (
-    <VStack width="100%" height="100%">
-      <Flex width="100%" align="center">
-        <TopNavigation pageTitle={infoData.bookshelfName} />
-        <IconButton
-          name="share"
-          size="2.2rem"
-          onClick={handleClickShareButton}
-          cursor="pointer"
-          marginBottom="1rem"
-        />
-      </Flex>
-      <Flex width="100%" height="3rem" align="center" justify="space-between">
-        <HStack gap="0.08rem" py="1.6rem">
-          <UserJobInfoTag tag={infoData.job.jobGroupKoreanName} />
-          {infoData.job.jobNameKoreanName && (
-            <UserJobInfoTag tag={infoData.job.jobNameKoreanName} />
-          )}
-        </HStack>
-        <LikeButton
-          handleBookshelfLikeButton={handleBookshelfLikeButton}
-          isLiked={infoData.isLiked}
-          likeCount={infoData.likeCount}
-        />
-      </Flex>
-      <VStack width="100%" spacing="2rem">
-        {isAuthed() ? (
-          booksData.pages.map((page, idx) => (
-            <InteractiveBookShelf key={idx} books={page.books} />
-          ))
-        ) : (
-          <>
-            <InteractiveBookShelf books={filteredData} />
-            <InitialBookShelfData />
-            <Text textAlign="center" fontSize="lg" pt="5rem">
-              로그인 후에
-              <br />
-              <Highlight
-                query={infoData.bookshelfName}
-                styles={{ color: 'main', fontWeight: 'bold' }}
-              >
-                {`${infoData.bookshelfName}을 확인해 주세요!`}
-              </Highlight>
-            </Text>
-            <Link href={kakaoUrl} style={{ width: '100%' }}>
-              <Button scheme="kakao" fullWidth>
-                <Image
-                  src="/images/kakao.svg"
-                  alt="카카오 로고"
-                  width={21}
-                  height={19}
-                />
-                카카오 로그인
-              </Button>
-            </Link>
-          </>
-        )}
-        {isFetching && !isFetchingNextPage ? null : <Box ref={ref} />}
-      </VStack>
-    </VStack>
+    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-shadow px-[1.7rem] py-[4rem]">
+      <p className="text-center font-body1-bold">
+        지금 로그인하면
+        <br />
+        책장에 담긴 모든 책을 볼 수 있어요!
+      </p>
+      <p className="text-center text-placeholder font-body2-regular">
+        <span className="text-main-900">{userNickname}</span>님의 책장에서
+        다양한
+        <br />
+        인사이트를 얻을 수 있어요.
+      </p>
+      <Link href={KAKAO_LOGIN_URL}>
+        <Button colorScheme="kakao" size="full">
+          <div className="flex items-center justify-center gap-[1rem]">
+            <IconKakao width={16} height={'auto'} />
+            <span className="font-body1-regular">카카오 로그인</span>
+          </div>
+        </Button>
+      </Link>
+    </div>
   );
-}
+};
+
+const initialBookImageUrl = [
+  { bookId: 1, title: 'book1', imageUrl: '/images/book-cover/book1.jpeg' },
+  { bookId: 2, title: 'book2', imageUrl: '/images/book-cover/book2.jpeg' },
+  { bookId: 3, title: 'book3', imageUrl: '/images/book-cover/book3.jpeg' },
+  { bookId: 4, title: 'book4', imageUrl: '/images/book-cover/book4.jpeg' },
+];

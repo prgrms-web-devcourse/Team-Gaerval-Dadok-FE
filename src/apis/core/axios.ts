@@ -1,19 +1,17 @@
 import axios, { CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 
+import { AuthRefreshIgnoredError } from '@/types/customError';
 import { ACCESS_TOKEN_STORAGE_KEY, SERVICE_ERROR_MESSAGE } from '@/constants';
 import {
   isAuthFailedError,
   isAuthRefreshError,
   isAxiosErrorWithCustomCode,
-  setAxiosAuthHeader,
-  updateToken,
 } from '@/utils/helpers';
-import isClient from '@/utils/isClient';
 import webStorage from '@/utils/storage';
 
 const storage = webStorage(ACCESS_TOKEN_STORAGE_KEY);
-
 const options: CreateAxiosDefaults = {
+  baseURL: process.env.NEXT_HOST,
   headers: {
     Accept: '*/*',
     'Content-Type': 'application/json',
@@ -53,10 +51,7 @@ const responseHandler = async (error: unknown) => {
     }
 
     if (isAuthFailedError(code)) {
-      storage.remove();
-      if (isClient()) {
-        history.pushState('', '', '/');
-      }
+      removeToken();
     }
   } else {
     console.error('예상하지 못한 오류가 발생했어요.\n', error);
@@ -65,12 +60,48 @@ const responseHandler = async (error: unknown) => {
   return Promise.reject(error);
 };
 
-const silentRefresh = (originRequest: InternalAxiosRequestConfig) => {
-  return updateToken().then(newToken => {
+const silentRefresh = async (originRequest: InternalAxiosRequestConfig) => {
+  try {
+    const newToken = await updateToken();
     storage.set(newToken);
     setAxiosAuthHeader(originRequest, newToken);
-    return publicApi(originRequest);
+
+    return await publicApi(originRequest);
+  } catch (error) {
+    removeToken();
+    return Promise.reject(error);
+  }
+};
+
+/** api 요청이 병렬적으로 이뤄질 때,
+ *  토큰 업데이트는 한번만 요청하기 위해 사용되는 flag 변수 */
+let isTokenRefreshing = false;
+
+const updateToken = () =>
+  new Promise<string>((resolve, reject) => {
+    if (isTokenRefreshing) {
+      reject(new AuthRefreshIgnoredError('Already trying to refresh token'));
+      return;
+    }
+
+    isTokenRefreshing = true;
+
+    axios
+      .post<{ accessToken: string }>('/service-api/auth/token')
+      .then(({ data }) => resolve(data.accessToken))
+      .catch(reason => reject(reason))
+      .finally(() => (isTokenRefreshing = false));
   });
+
+const removeToken = () => {
+  storage.remove();
+};
+
+const setAxiosAuthHeader = (
+  config: InternalAxiosRequestConfig,
+  token: string
+) => {
+  config.headers['Authorization'] = `Bearers ${token}`;
 };
 
 publicApi.interceptors.request.use(requestHandler);
