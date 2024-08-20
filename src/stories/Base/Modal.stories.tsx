@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Modal from '@/v1/base/Modal';
+import Modal from '@/ui/Base/Modal';
 import useDisclosure from '@/hooks/useDisclosure';
-import Button from '@/v1/base/Button';
+import Button from '@/ui/Base/Button';
 import { Fragment } from 'react';
 
 const meta: Meta<typeof Modal> = {

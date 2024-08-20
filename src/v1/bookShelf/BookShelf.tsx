@@ -1,7 +1,7 @@
 import { APIBookshelf } from '@/types/bookshelf';
 import { IconArrowRight, IconHeart } from '@public/icons';
 import Link from 'next/link';
-import Badge from '@/v1/base/Badge';
+import Badge from '@/ui/Base/Badge';
 import Image from 'next/image';
 import { APIBook } from '@/types/book';
 import { ReactNode, useState } from 'react';

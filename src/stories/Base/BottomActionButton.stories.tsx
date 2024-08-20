@@ -1,4 +1,4 @@
-import BottomActionButton from '@/v1/base/BottomActionButton';
+import BottomActionButton from '@/ui/Base/BottomActionButton';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BottomActionButton> = {

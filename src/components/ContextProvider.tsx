@@ -6,7 +6,7 @@ import ChakraThemeProvider from '@/components/ChakraThemeProvider';
 import ReactQueryProvider from '@/components/ReactQueryProvider';
 import { ReactNode } from 'react';
 import ErrorPage from '@/app/error';
-import ToastProvider from '@/v1/base/Toast/ToastProvider';
+import ToastProvider from '@/ui/Base/Toast/ToastProvider';
 import Layout from '@/v1/layout/Layout';
 
 const ContextProvider = ({ children }: { children: ReactNode }) => {

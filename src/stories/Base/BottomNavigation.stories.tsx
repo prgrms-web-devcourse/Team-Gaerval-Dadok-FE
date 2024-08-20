@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import BottomNavigation from '@/v1/base/BottomNavigation';
+import BottomNavigation from '@/ui/Base/BottomNavigation';
 
 const meta: Meta<typeof BottomNavigation> = {
   title: 'Base/BottomNavigation',

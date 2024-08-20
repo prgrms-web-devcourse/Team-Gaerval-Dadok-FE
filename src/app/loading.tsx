@@ -1,4 +1,4 @@
-import Loading from '@/v1/base/Loading';
+import Loading from '@/ui/Base/Loading';
 
 export default function RootLoading() {
   return <Loading fullpage />;

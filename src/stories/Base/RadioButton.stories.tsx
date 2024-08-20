@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import RadioButton from '@/v1/base/RadioButton';
-import Button from '@/v1/base/Button';
+import RadioButton from '@/ui/Base/RadioButton';
+import Button from '@/ui/Base/Button';
 
 const meta: Meta<typeof RadioButton> = {
   title: 'Base/RadioButton',

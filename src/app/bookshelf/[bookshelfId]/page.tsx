@@ -1,7 +1,7 @@
 'use client';
 
 import { IconHeart, IconArrowLeft, IconShare, IconKakao } from '@public/icons';
-import useToast from '@/v1/base/Toast/useToast';
+import useToast from '@/ui/Base/Toast/useToast';
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
 import {
@@ -11,8 +11,8 @@ import {
 
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Button from '@/v1/base/Button';
-import TopNavigation from '@/v1/base/TopNavigation';
+import Button from '@/ui/Base/Button';
+import TopNavigation from '@/ui/Base/TopNavigation';
 import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
 import { useRouter } from 'next/navigation';
 import { isAuthed } from '@/utils/helpers';

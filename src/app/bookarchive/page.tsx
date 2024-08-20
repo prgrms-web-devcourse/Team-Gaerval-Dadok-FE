@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import useMounted from '@/hooks/useMounted';
 import BookArchiveForAuth from '@/v1/bookArchive/BookArchiveForAuth';
 import BookArchiveForUnAuth from '@/v1/bookArchive/BookArchiveForUnAuth';
-import TopHeader from '@/v1/base/TopHeader';
+import TopHeader from '@/ui/Base/TopHeader';
 
 export default function BookArchivePage() {
   return (

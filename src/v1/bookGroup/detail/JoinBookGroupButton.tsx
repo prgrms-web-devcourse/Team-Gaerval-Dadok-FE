@@ -5,8 +5,8 @@ import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
 
 import { useBookGroupJoinInfo } from '@/queries/group/useBookGroupQuery';
 import groupAPI from '@/apis/group';
-import useToast from '@/v1/base/Toast/useToast';
-import BottomActionButton from '@/v1/base/BottomActionButton';
+import useToast from '@/ui/Base/Toast/useToast';
+import BottomActionButton from '@/ui/Base/BottomActionButton';
 
 const JoinBookGroupButton = ({ groupId }: { groupId: number }) => {
   const _router = useRouter();

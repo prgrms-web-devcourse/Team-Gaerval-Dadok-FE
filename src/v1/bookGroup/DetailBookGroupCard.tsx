@@ -1,5 +1,5 @@
-import Badge from '@/v1/base/Badge';
-import Avatar from '@/v1/base/Avatar';
+import Badge from '@/ui/Base/Badge';
+import Avatar from '@/ui/Base/Avatar';
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
 import BookCover from '@/v1/book/BookCover';
 import Link from 'next/link';

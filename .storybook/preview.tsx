@@ -4,7 +4,7 @@ import type { Preview } from '@storybook/react';
 import '@/styles/global.css';
 
 import Layout from '../src/v1/layout/Layout';
-import ToastProvider from '../src/v1/base/Toast/ToastProvider';
+import ToastProvider from '../src/ui/Base/Toast/ToastProvider';
 
 const preview: Preview = {
   parameters: {

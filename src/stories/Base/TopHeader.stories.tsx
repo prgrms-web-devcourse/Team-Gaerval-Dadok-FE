@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { IconHamburger } from '@public/icons';
-import TopHeader from '@/v1/base/TopHeader';
+import TopHeader from '@/ui/Base/TopHeader';
 
 const meta: Meta<typeof TopHeader> = {
   title: 'Base/TopHeader',

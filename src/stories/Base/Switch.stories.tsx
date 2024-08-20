@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import Switch from '@/v1/base/Switch';
-import Button from '@/v1/base/Button';
+import Switch from '@/ui/Base/Switch';
+import Button from '@/ui/Base/Button';
 
 const meta: Meta<typeof Switch> = {
   title: 'Base/Switch',

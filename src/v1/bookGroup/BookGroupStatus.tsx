@@ -1,6 +1,6 @@
 import { DdayStatus } from '@/types/dday';
 
-import Badge from '@/v1/base/Badge';
+import Badge from '@/ui/Base/Badge';
 import { getDdayCount } from '@/utils/date';
 
 const getDdayStatus = (ddayByStart: number, ddayByEnd: number) => {
