@@ -5,12 +5,12 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
-import LoginBottomActionButton from '@/components/common/LoginBottomActionButton';
-import BookGroupNavigation from '@/components/bookGroup/BookGroupNavigation';
-import BookGroupInfo from '@/components/bookGroup/detail/BookGroupInfo';
-import JoinBookGroupButton from '@/components/bookGroup/detail/JoinBookGroupButton';
-import BookGroupCommentList from '@/components/comment/BookGroupCommentList';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import LoginBottomActionButton from '@/v1/base/LoginBottomActionButton';
+import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
+import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
+import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
+import BookGroupCommentList from '@/v1/comment/BookGroupCommentList';
 
 const DetailBookGroupPage = ({
   params: { groupId },

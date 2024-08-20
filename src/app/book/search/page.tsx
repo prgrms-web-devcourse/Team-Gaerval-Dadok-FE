@@ -11,21 +11,19 @@ import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
 import bookAPI from '@/apis/book';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import useQueryParams from '@/hooks/useQueryParams';
 import { checkAuthentication } from '@/utils/helpers';
 
-import Loading from '@/components/common/Loading';
-import Input from '@/components/common/Input';
-import TopHeader from '@/components/common/TopHeader';
-import BestSellers, {
-  BestSellersSkeleton,
-} from '@/components/bookSearch/BestSellers';
+import Loading from '@/v1/base/Loading';
+import Input from '@/v1/base/Input';
+import TopHeader from '@/v1/base/TopHeader';
+import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
 import RecentSearchList, {
   RecentSearchListSkeleton,
-} from '@/components/bookSearch/RecentSearchList';
-import BookSearchList from '@/components/bookSearch/BookSearchList';
+} from '@/v1/bookSearch/RecentSearchList';
+import BookSearchList from '@/v1/bookSearch/BookSearchList';
 
 type FormValues = {
   searchValue: string;

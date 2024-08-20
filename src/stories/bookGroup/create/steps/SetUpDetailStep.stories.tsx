@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { SetUpDetailStepFormValues } from '@/components/bookGroup/create/types';
+import type { SetUpDetailStepFormValues } from '@/v1/bookGroup/create/types';
 
 import { getTodayDate } from '@/utils/date';
 
 import { appLayoutMeta } from '@/stories/meta';
-import { SetUpDetailStep } from '@/components/bookGroup/create/steps';
+import { SetUpDetailStep } from '@/v1/bookGroup/create/steps';
 
 const meta: Meta<typeof SetUpDetailStep> = {
   title: 'bookGroup/create/steps/SetUpDetailStep',

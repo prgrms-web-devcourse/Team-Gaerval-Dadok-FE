@@ -11,17 +11,17 @@ import { checkAuthentication, removeAuth } from '@/utils/helpers';
 import { KAKAO_LOGIN_URL } from '@/constants';
 import { IconArrowRight } from '@public/icons';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
-import Avatar from '@/components/common/Avatar';
-import Button from '@/components/common/Button';
-import Loading from '@/components/common/Loading';
-import Menu from '@/components/common/Menu';
-import TopHeader from '@/components/common/TopHeader';
-import BookShelf from '@/components/bookShelf/BookShelf';
-import ProfileBookShelf from '@/components/profile/bookShelf/ProfileBookShelf';
-import ProfileGroup from '@/components/profile/group/ProfileGroup';
-import ProfileInfo from '@/components/profile/info/ProfileInfo';
+import Avatar from '@/v1/base/Avatar';
+import Button from '@/v1/base/Button';
+import Loading from '@/v1/base/Loading';
+import Menu from '@/v1/base/Menu';
+import TopHeader from '@/v1/base/TopHeader';
+import BookShelf from '@/v1/bookShelf/BookShelf';
+import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
+import ProfileGroup from '@/v1/profile/group/ProfileGroup';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
 
 const USER_ID = 'me';
 

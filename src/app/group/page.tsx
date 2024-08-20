@@ -4,25 +4,25 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
 import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 
 import useMounted from '@/hooks/useMounted';
 import { checkAuthentication } from '@/utils/helpers';
-import useToast from '@/components/common/Toast/useToast';
+import useToast from '@/v1/base/Toast/useToast';
 
-import FloatingButton from '@/components/common/FloatingButton';
-import Loading from '@/components/common/Loading';
-import TopHeader from '@/components/common/TopHeader';
+import FloatingButton from '@/v1/base/FloatingButton';
+import Loading from '@/v1/base/Loading';
+import TopHeader from '@/v1/base/TopHeader';
 import DetailBookGroupCard, {
   DetailBookGroupCardSkeleton,
-} from '@/components/bookGroup/DetailBookGroupCard';
-import SearchGroupInput from '@/components/bookGroup/SearchGroup';
+} from '@/v1/bookGroup/DetailBookGroupCard';
+import SearchGroupInput from '@/v1/bookGroup/SearchGroup';
 import SimpleBookGroupCard, {
   SimpleBookGroupCardSkeleton,
-} from '@/components/bookGroup/SimpleBookGroupCard';
+} from '@/v1/bookGroup/SimpleBookGroupCard';
 
 const GroupPage = () => {
   const router = useRouter();

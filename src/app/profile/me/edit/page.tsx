@@ -5,11 +5,11 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
-import EditProfile from '@/components/profile/EditProfile';
-import Loading from '@/components/common/Loading';
+import EditProfile from '@/v1/profile/EditProfile';
+import Loading from '@/v1/base/Loading';
 
 const EditProfilePage = () => {
   return (

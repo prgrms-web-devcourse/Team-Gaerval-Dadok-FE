@@ -5,15 +5,15 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import useJoinBookGroup from '@/hooks/group/useJoinBookGroup';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import withAuthRequired from '@/hocs/withAuthRequired';
 
-import Loading from '@/components/common/Loading';
-import Input from '@/components/common/Input';
-import InputLength from '@/components/common/InputLength';
-import ErrorMessage from '@/components/common/ErrorMessage';
-import BottomActionButton from '@/components/common/BottomActionButton';
-import BookGroupNavigation from '@/components/bookGroup/BookGroupNavigation';
+import Loading from '@/v1/base/Loading';
+import Input from '@/v1/base/Input';
+import InputLength from '@/v1/base/InputLength';
+import ErrorMessage from '@/v1/base/ErrorMessage';
+import BottomActionButton from '@/v1/base/BottomActionButton';
+import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
 
 type JoinFormValues = {
   answer: string;

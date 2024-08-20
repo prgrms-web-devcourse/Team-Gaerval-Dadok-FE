@@ -1,4 +1,4 @@
-import Button from '@/components/common/Button';
+import Button from '@/v1/base/Button';
 import Image from 'next/image';
 import Link from 'next/link';
 

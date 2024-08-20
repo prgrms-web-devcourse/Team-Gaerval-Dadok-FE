@@ -4,10 +4,10 @@ import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
-import BookArchiveForAuth from '@/components/bookArchive/BookArchiveForAuth';
-import BookArchiveForUnAuth from '@/components/bookArchive/BookArchiveForUnAuth';
-import TopHeader from '@/components/common/TopHeader';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import BookArchiveForAuth from '@/v1/bookArchive/BookArchiveForAuth';
+import BookArchiveForUnAuth from '@/v1/bookArchive/BookArchiveForUnAuth';
+import TopHeader from '@/v1/base/TopHeader';
 
 export default function BookArchivePage() {
   return (

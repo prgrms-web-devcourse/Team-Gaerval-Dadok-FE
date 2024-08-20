@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import BestSellers from '@/components/bookSearch/BestSellers';
+import BestSellers from '@/v1/bookSearch/BestSellers';
 
 const meta: Meta<typeof BestSellers> = {
   title: 'bookSearch/BestSellers',

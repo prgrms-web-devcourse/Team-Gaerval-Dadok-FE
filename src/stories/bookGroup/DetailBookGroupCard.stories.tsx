@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import DetailBookGroupCard from '@/components/bookGroup/DetailBookGroupCard';
+import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
 
 const meta: Meta<typeof DetailBookGroupCard> = {
   title: 'bookgroup/DetailBookGroupCard',

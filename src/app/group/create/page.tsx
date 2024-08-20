@@ -2,7 +2,7 @@
 
 import withAuthRequired from '@/hocs/withAuthRequired';
 
-import CreateBookGroupFunnel from '@/components/bookGroup/create/CreateBookGroupFunnel';
+import CreateBookGroupFunnel from '@/v1/bookGroup/create/CreateBookGroupFunnel';
 
 const GroupCreateFunnelPage = () => {
   return <CreateBookGroupFunnel />;

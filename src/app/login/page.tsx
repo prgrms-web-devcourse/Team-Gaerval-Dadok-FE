@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { IconKakao } from '@public/icons';
 import { KAKAO_LOGIN_URL } from '@/constants';
 
-import Button from '@/components/common/Button';
+import Button from '@/v1/base/Button';
 
 const LoginPage = () => {
   return (

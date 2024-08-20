@@ -11,13 +11,13 @@ import type { APIGroupDetail, APIEditBookGroup } from '@/types/group';
 
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
 import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
-import useToast from '@/components/common/Toast/useToast';
+import useToast from '@/v1/base/Toast/useToast';
 
 import withAuthRequired from '@/hocs/withAuthRequired';
-import BookGroupEditDateForm from '@/components/bookGroup/edit/BookGroupEditDateForm';
-import BookGroupEditIntroduceForm from '@/components/bookGroup/edit/BookGroupEditIntroduceForm';
-import BookGroupEditTitleForm from '@/components/bookGroup/edit/BookGroupEditTitleForm';
-import BookGroupEditTopNavigation from '@/components/bookGroup/edit/BookGroupEditTopNavigation';
+import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
+import BookGroupEditIntroduceForm from '@/v1/bookGroup/edit/BookGroupEditIntroduceForm';
+import BookGroupEditTitleForm from '@/v1/bookGroup/edit/BookGroupEditTitleForm';
+import BookGroupEditTopNavigation from '@/v1/bookGroup/edit/BookGroupEditTopNavigation';
 
 const BookGroupEditPage = ({
   params: { groupId },

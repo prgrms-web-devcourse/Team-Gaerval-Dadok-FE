@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import CommentList from '@/components/comment/CommentList';
+import CommentList from '@/v1/comment/CommentList';
 
 const meta: Meta<typeof CommentList> = {
   title: 'comment/CommentList',
