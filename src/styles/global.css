@@ -21,11 +21,6 @@
   html {
     @apply w-full bg-background font-[LineSeedKR] text-[62.5%] text-black-700;
   }
-
-  body {
-    font-size: 1.6rem;
-  }
-
   .app-layout {
     /* TODO: Chakra UI 걷어내면 제거 */
     max-width: 43rem;
@@ -47,5 +42,9 @@
 @layer utilities {
   .w-app {
     @apply relative -left-[2rem] w-[calc(100%+4rem)];
+  }
+  .h-app {
+    height: 100vh;
+    height: 100dvh;
   }
 }

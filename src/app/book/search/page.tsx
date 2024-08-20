@@ -1,31 +1,32 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useForm } from 'react-hook-form';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
-import { useRecentSearchListQuery } from '@/queries/book/useRecentSearchesQuery';
+import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import { checkAuthentication } from '@/utils/helpers';
 
-import Loading from '@/v1/base/Loading';
-import Input from '@/v1/base/Input';
-import TopHeader from '@/v1/base/TopHeader';
-import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
-import RecentSearchList, {
-  RecentSearchListSkeleton,
-} from '@/v1/bookSearch/RecentSearchList';
-import BookSearchList from '@/v1/bookSearch/BookSearchList';
 import { IconSearch } from '@public/icons';
+import TopHeader from '@/v1/base/TopHeader';
+import Input from '@/v1/base/Input';
+import RecentSearch, {
+  RecentSearchSkeleton,
+} from '@/v1/bookSearch/RecentSearch';
+import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
+import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
 type FormValues = {
   searchValue: string;
 };
 
-const BookSearchPage = () => {
+const BookSearch = () => {
+  const isAuthenticated = checkAuthentication();
+
   const { register, watch, setValue } = useForm<FormValues>({
     mode: 'all',
     defaultValues: {
@@ -33,53 +34,8 @@ const BookSearchPage = () => {
     },
   });
 
-  const watchedKeyword = watch('searchValue');
-  const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
+  const queryKeyword = useDebounceValue(watch('searchValue'), 1000);
 
-  return (
-    <>
-      <TopHeader text={'Discover'} />
-      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
-        <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
-          <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
-          <Input
-            className="w-full appearance-none text-sm font-normal focus:outline-none"
-            placeholder="책 제목, 작가를 검색해보세요"
-            {...register('searchValue')}
-          />
-        </div>
-
-        {/** 최근 검색어 + 베스트 셀러 */}
-        <section
-          className={`flex flex-col gap-[1.6rem] ${watchedKeyword && 'hidden'}`}
-        >
-          <SSRSafeSuspense fallback={<ContentsSkelton />}>
-            <RecentSearchResult
-              onItemClick={keyword => setValue('searchValue', keyword)}
-            />
-            <BestSellers />
-          </SSRSafeSuspense>
-        </section>
-
-        {/** 도서 검색 결과 */}
-        {watchedKeyword && (
-          <section className="flex-grow overflow-y-scroll pb-[1rem]">
-            <Suspense fallback={<Loading fullpage />}>
-              {watchedKeyword === debouncedKeyword ? (
-                <BookSearchResult queryKeyword={debouncedKeyword} />
-              ) : (
-                /* 타이핑 중 debounce가 적용되어 keyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
-                <Loading fullpage />
-              )}
-            </Suspense>
-          </section>
-        )}
-      </article>
-    </>
-  );
-};
-
-const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
   const { ref: inViewRef, inView } = useInView();
 
   const bookSearchInfo = useBookSearchQuery({
@@ -87,13 +43,16 @@ const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
     page: 1,
     pageSize: 12,
   });
+  const recentSearchesInfo = useRecentSearchesQuery({
+    enabled: isAuthenticated,
+  });
 
   const searchedBooks = bookSearchInfo.isSuccess
     ? bookSearchInfo.data.pages.flatMap(page => page.searchBookResponseList)
     : [];
-  const totalResultCount = bookSearchInfo.isSuccess
-    ? bookSearchInfo.data.pages[0].totalCount
-    : 0;
+  const recentSearches = recentSearchesInfo.isSuccess
+    ? recentSearchesInfo.data.bookRecentSearchResponses
+    : undefined;
 
   useEffect(() => {
     if (inView && bookSearchInfo.hasNextPage) {
@@ -109,33 +68,42 @@ const BookSearchResult = ({ queryKeyword }: { queryKeyword: string }) => {
 
   return (
     <>
-      <BookSearchList books={searchedBooks} totalCount={totalResultCount} />
-      <div ref={inViewRef} />
+      <TopHeader text={'Discover'} />
+      <article className="flex h-full w-full flex-col gap-[3.8rem]">
+        <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
+          <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
+          <Input
+            className="w-full appearance-none text-sm font-normal focus:outline-none"
+            placeholder="책 제목, 작가를 검색해보세요"
+            {...register('searchValue')}
+          />
+        </div>
+        {watch('searchValue') ? (
+          <>
+            <BookSearchResults searchedBooks={searchedBooks} />
+            <div ref={inViewRef} />
+          </>
+        ) : (
+          <SSRSafeSuspense fallback={<ContentsSkelton />}>
+            <RecentSearch
+              recentSearches={recentSearches}
+              onClick={(keyword: string) => setValue('searchValue', keyword)}
+            />
+            <BestSellers />
+          </SSRSafeSuspense>
+        )}
+      </article>
     </>
   );
-};
-
-const RecentSearchResult = ({
-  onItemClick,
-}: {
-  onItemClick?: (item: string) => void;
-}) => {
-  const isAuthenticated = checkAuthentication();
-
-  const { data: keywords } = useRecentSearchListQuery({
-    enabled: isAuthenticated,
-  });
-
-  return <RecentSearchList keywords={keywords} onClick={onItemClick} />;
 };
 
 const ContentsSkelton = () => {
   return (
     <>
-      <RecentSearchListSkeleton />
+      <RecentSearchSkeleton />
       <BestSellersSkeleton />
     </>
   );
 };
 
-export default BookSearchPage;
+export default BookSearch;

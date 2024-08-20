@@ -17,9 +17,3 @@ const useRecentSearchesQuery = <TData = APIRecentSearches>(
   );
 
 export default useRecentSearchesQuery;
-
-export const useRecentSearchListQuery = ({ enabled }: { enabled: boolean }) =>
-  useRecentSearchesQuery({
-    select: ({ bookRecentSearchResponses }) => bookRecentSearchResponses,
-    enabled,
-  });

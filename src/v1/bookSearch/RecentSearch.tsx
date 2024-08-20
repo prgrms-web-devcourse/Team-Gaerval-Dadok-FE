@@ -3,25 +3,25 @@ import type { APIBookRecentSearchResponse } from '@/types/book';
 import Button from '@/v1/base/Button';
 import Skeleton from '@/v1/base/Skeleton';
 
-type RecentSearchListProps = {
-  keywords?: APIBookRecentSearchResponse[];
-  onClick?: (keyword: string) => void;
+type RecentSearchProps = {
+  recentSearches?: APIBookRecentSearchResponse[];
+  onClick: (keyword: string) => void;
 };
 
-const RecentSearchList = ({ keywords, onClick }: RecentSearchListProps) => {
+const RecentSearch = ({ recentSearches, onClick }: RecentSearchProps) => {
   return (
     <section className="flex flex-col gap-[1.7rem]">
       <h2 className="h-[2.4rem] text-lg">최근 검색어</h2>
-      {keywords ? (
+      {recentSearches ? (
         <ul className="relative flex w-[calc(100%+2rem)] gap-[1rem] overflow-x-scroll whitespace-nowrap pb-[1rem]">
-          {keywords.map(item => (
+          {recentSearches.map(item => (
             <li key={`${item.keyword}-${item.modifiedAt}`}>
               <Button
                 size="small"
                 fill={true}
                 fullRadius={true}
                 colorScheme="main-light"
-                onClick={() => onClick && onClick(item.keyword)}
+                onClick={() => onClick(item.keyword)}
               >
                 {item.keyword}
               </Button>
@@ -37,9 +37,9 @@ const RecentSearchList = ({ keywords, onClick }: RecentSearchListProps) => {
   );
 };
 
-export default RecentSearchList;
+export default RecentSearch;
 
-export const RecentSearchListSkeleton = () => {
+export const RecentSearchSkeleton = () => {
   return (
     <Skeleton>
       <section className="flex animate-pulse flex-col gap-[1.7rem] rounded-[0.5rem]">

@@ -1,6 +1,4 @@
-'use client';
-
-import { ComponentPropsWithoutRef, useState } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 
 import { DATA_URL } from '@/constants/url';
@@ -11,10 +9,9 @@ type BookCoverSize =
   | 'medium'
   | 'large'
   | 'xlarge'
-  | '2xlarge'
-  | 'fill';
+  | '2xlarge';
 
-type BookCoverProps = Partial<
+type BookCoverProps = Required<
   Pick<ComponentPropsWithoutRef<typeof Image>, 'src'>
 > & {
   title?: string;
@@ -59,39 +56,22 @@ const getCoverSize = (size: BookCoverSize) => {
         sizeProps: { width: 140, height: 196 },
       } as const;
     }
-    case 'fill':
-      return {
-        sizeClasses: 'w-full aspect-[5/7]',
-        sizeProps: { fill: true, sizes: '100%' },
-      };
   }
 };
 
 const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
-  const [isError, setIsError] = useState(false);
-
   const { sizeClasses, sizeProps } = getCoverSize(size);
-  const defaultCoverClass = src ? '' : 'shadow-bookcover';
 
   return (
-    <div
-      className={`relative flex-shrink-0 ${sizeClasses} rounded-[0.5rem] bg-black-300 ${defaultCoverClass}`}
-    >
-      {src && !isError ? (
-        <Image
-          unoptimized
-          src={src}
-          alt={title || 'book-cover'}
-          placeholder="blur"
-          blurDataURL={DATA_URL['placeholder']}
-          className={`object-fit h-full w-full rounded-[0.5rem] shadow-bookcover`}
-          onError={() => setIsError(true)}
-          {...sizeProps}
-        />
-      ) : (
-        /** default cover line */
-        <div className="absolute left-[5%] h-full w-[0.3rem] bg-black-400"></div>
-      )}
+    <div className={`relative flex-shrink-0 ${sizeClasses}`}>
+      <Image
+        src={src}
+        alt={title || 'book-cover'}
+        placeholder="blur"
+        blurDataURL={DATA_URL['placeholder']}
+        className={`object-fit h-full w-full rounded-[0.5rem] shadow-bookcover`}
+        {...sizeProps}
+      />
     </div>
   );
 };

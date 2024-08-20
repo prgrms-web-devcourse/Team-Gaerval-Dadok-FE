@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import RecentSearch from '@/v1/bookSearch/RecentSearchList';
+import RecentSearch from '@/v1/bookSearch/RecentSearch';
 
 const meta: Meta<typeof RecentSearch> = {
   title: 'bookSearch/RecentSearch',
@@ -13,14 +13,14 @@ type Story = StoryObj<typeof RecentSearch>;
 
 export const Default: Story = {
   args: {
-    keywords: undefined,
+    recentSearches: undefined,
     onClick: () => alert('선택한 검색어 검색!'),
   },
 };
 
 export const RecentSearches: Story = {
   args: {
-    keywords: [
+    recentSearches: [
       { keyword: '21', modifiedAt: 'now' },
       { keyword: 'I Love It', modifiedAt: 'now' },
       { keyword: 'D (Half Moon)', modifiedAt: 'now' },
