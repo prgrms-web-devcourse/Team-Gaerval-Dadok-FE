@@ -1,4 +1,4 @@
-import { BookSearchPagination, Pagination } from './common';
+import { Pagination } from './common';
 import { APIJobGroup } from './job';
 import { APIUser } from './user';
 
@@ -13,11 +13,15 @@ export interface APIBook {
   publisher: string;
 }
 
-export interface APISearchedBook extends Omit<APIBook, 'bookId'> {
+export interface APISearchedBook
+  extends Pick<
+    APIBook,
+    'title' | 'author' | 'isbn' | 'contents' | 'url' | 'imageUrl' | 'publisher'
+  > {
   apiProvider: string;
 }
 
-export interface APIBookRecentSearchResponse {
+export interface APISearchedWordInfo {
   keyword: string;
   modifiedAt: string;
 }
@@ -25,11 +29,16 @@ export interface APIBookRecentSearchResponse {
 export interface APIRecentSearches {
   count: number;
   isEmpty: boolean;
-  bookRecentSearchResponses: APIBookRecentSearchResponse[];
+  bookRecentSearchResponses: APISearchedWordInfo[];
 }
 
-export interface APISearchedBookPagination extends BookSearchPagination {
+export interface APISearchedBookPagination {
   searchBookResponseList: APISearchedBook[];
+  requestedPageNumber: number;
+  requestedPageSize: number;
+  isLast: boolean;
+  pageableCount: number;
+  totalCount: number;
 }
 
 export interface APIBookDetail extends APIBook {
@@ -81,29 +90,3 @@ export interface APIPatchBookCommentRequest
 export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookComment[];
 }
-
-export interface APIBestSeller {
-  isbn: string;
-  title: string;
-  author: string;
-  cover: string;
-  bestRank: number;
-  link: string;
-}
-
-export interface APIBestSellerRes {
-  item: APIBestSeller[];
-  itemsPerPage: number;
-  link: string;
-  logo: string;
-  pubDate: string;
-  query: string;
-  searchCategoryId: number;
-  searchCategoryName: string;
-  startIndex: number;
-  title: string;
-  totalResults: number;
-  version: string;
-}
-
-export type APIBestSellerSearchRange = 'WEEKLY' | 'MONTHLY' | 'YEARLY';
