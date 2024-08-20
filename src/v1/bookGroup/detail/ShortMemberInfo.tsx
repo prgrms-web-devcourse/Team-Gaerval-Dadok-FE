@@ -1,9 +1,8 @@
+import { IconArrowLeft } from '@public/icons';
+import Button from '@/v1/base/Button';
+import MemberItem from './MemberItem';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { IconArrowLeft } from '@public/icons';
-import MemberItem from '@/v1/bookGroup/detail/MemberItem';
-import Button from '@/v1/base/Button';
 
 type Member = {
   id: number;

@@ -1,6 +1,5 @@
-import useToast from '@/v1/base/Toast/useToast';
-
 import { IconShare } from '@public/icons';
+import useToast from './Toast/useToast';
 
 const ShareButton = () => {
   const { show: showToast } = useToast();

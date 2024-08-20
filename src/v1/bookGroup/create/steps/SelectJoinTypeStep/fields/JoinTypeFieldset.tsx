@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { SelectJoinTypeStepFormValues } from '@/v1/bookGroup/create/types';
-import type { JoinTypeStepFieldProp } from '@/v1/bookGroup/create/steps/SelectJoinTypeStep/SelectJoinTypeStep';
+import type { SelectJoinTypeStepFormValues } from '../../../types';
+import type { JoinTypeStepFieldProp } from '../SelectJoinTypeStep';
 
-import JoinTypeRadioCard from '@/v1/bookGroup/create/steps/SelectJoinTypeStep/fields/JoinTypeRadioCard';
+import JoinTypeRadioCard from './JoinTypeRadioCard';
 
 const JoinTypeFieldset = ({ children }: { children?: React.ReactNode }) => {
   return <fieldset className="flex flex-col gap-[1rem]">{children}</fieldset>;

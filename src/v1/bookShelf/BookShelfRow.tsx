@@ -1,6 +1,5 @@
-import type { APIBookshelf } from '@/types/bookshelf';
-
-import BookShelf from '@/v1/bookShelf/BookShelf';
+import { APIBookshelf } from '@/types/bookshelf';
+import BookShelf from './BookShelf';
 
 const BookShelfRow = ({ books }: Pick<APIBookshelf, 'books'>) => {
   return (

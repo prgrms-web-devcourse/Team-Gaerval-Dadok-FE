@@ -1,14 +1,13 @@
 import { useMemo, useRef } from 'react';
 
 import type { Writer } from '@/types/user';
-
 import useDisclosure from '@/hooks/useDisclosure';
 
-import EditCommentDrawer from '@/v1/comment/CommentDrawer';
 import Avatar from '@/v1/base/Avatar';
 import Menu from '@/v1/base/Menu';
 import Button from '@/v1/base/Button';
 import Modal from '@/v1/base/Modal';
+import EditCommentDrawer from './CommentDrawer';
 
 type Comment = {
   id: number;

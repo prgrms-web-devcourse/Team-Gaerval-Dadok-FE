@@ -1,7 +1,7 @@
 import type { APIUser } from '@/types/user';
 
-import MyProfileBookshelfContainer from '@/v1/profile/bookShelf/MyProfileBookshelfContainer';
-import UserProfileBookshelfContainer from '@/v1/profile/bookShelf/UserProfileBookshelfContainer';
+import MyProfileBookshelfContainer from './MyProfileBookshelfContainer';
+import UserProfileBookshelfContainer from './UserProfileBookshelfContainer';
 
 const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
   return userId === 'me' ? (

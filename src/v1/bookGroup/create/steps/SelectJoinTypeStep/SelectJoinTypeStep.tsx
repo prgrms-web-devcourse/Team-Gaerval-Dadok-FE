@@ -1,13 +1,10 @@
 import { useFormContext } from 'react-hook-form';
 
 import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { SelectJoinTypeStepFormValues } from '@/v1/bookGroup/create/types';
+import type { SelectJoinTypeStepFormValues } from '../../types';
 
-import {
-  JoinPasswordFieldset,
-  JoinTypeFieldset,
-} from '@/v1/bookGroup/create/steps/SelectJoinTypeStep/fields';
 import BottomActionButton from '@/v1/base/BottomActionButton';
+import { JoinPasswordFieldset, JoinTypeFieldset } from './fields';
 
 export type JoinTypeStepFieldName = keyof SelectJoinTypeStepFormValues;
 export type JoinTypeStepFieldProp = { name: JoinTypeStepFieldName };

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import type { CreateBookGroupFormValues } from '@/v1/bookGroup/create/types';
+import type { CreateBookGroupFormValues } from './types';
 import useCreateBookGroupMutation from '@/queries/group/useCreateBookGroupMutation';
 
 import { useFunnel } from '@/hooks/useFunnel';
@@ -20,7 +20,7 @@ import {
   SelectBookStep,
   SelectJoinTypeStep,
   SetUpDetailStep,
-} from '@/v1/bookGroup/create/steps';
+} from './steps';
 
 const FUNNEL_STEPS = [
   'SelectBook',

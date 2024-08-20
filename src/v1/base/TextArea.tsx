@@ -12,8 +12,8 @@ import {
   Children,
 } from 'react';
 
-import ErrorMessage from '@/v1/base/ErrorMessage';
-import InputLength from '@/v1/base/InputLength';
+import ErrorMessage from './ErrorMessage';
+import InputLength from './InputLength';
 
 interface BaseTextAreaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {

@@ -4,7 +4,7 @@ import type { APIUser } from '@/types/user';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import ProfileGroupPresenter from '@/v1/profile/group/ProfileGroupPresenter';
+import ProfileGroupPresenter from './ProfileGroupPresenter';
 
 const ProfileGroupContainer = ({
   userId,

@@ -12,7 +12,7 @@ import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfL
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { checkAuthentication } from '@/utils/helpers';
 import { IconKakao } from '@public/icons';
-import { KAKAO_LOGIN_URL } from '@/constants';
+import { KAKAO_LOGIN_URL } from '@/constants/url';
 
 import useToast from '@/v1/base/Toast/useToast';
 import TopNavigation from '@/v1/base/TopNavigation';

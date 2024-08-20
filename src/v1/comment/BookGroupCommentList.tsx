@@ -1,14 +1,13 @@
 import { APIGroupComment } from '@/types/group';
+import useToast from '@/v1/base/Toast/useToast';
 import { useBookGroupComments } from '@/queries/group/useBookGroupCommentsQuery';
 import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
 import { useBookGroup } from '@/queries/group/useBookGroupQuery';
 import usePatchBookGroupCommentMutation from '@/queries/group/usePatchBookGroupCommentMutation';
 import useDeleteBookGroupCommentMutation from '@/queries/group/useDeleteBookGroupCommentMutation';
-
-import useToast from '@/v1/base/Toast/useToast';
 import { checkAuthentication } from '@/utils/helpers';
 
-import CommentList from '@/v1/comment/CommentList';
+import CommentList from './CommentList';
 
 const BookGroupCommentList = ({ groupId }: { groupId: number }) => {
   const isAuthenticated = checkAuthentication();

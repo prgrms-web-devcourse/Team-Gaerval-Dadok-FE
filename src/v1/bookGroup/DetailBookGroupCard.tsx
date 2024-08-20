@@ -1,10 +1,9 @@
-import Link from 'next/link';
-
-import { IconCalendar, IconMembers, IconComments } from '@public/icons';
-import BookGroupStatus from '@/v1/bookGroup/BookGroupStatus';
 import Badge from '@/v1/base/Badge';
 import Avatar from '@/v1/base/Avatar';
+import { IconCalendar, IconMembers, IconComments } from '@public/icons';
 import BookCover from '@/v1/book/BookCover';
+import Link from 'next/link';
+import BookGroupStatus from './BookGroupStatus';
 
 interface DetailBookGroupCardProps {
   title: string;

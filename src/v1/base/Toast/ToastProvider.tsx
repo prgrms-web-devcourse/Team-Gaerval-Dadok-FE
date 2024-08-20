@@ -1,9 +1,9 @@
 import { createContext, ReactNode, useMemo, useState } from 'react';
 
-import type { ToastController, ToastOption } from '@/v1/base/Toast/types';
-
-import ToastItem from '@/v1/base/Toast/ToastItem';
 import Portal from '@/v1/base/Portal';
+
+import ToastItem from './ToastItem';
+import type { ToastController, ToastOption } from './types';
 
 export const ToastContext = createContext({} as ToastController);
 
