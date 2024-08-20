@@ -4,8 +4,6 @@ import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
 import { checkAuthentication } from '@/utils/helpers';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import withAuthRequired from '@/hocs/withAuthRequired';
-
 import BackButton from '@/v1/base/BackButton';
 import TopNavigation from '@/v1/base/TopNavigation';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
@@ -25,8 +23,6 @@ const UserGroupPage = () => {
     </>
   );
 };
-
-export default withAuthRequired(UserGroupPage);
 
 const UserGroupContent = () => {
   const isAuthenticated = checkAuthentication();
@@ -68,6 +64,8 @@ const UserGroupContent = () => {
     </ul>
   );
 };
+
+export default UserGroupPage;
 
 const PageSkeleton = () => (
   <ul className="flex animate-pulse flex-col gap-[1rem] pt-[2rem]">

@@ -4,10 +4,8 @@ import useAllJobQuery from '@/queries/job/useAllJobQuery';
 
 import { checkAuthentication } from '@/utils/helpers';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import withAuthRequired from '@/hocs/withAuthRequired';
-
 import AddJobProfile from '@/v1/profile/AddJobProfile';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 
 const AddJobProfilePage = () => {
   return (
@@ -17,8 +15,6 @@ const AddJobProfilePage = () => {
   );
 };
 
-export default withAuthRequired(AddJobProfilePage);
-
 const Contents = () => {
   const isAuthenticated = checkAuthentication();
   const allJobQuery = useAllJobQuery({ enabled: isAuthenticated });
@@ -27,3 +23,5 @@ const Contents = () => {
     <AddJobProfile jobCategories={allJobQuery.data.jobGroups} />
   ) : null;
 };
+
+export default AddJobProfilePage;

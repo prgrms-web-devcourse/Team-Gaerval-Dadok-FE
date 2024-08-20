@@ -10,10 +10,12 @@ import {
 import type { APIGroupDetail, APIEditBookGroup } from '@/types/group';
 
 import { SERVICE_ERROR_MESSAGE } from '@/constants';
-import { isAxiosErrorWithCustomCode } from '@/utils/helpers';
-import useToast from '@/v1/base/Toast/useToast';
+import {
+  checkAuthentication,
+  isAxiosErrorWithCustomCode,
+} from '@/utils/helpers';
 
-import withAuthRequired from '@/hocs/withAuthRequired';
+import useToast from '@/v1/base/Toast/useToast';
 import BookGroupEditDateForm from '@/v1/bookGroup/edit/BookGroupEditDateForm';
 import BookGroupEditIntroduceForm from '@/v1/bookGroup/edit/BookGroupEditIntroduceForm';
 import BookGroupEditTitleForm from '@/v1/bookGroup/edit/BookGroupEditTitleForm';
@@ -26,15 +28,13 @@ const BookGroupEditPage = ({
 }) => {
   const router = useRouter();
 
+  const isAuthenticated = checkAuthentication();
+
   const { data: bookGroupData } = useBookGroupEditCurrentInfo(groupId);
   const { isOwner, title, description, maxMemberCount, startDate, endDate } =
     bookGroupData;
 
-  /**
-   * @todo
-   * 401 페이지 만들기 (접근 권한이 없어요)
-   */
-  if (!isOwner) {
+  if (!isAuthenticated || !isOwner) {
     notFound();
   }
 
@@ -99,4 +99,4 @@ const BookGroupEditPage = ({
   );
 };
 
-export default withAuthRequired(BookGroupEditPage);
+export default BookGroupEditPage;
