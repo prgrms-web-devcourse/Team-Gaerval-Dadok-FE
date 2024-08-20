@@ -24,7 +24,7 @@ export interface APIGroup {
   hasJoinPasswd: boolean;
   isPublic: boolean;
   bookGroupId: number;
-  currentMemberCount: number;
+  memberCount: number;
   commentCount: number;
   book: APIGroupBook;
   owner: APIGroupOwner;
@@ -66,36 +66,10 @@ export interface APIGroupComment {
   userProfileImage: APIUser['profileImage'];
   createdAt: string;
   modifiedAt: string;
-  nickname: string;
+  nickname: APIUser['nickname'];
   writtenByCurrentUser: boolean;
 }
 
 export interface APIGroupCommentPagination extends Pagination {
-  bookGroup: { isPublic: APIGroup['isPublic'] };
   bookGroupComments: APIGroupComment[];
 }
-
-export type BookGroupDetail = {
-  title: APIGroup['title'];
-  description: APIGroup['introduce'];
-  bookId: APIBook['bookId'];
-  owner: { isMe: boolean; id: APIUser['userId'] };
-  date: { start: APIGroup['startDate']; end: APIGroup['endDate'] };
-  memberCount: {
-    current: APIGroup['currentMemberCount'];
-    max: APIGroup['maxMemberCount'];
-  };
-  isPublic: APIGroup['isPublic'];
-  isMember: APIGroupDetail['isGroupMember'];
-};
-
-export type BookGroupComment = {
-  id: APIGroup['bookGroupId'];
-  writer: {
-    id: APIUser['userId'];
-    profileImageSrc: APIUser['profileImage'];
-    name: APIUser['nickname'];
-  };
-  createdAt: APIGroupComment['createdAt'];
-  content: APIGroupComment['contents'];
-};

@@ -1,52 +1,19 @@
 'use client';
 
-import TopNavigation from '@/ui/Base/TopNavigation';
-import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
-import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
+import { Flex } from '@chakra-ui/react';
 
-import { useBookGroupTitle } from '@/queries/group/useBookGroupQuery';
-import CommentList from '@/v1/bookGroup/detail/CommentList';
+import GroupDetail from '@/ui/Group/GroupDetail';
 
-const DetailBookGroupPage = ({
+const GroupDetailPage = ({
   params: { groupId },
 }: {
   params: { groupId: number };
 }) => {
   return (
-    <>
-      <BookGroupNavigation groupId={groupId} />
-      <div className="flex flex-col gap-[2rem]">
-        <BookGroupInfo groupId={groupId} />
-        <div className="flex flex-col gap-[1rem]">
-          <Heading text="게시글" />
-          <CommentList groupId={groupId} />
-        </div>
-      </div>
-    </>
+    <Flex direction="column" justify="center">
+      <GroupDetail bookGroupId={Number(groupId)} />
+    </Flex>
   );
 };
 
-export default DetailBookGroupPage;
-
-const BookGroupNavigation = ({ groupId }: { groupId: number }) => {
-  const { data: title } = useBookGroupTitle(groupId);
-
-  return (
-    <TopNavigation>
-      <TopNavigation.LeftItem>
-        <IconArrowLeft />
-      </TopNavigation.LeftItem>
-      <TopNavigation.CenterItem textAlign="left">
-        {title}
-      </TopNavigation.CenterItem>
-      <TopNavigation.RightItem>
-        <IconPost />
-        <IconHamburger />
-      </TopNavigation.RightItem>
-    </TopNavigation>
-  );
-};
-
-const Heading = ({ text }: { text: string }) => (
-  <p className=" text-xl font-bold">{text}</p>
-);
+export default GroupDetailPage;
