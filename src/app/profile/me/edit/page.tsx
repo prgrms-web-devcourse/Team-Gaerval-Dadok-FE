@@ -1,25 +1,31 @@
 'use client';
 
-import { Suspense } from 'react';
 import useAllJobQuery from '@/queries/job/useAllJobQuery';
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-
-import { isAuthed } from '@/utils/helpers';
 import AuthRequired from '@/ui/AuthRequired';
+import TopNavigation from '@/ui/common/TopNavigation';
+import ProfileForm from '@/ui/Profile/ProfileForm';
+import { isAuthed } from '@/utils/helpers';
+import { Skeleton, VStack } from '@chakra-ui/react';
+import { Suspense } from 'react';
 
-import EditProfile from '@/v1/profile/EditProfile';
-
-/**
- * @todo
- * Fallback UI 추가하기
- */
-
-const EditProfilePage = () => {
+const EditMyPage = () => {
   return (
     <AuthRequired>
-      <Suspense fallback={null}>
-        <Contents />
-      </Suspense>
+      <VStack justify="center" align="center">
+        <TopNavigation pageTitle="내 프로필 수정" />
+        <Suspense
+          fallback={
+            <VStack gap="2rem" align="stretch" w="100%">
+              <Skeleton w="100%" height="6rem" />
+              <Skeleton w="100%" height="6rem" />
+              <Skeleton w="100%" height="6rem" />
+            </VStack>
+          }
+        >
+          <Contents />
+        </Suspense>
+      </VStack>
     </AuthRequired>
   );
 };
@@ -29,8 +35,8 @@ const Contents = () => {
   const { data: profileData } = useMyProfileQuery();
 
   return allJobQuery.isSuccess ? (
-    <EditProfile profile={profileData} jobGroups={allJobQuery.data.jobGroups} />
+    <ProfileForm profile={profileData} jobGroups={allJobQuery.data.jobGroups} />
   ) : null;
 };
 
-export default EditProfilePage;
+export default EditMyPage;
