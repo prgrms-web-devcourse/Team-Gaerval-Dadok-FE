@@ -5,35 +5,31 @@ import React, { ComponentPropsWithoutRef, useMemo } from 'react';
 const getSizeClasses = (size: string) => {
   switch (size) {
     case 'small': {
-      return 'text-sm px-[1.2rem] py-[0.6rem]';
-    }
-    case 'medium': {
-      return 'text-md px-[1.6rem] py-[0.8rem]';
+      return 'px-4 py-2.5';
     }
     case 'large': {
-      return 'text-lg px-[2.4rem] py-[1rem]';
+      return 'px-6 py-3';
     }
     default: {
-      // large
-      return 'text-lg px-[2.4rem] py-[1rem]';
+      return 'px-5 py-2.5';
     }
   }
 };
 
 const getModeClasses = (isPrimary: boolean) =>
   isPrimary
-    ? 'bg-main-900 text-white'
-    : 'text-main-900 bg-white border-main-900';
+    ? 'text-white bg-pink-600 border-pink-600 dark:bg-pink-700 dark:border-pink-700'
+    : 'text-slate-700 bg-transparent border-slate-700 dark:text-white dark:border-white';
 
 const BASE_BUTTON_CLASSES =
-  'cursor-pointer rounded-[0.5rem] border-[0.1rem] font-bold leading-none inline-block';
+  'cursor-pointer rounded-full border-2 font-bold leading-none inline-block';
 
 /**
  * Primary UI component for user interaction
  */
 export const Button = ({
   primary = false,
-  size = 'large',
+  size = 'medium',
   label,
   ...props
 }: {

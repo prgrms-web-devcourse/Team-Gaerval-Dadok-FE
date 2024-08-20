@@ -109,6 +109,12 @@ const theme: ThemeOverride = extendTheme({
   scheme,
   styles: {
     global: {
+      'html, body': {
+        fontSize: '62.5%',
+        bg: '#FCFCFC',
+        maxWidth: '43rem',
+        margin: '0 auto',
+      },
       'input[type="date"]': {
         position: 'relative',
       },

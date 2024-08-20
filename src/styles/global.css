@@ -2,32 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'LineSeedKR';
-  font-weight: 100;
-  src: url('font/LINESeedKR-Th.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'LineSeedKR';
-  font-weight: 400;
-  src: url('font/LINESeedKR-Rg.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'LineSeedKR';
-  font-weight: 700;
-  src: url('font/LINESeedKR-Bd.woff2') format('woff2');
-}
+/* Todo: 차크라 제거 이후 적용할 것 */
 
-@layer base {
-  html {
-    font-size: 62.5%;
-    width: 100%;
-    color: #2d2d2d;
-    background-color: #fcfcfc;
-    font-family: LineSeedKR;
-  }
-  .app-layout {
-    max-width: 43rem;
-    margin: 0 auto !important;
-  }
-}
+/* .global-style {
+  font-size: '62.5%';
+  max-width: 43rem;
+  color: '#2D2D2D';
+  background-color: '#FCFCFC';
+  margin: '0 auto';
+} */

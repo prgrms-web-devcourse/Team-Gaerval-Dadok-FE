@@ -1,8 +1,8 @@
 import ContextProvider from '@/components/ContextProvider';
 import { ReactNode } from 'react';
 
-import { LineSeedKR } from '@/styles/font';
 import '@/styles/global.css';
+import { LineSeedKR } from '@/styles/font';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,9 +12,11 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="app-layout">
+      <body>
         <ContextProvider>
-          <main className={`${LineSeedKR.variable} font-lineseed `}>
+          <main
+            className={`${LineSeedKR.variable} font-lineseed text-black-700`}
+          >
             {children}
           </main>
         </ContextProvider>
