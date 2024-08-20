@@ -8,7 +8,7 @@ import {
 } from '@/types/group';
 import { publicApi } from '../core/axios';
 
-const groupAPI = {
+const GroupAPI = {
   getEntireGroups: (pageParam: string) =>
     publicApi.get<APIGroupPagination>(
       `/service-api/book-groups?pageSize=10&groupCursorId=` + pageParam
@@ -109,4 +109,4 @@ const groupAPI = {
     ),
 };
 
-export default groupAPI;
+export default GroupAPI;

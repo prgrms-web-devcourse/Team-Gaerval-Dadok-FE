@@ -1,16 +1,17 @@
-import type { APIBook, APIBookDetail } from '@/types/book';
-import useQueryWithSuspense, {
-  UseQueryOptionWithoutSuspense,
-} from '@/hooks/useQueryWithSuspense';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+
 import bookAPI from '@/apis/book';
-import bookKeys from './key';
+import type { APIBook } from '@/types/book';
 
 const useBookInfoQuery = (
   bookId: APIBook['bookId'],
-  options?: UseQueryOptionWithoutSuspense<APIBookDetail>
+  options?: Pick<
+    UseQueryOptions<Awaited<ReturnType<typeof bookAPI.getBookInfo>>['data']>,
+    'onSuccess' | 'onError'
+  >
 ) =>
-  useQueryWithSuspense(
-    bookKeys.detail(bookId),
+  useQuery(
+    ['bookInfo', bookId],
     () => bookAPI.getBookInfo(bookId).then(({ data }) => data),
     options
   );

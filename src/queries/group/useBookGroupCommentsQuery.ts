@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { QueryOptions } from '@/types/query';
 import {
   APIGroupCommentPagination,
   APIGroupDetail,
@@ -6,9 +8,6 @@ import {
 
 import GroupAPI from '@/apis/group';
 import bookGroupKeys from './key';
-import useQueryWithSuspense, {
-  UseQueryOptionWithoutSuspense,
-} from '@/hooks/useQueryWithSuspense';
 
 const transformComments = ({ bookGroupComments }: APIGroupCommentPagination) =>
   bookGroupComments.map<BookGroupComment>(comment => ({
@@ -24,24 +23,18 @@ const transformComments = ({ bookGroupComments }: APIGroupCommentPagination) =>
 
 const useBookGroupCommentsQuery = <TData = APIGroupCommentPagination>(
   groupId: APIGroupDetail['bookGroupId'],
-  options?: UseQueryOptionWithoutSuspense<
-    APIGroupCommentPagination,
-    unknown,
-    TData
-  >
+  select?: QueryOptions<APIGroupCommentPagination, TData>['select']
 ) =>
-  useQueryWithSuspense(
-    bookGroupKeys.comments(groupId),
-    () =>
+  useQuery({
+    queryKey: bookGroupKeys.comments(groupId),
+    queryFn: () =>
       GroupAPI.getGroupComments({ bookGroupId: groupId }).then(
         ({ data }) => data
       ),
-    options
-  );
+    select,
+  });
 
 export default useBookGroupCommentsQuery;
 
 export const useBookGroupComments = (groupId: APIGroupDetail['bookGroupId']) =>
-  useBookGroupCommentsQuery(groupId, {
-    select: transformComments,
-  });
+  useBookGroupCommentsQuery(groupId, transformComments);

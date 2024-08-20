@@ -1,10 +1,11 @@
 'use client';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import TopNavigation from '@/ui/Base/TopNavigation';
 import BookGroupInfo from '@/v1/bookGroup/detail/BookGroupInfo';
+import { IconArrowLeft, IconHamburger, IconPost } from '@public/icons';
+
+import { useBookGroupTitle } from '@/queries/group/useBookGroupQuery';
 import CommentList from '@/v1/bookGroup/detail/CommentList';
-import BookGroupNavigation from '@/v1/bookGroup/BookGroupNavigation';
-import JoinBookGroupButton from '@/v1/bookGroup/detail/JoinBookGroupButton';
 
 const DetailBookGroupPage = ({
   params: { groupId },
@@ -13,44 +14,39 @@ const DetailBookGroupPage = ({
 }) => {
   return (
     <>
-      <BookGroupNavigation groupId={groupId}>
-        <BookGroupNavigation.BackButton />
-        <BookGroupNavigation.Title />
-        <BookGroupNavigation.WriteButton />
-        <BookGroupNavigation.MenuButton />
-      </BookGroupNavigation>
-
-      <SSRSafeSuspense fallback={<PageSkeleton />}>
-        <div className="flex flex-col gap-[2rem]">
-          <BookGroupInfo groupId={groupId} />
-          <Divider />
-          <div className="flex flex-col gap-[1rem]">
-            <Heading text="게시글" />
-            <CommentList groupId={groupId} />
-          </div>
+      <BookGroupNavigation groupId={groupId} />
+      <div className="flex flex-col gap-[2rem]">
+        <BookGroupInfo groupId={groupId} />
+        <div className="flex flex-col gap-[1rem]">
+          <Heading text="게시글" />
+          <CommentList groupId={groupId} />
         </div>
-        <JoinBookGroupButton groupId={groupId} />
-      </SSRSafeSuspense>
+      </div>
     </>
   );
 };
 
 export default DetailBookGroupPage;
 
+const BookGroupNavigation = ({ groupId }: { groupId: number }) => {
+  const { data: title } = useBookGroupTitle(groupId);
+
+  return (
+    <TopNavigation>
+      <TopNavigation.LeftItem>
+        <IconArrowLeft />
+      </TopNavigation.LeftItem>
+      <TopNavigation.CenterItem textAlign="left">
+        {title}
+      </TopNavigation.CenterItem>
+      <TopNavigation.RightItem>
+        <IconPost />
+        <IconHamburger />
+      </TopNavigation.RightItem>
+    </TopNavigation>
+  );
+};
+
 const Heading = ({ text }: { text: string }) => (
   <p className=" text-xl font-bold">{text}</p>
 );
-
-const PageSkeleton = () => (
-  <div className="flex w-full animate-pulse flex-col gap-[1rem] py-[2rem]">
-    <div className="h-[1.3rem] w-[6rem] bg-black-400"></div>
-    <div className="flex items-center gap-[1rem]">
-      <div className="h-[3.2rem] w-[3.2rem] rounded-full bg-black-400"></div>
-      <div className="h-[1.3rem] w-[8rem] bg-black-400"></div>
-    </div>
-    <div className="h-[1.8rem] w-[60%] bg-black-400"></div>
-    <div className="h-[18rem] w-full bg-black-400"></div>
-  </div>
-);
-
-const Divider = () => <p className="w-app h-[0.5rem] bg-background"></p>;

@@ -27,9 +27,3 @@
     margin: 0 auto !important;
   }
 }
-
-@layer utilities {
-  .w-app {
-    @apply relative -left-[2rem] w-[calc(100%+4rem)];
-  }
-}
