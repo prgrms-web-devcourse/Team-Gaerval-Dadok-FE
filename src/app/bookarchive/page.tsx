@@ -1,33 +1,48 @@
 'use client';
 
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery';
-
-import { checkAuthentication } from '@/utils/helpers';
-
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
-import BookArchiveForAuth from '@/components/bookArchive/BookArchiveForAuth';
-import BookArchiveForUnAuth from '@/components/bookArchive/BookArchiveForUnAuth';
-import TopHeader from '@/components/common/TopHeader';
+import { isAuthed } from '@/utils/helpers';
+import { Skeleton, Text, VStack } from '@chakra-ui/react';
+import { Suspense } from 'react';
+import useMounted from '@/hooks/useMounted';
+import { BookArchiveForAuth, BookArchiveForUnAuth } from '@/ui/BookArchive';
 
 export default function BookArchivePage() {
   return (
-    <div className="flex w-full flex-col gap-[1rem] pb-[2rem]">
-      <TopHeader text="BookArchive" />
-      {/* TODO: 스켈레톤 컴포넌트로 교체 */}
-      <SSRSafeSuspense fallback={null}>
+    <VStack as="main" width="100%" spacing="2rem">
+      <VStack w="100%">
+        <Text
+          alignSelf="flex-start"
+          fontSize="2rem"
+          fontWeight="800"
+          color="main"
+        >
+          BookArchive
+        </Text>
+      </VStack>
+      <Suspense
+        fallback={
+          <VStack gap="3rem">
+            <Skeleton width="39rem" height="19.6rem" />
+            <Skeleton width="39rem" height="19.6rem" />
+            <Skeleton width="39rem" height="19.6rem" />
+          </VStack>
+        }
+      >
         <Contents />
-      </SSRSafeSuspense>
-    </div>
+      </Suspense>
+    </VStack>
   );
 }
 
 const Contents = () => {
-  const isAuthenticated = checkAuthentication();
   const { data: userData } = useMyProfileQuery({
-    enabled: isAuthenticated,
+    enabled: isAuthed(),
   });
+  const mounted = useMounted();
+  if (!mounted) return null;
 
-  return isAuthenticated ? (
+  return isAuthed() ? (
     <BookArchiveForAuth userJobGroup={userData.job.jobGroupName} />
   ) : (
     <BookArchiveForUnAuth />

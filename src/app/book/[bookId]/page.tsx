@@ -1,147 +1,99 @@
 'use client';
-import { useRef } from 'react';
 
+import { Box, Skeleton, SkeletonText, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
+
+import bookAPI from '@/apis/book';
+import useBookInfoQuery from '@/queries/book/useBookInfoQuery';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 import { APIBook } from '@/types/book';
-import { useBookTitle } from '@/queries/book/useBookInfoQuery';
-import { useHasBookComment } from '@/queries/book/useBookCommentsQuery';
-import useCreateBookCommentMutation from '@/queries/book/useCreateBookCommentMutation';
-import useToast from '@/components/common/Toast/useToast';
-import useDisclosure from '@/hooks/useDisclosure';
-import {
-  checkAuthentication,
-  isAxiosErrorWithCustomCode,
-} from '@/utils/helpers';
-import { SERVICE_ERROR_MESSAGE } from '@/constants';
-
-import Skeleton from '@/components/common/Skeleton';
-import SSRSafeSuspense from '@/components/common/SSRSafeSuspense';
-import TopNavigation from '@/components/common/TopNavigation';
-import BottomActionButton from '@/components/common/BottomActionButton';
-import LoginBottomActionButton from '@/components/common/LoginBottomActionButton';
-import CommentDrawer from '@/components/comment/CommentDrawer';
-import BackButton from '@/components/common/BackButton';
-import BookInfo, { BookInfoSkeleton } from '@/components/book/detail/BookInfo';
-import BookCommentList from '@/components/comment/BookCommentList';
+import { BookCommentList, BookInfo } from '@/ui/BookDetail';
+import TopNavigation from '@/ui/common/TopNavigation';
+import debounce from '@/utils/debounce';
 
 const BookDetailPage = ({
   params: { bookId },
 }: {
   params: { bookId: APIBook['bookId'] };
 }) => {
-  const isAuthenticated = checkAuthentication();
+  const router = useRouter();
+
+  const bookQueryInfo = useBookInfoQuery(bookId, {
+    onError: () => {
+      /** @todo /404 페이지로 교체 */
+      router.replace('/');
+    },
+  });
+
+  const bookUserQueryInfo = useBookUserInfoQuery(bookId);
+
+  const updateBookmark = (isBookMarked: boolean) => {
+    if (!bookUserQueryInfo.isSuccess) {
+      return;
+    }
+
+    const { isInMyBookshelf } = bookUserQueryInfo.data;
+
+    if (!isInMyBookshelf && isBookMarked) {
+      bookAPI.setBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    } else if (isInMyBookshelf && !isBookMarked) {
+      bookAPI.unsetBookMarked(bookId).then(() => {
+        bookUserQueryInfo.refetch();
+      });
+    }
+  };
 
   return (
-    <>
-      <BookTopNavigation bookId={bookId} />
-      <SSRSafeSuspense fallback={<BookPageSkeleton />}>
-        <div className="pb-action-button flex flex-col gap-[3rem] pt-[1rem]">
-          <BookInfo bookId={bookId} />
-          <div className="flex flex-col gap-[1rem]">
-            <Heading text="책 코멘트" />
-            <BookCommentList bookId={bookId} />
-          </div>
-        </div>
-        {isAuthenticated ? (
-          <AddBookCommentButton bookId={bookId} />
-        ) : (
-          <LoginBottomActionButton />
+    <Box>
+      <TopNavigation pageTitle="책 상세 페이지" />
+      <VStack
+        w="100%"
+        bgColor="white"
+        p="2rem"
+        shadow="lg"
+        align="stretch"
+        borderLeftRadius={15}
+        gap="2rem"
+      >
+        {bookQueryInfo.isSuccess && bookUserQueryInfo.isSuccess && (
+          <BookInfo
+            title={bookQueryInfo.data.title}
+            author={bookQueryInfo.data.author}
+            imageUrl={bookQueryInfo.data.imageUrl}
+            contents={bookQueryInfo.data.contents}
+            url={bookQueryInfo.data.url}
+            onBookmarkClick={debounce(updateBookmark, 500)}
+            {...bookUserQueryInfo.data}
+          />
         )}
-      </SSRSafeSuspense>
-    </>
+        {bookQueryInfo.isLoading && (
+          <VStack spacing="2rem" align="stretch">
+            <Skeleton width="18rem" height="25rem" />
+            <SkeletonText
+              mt="4"
+              noOfLines={4}
+              spacing="4"
+              skeletonHeight="1.4rem"
+            />
+          </VStack>
+        )}
+      </VStack>
+
+      <VStack align="stretch">
+        <Text pt="3rem" pb="1rem" fontSize="lg" fontWeight="bold">
+          책 코멘트
+        </Text>
+        {bookUserQueryInfo.isSuccess && (
+          <BookCommentList
+            bookId={bookId}
+            isInMyBookshelf={bookUserQueryInfo.data.isInMyBookshelf}
+          />
+        )}
+      </VStack>
+    </Box>
   );
 };
 
 export default BookDetailPage;
-
-const BookPageSkeleton = () => (
-  <div className="pt-[1rem]">
-    <BookInfoSkeleton />
-  </div>
-);
-
-const BookTopNavigation = ({ bookId }: { bookId: APIBook['bookId'] }) => (
-  <TopNavigation>
-    <TopNavigation.LeftItem>
-      <BackButton />
-    </TopNavigation.LeftItem>
-    <TopNavigation.CenterItem textAlign="left">
-      <SSRSafeSuspense fallback={<BookTitleSkeleton />}>
-        <BookTitle bookId={bookId} />
-      </SSRSafeSuspense>
-    </TopNavigation.CenterItem>
-  </TopNavigation>
-);
-
-const BookTitle = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const { data: title } = useBookTitle(bookId);
-  return <p className="w-full truncate">{title}</p>;
-};
-
-const Heading = ({ text }: { text: string }) => (
-  <p className="font-subheading-bold">{text}</p>
-);
-
-const AddBookCommentButton = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const {
-    isOpen: isDrawerOpen,
-    onOpen: onDrawerOpen,
-    onClose: onDrawerClose,
-  } = useDisclosure();
-  const { show: showToast } = useToast();
-
-  const commentRef = useRef<HTMLTextAreaElement>(null);
-  const createComment = useCreateBookCommentMutation(bookId);
-
-  const { data: hasBookComment } = useHasBookComment(bookId);
-
-  const handleCommentCreate = () => {
-    const comment = commentRef.current?.value;
-
-    if (!comment) {
-      return;
-    }
-
-    createComment.mutate(comment, {
-      onSuccess: () => {
-        onDrawerClose();
-        showToast({ type: 'success', message: '코멘트를 등록했어요 🎉' });
-      },
-      onError: error => {
-        if (isAxiosErrorWithCustomCode(error)) {
-          const { code } = error.response.data;
-          const message = SERVICE_ERROR_MESSAGE[code];
-          showToast({ type: 'error', message });
-          return;
-        }
-
-        showToast({ type: 'error', message: '코멘트를 등록하지 못했어요 🥲' });
-      },
-    });
-  };
-
-  if (hasBookComment) {
-    return null;
-  }
-
-  return (
-    <>
-      <BottomActionButton onClick={onDrawerOpen}>
-        코멘트 작성하기
-      </BottomActionButton>
-      <CommentDrawer
-        isOpen={isDrawerOpen}
-        onClose={onDrawerClose}
-        title="책 코멘트 작성하기"
-        placeholder="작성해주신 코멘트가 다른 사람들에게 많은 도움이 될 거예요!"
-        onConfirm={handleCommentCreate}
-        ref={commentRef}
-      />
-    </>
-  );
-};
-
-const BookTitleSkeleton = () => (
-  <Skeleton>
-    <Skeleton.Text fontSize="medium" width="20rem" />
-  </Skeleton>
-);

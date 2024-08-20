@@ -1,28 +1,45 @@
 'use client';
 
-import Button from '@/components/common/Button';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Button from '@/ui/common/Button';
+import { Highlight, Image, Text, VStack } from '@chakra-ui/react';
 
-const NotFound = () => {
-  const router = useRouter();
-
+export const NotFoundPage = () => {
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-[2rem]">
-      <Image src="/images/loading.gif" width={230} height={160} alt="loading" />
-      <div className="font-heading-bold">
-        <span className="font-bold text-main-900">다독이</span>가 길을 잃었어요.
-      </div>
-      <Button
-        size="large"
-        colorScheme="main"
-        fill={false}
-        onClick={() => router.replace('/')}
-      >
-        처음으로 돌아가기
-      </Button>
-    </div>
+    <VStack
+      align="center"
+      justify="center"
+      pos="relative"
+      zIndex="1"
+      bgColor="white.800"
+      h="100%"
+      gap="2rem"
+    >
+      <Image
+        src="/images/loading.gif"
+        width="50vw"
+        maxW="20rem"
+        alt="loading"
+      />
+      <VStack gap="1rem">
+        <Text fontSize="2xl" fontWeight="medium">
+          <Highlight
+            query="다독이"
+            styles={{ color: 'main', fontWeight: 'bold' }}
+          >
+            다독이가 길을 잃었어요.
+          </Highlight>
+        </Text>
+        <Button
+          onClick={() => {
+            window.location.replace('/');
+          }}
+          w="100%"
+        >
+          처음으로 돌아가기
+        </Button>
+      </VStack>
+    </VStack>
   );
 };
 
-export default NotFound;
+export default NotFoundPage;

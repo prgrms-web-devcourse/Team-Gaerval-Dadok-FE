@@ -1,6 +1,6 @@
-import { BookSearchPagination, Pagination } from './common';
+import { Pagination } from './common';
 import { APIJobGroup } from './job';
-import { APIUser, Writer } from './user';
+import { APIUser } from './user';
 
 export interface APIBook {
   bookId: number;
@@ -13,13 +13,15 @@ export interface APIBook {
   publisher: string;
 }
 
-export interface APISearchedBook extends Omit<APIBook, 'bookId'> {
+export interface APISearchedBook
+  extends Pick<
+    APIBook,
+    'title' | 'author' | 'isbn' | 'contents' | 'url' | 'imageUrl' | 'publisher'
+  > {
   apiProvider: string;
 }
 
-export type SearchedBookWithId = APISearchedBook & Pick<APIBook, 'bookId'>;
-
-export interface APIBookRecentSearchResponse {
+export interface APISearchedWordInfo {
   keyword: string;
   modifiedAt: string;
 }
@@ -27,27 +29,21 @@ export interface APIBookRecentSearchResponse {
 export interface APIRecentSearches {
   count: number;
   isEmpty: boolean;
-  bookRecentSearchResponses: APIBookRecentSearchResponse[];
+  bookRecentSearchResponses: APISearchedWordInfo[];
 }
 
-export interface APISearchedBookPagination extends BookSearchPagination {
+export interface APISearchedBookPagination {
   searchBookResponseList: APISearchedBook[];
+  requestedPageNumber: number;
+  requestedPageSize: number;
+  isLast: boolean;
+  pageableCount: number;
+  totalCount: number;
 }
 
 export interface APIBookDetail extends APIBook {
   apiProvider: string;
   imageKey: string;
-}
-
-export interface BookDetail {
-  bookId: APIBookDetail['bookId'];
-  title: APIBookDetail['title'];
-  author: APIBookDetail['author'];
-  isbn: APIBookDetail['isbn'];
-  summary: APIBookDetail['contents'];
-  bookUrl: APIBookDetail['url'];
-  imageUrl: APIBookDetail['imageUrl'];
-  publisher: APIBookDetail['publisher'];
 }
 
 export interface APIBookmarkedUserList {
@@ -75,11 +71,6 @@ export interface APIBookComment {
   writtenByCurrentUser: boolean;
 }
 
-export interface APICreateBookCommentRequest
-  extends Pick<APIBookComment, 'commentId'> {
-  comment: string;
-}
-
 export interface APIPatchBookCommentRequest
   extends Pick<APIBookComment, 'commentId'> {
   comment: string;
@@ -88,37 +79,3 @@ export interface APIPatchBookCommentRequest
 export interface APIBookCommentPagination extends Pagination {
   bookComments: APIBookComment[];
 }
-
-export type BookComment = {
-  id: APIBook['bookId'];
-  writer: Writer;
-  createdAt: APIBookComment['createdAt'];
-  content: APIBookComment['contents'];
-};
-export interface APIBestSeller {
-  title: string;
-  author: string;
-  isbn: string;
-  description: string;
-  link: string;
-  cover: string;
-  publisher: string;
-  bestRank: number;
-}
-
-export interface APIBestSellerRes {
-  item: APIBestSeller[];
-  itemsPerPage: number;
-  link: string;
-  logo: string;
-  pubDate: string;
-  query: string;
-  searchCategoryId: number;
-  searchCategoryName: string;
-  startIndex: number;
-  title: string;
-  totalResults: number;
-  version: string;
-}
-
-export type APIBestSellerSearchRange = 'WEEKLY' | 'MONTHLY' | 'YEARLY';

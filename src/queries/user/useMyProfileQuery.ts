@@ -1,24 +1,14 @@
 import userAPI from '@/apis/user';
 import type { APIUser } from '@/types/user';
 import useQueryWithSuspense, {
-  UseQueryOptionWithoutSuspense,
+  useQueryOptionWithOutSuspense,
 } from '@/hooks/useQueryWithSuspense';
-import userKeys from './key';
 
-const useMyProfileQuery = <TData = APIUser>(
-  options?: UseQueryOptionWithoutSuspense<APIUser, unknown, TData>
-) =>
+const useMyProfileQuery = (options?: useQueryOptionWithOutSuspense<APIUser>) =>
   useQueryWithSuspense(
-    userKeys.me(),
+    ['user', 'me'],
     () => userAPI.getMyProfile().then(({ data }) => data),
-    { ...options, staleTime: Infinity }
+    options
   );
 
 export default useMyProfileQuery;
-
-export const useMyProfileId = (
-  options?: Omit<
-    UseQueryOptionWithoutSuspense<APIUser, unknown, unknown>,
-    'select'
-  >
-) => useMyProfileQuery({ ...options, select: data => data.userId });
