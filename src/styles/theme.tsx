@@ -111,7 +111,7 @@ const theme: ThemeOverride = extendTheme({
     global: {
       'html, body': {
         fontSize: '62.5%',
-        bg: '#FCFCFC',
+        bg: 'white.800',
         maxWidth: '43rem',
         margin: '0 auto',
       },

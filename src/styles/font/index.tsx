@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 
-export const LineSeedKR = localFont({
+export const LineSeed = localFont({
   src: [
     {
       path: './LINESeedKR-Th.woff2',
@@ -18,5 +18,4 @@ export const LineSeedKR = localFont({
       style: 'normal',
     },
   ],
-  variable: '--font-lineseed',
 });
