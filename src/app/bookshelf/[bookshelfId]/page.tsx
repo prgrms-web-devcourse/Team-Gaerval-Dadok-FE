@@ -2,20 +2,24 @@
 
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+
+import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
+
 import useBookShelfBooksQuery from '@/queries/bookshelf/useBookShelfBookListQuery';
 import useBookShelfInfoQuery from '@/queries/bookshelf/useBookShelfInfoQuery';
 import useMutateBookshelfLikeQuery from '@/queries/bookshelf/useMutateBookshelfLikeQuery';
+
 import useToast from '@/v1/base/Toast/useToast';
 import { isAuthed } from '@/utils/helpers';
-import { IconKakao } from '@public/icons';
+
+import { IconArrowLeft, IconShare, IconKakao } from '@public/icons';
+
 import TopNavigation from '@/v1/base/TopNavigation';
 import BookShelfRow from '@/v1/bookShelf/BookShelfRow';
 import Button from '@/v1/base/Button';
 import LikeButton from '@/v1/base/LikeButton';
-import BackButton from '@/v1/base/BackButton';
-import ShareButton from '@/v1/base/ShareButton';
-import type { APIBookshelf, APIBookshelfInfo } from '@/types/bookshelf';
 
 const KAKAO_OAUTH_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
 
@@ -30,8 +34,22 @@ export default function UserBookShelfPage({
   const { mutate: mutateBookshelfLike } =
     useMutateBookshelfLikeQuery(bookshelfId);
   const { show: showToast } = useToast();
+  const router = useRouter();
 
   if (!isSuccess) return null;
+
+  const handleClickShareButton = () => {
+    const url = window.location.href;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        showToast({ message: '링크를 복사했어요.', type: 'success' });
+      })
+      .catch(() => {
+        showToast({ message: '잠시 후 다시 시도해주세요', type: 'error' });
+      });
+  };
 
   const handleClickLikeButton = () => {
     if (!isAuthed()) {
@@ -46,10 +64,14 @@ export default function UserBookShelfPage({
     <div className="flex w-full flex-col">
       <TopNavigation>
         <TopNavigation.LeftItem>
-          <BackButton />
+          <button onClick={() => router.back()}>
+            <IconArrowLeft />
+          </button>
         </TopNavigation.LeftItem>
         <TopNavigation.RightItem>
-          <ShareButton />
+          <button onClick={handleClickShareButton}>
+            <IconShare />
+          </button>
         </TopNavigation.RightItem>
       </TopNavigation>
       <div className="mt-[0.8rem] flex flex-col gap-[0.8rem] pb-[2rem] pt-[1rem] font-bold">

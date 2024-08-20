@@ -1,4 +1,5 @@
-import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
+import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
+import { Skeleton } from '@chakra-ui/react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -6,7 +7,6 @@ import type { APIUser } from '@/types/user';
 import MyProfileBookshelfContainer from './MyProfileBookshelfContainer';
 import UserProfileBookshelfContainer from './UserProfileBookshelfContainer';
 import useMounted from '@/hooks/useMounted';
-import Loading from '@/v1/base/Loading';
 
 const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
   const mounted = useMounted();
@@ -19,12 +19,13 @@ const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
         <ErrorBoundary
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
-            <QueryErrorBoundaryFallback
+            <QueryErrorBounaryFallback
+              minH="18rem"
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
         >
-          <Suspense fallback={<ProfileBookShelfSkeleton />}>
+          <Suspense fallback={<ProfileBookShelfSkelenton />}>
             {userId === 'me' ? (
               <MyProfileBookshelfContainer />
             ) : (
@@ -39,14 +40,6 @@ const ProfileBookShelf = ({ userId }: { userId: 'me' | APIUser['userId'] }) => {
 
 export default ProfileBookShelf;
 
-const ProfileBookShelfSkeleton = () => {
-  return (
-    <div className="flex animate-pulse flex-col gap-[2rem]">
-      <div className="h-[2.7rem] w-[5rem] bg-placeholder" />
-
-      <div className="flex h-[13.2rem] items-center justify-center">
-        <Loading />
-      </div>
-    </div>
-  );
+const ProfileBookShelfSkelenton = () => {
+  return <Skeleton w="100%" height="18rem" />;
 };

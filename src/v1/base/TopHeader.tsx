@@ -1,13 +1,32 @@
 import { PropsWithChildren } from 'react';
 
 type TopHeaderProps = PropsWithChildren<{
-  text: string;
+  pathname: string;
 }>;
 
-const TopHeader = ({ text, children }: TopHeaderProps) => {
+const getHeaderLabel = (pathname: string) => {
+  switch (pathname) {
+    case '/bookarchive': {
+      return 'BookArchive';
+    }
+    case '/book/search': {
+      return 'Search';
+    }
+    case '/group': {
+      return 'Group';
+    }
+    case '/profile/me': {
+      return 'Profile';
+    }
+  }
+};
+
+const TopHeader = ({ pathname, children }: TopHeaderProps) => {
   return (
-    <div className="flex w-full items-center justify-between pb-[2.8rem]">
-      <h1 className="text-xl font-bold text-main-900">{text}</h1>
+    <div className="flex w-full items-center justify-between pb-[0.8rem]">
+      <h1 className="text-xl font-bold text-main-900">
+        {getHeaderLabel(pathname)}
+      </h1>
       {children}
     </div>
   );

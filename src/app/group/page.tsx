@@ -6,7 +6,7 @@ import SimpleBookGroupCard from '@/v1/bookGroup/SimpleBookGroupCard';
 import DetailBookGroupCard from '@/v1/bookGroup/DetailBookGroupCard';
 
 import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
-import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupsQuery';
 import { Skeleton, VStack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -44,7 +44,7 @@ const GroupPage = () => {
 
   return (
     <>
-      <TopHeader text="Group" />
+      <TopHeader pathname={'/group'} />
       <div className="mt-[2rem] flex w-full flex-col gap-[1.5rem]">
         <SearchGroup
           onClick={() => {

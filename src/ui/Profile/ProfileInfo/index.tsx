@@ -1,10 +1,11 @@
 import { ReactNode, Suspense } from 'react';
 import MyProfileContainer from './MyProfileInfoContainer';
 import UserProfileInfoContainer from './UserProfileInfoContainer';
+import { Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { APIUser } from '@/types/user';
-import QueryErrorBoundaryFallback from '@/v1/base/QueryErrorBoundaryFallback';
+import QueryErrorBounaryFallback from '@/ui/common/QueryErrorBoundaryFallback';
 import useMounted from '@/hooks/useMounted';
 
 type ProfileInfoProps = {
@@ -23,12 +24,13 @@ const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
         <ErrorBoundary
           onReset={reset}
           fallbackRender={({ resetErrorBoundary }) => (
-            <QueryErrorBoundaryFallback
+            <QueryErrorBounaryFallback
+              minH="12rem"
               resetErrorBoundary={resetErrorBoundary}
             />
           )}
         >
-          <Suspense fallback={<ProfileInfoSkeleton />}>
+          <Suspense fallback={<ProfileInfoSkelenton />}>
             {userId === 'me' ? (
               <MyProfileContainer />
             ) : (
@@ -44,17 +46,11 @@ const ProfileInfo = ({ userId, children }: ProfileInfoProps) => {
 
 export default ProfileInfo;
 
-const ProfileInfoSkeleton = () => {
+const ProfileInfoSkelenton = () => {
   return (
-    <div className="mb-[2rem] flex animate-pulse flex-col gap-[2rem]">
-      <div className="flex gap-[0.8rem]">
-        <div className="h-[2.1rem] w-[3.8rem] rounded-lg bg-placeholder" />
-        <div className="h-[2.1rem] w-[7.6rem] rounded-lg bg-placeholder" />
-      </div>
-      <div className="flex items-center gap-[1rem]">
-        <div className="h-[7rem] w-[7rem] rounded-full bg-placeholder" />
-        <div className="h-[2.7rem] w-[11rem] bg-placeholder text-lg" />
-      </div>
-    </div>
+    <VStack gap="1rem" align="stretch" w="100%">
+      <SkeletonCircle size="8rem" />
+      <Skeleton w="80%" height="3rem" />
+    </VStack>
   );
 };
