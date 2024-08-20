@@ -32,12 +32,6 @@
     margin: 0 auto;
   }
 
-  .sticky {
-    /* -webkit-sticky: Safari 브라우저 호환 */
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
   /* DatePicker Calendar 스타일링 */
   input[type='date']::-webkit-calendar-picker-indicator {
     background-image: none;

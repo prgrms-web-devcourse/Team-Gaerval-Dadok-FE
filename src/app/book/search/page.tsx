@@ -39,30 +39,14 @@ const BookSearchPage = () => {
   const watchedKeyword = watch('searchValue');
   const debouncedKeyword = useDebounceValue(watchedKeyword, 1000);
 
-  /* TopHeader가 사라졌을 때 input의 위치 top: 5.8rem */
-  const inputPositionClasses = watchedKeyword && 'sticky top-[5.8rem]';
-
   return (
     <>
-      <div
-        className={`transition duration-500 ${
-          watchedKeyword
-            ? '-translate-y-[5.8rem] opacity-0'
-            : 'translate-y-0 opacity-100'
-        }`}
-      >
-        <TopHeader text={'Discover'} />
-      </div>
-      <article
-        className={`flex w-full flex-col gap-[3rem] transition duration-500 ${
-          watchedKeyword ? '-translate-y-[5.8rem]' : 'translate-y-0'
-        }`}
-      >
+      <TopHeader text={'Discover'} />
+      <article className="flex max-h-[calc(100%-6rem)] w-full flex-col gap-[3rem]">
         <Input
           inputStyle="line"
           leftIconType="search"
           placeholder="책 제목, 작가를 검색해보세요"
-          className={`z-10 bg-white ${inputPositionClasses}`}
           {...register('searchValue')}
         />
 
@@ -80,13 +64,13 @@ const BookSearchPage = () => {
 
         {/** 도서 검색 결과 */}
         {watchedKeyword && (
-          <section className="flex-grow pb-[1rem]">
-            <Suspense fallback={<BookSearchLoading />}>
+          <section className="flex-grow overflow-y-scroll pb-[1rem]">
+            <Suspense fallback={<Loading fullpage />}>
               {watchedKeyword === debouncedKeyword ? (
                 <BookSearchResult queryKeyword={debouncedKeyword} />
               ) : (
                 /* 타이핑 중 debounce가 적용되어 keyword가 업데이트 되지 않는 경우에 Loading 컴포넌트로 대체 */
-                <BookSearchLoading />
+                <Loading fullpage />
               )}
             </Suspense>
           </section>
@@ -158,18 +142,6 @@ const RecentSearchResult = ({
   });
 
   return <RecentSearchList keywords={keywords} onClick={onItemClick} />;
-};
-
-const BookSearchLoading = () => {
-  return (
-    /**
-     * Loading 컴포넌트가 화면 중앙에 올바르게 표시되도록 height가 존재하는 relative div 요소 추가
-     * 화면이 스크롤 되지 않는 크기: 100dvh - 23.3rem
-     */
-    <div className="relative flex h-[calc(100dvh-23.3rem)]">
-      <Loading fullpage />
-    </div>
-  );
 };
 
 const ContentsSkelton = () => {

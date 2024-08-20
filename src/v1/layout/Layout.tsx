@@ -21,7 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <main
-        className={`h-auto min-h-[100dvh] w-full max-w-[43rem] animate-page-transition px-[2rem] ${dynamicClass}`}
+        className={`h-auto min-h-[100dvh] w-full max-w-[43rem] animate-page-transition overflow-auto px-[2rem] ${dynamicClass}`}
       >
         {children}
       </main>

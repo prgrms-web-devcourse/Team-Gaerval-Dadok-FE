@@ -9,10 +9,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang="ko">
       <head>
         <title>다독다독</title>
-        <meta
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-          name="viewport"
-        />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link rel="icon" href="/favicon.ico" />
       </head>
       {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
