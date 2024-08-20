@@ -31,7 +31,7 @@ const GroupPage = () => {
   const isAuthenticated = checkAuthentication();
 
   const handleSearchInputClick = () => {
-    showToast({ message: '아직 준비 중인 기능이에요 🥹', type: 'normal' });
+    alert('아직 준비 중인 기능이에요.');
   };
 
   const handleCreateGroupClick = () => {
@@ -72,7 +72,7 @@ const MyBookGroupList = () => {
   const { data: myId } = useMyProfileId({ enabled: isAuthenticated });
 
   return (
-    <section className="flex gap-[1rem] overflow-scroll">
+    <div className="flex gap-[1rem] overflow-scroll">
       {bookGroups.map(({ title, book, bookGroupId, owner }) => (
         <SimpleBookGroupCard
           key={bookGroupId}
@@ -82,7 +82,7 @@ const MyBookGroupList = () => {
           bookGroupId={bookGroupId}
         />
       ))}
-    </section>
+    </div>
   );
 };
 
@@ -145,7 +145,7 @@ const EntireBookGroupList = () => {
 
   return (
     <>
-      <section className="flex flex-col gap-[1rem]">
+      <div className="flex flex-col gap-[1rem]">
         {isSuccess &&
           data.pages.map(({ bookGroups }) =>
             bookGroups.map(
@@ -179,7 +179,7 @@ const EntireBookGroupList = () => {
               )
             )
           )}
-      </section>
+      </div>
       {isFetchingNextPage && <DetailBookGroupCardSkeleton />}
       <div ref={ref} />
     </>
