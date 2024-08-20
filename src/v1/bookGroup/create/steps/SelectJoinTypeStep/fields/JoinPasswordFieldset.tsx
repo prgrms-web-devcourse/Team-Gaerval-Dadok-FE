@@ -10,7 +10,6 @@ import type {
 import ErrorMessage from '@/v1/base/ErrorMessage';
 import Input from '@/v1/base/Input';
 import InputLength from '@/v1/base/InputLength';
-import withScrollLockOnFocus from '@/hocs/withScrollLockOnFocus';
 
 type JoinPasswordFieldsetProps = {
   joinTypeFieldName: JoinTypeStepFieldName;
@@ -34,8 +33,6 @@ const JoinPasswordFieldset = ({
   );
 };
 
-const ScrollLockInput = withScrollLockOnFocus(Input);
-
 const JoinQuestionField = ({ name }: JoinTypeStepFieldProp) => {
   const {
     register,
@@ -51,7 +48,7 @@ const JoinQuestionField = ({ name }: JoinTypeStepFieldProp) => {
   return (
     <label className="flex flex-col gap-[0.5rem]">
       <p>가입 문제</p>
-      <ScrollLockInput
+      <Input
         placeholder="모임에 가입하기 위한 적절한 문제를 작성해주세요"
         {...register(name, {
           required: '1 ~ 30글자의 가입 문제가 필요해요',
@@ -89,7 +86,7 @@ const JoinAnswerField = ({ name }: JoinTypeStepFieldProp) => {
   return (
     <label className="flex flex-col gap-[0.5rem]">
       <p>정답</p>
-      <ScrollLockInput
+      <Input
         placeholder="띄어쓰기 없이 정답을 작성해주세요"
         {...register(name, {
           required: '띄어쓰기 없이 10글자 이하의 정답이 필요해요',

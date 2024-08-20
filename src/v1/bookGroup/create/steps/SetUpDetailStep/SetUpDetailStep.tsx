@@ -6,7 +6,6 @@ import type { SetUpDetailStepFormValues } from '../../types';
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
 
-import withScrollLockOnFocus from '@/hocs/withScrollLockOnFocus';
 import BottomActionButton from '@/v1/base/BottomActionButton';
 import DatePicker from '@/v1/base/DatePicker';
 import ErrorMessage from '@/v1/base/ErrorMessage';
@@ -35,7 +34,6 @@ const SetUpDetailStep = ({
 
   return (
     <article className="flex flex-col gap-[2.5rem] overflow-y-scroll pb-[7rem]">
-      <h2 className="font-subheading-bold">모임 정보를 설정해주세요</h2>
       <TitleField name={'title'} />
       <SelectedBookInfoField
         bookId={getValues('book.bookId')}
@@ -69,8 +67,6 @@ type SetUpDetailFieldProps = {
   name: keyof SetUpDetailStepFormValues;
 };
 
-const ScrollLockInput = withScrollLockOnFocus(Input);
-
 const TitleField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
@@ -85,7 +81,7 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
 
   return (
     <section className="flex flex-col gap-[0.5rem]">
-      <ScrollLockInput
+      <Input
         fontSize="large"
         inputStyle="line"
         error={!!titleErrors}
@@ -134,8 +130,6 @@ const SelectedBookInfoField = ({
   );
 };
 
-const ScrollLockTextArea = withScrollLockOnFocus(TextArea);
-
 const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
@@ -147,7 +141,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   return (
     <section className="flex flex-col gap-[1.2rem]">
       <h2>활동 내용</h2>
-      <ScrollLockTextArea
+      <TextArea
         count={true}
         error={!!introduceErrors}
         placeholder="독서모임에서 어떤 활동을 할 계획인지 자세히 설명해주세요"
@@ -158,7 +152,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
         })}
       >
         <ErrorMessage>{introduceErrors?.message}</ErrorMessage>
-      </ScrollLockTextArea>
+      </TextArea>
     </section>
   );
 };

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { nonPassive } from '@/utils/eventListener';
 
 type Options = {
-  enabled: boolean;
+  enabled?: boolean;
 };
 
 const getTouchXY = (event: TouchEvent | WheelEvent) =>
@@ -11,7 +11,7 @@ const getTouchXY = (event: TouchEvent | WheelEvent) =>
     : [0, 0];
 
 const useRemoveVerticalScroll = (options?: Options) => {
-  const enabled = options ? options.enabled : true;
+  const enabled = options?.enabled;
 
   const touchStartRef = useRef([0, 0]);
 
