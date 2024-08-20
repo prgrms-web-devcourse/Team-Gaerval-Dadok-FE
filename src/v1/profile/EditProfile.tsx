@@ -52,14 +52,14 @@ const EditProfile = ({ profile, jobGroups }: UserProfileProps) => {
   const showToastEditSuccess = () =>
     toast.show({
       type: 'success',
-      message: '프로필을 수정했어요',
+      message: '프로필 수정 완료!',
       duration: 3000,
     });
 
   const showToastEditFailed = () =>
     toast.show({
       type: 'error',
-      message: '잠시 후 다시 시도해주세요',
+      message: '알 수 없는 에러가 발생했어요.',
       duration: 3000,
     });
 

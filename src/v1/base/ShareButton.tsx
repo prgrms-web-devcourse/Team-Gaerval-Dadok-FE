@@ -10,7 +10,7 @@ const ShareButton = () => {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        showToast({ message: '링크를 복사했어요', type: 'success' });
+        showToast({ message: '링크를 복사했어요.', type: 'success' });
       })
       .catch(() => {
         showToast({ message: '잠시 후 다시 시도해주세요', type: 'error' });

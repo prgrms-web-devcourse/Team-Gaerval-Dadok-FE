@@ -31,14 +31,14 @@ const GroupPage = () => {
   const isAuthenticated = checkAuthentication();
 
   const handleSearchInputClick = () => {
-    showToast({ message: '아직 준비 중인 기능이에요 🥹' });
+    showToast({ message: '아직 준비 중인 기능이에요 🥹', type: 'normal' });
   };
 
   const handleCreateGroupClick = () => {
     if (isAuthenticated) {
       router.push('/group/create');
     } else {
-      showToast({ message: '로그인 후 이용해주세요' });
+      showToast({ message: '로그인 후에 이용할 수 있어요!', type: 'normal' });
     }
 
     return;
