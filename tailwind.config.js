@@ -60,9 +60,6 @@ module.exports = {
           800: '#191600',
           900: '#000000',
         },
-        orange: {
-          100: '#F5F4EE',
-        },
         white: '#FFFFFF',
         background: '#FCFCFC',
         cancel: '#CFCFCF',
