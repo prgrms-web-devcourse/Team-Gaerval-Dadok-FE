@@ -1,9 +1,7 @@
 import { createContext, PropsWithChildren, ReactNode, useContext } from 'react';
 
 import { IconClose } from '@public/icons';
-import { useBodyScrollLock } from '@/hooks/useBodyScrollLock';
-
-import Portal from '@/v1/base/Portal';
+import Portal from './Portal';
 
 interface DrawerProps {
   isOpen: boolean;
@@ -20,28 +18,25 @@ const Drawer = ({
   onClose,
   children,
 }: PropsWithChildren<DrawerProps>) => {
-  useBodyScrollLock({ enabled: isOpen });
-
   return (
     <DrawerContext.Provider value={{ isOpen, onClose }}>
-      <Portal id="drawer-root">
+      <Portal id="drawer">
         <div
-          className={`fixed inset-0 z-10 flex w-screen transform justify-center overflow-hidden ease-in-out ${
+          className={`absolute inset-0 z-10 transform overflow-hidden ease-in-out ${
             isOpen
               ? 'translate-x-0 scale-x-100 opacity-100 transition-opacity duration-500'
               : 'translate-x-full scale-x-0 opacity-0 transition-all delay-100 duration-500'
           }`}
         >
-          {/** overlay */}
-          <div className="absolute h-full w-full" onClick={onClose} />
-          {/** drawer section */}
           <section
-            className={`duration-400 ease-out-in relative flex h-full w-full max-w-[43rem] transform flex-col gap-[2rem] overflow-hidden bg-white p-[2rem] shadow-bookcard transition-all ${
+            className={`duration-400 absolute right-0 flex h-full w-full max-w-[43rem] transform flex-col gap-[2rem] overflow-hidden bg-white p-[2rem] shadow-bookcard transition-all ease-in-out ${
               isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
             {isOpen && children}
           </section>
+          {/** overlay */}
+          <section className="h-full w-full" onClick={onClose}></section>
         </div>
       </Portal>
     </DrawerContext.Provider>
