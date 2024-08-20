@@ -151,7 +151,7 @@ const BookShelfLoginBox = ({
   const { userNickname } = data;
 
   return (
-    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-shadow px-[1.7rem] py-[4rem]">
+    <div className="mt-[3.8rem] flex flex-col gap-[2rem] rounded-[4px] border border-[#CFCFCF] px-[1.7rem] py-[4rem]">
       <p className="text-center font-body1-bold">
         지금 로그인하면
         <br />

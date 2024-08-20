@@ -67,7 +67,7 @@ const BookInfoContent = ({
   const { data: bookInfo } = useBookInfoQuery(bookId);
 
   return (
-    <div className="flex min-h-[12.8rem] w-full gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-shadow px-[2.2rem] py-[1.8rem]">
+    <div className="flex min-h-[12.8rem] w-full gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
       <BookCover size="xsmall" src={bookInfo.imageUrl} title={bookInfo.title} />
       <div className="flex min-w-0 flex-grow flex-col">
         <span className="truncate font-body2-bold">{bookInfo.title}</span>
@@ -93,7 +93,7 @@ const BookInfoContent = ({
 // const EmptyBookInfoCard = ({ onBookSelect }: { onBookSelect?: () => void }) => {
 //   return (
 //     <div
-//       className="flex min-h-[12.8rem] w-full cursor-pointer flex-col items-center justify-center gap-[1rem] rounded-[0.5rem] border-[0.05rem] border-shadow shadow-bookcard"
+//       className="flex min-h-[12.8rem] w-full cursor-pointer flex-col items-center justify-center gap-[1rem] rounded-[0.5rem] border-[0.05rem] border-cancel shadow-bookcard"
 //       onClick={onBookSelect}
 //     >
 //       <IconBookPlus className="h-[2rem] w-[2rem] fill-placeholder" />
@@ -106,7 +106,7 @@ const BookInfoContent = ({
 
 const BookInfoCardSkeleton = () => {
   return (
-    <div className="flex min-h-[12.8rem] w-full animate-pulse cursor-pointer items-center gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-shadow px-[2.2rem] py-[1.8rem]">
+    <div className="flex min-h-[12.8rem] w-full animate-pulse cursor-pointer items-center gap-[2.4rem] rounded-[0.5rem] border-[0.05rem] border-cancel px-[2.2rem] py-[1.8rem]">
       <div className="h-[9.1rem] w-[6.5rem] rounded-[0.5rem] bg-placeholder"></div>
       <div className="mt-[0.3rem] flex flex-col gap-[0.5rem] self-start">
         <div className="h-[1.4rem] w-[10rem] bg-placeholder"></div>
