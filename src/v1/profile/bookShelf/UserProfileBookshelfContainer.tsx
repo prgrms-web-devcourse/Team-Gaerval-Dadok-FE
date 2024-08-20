@@ -7,9 +7,13 @@ const UserProfileBookshelfContainer = ({
 }: {
   userId: APIUser['userId'];
 }) => {
-  const { data } = useUserSummaryBookshelfQuery(userId);
+  const { isSuccess, data } = useUserSummaryBookshelfQuery(userId, {
+    suspense: true,
+  });
 
-  return <ProfileBookshelfPresenter {...data} />;
+  if (!isSuccess) return null;
+
+  return <ProfileBookshelfPresenter {...data}></ProfileBookshelfPresenter>;
 };
 
 export default UserProfileBookshelfContainer;

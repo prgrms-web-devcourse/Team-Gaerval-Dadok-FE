@@ -1,12 +1,11 @@
 import bookshelfAPI from '@/apis/bookshelf';
-import type { APIBookshelf } from '@/types/bookshelf';
+import { useQuery } from '@tanstack/react-query';
 import type { QueryOptions } from '@/types/query';
-
-import useQueryWithSuspense from '@/hooks/useQueryWithSuspense';
+import type { APIBookshelf } from '@/types/bookshelf';
 import bookShelfKeys from './key';
 
 const useMySummaryBookshelfQuery = (options?: QueryOptions<APIBookshelf>) =>
-  useQueryWithSuspense(
+  useQuery(
     bookShelfKeys.summary('me'),
     () => bookshelfAPI.getMySummaryBookshelf().then(({ data }) => data),
     options

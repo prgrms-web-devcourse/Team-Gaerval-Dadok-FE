@@ -2,9 +2,13 @@ import ProfileBookshelfPresenter from './ProfileBookshelfPresenter';
 import useMySummaryBookshelfQuery from '@/queries/bookshelf/useMySummaryBookShelfQuery';
 
 const MyProfileBookshelfContainer = () => {
-  const { data } = useMySummaryBookshelfQuery();
+  const { isSuccess, data } = useMySummaryBookshelfQuery({
+    suspense: true,
+  });
 
-  return <ProfileBookshelfPresenter {...data} />;
+  if (!isSuccess) return null;
+
+  return <ProfileBookshelfPresenter {...data}></ProfileBookshelfPresenter>;
 };
 
 export default MyProfileBookshelfContainer;
