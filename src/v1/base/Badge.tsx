@@ -82,7 +82,7 @@ const Badge = ({
 
   return (
     <div
-      className={`m-0 flex w-fit items-center justify-center gap-[0.4rem] rounded-[0.5rem] border-[0.1rem] px-[0.6rem] py-[0.25rem] ${computedClasses}`}
+      className={`m-0 flex w-fit items-center justify-center gap-[0.4rem] rounded-[0.5rem] border-[0.05rem] px-[0.8rem] py-[0.25rem] ${computedClasses}`}
       {...props}
     >
       {children}

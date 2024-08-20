@@ -15,11 +15,13 @@ const LikeButton = ({ isLiked, likeCount, onClick }: LikeButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${BG_COLOR_CLASS} flex h-[2.4rem] items-center gap-[0.4rem] rounded-full border-[0.1rem] border-warning-800 bg-warning-800`}
+      className={`${BG_COLOR_CLASS} flex h-[2.4rem] min-w-[5.6rem] items-center gap-[0.4rem] rounded-full border-[0.1rem] border-warning-800 bg-warning-800 px-[1rem]`}
     >
-      <IconHeart className={`${ICON_COLOR_CLASS} ml-[1rem]`} />
+      <IconHeart
+        className={`${ICON_COLOR_CLASS} h-[1.5rem] w-[1.5rem] fill-white stroke-[0.15rem]`}
+      />
       <p
-        className={`${TEXT_COLOR_CLASS} mr-[1.1rem] min-w-[1.2rem] text-end font-caption1-bold`}
+        className={`${TEXT_COLOR_CLASS} min-w-[1.5rem] text-center font-caption1-bold`}
       >
         {likeCount}
       </p>
