@@ -22,9 +22,6 @@ jobs:
       - name: Install Dependency
         run: yarn install --immutable
 
-      - name: Set .env
-        run: echo "${{ vars.DEVELOPMENT_ENV }}" > .env.local
-
       - name: Publish Chromatic
         id: chromatic
         uses: chromaui/action@v1

@@ -76,7 +76,6 @@ module.exports = {
       boxShadow: {
         bookcover:
           '0px 0px 2px rgba(0, 0, 0, 0.2), 2px 2px 6px rgba(0, 0, 0, 0.1)',
-        bookcard: '0px 0px 7px 0px rgba(207, 207, 207, 0.5)',
       },
       keyframes: {
         'page-transition': {

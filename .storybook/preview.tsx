@@ -1,44 +1,10 @@
 import React from 'react';
-import { rest } from 'msw';
-import { initialize, mswLoader } from 'msw-storybook-addon';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import type { Preview } from '@storybook/react';
+import '@/styles/global.css';
 
 import Layout from '../src/v1/layout/Layout';
 import ToastProvider from '../src/v1/base/Toast/ToastProvider';
-
-import '@/styles/global.css';
-
-const nextApi = (path: string) =>
-  new URL(path, process.env.NEXT_HOST).toString();
-
-const serviceApi = (path: string) =>
-  new URL(path, process.env.NEXT_PUBLIC_API_URL).toString();
-
-initialize({}, [
-  rest.get(nextApi('/service-api/*'), async (req, res, ctx) => {
-    const { pathname } = req.url;
-    const match = /\/service-api(?<path>.*)/g.exec(pathname);
-
-    if (!match || !match.groups || !match.groups.path) {
-      return res(ctx.status(404, 'Invalid Request URL'));
-    }
-
-    const { path } = match.groups;
-    const originResponse = await ctx.fetch(serviceApi(`/api${path}`));
-    const originResponseData = await originResponse.json();
-
-    return res(ctx.json({ ...originResponseData }));
-  }),
-]);
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-    },
-  },
-});
 
 const preview: Preview = {
   parameters: {
@@ -54,16 +20,13 @@ const preview: Preview = {
     },
     layout: 'fullscreen',
   },
-  loaders: [mswLoader],
   decorators: [
     Story => (
-      <QueryClientProvider client={queryClient}>
-        <ToastProvider>
-          <Layout>
-            <Story />
-          </Layout>
-        </ToastProvider>
-      </QueryClientProvider>
+      <ToastProvider>
+        <Layout>
+          <Story />
+        </Layout>
+      </ToastProvider>
     ),
   ],
 };
