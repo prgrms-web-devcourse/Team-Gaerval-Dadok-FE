@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import SimpleGroup from '@/v1/bookgroup/SimpleGroup';
 
 const meta: Meta<typeof SimpleGroup> = {
-  title: 'BookGroup/SimpleGroup',
+  title: 'Base/SimpleGroup',
   component: SimpleGroup,
   tags: ['autodocs'],
 };
@@ -20,7 +20,7 @@ export const Default: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: false,
-    handleClick: moveGroupDetail,
+    eventHandler: moveGroupDetail,
   },
 };
 
@@ -29,6 +29,6 @@ export const OwnerCase: Story = {
     title: '데일카네기 인간관계론',
     imageSource: 'https://image.yes24.com/goods/79297023/XL',
     isOwner: true,
-    handleClick: moveGroupDetail,
+    eventHandler: moveGroupDetail,
   },
 };
