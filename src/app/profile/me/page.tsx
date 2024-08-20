@@ -1,27 +1,19 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-import userAPI from '@/apis/user';
-
 import { checkAuthentication, removeAuth } from '@/utils/helpers';
-
-import { IconArrowRight } from '@public/icons';
-
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-
-import Avatar from '@/v1/base/Avatar';
-import Button from '@/v1/base/Button';
-import Loading from '@/v1/base/Loading';
-import Menu from '@/v1/base/Menu';
+import userAPI from '@/apis/user';
 import TopHeader from '@/v1/base/TopHeader';
-import BookShelf from '@/v1/bookShelf/BookShelf';
+import ProfileInfo from '@/v1/profile/info/ProfileInfo';
 import ProfileBookShelf from '@/v1/profile/bookShelf/ProfileBookShelf';
 import ProfileGroup from '@/v1/profile/group/ProfileGroup';
-import ProfileInfo from '@/v1/profile/info/ProfileInfo';
-import userKeys from '@/queries/user/key';
-import { useQueryClient } from '@tanstack/react-query';
+import Avatar from '@/v1/base/Avatar';
+import Link from 'next/link';
+import { IconArrowRight } from '@public/icons';
+import BookShelf from '@/v1/bookShelf/BookShelf';
+import SSRSafeSuspense from '@/components/SSRSafeSuspense';
+import Loading from '@/v1/base/Loading';
+import Button from '@/v1/base/Button';
 
 const USER_ID = 'me';
 const KAKAO_LOGIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
@@ -77,25 +69,18 @@ const MyProfileForUnAuth = () => {
 };
 
 const MyProfileForAuth = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   const handleLogoutButtonClick = async () => {
     await userAPI.logout();
     removeAuth();
-    queryClient.removeQueries({ queryKey: userKeys.me(), exact: true });
     router.refresh();
   };
 
   return (
     <>
       <TopHeader text="Profile">
-        <Menu>
-          <Menu.Toggle />
-          <Menu.DropdownList>
-            <Menu.Item onSelect={handleLogoutButtonClick}>로그아웃</Menu.Item>
-          </Menu.DropdownList>
-        </Menu>
+        <button onClick={handleLogoutButtonClick}>로그아웃</button>
       </TopHeader>
       <div className="flex flex-col gap-[2rem]">
         <ProfileInfo userId={USER_ID} />
