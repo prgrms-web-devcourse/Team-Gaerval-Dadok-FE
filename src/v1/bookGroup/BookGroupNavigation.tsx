@@ -115,11 +115,6 @@ const MenuButton = () => {
   const { show: showToast } = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const handleEditClick = () => {
-    router.push(`/group/${groupId}/edit`);
-    return;
-  };
-
   const handleModalConfirm = async () => {
     await deleteBookGroup.mutateAsync(groupId, {
       onSuccess: () => {
@@ -146,7 +141,7 @@ const MenuButton = () => {
           <Menu>
             <Menu.Toggle />
             <Menu.DropdownList>
-              <Menu.Item onSelect={handleEditClick}>수정하기</Menu.Item>
+              <Menu.Item>수졍하기</Menu.Item>
               <Menu.Item onSelect={onOpen}>삭제하기</Menu.Item>
             </Menu.DropdownList>
           </Menu>

@@ -28,6 +28,7 @@ const Input = (
     inputStyle = 'default',
     fontSize = 'small',
     error = false,
+    children,
     ...props
   }: InputProps,
   ref: Ref<HTMLInputElement>
@@ -39,11 +40,14 @@ const Input = (
     : 'border-black-400 focus:border-main-900';
 
   return (
-    <input
-      className={`w-full py-[1.3rem] outline-none ${fontSizeClass} ${inputStyleClass} ${borderColorClass}`}
-      {...props}
-      ref={ref}
-    />
+    <div className={fontSizeClass}>
+      <input
+        className={`w-full py-[1.3rem] outline-none ${inputStyleClass} ${borderColorClass}`}
+        {...props}
+        ref={ref}
+      />
+      {children}
+    </div>
   );
 };
 
