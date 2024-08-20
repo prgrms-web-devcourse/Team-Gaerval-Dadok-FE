@@ -7,12 +7,6 @@ import ErrorMessage from '@/v1/base/ErrorMessage';
 const meta: Meta<typeof Input> = {
   title: 'Base/Input',
   component: Input,
-  args: {
-    fontSize: 'small',
-  },
-  argTypes: {
-    fontSize: { control: 'select', options: ['small', 'large'] },
-  },
   tags: ['autodocs'],
 };
 
@@ -112,23 +106,10 @@ export const Default: Story = {
   },
 };
 
-export const Line: Story = {
-  args: {
-    fontSize: 'large',
-    error: false,
-  },
-  render: args => (
-    <Input inputStyle="line" defaultValue="프롱이 리팩터링 스터디" {...args} />
-  ),
-};
-
 export const Invalid: Story = {
   args: {
     placeholder: '입력해 주세요.',
     error: true,
-  },
-  argTypes: {
-    inputStyle: { control: 'select', options: ['default', 'line'] },
   },
   render: args => (
     <div className="flex flex-col gap-[0.5rem]">
