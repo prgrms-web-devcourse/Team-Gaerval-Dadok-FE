@@ -49,6 +49,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ko">
+      {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <Layout>
           <ContextProvider>
