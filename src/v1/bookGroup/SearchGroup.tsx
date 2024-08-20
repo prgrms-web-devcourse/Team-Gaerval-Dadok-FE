@@ -8,7 +8,7 @@ const SearchGroup = ({ onClick }: SearchGroup) => {
   return (
     <div className="flex">
       <div className="rounded-bl-[0.4rem] rounded-tl-[0.4rem] border-[0.1rem] border-r-[0rem] border-solid border-black-100 bg-[#fffff] pl-[1rem] pt-[0.8rem]">
-        <IconSearch className="fill-placeholder" />
+        <IconSearch fill="#AFAFAF" />
       </div>
       <input
         id="groupSearching"

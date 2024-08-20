@@ -1,47 +1,29 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import SSRSafeSuspense from '@/components/SSRSafeSuspense';
-import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
-import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
-import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
-
-import useMounted from '@/hooks/useMounted';
-import { checkAuthentication } from '@/utils/helpers';
-import useToast from '@/v1/base/Toast/useToast';
-
-import FloatingButton from '@/v1/base/FloatingButton';
-import Loading from '@/v1/base/Loading';
 import TopHeader from '@/v1/base/TopHeader';
-import DetailBookGroupCard, {
-  DetailBookGroupCardSkeleton,
-} from '@/v1/bookGroup/DetailBookGroupCard';
 import SearchGroupInput from '@/v1/bookGroup/SearchGroup';
 import SimpleBookGroupCard, {
   SimpleBookGroupCardSkeleton,
 } from '@/v1/bookGroup/SimpleBookGroupCard';
+import DetailBookGroupCard, {
+  DetailBookGroupCardSkeleton,
+} from '@/v1/bookGroup/DetailBookGroupCard';
+
+import useEntireGroupsQuery from '@/queries/group/useEntireGroupsQuery';
+import useMyGroupsQuery from '@/queries/group/useMyGroupQuery';
+import { useMyProfileId } from '@/queries/user/useMyProfileQuery';
+import { checkAuthentication } from '@/utils/helpers';
+import useMounted from '@/hooks/useMounted';
+import Loading from '@/v1/base/Loading';
 
 const GroupPage = () => {
-  const router = useRouter();
-  const { show: showToast } = useToast();
-
   const isAuthenticated = checkAuthentication();
-
   const handleSearchInputClick = () => {
     alert('아직 준비 중인 기능이에요.');
-  };
-
-  const handleCreateGroupClick = () => {
-    if (isAuthenticated) {
-      router.push('/group/create');
-    } else {
-      showToast({ message: '로그인 후에 이용할 수 있어요!', type: 'normal' });
-    }
-
-    return;
   };
 
   return (
@@ -54,10 +36,9 @@ const GroupPage = () => {
           <EntireBookGroupList />
         </SSRSafeSuspense>
       </div>
-      <FloatingButton
-        onClick={handleCreateGroupClick}
-        position="bottom-right"
-      />
+      {/* <Link href={'/group/create'}>
+        <FloatingButton position="bottom-right" />
+      </Link> */}
     </>
   );
 };

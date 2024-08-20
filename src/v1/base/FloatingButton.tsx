@@ -1,48 +1,39 @@
-import { ComponentPropsWithoutRef } from 'react';
-
 import { IconPlus } from '@public/icons';
-
-import Portal from './Portal';
+import { ComponentPropsWithoutRef } from 'react';
+import { createPortal } from 'react-dom';
 
 interface FloatingButtonProps extends ComponentPropsWithoutRef<'button'> {
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-  onClick?: () => void;
 }
 
 const getPositionClasses = (position: string) => {
   switch (position) {
     case 'top-left': {
-      return 'top-[1.3rem] left-[1.7rem]';
+      return 'top-[6.4rem] left-[1.2rem]';
     }
     case 'top-right': {
-      return 'top-[1.3rem] right-[1.7rem]';
+      return 'top-[6.4rem] right-[1.2rem]';
     }
     case 'bottom-left': {
-      return 'bottom-[8.3rem] left-[1.7rem]';
+      return 'bottom-[7.2rem] left-[1.2rem]';
     }
     case 'bottom-right': {
-      return 'bottom-[8.3rem] right-[1.7rem]';
+      return 'bottom-[7.2rem] right-[1.2rem]';
     }
   }
 };
 
-const FloatingButton = ({
-  position,
-  onClick,
-  ...props
-}: FloatingButtonProps) => {
+const FloatingButton = ({ position, ...props }: FloatingButtonProps) => {
   const positionClasses = getPositionClasses(position);
 
-  return (
-    <Portal id="floating-button-portal">
-      <button
-        className={`${positionClasses} absolute flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 shadow-floating-button`}
-        onClick={onClick}
-        {...props}
-      >
-        <IconPlus className="fill-white" />
-      </button>
-    </Portal>
+  return createPortal(
+    <button
+      className={`${positionClasses} fixed left-[50%] top-[50%] flex h-[5.1rem] w-[5.1rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-main-900`}
+      {...props}
+    >
+      <IconPlus />
+    </button>,
+    document.body
   );
 };
 
