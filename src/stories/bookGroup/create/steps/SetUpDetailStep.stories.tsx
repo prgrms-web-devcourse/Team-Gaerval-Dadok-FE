@@ -61,10 +61,7 @@ const SetUpDetailForm = () => {
   return (
     <FormProvider {...methods}>
       <form>
-        <SetUpDetailStep
-          goToSelectBookStep={() => alert('goToSelectBookStep')}
-          onNextStep={onNextStep}
-        />
+        <SetUpDetailStep onNextStep={onNextStep} />
       </form>
     </FormProvider>
   );
