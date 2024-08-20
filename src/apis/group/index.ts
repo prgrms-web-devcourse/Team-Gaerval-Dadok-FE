@@ -14,7 +14,7 @@ const groupAPI = {
       `/service-api/book-groups?pageSize=10&groupCursorId=` + pageParam
     ),
 
-  createGroup: (group: APICreateGroup) =>
+  createGroup: ({ group }: { group: APICreateGroup }) =>
     publicApi.post('/service-api/book-groups', group),
 
   getGroupDetailInfo: ({

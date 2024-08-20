@@ -1,12 +1,13 @@
+import { appLayoutMeta } from '@/stories/meta';
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { SetUpDetailStepFormValues } from '@/v1/bookGroup/create/types';
-
 import { getTodayDate } from '@/utils/date';
 
-import { appLayoutMeta } from '@/stories/meta';
-import { SetUpDetailStep } from '@/v1/bookGroup/create/steps';
+import {
+  SetUpDetailStep,
+  type SetUpDetailStepValues,
+} from '@/v1/bookGroup/create/steps/SetUpDetailStep';
 
 const meta: Meta<typeof SetUpDetailStep> = {
   title: 'bookGroup/create/steps/SetUpDetailStep',
@@ -19,14 +20,19 @@ export default meta;
 type Story = StoryObj<typeof SetUpDetailStep>;
 
 const SetUpDetailForm = () => {
-  const methods = useForm<SetUpDetailStepFormValues>({
+  const methods = useForm<SetUpDetailStepValues>({
     mode: 'all',
     defaultValues: {
       title: '',
       book: {
         bookId: 23,
       },
+      introduce: '',
+      maxMemberCount: '',
+      customMemberCount: '',
       startDate: getTodayDate(),
+      endDate: '',
+      isPublic: false,
     },
   });
 

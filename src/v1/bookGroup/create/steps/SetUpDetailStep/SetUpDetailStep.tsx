@@ -1,7 +1,7 @@
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { SetUpDetailStepFormValues } from '../../types';
+import type { SearchedBookWithId } from '@/types/book';
+import type { APICreateGroup } from '@/types/group';
 
 import { MAX_MEMBER_COUNT_OPTIONS } from '@/constants';
 import { getTodayDate } from '@/utils/date';
@@ -16,6 +16,12 @@ import Switch from '@/v1/base/Switch';
 import TextArea from '@/v1/base/TextArea';
 import BookInfoCard from '@/v1/bookGroup/BookInfoCard';
 
+interface MoveFunnelStepProps {
+  onPrevStep?: () => void;
+  onNextStep?: () => void;
+  onSubmit?: () => void;
+}
+
 interface SetUpDetailStepProps extends MoveFunnelStepProps {
   goToSelectBookStep?: () => void;
 }
@@ -25,12 +31,21 @@ interface SetUpDetailStepProps extends MoveFunnelStepProps {
  * Field 컴포넌트 분리
  */
 
+export interface SetUpDetailStepValues
+  extends Pick<
+    APICreateGroup,
+    'bookId' | 'title' | 'introduce' | 'startDate' | 'endDate' | 'isPublic'
+  > {
+  book: SearchedBookWithId;
+  maxMemberCount: string;
+  customMemberCount: string;
+}
+
 const SetUpDetailStep = ({
   goToSelectBookStep,
   onNextStep,
 }: SetUpDetailStepProps) => {
-  const { handleSubmit, getValues } =
-    useFormContext<SetUpDetailStepFormValues>();
+  const { handleSubmit, getValues } = useFormContext<SetUpDetailStepValues>();
 
   return (
     <article className="flex flex-col gap-[3.2rem] overflow-y-scroll pb-[7rem]">
@@ -64,7 +79,7 @@ const SetUpDetailStep = ({
 export default SetUpDetailStep;
 
 type SetUpDetailFieldProps = {
-  name: keyof SetUpDetailStepFormValues;
+  name: keyof SetUpDetailStepValues;
 };
 
 const TitleField = ({ name }: SetUpDetailFieldProps) => {
@@ -72,7 +87,7 @@ const TitleField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const titleValue = useWatch({ control, name: name });
   const titleValueLength =
@@ -110,7 +125,7 @@ const SelectedBookInfoField = ({
   bookId?: number;
   onRemoveButtonClick?: () => void;
 }) => {
-  const { reset } = useFormContext<SetUpDetailStepFormValues>();
+  const { reset } = useFormContext<SetUpDetailStepValues>();
 
   const handleBookRemove = () => {
     onRemoveButtonClick?.();
@@ -134,7 +149,7 @@ const IntroduceField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const introduceErrors = errors[name];
 
@@ -161,7 +176,7 @@ const MaxMemberCountField = ({ name }: SetUpDetailFieldProps) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const maxMemberCountErrors = errors[name];
 
@@ -190,7 +205,7 @@ const CustomMemberCountField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const maxMemberCount = useWatch({ control, name: 'maxMemberCount' });
   const isCustomInputCount = maxMemberCount === 'custom';
@@ -226,7 +241,7 @@ const PickStartDateField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const startDateErrors = errors[name];
   const endDate = useWatch({ control, name: 'endDate' });
@@ -260,7 +275,7 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
     register,
     control,
     formState: { errors },
-  } = useFormContext<SetUpDetailStepFormValues>();
+  } = useFormContext<SetUpDetailStepValues>();
 
   const startDate = useWatch({ control, name: 'startDate' });
   const todayDate = getTodayDate();
@@ -287,18 +302,14 @@ const PickEndDateField = ({ name }: SetUpDetailFieldProps) => {
 };
 
 const SwitchIsPublicField = ({ name }: SetUpDetailFieldProps) => {
-  const { register, control } = useFormContext<SetUpDetailStepFormValues>();
-
-  const isCommentPublic = useWatch({ control, name });
+  const { register } = useFormContext<SetUpDetailStepValues>();
 
   return (
     <section className="flex items-start justify-between">
       <div className="flex min-w-0 flex-col gap-[0.3rem]">
         <h2>댓글 공개 여부</h2>
         <p className="text-xs text-placeholder">
-          {isCommentPublic
-            ? '모임에 가입하지 않아도 댓글을 볼 수 있어요'
-            : '모임에 가입해야 댓글을 볼 수 있어요'}
+          모임에 가입하지 않은 사람도 댓글을 볼 수 있어요.
         </p>
       </div>
       <Switch {...register(name)} />

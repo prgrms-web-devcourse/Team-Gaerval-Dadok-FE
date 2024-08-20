@@ -1,16 +1,26 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { MoveFunnelStepProps } from '@/v1/base/Funnel';
-import type { SelectJoinTypeStepFormValues } from '../../types';
-
 import BottomActionButton from '@/v1/base/BottomActionButton';
+
 import { JoinPasswordFieldset, JoinTypeFieldset } from './fields';
 
-export type JoinTypeStepFieldName = keyof SelectJoinTypeStepFormValues;
+interface MoveFunnelStepProps {
+  onPrevStep?: () => void;
+  onNextStep?: () => void;
+  onSubmit?: () => void;
+}
+
+export type JoinTypeStepFormValues = {
+  hasJoinPasswd: 'true' | 'false';
+  joinQuestion?: string;
+  joinPasswd?: string;
+};
+
+export type JoinTypeStepFieldName = keyof JoinTypeStepFormValues;
 export type JoinTypeStepFieldProp = { name: JoinTypeStepFieldName };
 
 const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
-  const { handleSubmit } = useFormContext<SelectJoinTypeStepFormValues>();
+  const { handleSubmit } = useFormContext<JoinTypeStepFormValues>();
 
   return (
     <article>
@@ -18,12 +28,12 @@ const SelectJoinTypeStep = ({ onSubmit }: MoveFunnelStepProps) => {
 
       <section className="flex flex-col gap-[2rem]">
         <JoinTypeFieldset>
-          <JoinTypeFieldset.RadioCardField name="hasJoinPassword" />
+          <JoinTypeFieldset.RadioCardField name="hasJoinPasswd" />
         </JoinTypeFieldset>
 
-        <JoinPasswordFieldset joinTypeFieldName="hasJoinPassword">
+        <JoinPasswordFieldset joinTypeFieldName="hasJoinPasswd">
           <JoinPasswordFieldset.QuestionField name="joinQuestion" />
-          <JoinPasswordFieldset.AnswerField name="joinPassword" />
+          <JoinPasswordFieldset.AnswerField name="joinPasswd" />
         </JoinPasswordFieldset>
       </section>
 

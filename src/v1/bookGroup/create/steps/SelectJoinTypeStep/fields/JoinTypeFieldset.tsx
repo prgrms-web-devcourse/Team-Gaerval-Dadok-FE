@@ -1,7 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { SelectJoinTypeStepFormValues } from '../../../types';
-import type { JoinTypeStepFieldProp } from '../SelectJoinTypeStep';
+import {
+  JoinTypeStepFormValues,
+  JoinTypeStepFieldProp,
+} from '../SelectJoinTypeStep';
 
 import JoinTypeRadioCard from './JoinTypeRadioCard';
 
@@ -10,7 +12,7 @@ const JoinTypeFieldset = ({ children }: { children?: React.ReactNode }) => {
 };
 
 const RadioCardField = ({ name }: JoinTypeStepFieldProp) => {
-  const { register } = useFormContext<SelectJoinTypeStepFormValues>();
+  const { register } = useFormContext<JoinTypeStepFormValues>();
 
   return (
     <>

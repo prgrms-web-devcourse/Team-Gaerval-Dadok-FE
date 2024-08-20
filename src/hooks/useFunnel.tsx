@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import type { FunnelProps, StepProps } from '@/v1/base/Funnel/Funnel';
 import { assert } from '@/utils/assert';
 
-import type { FunnelProps, StepProps } from '@/v1/base/Funnel';
-import { Funnel, Step } from '@/v1/base/Funnel';
+import { Funnel, Step } from '@/v1/base/Funnel/Funnel';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export type NonEmptyArray<T> = readonly [T, ...T[]];
 
@@ -34,11 +34,7 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     initialStep?: Steps[number];
     onStepChange?: (name: Steps[number]) => void;
   }
-): readonly [
-  FunnelComponent<Steps>,
-  (step: Steps[number]) => void,
-  Steps[number]
-] => {
+): readonly [FunnelComponent<Steps>, (step: Steps[number]) => void] => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -82,12 +78,11 @@ export const useFunnel = <Steps extends NonEmptyArray<string>>(
     const params = new URLSearchParams(searchParams.toString());
     params.set('funnel-step', `${step}`);
 
-    return router.replace(`?${params.toString()}`, { shallow: true });
+    return router.replace(`?${params.toString()}`);
   };
 
-  return [FunnelComponent, setStep, step] as unknown as readonly [
+  return [FunnelComponent, setStep] as unknown as readonly [
     FunnelComponent<Steps>,
-    (step: Steps[number]) => Promise<void>,
-    Steps[number]
+    (step: Steps[number]) => Promise<void>
   ];
 };

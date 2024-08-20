@@ -1,10 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
-
-import type { SelectJoinTypeStepFormValues } from '@/v1/bookGroup/create/types';
-
 import { appLayoutMeta } from '@/stories/meta';
-import { SelectJoinTypeStep } from '@/v1/bookGroup/create/steps';
+
+import {
+  SelectJoinTypeStep,
+  SelectJoinTypeStepFormValues,
+} from '@/v1/bookGroup/create/steps/SelectJoinTypeStep';
 
 const meta: Meta<typeof SelectJoinTypeStep> = {
   title: 'bookGroup/create/steps/SelectJoinTypeStep',
@@ -19,15 +20,15 @@ type Story = StoryObj<typeof SelectJoinTypeStep>;
 const RenderSelectJoinTypeStep = () => {
   const methods = useForm<SelectJoinTypeStepFormValues>({
     defaultValues: {
-      hasJoinPassword: 'false',
+      hasJoinPasswd: 'false',
     },
     mode: 'all',
   });
 
   const onSubmit = () => {
-    const { hasJoinPassword, joinPassword, joinQuestion } = methods.getValues();
+    const { hasJoinPasswd, joinPasswd, joinQuestion } = methods.getValues();
     alert(
-      `가입 문제 유무: ${hasJoinPassword}\n가입 문제: ${joinQuestion}\n정답: ${joinPassword}`
+      `가입 문제 유무: ${hasJoinPasswd}\n가입 문제: ${joinQuestion}\n정답: ${joinPasswd}`
     );
   };
 
