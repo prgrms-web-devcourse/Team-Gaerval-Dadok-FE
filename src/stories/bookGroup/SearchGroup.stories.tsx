@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SearchGroup from '@/v1/bookGroup/SearchGroup';
+import SearchGroup from '@/ui/Base/bookgroup/SearchGroup';
 
 const meta: Meta<typeof SearchGroup> = {
   title: 'Base/SearchGroup',

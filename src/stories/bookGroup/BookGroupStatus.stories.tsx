@@ -1,4 +1,4 @@
-import BookGroupStatus from '@/v1/bookGroup/BookGroupStatus';
+import BookGroupStatus from '@/ui/bookgroup/BookGroupStatus';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof BookGroupStatus> = {

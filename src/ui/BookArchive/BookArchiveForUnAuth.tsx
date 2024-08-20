@@ -1,6 +1,6 @@
 import useUnAuthRecommendedBookshelfQuery from '@/queries/recommend/useUnAuthRecommendedBookshelfQuery';
 import { Skeleton, VStack } from '@chakra-ui/react';
-import Bookshelf from '@/v1/bookShelf/BookShelf';
+import Bookshelf from '../Bookshelf';
 
 const BookArchiveForUnAuth = () => {
   const { data, isSuccess, isLoading } = useUnAuthRecommendedBookshelfQuery();

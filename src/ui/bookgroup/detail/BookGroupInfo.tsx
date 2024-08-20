@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Badge from '@/ui/Base/Badge';
 import BookCover from '@/ui/book/BookCover';
-import BookGroupStatus from '@/v1/bookGroup/BookGroupStatus';
+import BookGroupStatus from '@/ui/bookgroup/BookGroupStatus';
 import { IconArrowLeft, IconCalendar, IconMembers } from '@public/icons';
 import { DATA_URL } from '@/constants/dataUrl';
 

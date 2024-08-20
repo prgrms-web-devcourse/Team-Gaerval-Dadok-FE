@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import CommentList from '@/v1/bookGroup/detail/CommentList';
+import CommentList from '@/ui/bookgroup/detail/CommentList';
 
 const meta: Meta<typeof CommentList> = {
   title: 'bookgroup/detail/CommentList',

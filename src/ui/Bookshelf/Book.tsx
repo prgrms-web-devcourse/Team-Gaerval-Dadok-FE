@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const Book = ({
+const BookInBookshelf = ({
   imageUrl,
   bookId,
 }: Pick<APIBook, 'bookId' | 'title' | 'imageUrl'>) => {
@@ -64,4 +64,4 @@ const Book = ({
   );
 };
 
-export default Book;
+export default BookInBookshelf;

@@ -1,10 +1,10 @@
 import { APIBookshelf } from '@/types/bookshelf';
 import { IconArrowRight, IconHeart } from '@public/icons';
 import Link from 'next/link';
-import Badge from '@/ui/Base/Badge';
-import Book from './Book';
+import Badge from '../Base/Badge';
+import BookInBookshelf from './Book';
 
-const BookShelf = ({
+const Bookshelf = ({
   bookshelfId,
   bookshelfName,
   books,
@@ -33,7 +33,7 @@ const BookShelf = ({
         </div>
         <div className="flex justify-between px-[0.5rem]">
           {books.map(book => (
-            <Book key={book.bookId} {...book} />
+            <BookInBookshelf key={book.bookId} {...book} />
           ))}
         </div>
       </div>
@@ -41,4 +41,4 @@ const BookShelf = ({
   );
 };
 
-export default BookShelf;
+export default Bookshelf;
