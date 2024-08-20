@@ -1,40 +1,30 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useForm } from 'react-hook-form';
 
 import useBookSearchQuery from '@/queries/book/useBookSearchQuery';
 import useRecentSearchesQuery from '@/queries/book/useRecentSearchesQuery';
 
-import SSRSafeSuspense from '@/components/SSRSafeSuspense';
 import useDebounceValue from '@/hooks/useDebounce';
 import { checkAuthentication } from '@/utils/helpers';
 
-import { IconSearch } from '@public/icons';
 import TopHeader from '@/v1/base/TopHeader';
-import Input from '@/v1/base/Input';
-import RecentSearch, {
-  RecentSearchSkeleton,
-} from '@/v1/bookSearch/RecentSearch';
-import BestSellers, { BestSellersSkeleton } from '@/v1/bookSearch/BestSellers';
+import BookSearchInput from '@/v1/bookSearch/BookSearchInput';
+import BestSellers from '@/v1/bookSearch/BestSellers';
+import RecentSearch from '@/v1/bookSearch/RecentSearch';
 import BookSearchResults from '@/v1/bookSearch/SearchResult';
 
-type FormValues = {
-  searchValue: string;
-};
+/**
+ * @todo
+ * recentSearchedInfo 계속해서 refetch되는 현상 고치기
+ */
 
 const BookSearch = () => {
   const isAuthenticated = checkAuthentication();
+  const [inputSearchValue, setInputSearchValue] = useState<string>('');
 
-  const { register, watch, setValue } = useForm<FormValues>({
-    mode: 'all',
-    defaultValues: {
-      searchValue: '',
-    },
-  });
-
-  const queryKeyword = useDebounceValue(watch('searchValue'), 1000);
+  const queryKeyword = useDebounceValue(inputSearchValue, 1000);
 
   const { ref: inViewRef, inView } = useInView();
 
@@ -54,6 +44,16 @@ const BookSearch = () => {
     ? recentSearchesInfo.data.bookRecentSearchResponses
     : undefined;
 
+  const handleInputValueChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!event.target) return;
+
+    const inputValue = event.target.value;
+
+    setInputSearchValue(inputValue.trim());
+  };
+
   useEffect(() => {
     if (inView && bookSearchInfo.hasNextPage) {
       bookSearchInfo.fetchNextPage();
@@ -70,38 +70,25 @@ const BookSearch = () => {
     <>
       <TopHeader text={'Discover'} />
       <article className="flex h-full w-full flex-col gap-[3.8rem]">
-        <div className="flex w-full items-center gap-[2rem] border-b-[0.05rem] border-black-900 p-[1rem] focus-within:border-main-900 [&>div]:w-full">
-          <IconSearch className="fill-black h-[2.1rem] w-[2.1rem]" />
-          <Input
-            className="w-full appearance-none text-sm font-normal focus:outline-none"
-            placeholder="책 제목, 작가를 검색해보세요"
-            {...register('searchValue')}
-          />
-        </div>
-        {watch('searchValue') ? (
+        <BookSearchInput
+          value={inputSearchValue}
+          onChange={handleInputValueChange}
+        />
+        {inputSearchValue ? (
           <>
             <BookSearchResults searchedBooks={searchedBooks} />
             <div ref={inViewRef} />
           </>
         ) : (
-          <SSRSafeSuspense fallback={<ContentsSkelton />}>
+          <>
             <RecentSearch
               recentSearches={recentSearches}
-              onClick={(keyword: string) => setValue('searchValue', keyword)}
+              setInputSearchValue={setInputSearchValue}
             />
             <BestSellers />
-          </SSRSafeSuspense>
+          </>
         )}
       </article>
-    </>
-  );
-};
-
-const ContentsSkelton = () => {
-  return (
-    <>
-      <RecentSearchSkeleton />
-      <BestSellersSkeleton />
     </>
   );
 };

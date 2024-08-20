@@ -1,17 +1,12 @@
-import useQueryWithSuspense, {
-  type UseQueryOptionWithoutSuspense,
-} from '@/hooks/useQueryWithSuspense';
+import { useQuery } from '@tanstack/react-query';
 
 import bookAPI from '@/apis/book';
 import type { APIRecentSearches } from '@/types/book';
+import type { QueryOptions } from '@/types/query';
 
-import bookKeys from './key';
-
-const useRecentSearchesQuery = <TData = APIRecentSearches>(
-  options?: UseQueryOptionWithoutSuspense<APIRecentSearches, unknown, TData>
-) =>
-  useQueryWithSuspense(
-    bookKeys.recentSearch(),
+const useRecentSearchesQuery = (options?: QueryOptions<APIRecentSearches>) =>
+  useQuery(
+    ['recentSearches'],
     () => bookAPI.getRecentSearches().then(({ data }) => data),
     options
   );

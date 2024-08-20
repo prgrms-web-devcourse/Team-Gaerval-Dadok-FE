@@ -14,7 +14,7 @@ type Story = StoryObj<typeof RecentSearch>;
 export const Default: Story = {
   args: {
     recentSearches: undefined,
-    onClick: () => alert('선택한 검색어 검색!'),
+    setInputSearchValue: () => alert('선택한 검색어 검색!'),
   },
 };
 
@@ -29,6 +29,6 @@ export const RecentSearches: Story = {
       { keyword: '풀어', modifiedAt: 'now' },
       { keyword: '어때', modifiedAt: 'now' },
     ],
-    onClick: () => alert('선택한 검색어 검색!'),
+    setInputSearchValue: () => alert('선택한 검색어 검색!'),
   },
 };

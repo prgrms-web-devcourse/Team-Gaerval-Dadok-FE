@@ -30,26 +30,6 @@ initialize({}, [
 
     return res(ctx.json({ ...originResponseData }));
   }),
-  rest.get(
-    nextApi('/aladin-api?QueryType=Bestseller&Cover=Big'),
-    async (req, res, ctx) => {
-      return res(
-        ctx.json({
-          item: [
-            {
-              isbn: '9791162242742',
-              title: '리팩터링',
-              author: '마틴 파울러',
-              cover:
-                'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5326912%3Ftimestamp%3D20231207165435',
-              bestRank: 1,
-              link: 'https://search.daum.net/search?w=bookpage&bookId=5326912&q=%EB%A6%AC%ED%8C%A9%ED%84%B0%EB%A7%81',
-            },
-          ],
-        })
-      );
-    }
-  ),
 ]);
 
 const queryClient = new QueryClient({
