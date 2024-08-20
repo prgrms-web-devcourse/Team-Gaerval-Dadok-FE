@@ -72,13 +72,16 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
+    layout: 'fullscreen',
   },
   loaders: [mswLoader],
   decorators: [
     Story => (
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <Story />
+          <Layout>
+            <Story />
+          </Layout>
         </ToastProvider>
       </QueryClientProvider>
     ),
