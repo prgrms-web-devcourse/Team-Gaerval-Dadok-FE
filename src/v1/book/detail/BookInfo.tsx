@@ -1,10 +1,7 @@
 import { APIBook } from '@/types/book';
 import { IconBookmark } from '@public/icons';
 import { useBookInfo } from '@/queries/book/useBookInfoQuery';
-import useBookmarkUserQuery from '@/queries/book/useBookmarkUserQuery';
-import useUpdateBookmarkMutation from '@/queries/book/useUpdateBookmarkMutation';
-import useToast from '@/v1/base/Toast/useToast';
-import { checkAuthentication } from '@/utils/helpers';
+import useBookUserInfoQuery from '@/queries/book/useBookUserInfoQuery';
 
 import Avatar, { AvatarGroup } from '@/v1/base/Avatar';
 import Skeleton from '@/v1/base/Skeleton';
@@ -20,7 +17,7 @@ const BookInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
         <BookCover size="2xlarge" src={imageUrl} />
 
         <div className="flex min-w-0 flex-col gap-[0.5rem]">
-          <BookmarkButton bookId={bookId} />
+          <BookmarkButton />
           <BookTitle title={title} />
           <BookAuthor author={author} />
         </div>
@@ -42,31 +39,11 @@ const BookAuthor = ({ author }: { author: string }) => (
   <p className="text-sm">{author}</p>
 );
 
-const BookmarkButton = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const isAuthenticated = checkAuthentication();
-  const { show: showToast } = useToast();
-
-  const { data } = useBookmarkUserQuery(bookId);
-  const { isInMyBookshelf } = data;
-
-  const { mutate } = useUpdateBookmarkMutation(bookId);
-
-  const handleButtonClick = () => {
-    if (!isAuthenticated) {
-      // TODO: 로그인 유도 모달로 변경
-      showToast({ type: 'normal', message: '로그인 후에 책을 꽂을 수 있어요' });
-      return;
-    }
-
-    mutate(!isInMyBookshelf);
-  };
-
+const BookmarkButton = () => {
   return (
     <IconBookmark
-      className={`mb-[0.5rem] h-[2.4rem] w-[2.4rem] cursor-pointer stroke-main-900 stroke-[0.15rem] ${
-        isInMyBookshelf ? 'fill-main-900' : 'fill-white'
-      }`}
-      onClick={handleButtonClick}
+      className="mb-[0.5rem] h-[2.4rem] w-[2.4rem] cursor-pointer stroke-main-900 stroke-[0.15rem]"
+      fill="white"
     />
   );
 };
@@ -89,7 +66,7 @@ const BookSummary = ({
 );
 
 const BookmarkUserInfo = ({ bookId }: { bookId: APIBook['bookId'] }) => {
-  const { data } = useBookmarkUserQuery(bookId);
+  const { data } = useBookUserInfoQuery(bookId);
   const { totalCount, users } = data;
   const avatarCount = users.length;
 

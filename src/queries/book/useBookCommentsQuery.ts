@@ -47,10 +47,3 @@ export const useBookComments = (bookId: APIBook['bookId']) =>
   useBookCommentsQuery(bookId, {
     select: transformBookCommentsData,
   });
-
-export const useHasBookComment = (bookId: APIBook['bookId']) =>
-  useBookCommentsQuery(bookId, {
-    select: ({ bookComments }) =>
-      bookComments.filter(comment => comment.writtenByCurrentUser === true)
-        .length,
-  });

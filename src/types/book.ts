@@ -73,11 +73,6 @@ export interface APIBookComment {
   writtenByCurrentUser: boolean;
 }
 
-export interface APICreateBookCommentRequest
-  extends Pick<APIBookComment, 'commentId'> {
-  comment: string;
-}
-
 export interface APIPatchBookCommentRequest
   extends Pick<APIBookComment, 'commentId'> {
   comment: string;
