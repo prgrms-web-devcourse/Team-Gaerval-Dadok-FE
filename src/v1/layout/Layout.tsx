@@ -19,9 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
   const isRootPath = pathname && rootPaths.includes(pathname);
 
-  const dynamicClass = isRootPath
-    ? 'pb-[6.4rem] pt-[2rem]'
-    : 'pt-[5.4rem] pb-[2rem]';
+  const dynamicClass = isRootPath ? 'pb-[6.4rem] pt-[2rem]' : 'py-[2rem]';
 
   return (
     <>
