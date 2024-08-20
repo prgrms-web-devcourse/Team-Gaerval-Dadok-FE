@@ -1,15 +1,15 @@
-import BookShelfCard from '@/v1/bookShelf/BookShelfCard';
+import BookShelf from '@/v1/bookShelf/BookShelfCard';
 import { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof BookShelfCard> = {
+const meta: Meta<typeof BookShelf> = {
   title: 'bookShelf/BookShelf',
-  component: BookShelfCard,
+  component: BookShelf,
   tags: ['autodocs'],
 };
 
 export default meta;
 
-type Story = StoryObj<typeof BookShelfCard>;
+type Story = StoryObj<typeof BookShelf>;
 
 // TODO: 스토리북에서 이미지를 불러올 때 발생하는 CORS 이슈 해결
 export const Default: Story = {

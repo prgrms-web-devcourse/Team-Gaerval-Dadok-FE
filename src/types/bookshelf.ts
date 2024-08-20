@@ -26,12 +26,10 @@ export type APIBookshelf = {
 
 export interface APIBookshelfInfo
   extends Pick<APIBookshelf, 'bookshelfId' | 'bookshelfName' | 'likeCount'>,
-    Pick<APIUser, 'userId' | 'name'> {
+    Pick<APIUser, 'userId' | 'name' | 'nickname' | 'profileImage'> {
   isLiked: boolean;
   isPublic: boolean;
   job: APIProfileJob;
-  userNickname: string;
-  userProfileImage: string;
 }
 
 export interface APIBookshelfPagination extends Pagination {
