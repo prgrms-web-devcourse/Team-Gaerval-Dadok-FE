@@ -122,7 +122,6 @@ module.exports = {
       },
       content: {
         search: 'url("/icons/search.svg")',
-        check: 'url("/icons/check.svg")',
       },
     },
   },
