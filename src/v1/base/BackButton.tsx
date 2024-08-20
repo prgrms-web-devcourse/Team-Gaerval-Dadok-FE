@@ -1,5 +1,3 @@
-'use client';
-
 import { IconArrowLeft } from '@public/icons';
 import { useRouter } from 'next/navigation';
 
