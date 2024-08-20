@@ -1,18 +1,18 @@
 import Image from 'next/image';
 
-interface SimpleBookGroupCardProps {
+interface SimpleGroupProps {
   title: string;
   isOwner: boolean;
   imageSource: string;
   handleClick: () => void;
 }
 
-const SimpleBookGroupCard = ({
+const SimpleGroup = ({
   title,
   isOwner,
   handleClick,
   imageSource,
-}: SimpleBookGroupCardProps) => {
+}: SimpleGroupProps) => {
   return (
     <div
       className="flex h-[15rem] w-[10rem] flex-col gap-[0.5rem]"
@@ -36,4 +36,4 @@ const SimpleBookGroupCard = ({
   );
 };
 
-export default SimpleBookGroupCard;
+export default SimpleGroup;
