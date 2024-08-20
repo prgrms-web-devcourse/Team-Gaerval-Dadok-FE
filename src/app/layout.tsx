@@ -1,5 +1,4 @@
 import ContextProvider from '@/components/ContextProvider';
-import AuthFailedErrorBoundary from '@/components/AuthFailedErrorBoundary';
 import Layout from '@/v1/layout/Layout';
 
 import { LineSeedKR } from '@/styles/font';
@@ -19,9 +18,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       {/* @todo Chakra 제거시 app-layout 프로퍼티 제거. */}
       <body className={`${LineSeedKR.variable} app-layout font-lineseed`}>
         <Layout>
-          <ContextProvider>
-            <AuthFailedErrorBoundary>{children}</AuthFailedErrorBoundary>
-          </ContextProvider>
+          <ContextProvider>{children}</ContextProvider>
         </Layout>
       </body>
     </html>

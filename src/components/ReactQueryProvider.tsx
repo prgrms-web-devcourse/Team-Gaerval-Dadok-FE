@@ -1,4 +1,3 @@
-import AuthRefreshIgnoredError from '@/types/customError/AuthRefreshIgnoredError';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextPage } from 'next/types';
@@ -15,18 +14,11 @@ const ReactQueryProvider: NextPage<PropTypes> = ({ children }) => {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-            retry: (_count, error) => {
-              if (error instanceof AuthRefreshIgnoredError) {
-                return true;
-              }
-
-              return false;
-            },
+            retry: false,
           },
         },
       })
   );
-
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
