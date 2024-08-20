@@ -1,6 +1,4 @@
-'use client';
-
-import { Children, ReactNode, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 type AvatarSize = 'small' | 'medium' | 'large';
@@ -8,7 +6,6 @@ interface AvatarProps {
   name?: string;
   src?: string;
   size?: AvatarSize;
-  border?: boolean;
 }
 
 const FALLBACK_IMAGE_SRC = '/icons/avatar.svg';
@@ -36,17 +33,15 @@ const getAvatarSize = (size: AvatarSize) => {
   }
 };
 
-const Avatar = ({ name, src, size = 'medium', border }: AvatarProps) => {
+const Avatar = ({ name, src, size = 'medium' }: AvatarProps) => {
   const [image, setImage] = useState(src ?? FALLBACK_IMAGE_SRC);
-
   const { sizeClasses, sizeProps } = getAvatarSize(size);
-  const borderClass = border ? 'border-[0.15rem]' : 'border-none';
 
   const setFallbackImage = () => setImage(FALLBACK_IMAGE_SRC);
 
   return (
     <span
-      className={`relative inline-block rounded-full border-white bg-white ${sizeClasses} ${borderClass}`}
+      className={`relative inline-block rounded-full bg-white ${sizeClasses}`}
     >
       <Image
         alt={name || 'avatar'}
@@ -60,17 +55,3 @@ const Avatar = ({ name, src, size = 'medium', border }: AvatarProps) => {
 };
 
 export default Avatar;
-
-const AvatarGroup = ({ children }: { children?: ReactNode }) => {
-  return (
-    <div className="mr-[0.75rem] flex flex-row-reverse items-center justify-end">
-      {Children.toArray(children).map((avatar, idx) => (
-        <span key={idx} className={`-me-[0.75rem] leading-none`}>
-          {avatar}
-        </span>
-      ))}
-    </div>
-  );
-};
-
-export { AvatarGroup };
