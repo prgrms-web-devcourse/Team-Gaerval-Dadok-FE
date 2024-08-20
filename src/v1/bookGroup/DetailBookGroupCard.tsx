@@ -1,60 +1,60 @@
+import Image from 'next/image';
+
 import Badge from '@/ui/Base/Badge';
 import Avatar from '@/ui/Base/Avatar';
 import { IconCalendar, IconMembers, IconComments } from '@public/icons';
-import BookCover from '@/v1/book/BookCover';
-import Link from 'next/link';
 import BookGroupStatus from './BookGroupStatus';
 
 interface DetailBookGroupCardProps {
   title: string;
   description: string;
-  bookImageSrc: string;
+  book: { title: string; bookImageSrc: string };
   date: { start: string; end: string };
   owner: { name: string; profileImageSrc: string };
   memberCount: number;
   commentCount: number;
   isPublic: boolean;
-  bookGroupId: number;
+  handleClick: () => void;
 }
 
 const DetailBookGroupCard = ({
   title,
   description,
-  bookImageSrc,
+  book,
   date,
   owner,
   memberCount,
   commentCount,
   isPublic,
-  bookGroupId,
+  handleClick,
 }: DetailBookGroupCardProps) => {
   return (
-    <Link className="w-full" href={`/group/${bookGroupId}`}>
-      <div className="min-h-[16.142rem] w-full rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]">
-        <div className="mb-[1rem] flex gap-[0.5rem]">
-          <BookGroupStatus start={date.start} end={date.end} />
-          <Public isPublic={isPublic} />
-        </div>
-        <div className="flex justify-between gap-[1.5rem]">
-          <div className="flex flex-grow flex-col gap-[0.63rem]">
-            <Title title={title} />
-            <Description description={description} />
-            <Duration start={date.start} end={date.end} />
-            <div className="flex justify-between">
-              <Owner
-                name={owner.name}
-                profileImageSrc={owner.profileImageSrc}
-              />
-              <div className="flex gap-[0.5rem]">
-                <MemberCount memberCount={memberCount} />
-                <CommentCount commentCount={commentCount} />
-              </div>
+    <div
+      onClick={handleClick}
+      className="h-[16.142rem] w-[35.5rem] rounded-[0.4rem] px-[1.6rem] py-[0.9rem] shadow-[0_0_0.6rem_rgba(180,180,180,0.25)]"
+    >
+      <div className="mb-[1rem] flex gap-[0.5rem]">
+        <BookGroupStatus start={date.start} end={date.end} />
+        <Public isPublic={isPublic} />
+      </div>
+      <div className="flex gap-[1.4rem]">
+        <div className="flex flex-col gap-[0.63rem]">
+          <Title title={title} />
+          <Description description={description} />
+          <Duration start={date.start} end={date.end} />
+          <div className="flex w-[22.5rem] justify-between">
+            <Owner name={owner.name} profileImageSrc={owner.profileImageSrc} />
+            <div className="flex gap-[0.5rem]">
+              <MemberCount memberCount={memberCount} />
+              <CommentCount commentCount={commentCount} />
             </div>
           </div>
-          <BookCover src={bookImageSrc} size="medium" />
+        </div>
+        <div>
+          <Book title={book.title} bookImageSrc={book.bookImageSrc} />
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -76,7 +76,7 @@ const Title = ({ title }: { title: string }) => {
 
 const Description = ({ description }: { description: string }) => {
   return (
-    <div className="w-[22rem] truncate text-sm">
+    <div className="w-[22.5rem] truncate text-sm">
       <span>{description}</span>
     </div>
   );
@@ -136,6 +136,29 @@ const CommentCount = ({ commentCount }: { commentCount: number }) => {
       <span className="text-xs text-placeholder">
         <span className="text-placeholder">{commentCount}</span>
       </span>
+    </div>
+  );
+};
+
+const Book = ({
+  bookImageSrc,
+  title,
+}: {
+  bookImageSrc: string;
+  title: string;
+}) => {
+  return (
+    <div>
+      <div className="relative h-[10.442rem] w-[8rem]">
+        {bookImageSrc && (
+          <Image
+            src={bookImageSrc}
+            alt={title}
+            fill
+            className="object-fit rounded-[0.4rem] shadow-[0.1rem_0.2rem_0.4rem_0_rgba(0,0,0,0.25)]"
+          />
+        )}
+      </div>
     </div>
   );
 };

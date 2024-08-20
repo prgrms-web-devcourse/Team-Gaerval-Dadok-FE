@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<typeof SearchGroup>;
 
-const handleClick = () => {
+const alertMessage = () => {
   document.getElementById('groupSearching')?.blur();
   alert(
     `
@@ -22,5 +22,5 @@ const handleClick = () => {
 };
 
 export const Default: Story = {
-  render: () => <SearchGroup onClick={handleClick} />,
+  render: () => <SearchGroup handleClick={alertMessage} />,
 };

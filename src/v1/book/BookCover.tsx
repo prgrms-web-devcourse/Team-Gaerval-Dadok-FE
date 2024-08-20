@@ -14,7 +14,7 @@ type BookCoverSize =
 type BookCoverProps = Required<
   Pick<ComponentPropsWithoutRef<typeof Image>, 'src'>
 > & {
-  title?: string;
+  title: string;
   size?: BookCoverSize;
 };
 
@@ -48,7 +48,7 @@ const BookCover = ({ src, title, size = 'medium' }: BookCoverProps) => {
     <div className={`relative ${sizeClasses}`}>
       <Image
         src={src}
-        alt={title || 'book-cover'}
+        alt={title}
         placeholder="blur"
         blurDataURL={DATA_URL['placeholder']}
         className="object-fit rounded-[0.5rem] shadow-bookcover"

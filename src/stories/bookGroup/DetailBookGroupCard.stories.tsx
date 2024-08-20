@@ -17,7 +17,10 @@ export const Default: Story = {
     title: '프롱이 리팩터링 스터디',
     description:
       '제1차 프롱이 기수연합 독서 스터디 입니다. 마틴 파울러의 저서 ‘리팩터링 2판’과 함께 진행합니다.',
-    bookImageSrc: 'https://image.yes24.com/goods/89649360/XL',
+    book: {
+      title: '리팩터링 2판',
+      bookImageSrc: 'https://image.yes24.com/goods/89649360/XL',
+    },
     date: {
       start: '2023-10-31',
       end: '2023-11-27',
@@ -29,6 +32,8 @@ export const Default: Story = {
     },
     isPublic: false,
     commentCount: 12,
-    bookGroupId: 1,
+    handleClick: () => {
+      alert('모임 상세 페이지로 이동');
+    },
   },
 };

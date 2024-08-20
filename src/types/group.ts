@@ -5,8 +5,7 @@ import { Pagination } from './common';
 type APIGroupOwner = {
   id: APIUser['userId'];
   profileUrl: APIUser['profileImage'];
-  // FIXME nickname: APIUser['nickname'] nullable 하지 않게 수정 후 다시 반영
-  nickname: string;
+  nickname: APIUser['nickname'];
 };
 
 type APIGroupBook = {

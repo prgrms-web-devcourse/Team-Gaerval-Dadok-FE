@@ -28,7 +28,7 @@ const FloatingButton = ({ position, ...props }: FloatingButtonProps) => {
 
   return createPortal(
     <button
-      className={`${positionClasses} fixed left-[50%] top-[50%] flex h-[5.1rem] w-[5.1rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-main-900`}
+      className={`absolute flex h-[5.1rem] w-[5.1rem] items-center justify-center rounded-full bg-main-900 ${positionClasses}`}
       {...props}
     >
       <IconPlus />
