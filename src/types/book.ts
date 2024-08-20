@@ -17,8 +17,6 @@ export interface APISearchedBook extends Omit<APIBook, 'bookId'> {
   apiProvider: string;
 }
 
-export type SearchedBookWithId = APISearchedBook & Pick<APIBook, 'bookId'>;
-
 export interface APIBookRecentSearchResponse {
   keyword: string;
   modifiedAt: string;

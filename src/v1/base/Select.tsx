@@ -22,7 +22,7 @@ const _Select = (
         ref={ref}
         defaultValue=""
         required
-        className={`rounded-[0.5rem] border-[0.05rem] px-[1.0rem] py-[1.1rem] outline-none ${borderColor} w-full cursor-pointer appearance-none bg-[url('/icons/select-icon.svg')] bg-[length:1.5rem_1.5rem] bg-[calc(100%-1rem)_center] bg-no-repeat invalid:text-placeholder`}
+        className={`rounded-[0.5rem] border-[0.05rem] px-[1.0rem] py-[1.3rem] outline-none ${borderColor} w-full cursor-pointer appearance-none bg-[url('/icons/select-icon.svg')] bg-[length:1.5rem_1.5rem] bg-[calc(100%-1rem)_center] bg-no-repeat invalid:text-placeholder`}
         {...props}
       >
         {placeholder && (

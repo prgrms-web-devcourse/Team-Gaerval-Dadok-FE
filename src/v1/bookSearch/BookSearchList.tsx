@@ -1,31 +1,33 @@
-import type { APISearchedBook, SearchedBookWithId } from '@/types/book';
+import { useRouter } from 'next/navigation';
 
 import bookAPI from '@/apis/book';
+import type { APISearchedBook } from '@/types/book';
+
 import useToast from '@/v1/base/Toast/useToast';
 
-import BookCover from '@/v1/book/BookCover';
+import BookCover from '../book/BookCover';
 
 type BookSearchListProps = {
   books: APISearchedBook[];
   totalCount?: number;
-  onBookClick?: (book: SearchedBookWithId) => void;
 };
 
-const BookSearchList = ({
-  books,
-  totalCount,
-  onBookClick,
-}: BookSearchListProps) => {
-  const { show: showToast } = useToast();
+const BookSearchList = ({ books, totalCount }: BookSearchListProps) => {
+  const router = useRouter();
+  const toast = useToast();
 
-  const handleBookClick = async (book: APISearchedBook) => {
+  const handleClickBook = async (book: APISearchedBook) => {
     try {
-      const { data } = await bookAPI.createBook({ book });
-      const { bookId } = data;
+      const {
+        data: { bookId },
+      } = await bookAPI.createBook({ book });
 
-      onBookClick && onBookClick({ ...book, bookId });
+      router.push(`/book/${bookId}`);
     } catch (error) {
-      showToast({ type: 'error', message: '잠시 후 다시 시도해주세요' });
+      toast.show({
+        type: 'error',
+        message: '잠시 후 다시 시도해주세요',
+      });
       console.error(error);
     }
   };
@@ -50,7 +52,7 @@ const BookSearchList = ({
             key={`${book.isbn}-${idx}`}
             imageUrl={book.imageUrl}
             title={book.title}
-            onClick={() => handleBookClick(book)}
+            onClick={() => handleClickBook(book)}
           />
         ))}
       </ul>
@@ -67,7 +69,7 @@ const BookSearchItem = ({
 }: {
   imageUrl: string;
   title: string;
-  onClick: () => void;
+  onClick: () => Promise<void>;
 }) => {
   return (
     <li

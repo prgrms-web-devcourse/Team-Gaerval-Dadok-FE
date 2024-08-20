@@ -17,7 +17,7 @@ const serviceApi = (path: string) =>
 
 initialize({}, [
   rest.get(nextApi('/service-api/*'), async (req, res, ctx) => {
-    const { pathname, search } = req.url;
+    const { pathname } = req.url;
     const match = /\/service-api(?<path>.*)/g.exec(pathname);
 
     if (!match || !match.groups || !match.groups.path) {
@@ -25,35 +25,7 @@ initialize({}, [
     }
 
     const { path } = match.groups;
-    const originResponse = await ctx.fetch(serviceApi(`/api${path}${search}`));
-    const originResponseData = await originResponse.json();
-
-    return res(ctx.json({ ...originResponseData }));
-  }),
-  rest.post(nextApi('/service-api/*'), async (req, res, ctx) => {
-    const { pathname, search } = req.url;
-    const match = /\/service-api(?<path>.*)/g.exec(pathname);
-
-    if (!match || !match.groups || !match.groups.path) {
-      return res(ctx.status(404, 'Invalid Request URL'));
-    }
-
-    const { path } = match.groups;
-
-    const { headers, mode } = req;
-    const data = await req.json();
-    const body = JSON.stringify(data);
-    const originRequest = {
-      method: 'POST',
-      body,
-      headers,
-      mode,
-    };
-
-    const originResponse = await ctx.fetch(
-      serviceApi(`/api${path}${search}`),
-      originRequest
-    );
+    const originResponse = await ctx.fetch(serviceApi(`/api${path}`));
     const originResponseData = await originResponse.json();
 
     return res(ctx.json({ ...originResponseData }));
@@ -83,7 +55,6 @@ initialize({}, [
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
       retry: false,
     },
   },

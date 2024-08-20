@@ -118,12 +118,7 @@ export const Line: Story = {
     error: false,
   },
   render: args => (
-    <Input
-      inputStyle="line"
-      defaultValue="프롱이 리팩터링 스터디"
-      placeholder="제목을 작성해주세요"
-      {...args}
-    />
+    <Input inputStyle="line" defaultValue="프롱이 리팩터링 스터디" {...args} />
   ),
 };
 
