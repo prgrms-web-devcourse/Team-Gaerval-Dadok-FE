@@ -32,8 +32,4 @@
   .w-app {
     @apply relative -left-[2rem] w-[calc(100%+4rem)];
   }
-  .h-app {
-    height: 100vh;
-    height: 100dvh;
-  }
 }
